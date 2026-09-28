@@ -173,7 +173,7 @@ html_context = {
 html_logo = "../pyfli/img/PyFLI_logo.png"
 html_favicon = "../pyfli/img/PyFLI_logo.png"
 
-html_css_files = []
+html_css_files = ["custom.css"]
 html_sidebars = {
     "index": [],
     "install": [],

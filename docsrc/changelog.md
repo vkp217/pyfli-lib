@@ -60,6 +60,42 @@ GitHub. Version numbers and dates below follow the releases published on
 
 ## Release history
 
+<!-- UNRELEASED 0.1.20: not shown on the site. On release, delete this line and the closing line below, and set the date.
+
+### [0.1.20](https://pypi.org/project/pyfli-lib/0.1.20/) — YYYY-MM-DD
+
+```{card}
+:class-card: sd-bg-success
+
+**Features added:**
+- `weighting` option for NLSF (`"irls"` default, `"none"`, `"neyman"`), for MLE (`"poisson"` default, `"pearson"`, `"neyman"`, `"none"`) and for GPU NLSF
+- Iteratively reweighted least squares (IRLS): NLSF now gives the same result as Poisson MLE for photon-count data
+- Gate-integrated forward model: `h_shift` is a true, smooth sub-gate onset shift (zero before onset, earlier curve for negative shifts); CPU, GPU and reconstruction use the same model
+- `CVPlot`: log-space and count-weighted fitting of the ideal `1/√N` trend.
+- New examples: NLSF & MLE fitting for mono- and bi-exponential data
+```
+
+```{card}
+:class-card: sd-bg-danger
+
+**Changes that affect results:**
+- `photon_count_map` is now the number of photons (previously photons × gate width, about 20× smaller)
+- NLSF default weighting changed from Neyman to IRLS, so NLSF lifetimes differ from earlier versions (`weighting="neyman"` reproduces them)
+- `use_weights` is deprecated; use `weighting`
+- `max_iter` now limits the MLE optimizer
+- Reported `Red.χ²` / `reduced_chi2_map` is now the Poisson deviance divided by its expected value (≈ 1 for a correct fit at any photon count; `chi2_map` is the deviance); the former Pearson values are kept as `pearson_chi2_map` / `pearson_reduced_chi2_map`
+- Removed `pyfli.phasor.phasorSEPL` and its top-level re-exports; use `pyfli.phasor.phasorS.MonoLocus`
+```
+
+```{card}
+:class-card: sd-bg-warning
+
+**Bugs Fixed:**
+- Fixed a sign error in the truncated-window phasor locus
+```
+
+END OF UNRELEASED 0.1.20 -->
+
 ### [0.1.19](https://pypi.org/project/pyfli-lib/0.1.19/) — 2026-08-31
 
 ```{card}

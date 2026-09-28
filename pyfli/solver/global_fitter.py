@@ -90,8 +90,14 @@ class GlobalFLIFitter:
         p0: Any | None = None,
         bounds: np.ndarray | None = None,
         fit_indices: tuple[int, int] | None = None,
+        **fit_kwargs: Any,
     ) -> tuple[Any, ...]:
-        """Performs high-SNR super-pixel fitting and triggers comparison plots."""
+        """
+        Performs high-SNR super-pixel fitting and triggers comparison plots.
+
+        `fit_kwargs` (e.g. ``weighting``, ``max_iter``) are passed to the fitter's
+        ``fit_with_estimator``, as for the per-pixel cluster fits.
+        """
         super_pixel_data = {}
         super_pixel_params = {}
         master_table_data = []
@@ -139,7 +145,11 @@ class GlobalFLIFitter:
 
             start_t = time.time()
             res = fitter_inst.fit_with_estimator(
-                estimator_type=estimator, model_type=model_type, p0=p0, bounds=bounds
+                estimator_type=estimator,
+                model_type=model_type,
+                p0=p0,
+                bounds=bounds,
+                **fit_kwargs,
             )
             elapsed = (time.time() - start_t) * 1000
 
@@ -204,6 +214,18 @@ class GlobalFLIFitter:
             bounds=passed_bounds,
             fit_indices=fit_indices,
             cluster_strategy=kwargs.get("cluster_strategy", "snr_weighted"),
+            **{
+                k: kwargs[k]
+                for k in (
+                    "weighting",
+                    "max_iter",
+                    "maxiter",
+                    "variance_floor",
+                    "irls_max_rounds",
+                    "irls_tol",
+                )
+                if k in kwargs
+            },
         )
 
         proc = self.processor() if isinstance(self.processor, type) else self.processor
@@ -331,6 +353,8 @@ class GlobalFLIFitter:
             "chi2_map": _z2(),
             "R2_map": _z2(),
             "reduced_chi2_map": _z2(),
+            "pearson_chi2_map": _z2(),
+            "pearson_reduced_chi2_map": _z2(),
             "rmse_map": _z2(),
             "convergence_map": _z2(),
             "pixel_health_map": _z2(),

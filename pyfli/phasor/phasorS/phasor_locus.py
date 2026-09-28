@@ -184,8 +184,8 @@ class MonoLocus:
         eTr = np.exp(-Trec / tau_s)
         wTr = omega_k * Trec
 
-        cos_int = (1.0 - eTr * (np.cos(wTr) + wt * np.sin(wTr))) / (1.0 + wt**2)
-        sin_int = (wt - eTr * (wt * np.cos(wTr) - np.sin(wTr))) / (1.0 + wt**2)
+        cos_int = (1.0 - eTr * (np.cos(wTr) - wt * np.sin(wTr))) / (1.0 + wt**2)
+        sin_int = (wt - eTr * (wt * np.cos(wTr) + np.sin(wTr))) / (1.0 + wt**2)
         norm = 1.0 - eTr
         return cos_int / norm, sin_int / norm
 
@@ -217,7 +217,7 @@ class MonoLocus:
         figsize: tuple[float, float],
     ) -> Any:
         """
-        Render one SEPL curve using the shared phasor-plot styling helpers.
+        Render one locus curve using the shared phasor-plot styling helpers.
 
         Parameters
         ----------
@@ -290,7 +290,7 @@ class MonoLocus:
         figsize: tuple[float, float] = (6, 4.5),
     ) -> tuple[Any, ...]:
         """
-        Trace (and by default draw) the ideal universal-semicircle SEPL.
+        Trace (and by default draw) the ideal universal-semicircle locus.
 
         Returns
         -------
@@ -316,7 +316,7 @@ class MonoLocus:
                 label="Continuous",
                 color=color or MODE_COLORS["continuous"],
                 half_circle=half_circle,
-                title=title or "Continuous SEPL",
+                title=title or "Continuous locus",
                 show_universal=show_universal,
                 figsize=figsize,
             )
@@ -338,7 +338,7 @@ class MonoLocus:
         figsize: tuple[float, float] = (6, 4.5),
     ) -> tuple[Any, ...]:
         """
-        Trace (and by default draw) the discrete, ``n_bins``-binned SEPL arc.
+        Trace (and by default draw) the discrete, ``n_bins``-binned locus arc.
 
         Returns
         -------
@@ -364,7 +364,7 @@ class MonoLocus:
                 label=f"Discrete (N={n_bins})",
                 color=color or MODE_COLORS["discrete"],
                 half_circle=half_circle,
-                title=title or "Discrete SEPL",
+                title=title or "Discrete locus",
                 show_universal=show_universal,
                 figsize=figsize,
             )
@@ -386,7 +386,7 @@ class MonoLocus:
         figsize: tuple[float, float] = (6, 4.5),
     ) -> tuple[Any, ...]:
         """
-        Trace (and by default draw) the single-square-gate SEPL.
+        Trace (and by default draw) the single-square-gate locus.
 
         Returns
         -------
@@ -412,7 +412,7 @@ class MonoLocus:
                 label=f"Single gate (W={gate_width_frac:.2f}T)",
                 color=color or MODE_COLORS["gated_single"],
                 half_circle=half_circle,
-                title=title or "Single-gate SEPL",
+                title=title or "Single-gate locus",
                 show_universal=show_universal,
                 figsize=figsize,
             )
@@ -435,7 +435,7 @@ class MonoLocus:
         figsize: tuple[float, float] = (6, 4.5),
     ) -> tuple[Any, ...]:
         """
-        Trace (and by default draw) the ``n_gates``-equidistant-gate SEPL.
+        Trace (and by default draw) the ``n_gates``-equidistant-gate locus.
 
         Returns
         -------
@@ -461,7 +461,7 @@ class MonoLocus:
                 label=f"Gated ×{n_gates} (W={gate_width_frac:.2f}T)",
                 color=color or MODE_COLORS["gated_n"],
                 half_circle=half_circle,
-                title=title or "Gated-N SEPL",
+                title=title or "Gated-N locus",
                 show_universal=show_universal,
                 figsize=figsize,
             )
@@ -483,7 +483,7 @@ class MonoLocus:
         figsize: tuple[float, float] = (6, 4.5),
     ) -> tuple[Any, ...]:
         """
-        Trace (and by default draw) the SEPL for a recording window shorter
+        Trace (and by default draw) the locus for a recording window shorter
         than the excitation period (``t_rec_frac`` of the period ``T``).
 
         Returns
@@ -510,7 +510,7 @@ class MonoLocus:
                 label=f"Truncated (T_rec={t_rec_frac:.2f}T)",
                 color=color or MODE_COLORS["truncated"],
                 half_circle=half_circle,
-                title=title or "Truncated SEPL",
+                title=title or "Truncated locus",
                 show_universal=show_universal,
                 figsize=figsize,
             )
@@ -532,7 +532,7 @@ class MonoLocus:
         figsize: tuple[float, float] = (6, 4.5),
     ) -> tuple[Any, ...]:
         """
-        Trace (and by default draw) the SEPL for an excitation pulse offset
+        Trace (and by default draw) the locus for an excitation pulse offset
         by ``t0_frac`` of the period ``T`` within the recording window.
 
         Returns
@@ -559,7 +559,7 @@ class MonoLocus:
                 label=f"Offset (t0={t0_frac:.2f}T)",
                 color=color or MODE_COLORS["offset"],
                 half_circle=half_circle,
-                title=title or "Offset SEPL",
+                title=title or "Offset locus",
                 show_universal=show_universal,
                 figsize=figsize,
             )

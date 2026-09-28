@@ -4,8 +4,8 @@ solvers.
 
 This module belongs to :mod:`pyfli.solver` and is part of PyFLI least-squares, maximum-
 likelihood, CPU, GPU, binned, and global FLI fitting routines. Public API includes
-functions :func:`resolve_params_and_bounds`, :func:`moment_based_guess`, and
-:func:`rld_based_guess`.
+functions :func:`resolve_params_and_bounds`, :func:`photon_amplitude_guess`,
+:func:`moment_based_guess`, and :func:`rld_based_guess`.
 """
 
 from typing import Any
@@ -52,7 +52,9 @@ def resolve_params_and_bounds(
     """
     smart_dict = guess_plugin(t, decay, T_acq, T_laser, model_type)
 
-    smart_dict.setdefault("h_shift", 0.0)
+    t_arr = np.asarray(t, dtype=float)
+    half_gate = 0.5 * float(t_arr[1] - t_arr[0]) if t_arr.size > 1 else 0.0
+    smart_dict.setdefault("h_shift", half_gate)
 
     if isinstance(user_p0, dict):
         smart_dict.update(user_p0)
@@ -72,7 +74,7 @@ def resolve_params_and_bounds(
                 smart_dict["amp"],
                 smart_dict["tau"],
                 smart_dict["v_shift"],
-                smart_dict.get("h_shift", 0.0),
+                smart_dict.get("h_shift", half_gate),
             ]
         )
     else:
@@ -83,7 +85,7 @@ def resolve_params_and_bounds(
                 smart_dict["tau1"],
                 smart_dict["tau2"],
                 smart_dict["v_shift"],
-                smart_dict.get("h_shift", 0.0),
+                smart_dict.get("h_shift", half_gate),
             ]
         )
 
@@ -137,6 +139,17 @@ def resolve_params_and_bounds(
     return p0_safe, (low_vec, high_vec)
 
 
+def photon_amplitude_guess(clean_decay: np.ndarray, tau: float, T_acq: float) -> float:
+    """
+    Initial guess of the forward model's amplitude ``S`` -- the total photon count of
+    the decay: the background-subtracted counts in the window, divided by the
+    fraction ``1 - exp(-T_acq / tau)`` of a decay with lifetime `tau` that falls
+    inside the acquisition window.
+    """
+    inside = -np.expm1(-T_acq / tau) if tau > 0 else 1.0
+    return float(np.sum(clean_decay) / max(inside, 1e-12))
+
+
 def moment_based_guess(
     t: np.ndarray,
     decay: np.ndarray,
@@ -181,7 +194,7 @@ def moment_based_guess(
 
     tau_g = np.clip(tau_mean, 0.05, T_laser * 0.8)
 
-    s_guess = m0 / (1 - np.exp(-T_acq / tau_g)) if tau_g > 0 else m0
+    s_guess = photon_amplitude_guess(clean_d, tau_g, T_acq)
 
     if model_type == "mono-exponential":
         return {
@@ -253,7 +266,7 @@ def rld_based_guess(
         tau_g = np.clip(tau_g, 0.05, T_laser * 0.8)
 
         return {
-            "amp": float(np.max(y_fit)),
+            "amp": photon_amplitude_guess(clean_d, tau_g, T_acq),
             "tau": float(tau_g),
             "v_shift": float(offset_guess),
         }
@@ -272,7 +285,7 @@ def rld_based_guess(
         alpha1_guess = float(np.clip(a_early / (a_early + a_late), 0.001, 0.999))
 
         return {
-            "amp": float(np.max(y_fit)),
+            "amp": photon_amplitude_guess(clean_d, tau2_g, T_acq),
             "alpha1": alpha1_guess,
             "tau1": float(tau1_g),
             "tau2": float(tau2_g),

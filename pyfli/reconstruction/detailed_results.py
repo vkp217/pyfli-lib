@@ -19,6 +19,7 @@ import numpy as np
 from pyfli import logging
 
 from ..data_vnp.mono_bi_classifier import MonoBiClassifier
+from ..solver.shared_metrics import pearson_chi_square, reduced_poisson_deviance
 from .decay_reconstruction import ParamToDecay
 
 
@@ -312,16 +313,16 @@ class DetailedRecon:
             photon_count_adjusted, fit_sum, out=s_reported, where=fit_sum > self.eps
         )
 
-        # Goodness of fit
-        # Variance flooring matches shared_metrics.compute_fli_stats, which
-        # clips the *entire* model array at 1.0 (not just non-positive
-        # entries) -- this avoids huge chi² contributions from near-zero bins.
-        variance = np.clip(scaled_fit, 1.0, None)
-        # dof convention matches shared_metrics.compute_fli_stats (N - k).
         dof = max(bins - n_params, 1)
         residuals = binned_decay_arr - scaled_fit
-        chi_sq_raw = np.sum((residuals**2) / variance, axis=-1)
-        reduced_chi2_map = chi_sq_raw / dof
+        chi_sq_raw, reduced_chi2_map = reduced_poisson_deviance(
+            scaled_fit, binned_decay_arr, n_params
+        )
+        pearson_raw = pearson_chi_square(scaled_fit, binned_decay_arr)
+        pearson_stats = {
+            "pearson_chi2_map": pearson_raw.astype(np.float32),
+            "pearson_reduced_chi2_map": (pearson_raw / dof).astype(np.float32),
+        }
 
         ss_res = np.sum(residuals**2, axis=-1)
         ss_tot = np.sum(
@@ -346,6 +347,7 @@ class DetailedRecon:
                 "R2_map": r2_map.astype(np.float32),
                 "chi2_map": chi_sq_raw.astype(np.float32),
                 "reduced_chi2_map": reduced_chi2_map.astype(np.float32),
+                **pearson_stats,
                 "rmse_map": rmse_map.astype(np.float32),
                 "convergence_map": health.copy(),
                 "pixel_health_map": health,
@@ -380,6 +382,7 @@ class DetailedRecon:
                 "R2_map": r2_map.astype(np.float32),
                 "chi2_map": chi_sq_raw.astype(np.float32),
                 "reduced_chi2_map": reduced_chi2_map.astype(np.float32),
+                **pearson_stats,
                 "rmse_map": rmse_map.astype(np.float32),
                 "convergence_map": health.copy(),
                 "pixel_health_map": health,

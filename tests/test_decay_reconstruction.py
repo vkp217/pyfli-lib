@@ -271,6 +271,8 @@ class TestTRMapsAndStats:
             "R2_map",
             "chi2_map",
             "reduced_chi2_map",
+            "pearson_chi2_map",
+            "pearson_reduced_chi2_map",
             "rmse_map",
         }
 
