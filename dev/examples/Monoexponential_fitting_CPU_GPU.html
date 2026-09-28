@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing &#8212; PyFli</title>
+    <title>3. Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing &#8212; PyFli</title>
   
   
   
@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
@@ -59,6 +60,8 @@
     <link rel="icon" href="../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Fitting Example (NLSF &amp; MLE) in CPU and GPU - Bi-exponential FLI data processing" href="Biexponential_fitting_CPU_GPU.html" />
+    <link rel="prev" title="2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing" href="Biexponential_fitting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="dev" />
@@ -165,7 +168,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../examples.html">
     Examples
   </a>
@@ -322,10 +325,8 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -354,7 +355,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../examples.html">
     Examples
   </a>
@@ -466,6 +467,45 @@
     
   </div>
   
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">NLSF &amp; MLE Fitting Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Monoexponential_fitting.html">1. Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">3. Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Biexponential_fitting_CPU_GPU.html">4. Fitting Example (NLSF &amp; MLE) in CPU and GPU - Bi-exponential FLI data processing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phasor Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator and FLI Data Simulation Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="single_decay_sim.html">1. Single-Pixel Decay Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whole_image_sim.html">2. FLI Simulation for mimicking the time-resolved image acquisition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Custom Detector I/O (SwissSPAD 2) Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ss2_io.html">1. SwissSPAD2 Data Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ss2_processing.html">2. SwissSPAD2 Data Processing</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
       <div class="sidebar-primary-item">
@@ -501,7 +541,10 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing</span></li>
+    
+    <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">3. </span>Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing</span></li>
   </ul>
 </nav>
 </div>
@@ -519,7 +562,7 @@
                 <article class="bd-article">
                   
   <section id="fitting-example-nlsf-mle-in-cpu-and-gpu-mono-exponential-fli-data-processing">
-<h1>Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing<a class="headerlink" href="#fitting-example-nlsf-mle-in-cpu-and-gpu-mono-exponential-fli-data-processing" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">3. </span>Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing<a class="headerlink" href="#fitting-example-nlsf-mle-in-cpu-and-gpu-mono-exponential-fli-data-processing" title="Link to this heading">#</a></h1>
 <p>This example fits a simulated, mono-exponential fluorescence lifetime image (FLI) pixel by pixel with two estimators and compares them against the known ground truth:</p>
 <ul class="simple">
 <li><p><strong>Non-linear least squares (NLSF)</strong>: minimizes the weighted sum of squared residuals between the IRF-convolved model and the decay.</p></li>
@@ -564,7 +607,7 @@
 </div>
 </div>
 <section id="generating-a-test-image">
-<h2>Generating a test image<a class="headerlink" href="#generating-a-test-image" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.1. </span>Generating a test image<a class="headerlink" href="#generating-a-test-image" title="Link to this heading">#</a></h2>
 <p>A test image is simulated to compare the ground truth against the estimated values. In this example, a 128 x 512 image is generated with the letters “F”, “L”, “I”, “M”. Each letter is assigned a different intensity value (grayscale bit size) and a different lifetime: 0.7 ± 0.05 ns, 0.8 ± 0.05 ns, 0.9 ± 0.05 ns, and 1.0 ± 0.05 ns, respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -589,7 +632,7 @@
 </div>
 </section>
 <section id="loading-the-irf">
-<h2>Loading the IRF<a class="headerlink" href="#loading-the-irf" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.2. </span>Loading the IRF<a class="headerlink" href="#loading-the-irf" title="Link to this heading">#</a></h2>
 <p>The instrument response function (IRF) is convolved with the decay model during both simulation and fitting. Its number of time gates also sets the gate width and the laser/acquisition frequencies used by the fitters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -620,7 +663,7 @@
 </div>
 </section>
 <section id="simulation-configuration">
-<h2>Simulation configuration<a class="headerlink" href="#simulation-configuration" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.3. </span>Simulation configuration<a class="headerlink" href="#simulation-configuration" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">MODEL_TYPE</span></code> selects the decay model for both the simulation and the fits. Setting <code class="docutils literal notranslate"><span class="pre">mono_fraction</span></code> to 1.0 forces every simulated pixel to be mono-exponential.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -711,7 +754,7 @@
 </div>
 </div>
 <section id="ground-truth-maps">
-<h3>Ground-truth maps<a class="headerlink" href="#ground-truth-maps" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.3.1. </span>Ground-truth maps<a class="headerlink" href="#ground-truth-maps" title="Link to this heading">#</a></h3>
 <p>The simulator returns the parameter maps used to generate the data. These are the reference values for the fits below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -783,7 +826,7 @@
 </section>
 </section>
 <section id="whole-image-fitting">
-<h2>Whole-image fitting<a class="headerlink" href="#whole-image-fitting" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.4. </span>Whole-image fitting<a class="headerlink" href="#whole-image-fitting" title="Link to this heading">#</a></h2>
 <p>Each pixel is fitted independently and in parallel on the CPU:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">FLICPUProcessor(freq,</span> <span class="pre">fitter_class)</span></code> spreads the per-pixel fits over <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> worker processes. The fitter class sets the estimator family.</p></li>
@@ -792,7 +835,7 @@
 </ul>
 <p>The GPU counterpart, <code class="docutils literal notranslate"><span class="pre">FLIGPUProcessor</span></code>, is used in the next section.</p>
 <section id="nlsf">
-<h3>NLSF<a class="headerlink" href="#nlsf" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.4.1. </span>NLSF<a class="headerlink" href="#nlsf" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAX_ITER</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -820,7 +863,7 @@ Fitting Pixels (least_squares): 100%|██████████| 10241/10241
 </div>
 </section>
 <section id="mle">
-<h3>MLE<a class="headerlink" href="#mle" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.4.2. </span>MLE<a class="headerlink" href="#mle" title="Link to this heading">#</a></h3>
 <p>The same pipeline is run with <code class="docutils literal notranslate"><span class="pre">MLEFLIFitter</span></code> and the <code class="docutils literal notranslate"><span class="pre">&quot;poisson&quot;</span></code> estimator. MLE takes longer per pixel than NLSF.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -847,7 +890,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 </section>
 </section>
 <section id="gpu-based-estimation">
-<h2>GPU-based estimation<a class="headerlink" href="#gpu-based-estimation" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.5. </span>GPU-based estimation<a class="headerlink" href="#gpu-based-estimation" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">FLIGPUProcessor</span></code> fits <strong>all pixels at once</strong> as one batched problem with the Adam optimizer on the GPU (CUDA when available, otherwise the CPU). It uses the same forward model as the CPU fitters – the gate-integrated decay with onset <code class="docutils literal notranslate"><span class="pre">h_shift</span></code>, convolved with the IRF – and the same estimators:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">estimator=&quot;least_squares&quot;</span></code> – NLSF with IRLS weighting (squared residuals divided by the current model value), the batched counterpart of the CPU default;</p></li>
@@ -875,7 +918,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 </div>
 </div>
 <section id="gpu-nlsf">
-<h3>GPU NLSF<a class="headerlink" href="#gpu-nlsf" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.5.1. </span>GPU NLSF<a class="headerlink" href="#gpu-nlsf" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -908,7 +951,7 @@ INFO:pyfli:Fit Finished in 32.59s
 </div>
 </section>
 <section id="gpu-mle">
-<h3>GPU MLE<a class="headerlink" href="#gpu-mle" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.5.2. </span>GPU MLE<a class="headerlink" href="#gpu-mle" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -942,10 +985,10 @@ INFO:pyfli:Fit Finished in 32.43s
 </section>
 </section>
 <section id="comparing-cpu-and-gpu-estimates">
-<h2>Comparing CPU and GPU estimates<a class="headerlink" href="#comparing-cpu-and-gpu-estimates" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.6. </span>Comparing CPU and GPU estimates<a class="headerlink" href="#comparing-cpu-and-gpu-estimates" title="Link to this heading">#</a></h2>
 <p>The four estimates – NLSF and MLE, each on the CPU and on the GPU – against the ground truth.</p>
 <section id="lifetime-maps">
-<h3>Lifetime maps<a class="headerlink" href="#lifetime-maps" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.6.1. </span>Lifetime maps<a class="headerlink" href="#lifetime-maps" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiments_all</span> <span class="o">=</span> <span class="p">{</span>
@@ -977,7 +1020,7 @@ INFO:pyfli:Fit Finished in 32.43s
 </div>
 </section>
 <section id="lifetime-distributions">
-<h3>Lifetime distributions<a class="headerlink" href="#lifetime-distributions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.6.2. </span>Lifetime distributions<a class="headerlink" href="#lifetime-distributions" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Plotter</span></code> compares the lifetime values of the letter pixels across the sources. The <code class="docutils literal notranslate"><span class="pre">operations</span></code> dict is applied to every source: it keeps only pixels inside the mask, drops failed fits (NaN or zero) and discards values outside the threshold range. A list of dicts, one per source, can be passed instead to filter each source differently. <code class="docutils literal notranslate"><span class="pre">graph_type</span></code> can also be <code class="docutils literal notranslate"><span class="pre">&quot;box&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;swarm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;overlay&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;raincloud&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;kde&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">test_type=&quot;paired&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;welch&quot;</span></code> adds significance tests between the sources.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1015,7 +1058,7 @@ INFO:pyfli:Fit Finished in 32.43s
 </div>
 </section>
 <section id="accuracy-and-fit-quality">
-<h3>Accuracy and fit quality<a class="headerlink" href="#accuracy-and-fit-quality" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.6.3. </span>Accuracy and fit quality<a class="headerlink" href="#accuracy-and-fit-quality" title="Link to this heading">#</a></h3>
 <p>Per method, over the letter pixels: the median relative bias and the spread of <code class="docutils literal notranslate"><span class="pre">tau</span> <span class="pre">/</span> <span class="pre">tau_true</span> <span class="pre">-</span> <span class="pre">1</span></code>, the median reduced chi-square (Poisson deviance over its expectation, about 1 for a good fit), and the number of pixels without a valid lifetime. The CPU fitting times are shown by the progress bars of the CPU cells above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1101,7 +1144,7 @@ INFO:pyfli:Fit Finished in 32.43s
 </div>
 </section>
 <section id="cpu-vs-gpu-pixel-by-pixel">
-<h3>CPU vs GPU, pixel by pixel<a class="headerlink" href="#cpu-vs-gpu-pixel-by-pixel" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.6.4. </span>CPU vs GPU, pixel by pixel<a class="headerlink" href="#cpu-vs-gpu-pixel-by-pixel" title="Link to this heading">#</a></h3>
 <p>Each point is one letter pixel: the GPU lifetime against the CPU lifetime for the same estimator. Points on the diagonal mean both processors reached the same solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1132,7 +1175,7 @@ INFO:pyfli:Fit Finished in 32.43s
 </div>
 </section>
 <section id="fits-at-a-single-pixel">
-<h3>Fits at a single pixel<a class="headerlink" href="#fits-at-a-single-pixel" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.6.5. </span>Fits at a single pixel<a class="headerlink" href="#fits-at-a-single-pixel" title="Link to this heading">#</a></h3>
 <p>The pixel probed in the ground-truth check above, now with all four fitted curves.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1181,28 +1224,28 @@ INFO:pyfli:Fit Finished in 32.43s
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-test-image">Generating a test image</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-irf">Loading the IRF</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-configuration">Simulation configuration</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ground-truth-maps">Ground-truth maps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-test-image">3.1. Generating a test image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-irf">3.2. Loading the IRF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-configuration">3.3. Simulation configuration</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ground-truth-maps">3.3.1. Ground-truth maps</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whole-image-fitting">Whole-image fitting</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlsf">NLSF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle">MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whole-image-fitting">3.4. Whole-image fitting</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlsf">3.4.1. NLSF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle">3.4.2. MLE</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-based-estimation">GPU-based estimation</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-nlsf">GPU NLSF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-mle">GPU MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-based-estimation">3.5. GPU-based estimation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-nlsf">3.5.1. GPU NLSF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-mle">3.5.2. GPU MLE</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-cpu-and-gpu-estimates">Comparing CPU and GPU estimates</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifetime-maps">Lifetime maps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifetime-distributions">Lifetime distributions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-and-fit-quality">Accuracy and fit quality</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-vs-gpu-pixel-by-pixel">CPU vs GPU, pixel by pixel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fits-at-a-single-pixel">Fits at a single pixel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-cpu-and-gpu-estimates">3.6. Comparing CPU and GPU estimates</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifetime-maps">3.6.1. Lifetime maps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifetime-distributions">3.6.2. Lifetime distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-and-fit-quality">3.6.3. Accuracy and fit quality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-vs-gpu-pixel-by-pixel">3.6.4. CPU vs GPU, pixel by pixel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fits-at-a-single-pixel">3.6.5. Fits at a single pixel</a></li>
 </ul>
 </li>
 </ul>
