@@ -15,6 +15,7 @@ examples/Monoexponential_fitting
 examples/Biexponential_fitting
 examples/Monoexponential_fitting_CPU_GPU
 examples/Biexponential_fitting_CPU_GPU
+examples/Monoexponential_percentage_fit
 ```
 
 ```{toctree}
