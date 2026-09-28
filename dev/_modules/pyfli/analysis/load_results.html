@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.analysis.load_results &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/analysis/load_results';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/analysis/load_results.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.analysis.load_results</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.analysis.load_results</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Load saved PyFLI fitting sessions and inject derived analysis results.</span>
+
+<span class="sd">This module belongs to :mod:`pyfli.analysis` and is part of PyFLI post-processing,</span>
+<span class="sd">diagnostics, statistical comparison, and result-loading utilities for fitted FLI/FLIM</span>
+<span class="sd">datasets. Public API includes functions :func:`load_session_arrays`,</span>
+<span class="sd">:func:`scan_session_results`, :func:`load_fitting_results`,</span>
+<span class="sd">:func:`save_laguerre_result`, :func:`inject_phasor_result`, and</span>
+<span class="sd">:func:`add_mean_lifetime`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
+
+<span class="c1"># Files that are NOT fitting results and should be excluded from scan output</span>
+<span class="n">_NON_RESULT_FILES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"clean_decay.npy"</span><span class="p">,</span>
+    <span class="s2">"clean_irf.npy"</span><span class="p">,</span>
+    <span class="s2">"final_mask.npy"</span><span class="p">,</span>
+    <span class="s2">"decay_raw.npy"</span><span class="p">,</span>
+    <span class="s2">"irf_raw.npy"</span><span class="p">,</span>
+    <span class="s2">"pixel_invariant_irf.npy"</span><span class="p">,</span>
+    <span class="s2">"pf_mask.npy"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Expected naming conventions for result files.</span>
+<span class="c1"># Use these constants (or save_laguerre_result / compute_fbi_results) to ensure</span>
+<span class="c1"># load_fitting_results() and scan_session_results() can find them.</span>
+<span class="n">RESULT_FILENAMES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"laguerre_mono"</span><span class="p">:</span> <span class="s2">"Laguerre Results_mono-exponential.npy"</span><span class="p">,</span>
+    <span class="s2">"laguerre_bi"</span><span class="p">:</span> <span class="s2">"Laguerre Results_bi-exponential.npy"</span><span class="p">,</span>
+    <span class="s2">"fbi_bi"</span><span class="p">:</span> <span class="s2">"F-BI Output_bi-exponential.npy"</span><span class="p">,</span>
+    <span class="s2">"phasor"</span><span class="p">:</span> <span class="s2">"phasor_tau_map.npy"</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="load_session_arrays">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.load_results.html#pyfli.analysis.load_results.load_session_arrays">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_session_arrays</span><span class="p">(</span><span class="n">save_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Load clean_decay, clean_irf, and final_mask from a pf_Analysis session directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    decay : np.ndarray  (H, W, T)</span>
+<span class="sd">    irf   : np.ndarray  (H, W, T)</span>
+<span class="sd">    mask  : np.ndarray  (H, W)  bool</span>
+<span class="sd">    """</span>
+    <span class="n">decay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">"clean_decay.npy"</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">"clean_irf.npy"</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">"final_mask.npy"</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+        <span class="nb">bool</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">decay</span><span class="p">,</span> <span class="n">irf</span><span class="p">,</span> <span class="n">mask</span></div>
+
+
+
+<div class="viewcode-block" id="scan_session_results">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.load_results.html#pyfli.analysis.load_results.scan_session_results">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">scan_session_results</span><span class="p">(</span><span class="n">save_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Scan session results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    save_dir : str</span>
+<span class="sd">        Directory where outputs are saved.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Session result arrays discovered from the output folder.</span>
+<span class="sd">    """</span>
+    <span class="n">all_npy</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">save_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".npy"</span><span class="p">))</span>
+    <span class="n">result_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_npy</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_NON_RESULT_FILES</span><span class="p">]</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Available fitting results in '</span><span class="si">{</span><span class="n">save_dir</span><span class="si">}</span><span class="s2">':"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result_files</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">result_files</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  [</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"  (none found)"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result_files</span></div>
+
+
+
+<div class="viewcode-block" id="load_fitting_results">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.load_results.html#pyfli.analysis.load_results.load_fitting_results">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_fitting_results</span><span class="p">(</span><span class="n">save_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">experiments</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Load fitting results using a user-defined filename → label mapping.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    save_dir    : str</span>
+<span class="sd">        Path to the pf_Analysis session folder.</span>
+<span class="sd">    experiments : dict[str, str]</span>
+<span class="sd">        Maps each .npy filename to a short display label.</span>
+<span class="sd">        You control exactly which results are loaded and in what order.</span>
+<span class="sd">        Mix any model types freely (NLSF, MLE, Laguerre, FBI, etc.).</span>
+
+<span class="sd">        Example — mono-exponential, CPU only::</span>
+
+<span class="sd">            experiments = {</span>
+<span class="sd">                'CPU_NLSF_least_squares_mono-exponential.npy': 'NLSF',</span>
+<span class="sd">                'CPU_MLE_poisson_mono-exponential.npy':        'MLE',</span>
+<span class="sd">                'Laguerre Results_mono-exponential.npy':       'Laguerre',</span>
+<span class="sd">            }</span>
+
+<span class="sd">        Example — bi-exponential, selective::</span>
+
+<span class="sd">            experiments = {</span>
+<span class="sd">                'CPU_NLSF_least_squares_bi-exponential.npy': 'NLSF-bi',</span>
+<span class="sd">                'GPU_MLE_poisson_bi-exponential.npy':        'MLE-GPU-bi',</span>
+<span class="sd">            }</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    all_datasets : list[dict]   parameter maps  (tau_map, alpha1_map, ...)</span>
+<span class="sd">    all_fitset   : list[dict]   TR maps         (fit_map, residual_map)</span>
+<span class="sd">    names        : list[str]    labels matching each entry, in dict order</span>
+<span class="sd">    """</span>
+    <span class="n">all_datasets</span><span class="p">,</span> <span class="n">all_fitset</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">experiments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"[load_fitting_results] Skipping missing file: </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">all_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">])</span>
+        <span class="n">all_fitset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">])</span>
+        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_datasets</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No fitting result files were found in '</span><span class="si">{</span><span class="n">save_dir</span><span class="si">}</span><span class="s2">'. "</span>
+            <span class="s2">"Run scan_session_results(save_dir) to see what is available."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">all_datasets</span><span class="p">,</span> <span class="n">all_fitset</span><span class="p">,</span> <span class="n">names</span></div>
+
+
+
+<div class="viewcode-block" id="save_laguerre_result">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.load_results.html#pyfli.analysis.load_results.save_laguerre_result">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_laguerre_result</span><span class="p">(</span><span class="n">saver</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">lag_results</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Save laguerre result.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    saver : Any</span>
+<span class="sd">        Optional saver used to persist messages or figures.</span>
+<span class="sd">    lag_results : np.ndarray</span>
+<span class="sd">        Laguerre deconvolution results written into the saver.</span>
+<span class="sd">    model_type : str</span>
+<span class="sd">        FLI/FLIM model family, such as mono- or bi-exponential.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        No object is returned; the function save laguerre result.</span>
+<span class="sd">    """</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"laguerre_</span><span class="si">{</span><span class="n">model_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>  <span class="c1"># 'laguerre_mono' or 'laguerre_bi'</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RESULT_FILENAMES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"model_type must be 'mono-exponential' or 'bi-exponential', got '</span><span class="si">{</span><span class="n">model_type</span><span class="si">}</span><span class="s2">'"</span>
+        <span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">RESULT_FILENAMES</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">".npy"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="n">saver</span><span class="o">.</span><span class="n">save_npy</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">lag_results</span><span class="p">)</span>
+    <span class="n">saver</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Laguerre </span><span class="si">{</span><span class="n">model_type</span><span class="si">}</span><span class="s2"> results saved as </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">.npy"</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="inject_phasor_result">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.load_results.html#pyfli.analysis.load_results.inject_phasor_result">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">inject_phasor_result</span><span class="p">(</span>
+    <span class="n">tau_map_ns</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">all_datasets</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">all_fitset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Phasor"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Inject phasor result.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tau_map_ns : np.ndarray</span>
+<span class="sd">        Lifetime map in nanoseconds.</span>
+<span class="sd">    all_datasets : np.ndarray</span>
+<span class="sd">        Collection of fitted datasets to classify, compare, or summarize.</span>
+<span class="sd">    all_fitset : np.ndarray</span>
+<span class="sd">        Collection of fit-result dictionaries used for comparison or plotting.</span>
+<span class="sd">    names : Any</span>
+<span class="sd">        Dataset names used in summaries and plots.</span>
+<span class="sd">    label : str</span>
+<span class="sd">        Display label assigned to the data or plot element.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        No object is returned; the function inject phasor result.</span>
+<span class="sd">    """</span>
+    <span class="n">all_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"tau_map"</span><span class="p">:</span> <span class="n">tau_map_ns</span><span class="p">,</span>
+            <span class="s2">"mean_lifetime"</span><span class="p">:</span> <span class="n">tau_map_ns</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">all_fitset</span><span class="o">.</span><span class="n">append</span><span class="p">({})</span>
+    <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="add_mean_lifetime">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.load_results.html#pyfli.analysis.load_results.add_mean_lifetime">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_mean_lifetime</span><span class="p">(</span><span class="n">all_datasets</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Add mean lifetime.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    all_datasets : np.ndarray</span>
+<span class="sd">        Collection of fitted datasets to classify, compare, or summarize.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        No object is returned; the function add mean lifetime.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">all_datasets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"mean_lifetime"</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">{</span><span class="s2">"alpha1_map"</span><span class="p">,</span> <span class="s2">"tau1_map"</span><span class="p">,</span> <span class="s2">"tau2_map"</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">ds</span><span class="p">[</span><span class="s2">"mean_lifetime"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s2">"alpha1_map"</span><span class="p">]</span> <span class="o">*</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"tau1_map"</span><span class="p">]</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"alpha2_map"</span><span class="p">]</span> <span class="o">*</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"tau2_map"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">"alpha2_map"</span> <span class="ow">in</span> <span class="n">ds</span>
+            <span class="k">else</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"alpha1_map"</span><span class="p">]</span> <span class="o">*</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"tau1_map"</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"alpha1_map"</span><span class="p">])</span> <span class="o">*</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"tau2_map"</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

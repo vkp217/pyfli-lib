@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.analysis.fit_analysis &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/analysis/fit_analysis';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/analysis/fit_analysis.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.analysis.fit_analysis</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.analysis.fit_analysis</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Plot fitted parameter maps, diagnostics, classifier summaries, and two-dimensional</span>
+<span class="sd">comparisons.</span>
+
+<span class="sd">This module belongs to :mod:`pyfli.analysis` and is part of PyFLI post-processing,</span>
+<span class="sd">diagnostics, statistical comparison, and result-loading utilities for fitted FLI/FLIM</span>
+<span class="sd">datasets. Public API includes functions :func:`plot_fitting_maps`,</span>
+<span class="sd">:func:`plot_diagnostics`, :func:`plot_pixel_evidence`,</span>
+<span class="sd">:func:`plot_statistical_comparison`, :func:`plot_2d_analysis`, and</span>
+<span class="sd">:func:`run_mono_bi_classifier`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..data_cc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..data_text</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageDisplay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..data_vnp</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ColorProcessor</span><span class="p">,</span>
+    <span class="n">DataViewer</span><span class="p">,</span>
+    <span class="n">MonoBiClassifier</span><span class="p">,</span>
+    <span class="n">Plotter</span><span class="p">,</span>
+    <span class="n">plot_2d_subplots</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_pixel_diagnostic</span><span class="p">,</span> <span class="n">random_true_pixel</span>
+
+<span class="c1"># Per-key default thresholds reflecting the physical valid range of each parameter.</span>
+<span class="c1"># alpha maps are fractions [0, 1]; lifetime maps use a generous 5 ns upper bound.</span>
+<span class="c1"># Override via the per_key_thresholds argument in plot_statistical_comparison /</span>
+<span class="c1"># plot_2d_analysis when your fluorophore has longer or shorter lifetimes.</span>
+<span class="n">DEFAULT_KEY_THRESHOLDS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"tau_map"</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>  <span class="c1"># mono-exp apparent lifetime (ns)</span>
+    <span class="s2">"tau1_map"</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>  <span class="c1"># bi-exp short component (ns)</span>
+    <span class="s2">"tau2_map"</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>  <span class="c1"># bi-exp long component (ns)</span>
+    <span class="s2">"alpha1_map"</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># fraction — strictly [0, 1]</span>
+    <span class="s2">"alpha2_map"</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="s2">"mean_lifetime"</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>  <span class="c1"># amplitude-weighted mean (ns)</span>
+<span class="p">}</span>
+
+<span class="n">_DEFAULT_COLORS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"#3a6b8c"</span><span class="p">,</span>
+    <span class="s2">"#8c433b"</span><span class="p">,</span>
+    <span class="s2">"#3a8c5c"</span><span class="p">,</span>
+    <span class="s2">"#8c7824"</span><span class="p">,</span>
+    <span class="s2">"#763f8c"</span><span class="p">,</span>
+    <span class="s2">"#8c5b2f"</span><span class="p">,</span>
+    <span class="s2">"#328c7b"</span><span class="p">,</span>
+    <span class="s2">"#3d8c5e"</span><span class="p">,</span>
+    <span class="s2">"#3f878c"</span><span class="p">,</span>
+    <span class="s2">"#8c473f"</span><span class="p">,</span>
+    <span class="s2">"#753f8c"</span><span class="p">,</span>
+    <span class="s2">"#3f6e8c"</span><span class="p">,</span>
+    <span class="s2">"#3f8c7d"</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_threshold</span><span class="p">(</span><span class="n">map_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">per_key_thresholds</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return the threshold for map_key, checking user overrides first."""</span>
+    <span class="k">if</span> <span class="n">per_key_thresholds</span> <span class="ow">and</span> <span class="n">map_key</span> <span class="ow">in</span> <span class="n">per_key_thresholds</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">per_key_thresholds</span><span class="p">[</span><span class="n">map_key</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">DEFAULT_KEY_THRESHOLDS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">map_key</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="plot_fitting_maps">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.fit_analysis.html#pyfli.analysis.fit_analysis.plot_fitting_maps">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_fitting_maps</span><span class="p">(</span>
+    <span class="n">all_datasets</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">map_keys</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">v_ranges</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">saver</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Plot parameter maps for every fitting result.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    all_datasets : list[dict]   from load_fitting_results()</span>
+<span class="sd">    names        : list[str]</span>
+<span class="sd">    map_keys     : list[str]    keys to extract, e.g. ['tau_map'] or</span>
+<span class="sd">                                ['alpha1_map', 'tau1_map', 'tau2_map']</span>
+<span class="sd">    v_ranges     : list[tuple] or None</span>
+<span class="sd">                   Display range per map, e.g. [(0, 1.5)] or [(0,1),(0,2),(0,2)].</span>
+<span class="sd">                   Pass None to let DataViewer auto-scale.</span>
+<span class="sd">    saver        : DataSaver or None</span>
+<span class="sd">    cmap         : colormap — defaults to jet with zero→black</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">cmap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">ColorProcessor</span><span class="p">()</span><span class="o">.</span><span class="n">lowest_zero</span><span class="p">(</span><span class="s2">"jet"</span><span class="p">)</span>
+    <span class="n">n_cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_keys</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ds</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_datasets</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+        <span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">map_keys</span><span class="p">]</span>
+        <span class="n">data_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">map_keys</span><span class="p">]</span>
+        <span class="n">viewer_kw</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"save_path"</span><span class="p">:</span> <span class="n">saver</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">"fig_name"</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span> <span class="k">if</span> <span class="n">saver</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="n">DataViewer</span><span class="p">(</span><span class="o">**</span><span class="n">viewer_kw</span><span class="p">)</span><span class="o">.</span><span class="n">display_data</span><span class="p">(</span>
+            <span class="n">data_list</span><span class="p">,</span>
+            <span class="n">structure</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">),</span>
+            <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">data_names</span><span class="o">=</span><span class="n">data_names</span><span class="p">,</span>
+            <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="n">cmap</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_cols</span><span class="p">,</span>
+            <span class="n">v_ranges</span><span class="o">=</span><span class="n">v_ranges</span><span class="p">,</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="plot_diagnostics">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.fit_analysis.html#pyfli.analysis.fit_analysis.plot_diagnostics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_diagnostics</span><span class="p">(</span>
+    <span class="n">binned_decay</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">all_fitset</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">saver</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Pixel diagnostic overlays for all fitting results (log and linear scale).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig_log, fig_lin : Figure</span>
+<span class="sd">    """</span>
+    <span class="n">fig_log</span> <span class="o">=</span> <span class="n">plot_pixel_diagnostic</span><span class="p">(</span>
+        <span class="n">binned_decay</span><span class="p">,</span>
+        <span class="n">all_fitset</span><span class="p">,</span>
+        <span class="n">names</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+        <span class="n">t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">,</span>
+        <span class="n">raw_style</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fig_lin</span> <span class="o">=</span> <span class="n">plot_pixel_diagnostic</span><span class="p">(</span>
+        <span class="n">binned_decay</span><span class="p">,</span>
+        <span class="n">all_fitset</span><span class="p">,</span>
+        <span class="n">names</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+        <span class="n">t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+        <span class="n">raw_style</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">saver</span><span class="p">:</span>
+        <span class="n">saver</span><span class="o">.</span><span class="n">save_plot</span><span class="p">(</span><span class="s2">"fit_log_diagnostics"</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig_log</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">saver</span><span class="o">.</span><span class="n">save_plot</span><span class="p">(</span><span class="s2">"fit_linear_diagnostics"</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig_lin</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig_log</span><span class="p">,</span> <span class="n">fig_lin</span></div>
+
+
+
+<div class="viewcode-block" id="plot_pixel_evidence">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.fit_analysis.html#pyfli.analysis.fit_analysis.plot_pixel_evidence">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_pixel_evidence</span><span class="p">(</span>
+    <span class="n">binned_decay</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">binned_irf</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">all_fitset</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">all_datasets</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">saver</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Single-pixel fit evidence plot for a randomly selected valid pixel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num : int   index into all_fitset / all_datasets to display (default 0)</span>
+<span class="sd">    """</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">random_true_pixel</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+    <span class="n">TRs</span> <span class="o">=</span> <span class="n">all_fitset</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+    <span class="n">maps</span> <span class="o">=</span> <span class="n">all_datasets</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+    <span class="n">irf_norm</span> <span class="o">=</span> <span class="n">Normalization</span><span class="p">(</span><span class="n">binned_irf</span><span class="p">)</span><span class="o">.</span><span class="n">norm_scale</span><span class="p">(</span><span class="n">binned_decay</span><span class="p">)</span>
+
+    <span class="n">viewer_kw</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">{</span><span class="s2">"save_path"</span><span class="p">:</span> <span class="n">saver</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="s2">"fig_name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"fit_evidence_</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">saver</span>
+        <span class="k">else</span> <span class="p">{}</span>
+    <span class="p">)</span>
+    <span class="n">DataViewer</span><span class="p">(</span><span class="o">**</span><span class="n">viewer_kw</span><span class="p">)</span><span class="o">.</span><span class="n">plot_fli_px</span><span class="p">(</span>
+        <span class="n">data_list</span><span class="o">=</span><span class="p">[</span><span class="n">binned_decay</span><span class="p">,</span> <span class="n">irf_norm</span><span class="p">,</span> <span class="n">TRs</span><span class="p">[</span><span class="s2">"fit_map"</span><span class="p">],</span> <span class="n">TRs</span><span class="p">[</span><span class="s2">"residual_map"</span><span class="p">]],</span>
+        <span class="n">pixel</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+        <span class="n">mode</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="n">mode2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">"decay"</span><span class="p">,</span> <span class="s2">"irf"</span><span class="p">,</span> <span class="s2">"fit"</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">MessageDisplay</span><span class="p">()</span><span class="o">.</span><span class="n">get_pixel_summary</span><span class="p">(</span><span class="n">data_maps</span><span class="o">=</span><span class="n">maps</span><span class="p">,</span> <span class="n">px</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="plot_statistical_comparison">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.fit_analysis.html#pyfli.analysis.fit_analysis.plot_statistical_comparison">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_statistical_comparison</span><span class="p">(</span>
+    <span class="n">all_datasets</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">map_keys</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">saver</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">graph_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"box"</span><span class="p">,</span>
+    <span class="n">colors_list</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"none"</span><span class="p">,</span>
+    <span class="n">per_key_thresholds</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">percentile_clip</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">99</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Comparative statistical plot per parameter key (box / violin / KDE / ...).</span>
+
+<span class="sd">    One figure is produced per key so that each parameter is filtered by its</span>
+<span class="sd">    own physically valid range (e.g. alpha ∈ [0,1] vs tau ∈ [0,5 ns]).</span>
+<span class="sd">    Thresholds fall back to DEFAULT_KEY_THRESHOLDS when not overridden.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    all_datasets        : list[dict]</span>
+<span class="sd">    names               : list[str]</span>
+<span class="sd">    map_keys            : list[str]   e.g. ['tau_map'] or</span>
+<span class="sd">                                      ['alpha1_map', 'tau1_map', 'tau2_map']</span>
+<span class="sd">    mask                : np.ndarray  (H, W) bool</span>
+<span class="sd">    graph_type          : str         'box', 'violin', 'swarm', 'overlay',</span>
+<span class="sd">                                      'raincloud', or 'kde'</span>
+<span class="sd">    test_type           : str         'none', 'paired', or 'welch'</span>
+<span class="sd">    colors_list         : list        per-source colour hex strings</span>
+<span class="sd">    per_key_thresholds  : dict or None</span>
+<span class="sd">                          Override thresholds per key, e.g.</span>
+<span class="sd">                          ``{'tau_map': (0, 3), 'alpha1_map': (0, 1)}``.</span>
+<span class="sd">                          Keys not listed fall back to DEFAULT_KEY_THRESHOLDS.</span>
+<span class="sd">    percentile_clip     : tuple or None   (low%, high%) applied to every key;</span>
+<span class="sd">                          pass None to disable</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    figs : dict[str, Figure]   keyed by map_key</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">colors_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">colors_list</span> <span class="o">=</span> <span class="n">_DEFAULT_COLORS</span>
+
+    <span class="n">masking</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">figs</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">map_key</span> <span class="ow">in</span> <span class="n">map_keys</span><span class="p">:</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">_resolve_threshold</span><span class="p">(</span><span class="n">map_key</span><span class="p">,</span> <span class="n">per_key_thresholds</span><span class="p">)</span>
+        <span class="n">ops</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"mask"</span><span class="p">:</span> <span class="n">masking</span><span class="p">,</span>
+            <span class="s2">"remove_nan"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"remove_zero"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"threshold"</span><span class="p">:</span> <span class="n">threshold</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">percentile_clip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ops</span><span class="p">[</span><span class="s2">"percentile_clip"</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentile_clip</span>
+
+        <span class="n">painter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">all_datasets</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">map_key</span><span class="p">],</span>
+            <span class="n">style_config</span><span class="o">=</span><span class="n">colors_list</span><span class="p">,</span>
+            <span class="n">source_names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+            <span class="n">operations</span><span class="o">=</span><span class="n">ops</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">painter</span><span class="o">.</span><span class="n">make_plot</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Multi-method comparison — </span><span class="si">{</span><span class="n">map_key</span><span class="si">}</span><span class="s2">  "</span>
+            <span class="sa">f</span><span class="s2">"(threshold </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">, clip </span><span class="si">{</span><span class="n">percentile_clip</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+            <span class="n">graph_type</span><span class="o">=</span><span class="n">graph_type</span><span class="p">,</span>
+            <span class="n">point_type</span><span class="o">=</span><span class="s2">"strip"</span><span class="p">,</span>
+            <span class="n">show_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">show_median</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">show_significance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">test_type</span><span class="o">=</span><span class="n">test_type</span><span class="p">,</span>
+            <span class="n">correction</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">figs</span><span class="p">[</span><span class="n">map_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig</span>
+        <span class="k">if</span> <span class="n">saver</span><span class="p">:</span>
+            <span class="n">saver</span><span class="o">.</span><span class="n">save_plot</span><span class="p">(</span><span class="sa">f</span><span class="s2">"comparative_</span><span class="si">{</span><span class="n">map_key</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">saver</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Comparative analysis saved — </span><span class="si">{</span><span class="n">map_key</span><span class="si">}</span><span class="s2">  threshold=</span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">figs</span></div>
+
+
+
+<div class="viewcode-block" id="plot_2d_analysis">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.fit_analysis.html#pyfli.analysis.fit_analysis.plot_2d_analysis">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_2d_analysis</span><span class="p">(</span>
+    <span class="n">all_datasets</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">map_keys</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">per_key_thresholds</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">saver</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"jet"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""2D subplot analysis (map + histogram + violin + boxplot + KDE + qq + CDF)</span>
+<span class="sd">    per parameter map, for every fitting result.</span>
+
+<span class="sd">    Thresholds are resolved per key via DEFAULT_KEY_THRESHOLDS so that alpha</span>
+<span class="sd">    maps are automatically clipped to [0, 1] and tau maps to [0, 5] unless</span>
+<span class="sd">    overridden.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    all_datasets        : list[dict]</span>
+<span class="sd">    names               : list[str]</span>
+<span class="sd">    map_keys            : list[str]   e.g. ['tau_map'] or</span>
+<span class="sd">                                      ['alpha1_map', 'tau1_map', 'tau2_map']</span>
+<span class="sd">    mask                : np.ndarray  (H, W) bool</span>
+<span class="sd">    per_key_thresholds  : dict or None</span>
+<span class="sd">                          Override per key, e.g. ``{'tau2_map': (0, 3)}``.</span>
+<span class="sd">                          Keys not listed fall back to DEFAULT_KEY_THRESHOLDS.</span>
+<span class="sd">    saver               : DataSaver or None</span>
+<span class="sd">    cmap                : str   colormap for the spatial map panels</span>
+<span class="sd">    """</span>
+    <span class="n">plot_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"map"</span><span class="p">,</span> <span class="s2">"histogram"</span><span class="p">,</span> <span class="s2">"violinplot"</span><span class="p">,</span> <span class="s2">"boxplot"</span><span class="p">,</span> <span class="s2">"KDE"</span><span class="p">,</span> <span class="s2">"qq"</span><span class="p">,</span> <span class="s2">"cdF"</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">map_key</span> <span class="ow">in</span> <span class="n">map_keys</span><span class="p">:</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">_resolve_threshold</span><span class="p">(</span><span class="n">map_key</span><span class="p">,</span> <span class="n">per_key_thresholds</span><span class="p">)</span>
+        <span class="n">datasets_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="n">map_key</span><span class="p">]</span> <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">all_datasets</span><span class="p">]</span>
+        <span class="n">base_op</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"remove_nan"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"remove_zero"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"threshold"</span><span class="p">:</span> <span class="n">threshold</span><span class="p">,</span>
+            <span class="s2">"mask"</span><span class="p">:</span> <span class="n">mask</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">operations</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_op</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">datasets_to_plot</span><span class="p">]</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_2d_subplots</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">datasets_to_plot</span><span class="p">,</span>
+            <span class="n">plot_types</span><span class="o">=</span><span class="n">plot_types</span><span class="p">,</span>
+            <span class="n">titles</span><span class="o">=</span><span class="n">names</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasets_to_plot</span><span class="p">)],</span>
+            <span class="n">operations</span><span class="o">=</span><span class="n">operations</span><span class="p">,</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)),</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">saver</span><span class="p">:</span>
+            <span class="n">saver</span><span class="o">.</span><span class="n">save_plot</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">map_key</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">saver</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Detailed analysis of </span><span class="si">{</span><span class="n">map_key</span><span class="si">}</span><span class="s2"> saved  threshold=</span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="run_mono_bi_classifier">
+<a class="viewcode-back" href="../../../api/generated/pyfli.analysis.fit_analysis.html#pyfli.analysis.fit_analysis.run_mono_bi_classifier">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_mono_bi_classifier</span><span class="p">(</span>
+    <span class="n">all_datasets</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">alpha_upper</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="n">alpha_lower</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">tau_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">scatter_keys</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">saver</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Run mono bi classifier.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    all_datasets : Any</span>
+<span class="sd">        Collection of fitted datasets to classify, compare, or summarize.</span>
+<span class="sd">    names : Any</span>
+<span class="sd">        Dataset names used in summaries and plots.</span>
+<span class="sd">    mask : Any</span>
+<span class="sd">        Boolean or labeled mask selecting pixels for the operation.</span>
+<span class="sd">    alpha_upper : float</span>
+<span class="sd">        Upper alpha-fraction threshold used by the classifier.</span>
+<span class="sd">    alpha_lower : float</span>
+<span class="sd">        Lower alpha-fraction threshold used by the classifier.</span>
+<span class="sd">    tau_tol : float</span>
+<span class="sd">        Lifetime tolerance used by the mono/bi classifier.</span>
+<span class="sd">    scatter_keys : Any | None</span>
+<span class="sd">        Parameter keys used in classifier scatter plots.</span>
+<span class="sd">    saver : Any | None</span>
+<span class="sd">        Optional saver used to persist messages or figures.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[Any, ...]</span>
+<span class="sd">        Tuple containing classifier outputs and mono/bi-exponential labels.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">scatter_keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">scatter_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"tau1_map"</span><span class="p">,</span> <span class="s2">"tau2_map"</span><span class="p">]</span>
+
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">MonoBiClassifier</span><span class="p">(</span>
+        <span class="n">mask</span><span class="p">,</span>
+        <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+        <span class="n">alpha_upper</span><span class="o">=</span><span class="n">alpha_upper</span><span class="p">,</span>
+        <span class="n">alpha_lower</span><span class="o">=</span><span class="n">alpha_lower</span><span class="p">,</span>
+        <span class="n">tau_tol</span><span class="o">=</span><span class="n">tau_tol</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">classes</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">all_datasets</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">clf</span><span class="o">.</span><span class="n">agreement</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="s2">"jaccard"</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">agreement</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="s2">"count"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scatter_keys</span><span class="p">:</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">param_scatter_matrix</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="s2">"mono"</span><span class="p">)</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">param_scatter_matrix</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="s2">"bi"</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">agreed_param_table</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="s2">"mono"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">saver</span><span class="p">:</span>
+        <span class="n">saver</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"MonoBiClassifier run: alpha_upper=</span><span class="si">{</span><span class="n">alpha_upper</span><span class="si">}</span><span class="s2">, "</span>
+            <span class="sa">f</span><span class="s2">"alpha_lower=</span><span class="si">{</span><span class="n">alpha_lower</span><span class="si">}</span><span class="s2">, tau_tol=</span><span class="si">{</span><span class="n">tau_tol</span><span class="si">}</span><span class="s2">, "</span>
+            <span class="sa">f</span><span class="s2">"scatter_keys=</span><span class="si">{</span><span class="n">scatter_keys</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">clf</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">df</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

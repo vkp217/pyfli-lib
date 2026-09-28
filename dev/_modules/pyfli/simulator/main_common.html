@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.simulator.main_common &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/simulator/main_common';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/simulator/main_common.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.simulator.main_common</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.simulator.main_common</h1><div class="highlight"><pre>
+<span></span><span class="c1"># pyfli/simulator/main_common.py</span>
+
+<span class="sd">"""</span>
+<span class="sd">Shared engine-wrapping pipelines for the continuous (ICCD-style) and discrete</span>
+<span class="sd">(TCSPC-style) simulator pairs.</span>
+
+<span class="sd">``combined/main_factory.py`` (:class:`~pyfli.simulator.combined.main_factory.MacroSimulator`,</span>
+<span class="sd">:class:`~pyfli.simulator.combined.main_factory.TCSPCSimulator`, wrapping</span>
+<span class="sd">:class:`~pyfli.simulator.combined.simulator_engine.FLIEngine`) and</span>
+<span class="sd">``separate/main_factory_gen.py`` (:class:`~pyfli.simulator.separate.main_factory_gen.ContinuousSimulator`,</span>
+<span class="sd">:class:`~pyfli.simulator.separate.main_factory_gen.PhotonCountSimulator`, wrapping</span>
+<span class="sd">:class:`~pyfli.simulator.separate.model_simulator.FLIModelSimulator`) implement the identical</span>
+<span class="sd">noise/scaling pipeline; they differ only in which engine class they wrap, the names of</span>
+<span class="sd">a few methods on that engine, and whether the "mono" branch trims the returned maps</span>
+<span class="sd">dict. Subclasses declare those differences as class attributes; this module owns the</span>
+<span class="sd">actual pipeline math so it is defined exactly once.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">fftconvolve</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterSampler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.noise_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoiseEngine</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_maps</span><span class="p">(</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">photon_count</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">mono_only_maps</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">h_shift</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Build the parameter-maps dict, optionally trimmed for mono pixels."""</span>
+    <span class="k">if</span> <span class="n">mono_only_maps</span> <span class="ow">and</span> <span class="n">p</span><span class="p">[</span><span class="s2">"mono"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"tau_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"tau"</span><span class="p">],</span>
+            <span class="s2">"photon_count_map"</span><span class="p">:</span> <span class="n">photon_count</span><span class="p">,</span>
+            <span class="s2">"mono_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"mono"</span><span class="p">],</span>
+            <span class="s2">"h_shift_jit_map"</span><span class="p">:</span> <span class="n">h_shift</span><span class="p">,</span>
+            <span class="s2">"v_shift_map"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"tau1_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"tau1"</span><span class="p">],</span>
+        <span class="s2">"tau2_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"tau2"</span><span class="p">],</span>
+        <span class="s2">"alpha1_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"f"</span><span class="p">],</span>
+        <span class="s2">"A1_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"A1"</span><span class="p">],</span>
+        <span class="s2">"A2_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"A2"</span><span class="p">],</span>
+        <span class="s2">"fret_efficiency_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"E"</span><span class="p">],</span>
+        <span class="s2">"tau_mean_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"tau1"</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="s2">"f"</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="s2">"tau2"</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="s2">"f"</span><span class="p">]),</span>
+        <span class="s2">"photon_count_map"</span><span class="p">:</span> <span class="n">photon_count</span><span class="p">,</span>
+        <span class="s2">"mono_map"</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"mono"</span><span class="p">],</span>
+        <span class="s2">"h_shift_jit_map"</span><span class="p">:</span> <span class="n">h_shift</span><span class="p">,</span>
+        <span class="s2">"v_shift_map"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<div class="viewcode-block" id="BaseContinuousSimulator">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.main_common.html#pyfli.simulator.main_common.BaseContinuousSimulator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseContinuousSimulator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Shared ``__call__`` pipeline for MacroSimulator/ContinuousSimulator: samples</span>
+<span class="sd">    lifetime parameters, scales an IRF-convolved analytical decay to a Beta-sampled</span>
+<span class="sd">    peak intensity, and applies the jitter/QE/DCR/read-noise/Poisson/quantization</span>
+<span class="sd">    pipeline.</span>
+
+<span class="sd">    Subclasses set the following class attributes:</span>
+
+<span class="sd">    engine_cls : type</span>
+<span class="sd">        The engine class to wrap (``FLIEngine`` / ``FLIModelSimulator``).</span>
+<span class="sd">    sample_params_name : str</span>
+<span class="sd">        Name of the engine method that samples lifetime parameters.</span>
+<span class="sd">    analytical_decay_name : str</span>
+<span class="sd">        Name of the engine method that returns the clean analytical decay.</span>
+<span class="sd">    mono_only_maps : bool</span>
+<span class="sd">        Whether ``p["mono"]`` trims the returned maps dict down to</span>
+<span class="sd">        ``{tau_map, photon_count_map, mono_map}`` (``True``, as in</span>
+<span class="sd">        ``ContinuousSimulator``) or the full map set is always returned</span>
+<span class="sd">        regardless of mono status (``False``, as in ``MacroSimulator``).</span>
+<span class="sd">    """</span>
+
+    <span class="n">engine_cls</span><span class="p">:</span> <span class="nb">type</span>
+    <span class="n">sample_params_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">analytical_decay_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mono_only_maps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">irf_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"continuous"</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Toggles</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_jitter</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"jitter"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_dcr</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dcr_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_poisson</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"poisson"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_qe</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"qe_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_read_noise</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"read_noise_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_rounding</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"round_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_clipping</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"clip_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span> <span class="o">=</span> <span class="n">sensor_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine_cls</span><span class="p">(</span><span class="n">irf_data</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Run the instance as a callable.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[Any, Any]</span>
+<span class="sd">            Dictionary containing the data produced by call.</span>
+<span class="sd">        """</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_params_name</span><span class="p">)()</span>
+
+        <span class="c1"># 1. Determine target intensity (A) based on bit-depth</span>
+        <span class="n">alpha_pc</span><span class="p">,</span> <span class="n">beta_pc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"pc"</span><span class="p">]</span>
+        <span class="n">bit_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"bit"</span><span class="p">]</span>
+        <span class="n">max_adc_val</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">bit_depth</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># Sample peak intensity (A) from Beta distribution</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">ParameterSampler</span><span class="o">.</span><span class="n">beta_sample</span><span class="p">(</span><span class="n">alpha_pc</span><span class="p">,</span> <span class="n">beta_pc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">max_adc_val</span><span class="p">)</span>
+
+        <span class="c1"># Generating Clean Analytical Convolution</span>
+        <span class="n">clean_decay</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analytical_decay_name</span><span class="p">)(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">full_conv</span> <span class="o">=</span> <span class="n">fftconvolve</span><span class="p">(</span><span class="n">clean_decay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">irf</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"full"</span><span class="p">)[</span>
+            <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean_decay</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="c1"># INITIAL SCALING: Scale the convolved signal so its PEAK matches A</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">full_conv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">A</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">full_conv</span><span class="p">)</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">full_conv</span> <span class="o">*</span> <span class="n">scale_factor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">full_conv</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Applying Modular Noise Pipeline</span>
+        <span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_jitter</span><span class="p">:</span>
+            <span class="n">shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">shift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shift</span><span class="p">),</span> <span class="n">obs</span><span class="p">[:</span> <span class="n">n</span> <span class="o">-</span> <span class="n">shift</span><span class="p">]])</span>
+            <span class="k">elif</span> <span class="n">shift</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">obs</span><span class="p">[</span><span class="o">-</span><span class="n">shift</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">-</span><span class="n">shift</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_qe</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">obs</span> <span class="o">*</span> <span class="n">ParameterSampler</span><span class="o">.</span><span class="n">sample_qe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_dcr</span><span class="p">:</span>
+            <span class="n">bit_scaling</span> <span class="o">=</span> <span class="n">bit_depth</span> <span class="o">/</span> <span class="mf">8.0</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">NoiseEngine</span><span class="o">.</span><span class="n">apply_dcr</span><span class="p">(</span>
+                <span class="n">obs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"dcr"</span><span class="p">]</span> <span class="o">*</span> <span class="n">bit_scaling</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_read_noise</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span> <span class="o">==</span> <span class="s2">"CONTINUOUS"</span><span class="p">:</span>
+            <span class="n">hw</span> <span class="o">=</span> <span class="n">ParameterSampler</span><span class="o">.</span><span class="n">sample_noise_params</span><span class="p">(</span><span class="n">bit_depth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span><span class="p">)</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">NoiseEngine</span><span class="o">.</span><span class="n">apply_read_noise</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">hw</span><span class="p">[</span><span class="s2">"read_sigma"</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_poisson</span><span class="p">:</span>
+            <span class="c1"># Poisson must be applied to the intensity-scaled signal</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">NoiseEngine</span><span class="o">.</span><span class="n">apply_poisson</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+        <span class="c1"># Final Quantization</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_rounding</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_clipping</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">max_adc_val</span><span class="p">)</span>
+
+        <span class="c1"># FINAL FIT SCALING: Scale the "Clean Fit" to match the "Observed Peak"</span>
+        <span class="c1"># This ensures the residuals (obs - fit) reflect ONLY the noise/stochastics</span>
+        <span class="n">obs_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">obs_peak</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fit_map</span> <span class="o">=</span> <span class="n">full_conv</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">obs_peak</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">full_conv</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">full_conv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_jitter</span><span class="p">:</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fit_map</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">shift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">fit_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shift</span><span class="p">),</span> <span class="n">fit_map</span><span class="p">[:</span> <span class="n">n</span> <span class="o">-</span> <span class="n">shift</span><span class="p">]])</span>
+                <span class="k">elif</span> <span class="n">shift</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">fit_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">fit_map</span><span class="p">[</span><span class="o">-</span><span class="n">shift</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">-</span><span class="n">shift</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fit_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+        <span class="n">maps</span> <span class="o">=</span> <span class="n">_build_maps</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mono_only_maps</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"raw_data"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"decay"</span><span class="p">:</span> <span class="n">obs</span><span class="p">,</span> <span class="s2">"irf"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">irf</span><span class="p">},</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"maps"</span><span class="p">:</span> <span class="n">maps</span><span class="p">,</span>
+                <span class="s2">"TR_maps"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"fit_map"</span><span class="p">:</span> <span class="n">fit_map</span><span class="p">,</span> <span class="s2">"residual_map"</span><span class="p">:</span> <span class="n">obs</span> <span class="o">-</span> <span class="n">fit_map</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="BaseDiscreteSimulator">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.main_common.html#pyfli.simulator.main_common.BaseDiscreteSimulator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseDiscreteSimulator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Shared ``__call__`` pipeline for TCSPCSimulator/PhotonCountSimulator: samples</span>
+<span class="sd">    lifetime parameters, runs a TCSPC photon-by-photon histogram, and applies the</span>
+<span class="sd">    jitter/DCR/quantization pipeline.</span>
+
+<span class="sd">    Subclasses set the following class attributes:</span>
+
+<span class="sd">    engine_cls : type</span>
+<span class="sd">        The engine class to wrap (``FLIEngine`` / ``FLIModelSimulator``).</span>
+<span class="sd">    sample_params_name : str</span>
+<span class="sd">        Name of the engine method that samples lifetime parameters.</span>
+<span class="sd">    analytical_decay_name : str</span>
+<span class="sd">        Name of the engine method that returns the clean analytical decay.</span>
+<span class="sd">    simulate_tcspc_name : str</span>
+<span class="sd">        Name of the engine method that runs the TCSPC photon histogram.</span>
+<span class="sd">    mono_only_maps : bool</span>
+<span class="sd">        As in :class:`BaseContinuousSimulator`.</span>
+<span class="sd">    """</span>
+
+    <span class="n">engine_cls</span><span class="p">:</span> <span class="nb">type</span>
+    <span class="n">sample_params_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">analytical_decay_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">simulate_tcspc_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mono_only_maps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">irf_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"discrete"</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_jitter</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"jitter"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_dcr</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dcr_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_qe</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"qe_on"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># TCSPC is inherently integer-based, but clipping simulates counter overflow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_clipping</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"clip_on"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span> <span class="o">=</span> <span class="n">sensor_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="c1"># TCSPC counters are 16-bit by default</span>
+        <span class="n">cfg</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"bit"</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine_cls</span><span class="p">(</span><span class="n">irf_data</span><span class="p">,</span> <span class="o">**</span><span class="n">cfg</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Run the instance as a callable.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[Any, Any]</span>
+<span class="sd">            Dictionary containing the data produced by call.</span>
+<span class="sd">        """</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_params_name</span><span class="p">)()</span>
+        <span class="n">low_cycles</span><span class="p">,</span> <span class="n">high_cycles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"cycles"</span><span class="p">]</span>
+        <span class="n">alpha_cyc</span><span class="p">,</span> <span class="n">beta_cyc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"pc"</span><span class="p">]</span>
+        <span class="n">n_cycles</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
+            <span class="n">ParameterSampler</span><span class="o">.</span><span class="n">sample_beta</span><span class="p">(</span>
+                <span class="n">alpha_cyc</span><span class="p">,</span>
+                <span class="n">beta_cyc</span><span class="p">,</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">high_cycles</span> <span class="o">-</span> <span class="n">low_cycles</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">low_cycles</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">mu_per_cycle</span> <span class="o">=</span> <span class="mf">0.01</span>
+        <span class="n">bit_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"bit"</span><span class="p">]</span>
+        <span class="n">max_bin_count</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">bit_depth</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="n">effective_mu</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">mu_per_cycle</span> <span class="o">*</span> <span class="n">ParameterSampler</span><span class="o">.</span><span class="n">sample_qe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_qe</span>
+            <span class="k">else</span> <span class="n">mu_per_cycle</span>
+        <span class="p">)</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate_tcspc_name</span><span class="p">)(</span><span class="n">p</span><span class="p">,</span> <span class="n">n_cycles</span><span class="p">,</span> <span class="n">effective_mu</span><span class="p">)</span>
+
+        <span class="c1"># Fit Scaling</span>
+        <span class="n">total_photons_expected</span> <span class="o">=</span> <span class="n">effective_mu</span> <span class="o">*</span> <span class="n">n_cycles</span>
+        <span class="n">clean</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analytical_decay_name</span><span class="p">)(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">fit_norm</span> <span class="o">=</span> <span class="n">fftconvolve</span><span class="p">(</span><span class="n">clean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">irf</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"full"</span><span class="p">)[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean</span><span class="p">)]</span>
+        <span class="n">fit</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">fit_norm</span> <span class="o">*</span> <span class="p">(</span><span class="n">total_photons_expected</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fit_norm</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fit_norm</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="n">fit_norm</span>
+        <span class="p">)</span>
+
+        <span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_jitter</span><span class="p">:</span>
+            <span class="n">shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">shift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shift</span><span class="p">),</span> <span class="n">obs</span><span class="p">[:</span> <span class="n">n</span> <span class="o">-</span> <span class="n">shift</span><span class="p">]])</span>
+                <span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shift</span><span class="p">),</span> <span class="n">fit</span><span class="p">[:</span> <span class="n">n</span> <span class="o">-</span> <span class="n">shift</span><span class="p">]])</span>
+            <span class="k">elif</span> <span class="n">shift</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">obs</span><span class="p">[</span><span class="o">-</span><span class="n">shift</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">-</span><span class="n">shift</span><span class="p">)])</span>
+                <span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">fit</span><span class="p">[</span><span class="o">-</span><span class="n">shift</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">-</span><span class="n">shift</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_dcr</span><span class="p">:</span>
+            <span class="c1"># DCR is a detector property (dark counts/bin/cycle) — independent of counter bit depth</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">NoiseEngine</span><span class="o">.</span><span class="n">apply_dcr</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">params_cfg</span><span class="p">[</span><span class="s2">"dcr"</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_clipping</span><span class="p">:</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">max_bin_count</span><span class="p">)</span>
+
+        <span class="n">maps</span> <span class="o">=</span> <span class="n">_build_maps</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">total_photons_expected</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mono_only_maps</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"raw_data"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"decay"</span><span class="p">:</span> <span class="n">obs</span><span class="p">,</span> <span class="s2">"irf"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">irf</span><span class="p">},</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"maps"</span><span class="p">:</span> <span class="n">maps</span><span class="p">,</span>
+                <span class="s2">"TR_maps"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"fit_map"</span><span class="p">:</span> <span class="n">fit</span><span class="p">,</span> <span class="s2">"residual_map"</span><span class="p">:</span> <span class="n">obs</span> <span class="o">-</span> <span class="n">fit</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

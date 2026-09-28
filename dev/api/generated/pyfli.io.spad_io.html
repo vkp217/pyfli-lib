@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pyfli.io.spad_io &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.io.spad_io';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/api/generated/pyfli.io.spad_io.html" />
+    <link rel="icon" href="../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyfli.io.ss2_bin" href="pyfli.io.ss2_bin.html" />
+    <link rel="prev" title="pyfli.io.spad_hdf5" href="pyfli.io.spad_hdf5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pyfli.html">pyfli</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analysis.html">pyfli.analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analyticalWorkflow.html">pyfli.analyticalWorkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.bayes_utils.html">pyfli.bayes_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_cc.html">pyfli.data_cc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_text.html">pyfli.data_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_vnp.html">pyfli.data_vnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.img.html">pyfli.img</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="pyfli.io.html">pyfli.io</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.data_operations.html">pyfli.io.data_operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.data_ops_static.html">pyfli.io.data_ops_static</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.data_saving.html">pyfli.io.data_saving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.detector.html">pyfli.io.detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.flim_decay_cube.html">pyfli.io.flim_decay_cube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.processed_data.html">pyfli.io.processed_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.save_direction.html">pyfli.io.save_direction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.spad_folding.html">pyfli.io.spad_folding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.spad_hdf5.html">pyfli.io.spad_hdf5</a></li>
+<li class="toctree-l3 current active"><a aria-current="page" class="current reference internal" href="#">pyfli.io.spad_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.ss2_bin.html">pyfli.io.ss2_bin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.utils.html">pyfli.io.utils</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.irf_deconvolution.html">pyfli.irf_deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.laguerre.html">pyfli.laguerre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.log_save.html">pyfli.log_save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.phasor.html">pyfli.phasor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.plot_style.html">pyfli.plot_style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.reconstruction.html">pyfli.reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.roi_maker.html">pyfli.roi_maker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.simulator.html">pyfli.simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.solver.html">pyfli.solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.sp_analysis.html">pyfli.sp_analysis</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.html" class="nav-link">pyfli</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.io.html" class="nav-link">pyfli.io</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.io.spad_io</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pyfli.io.spad_io">
+<span id="pyfli-io-spad-io"></span><h1>pyfli.io.spad_io<a class="headerlink" href="#module-pyfli.io.spad_io" title="Link to this heading">#</a></h1>
+<p>Coordinate generic and detector-specific SPAD loading, correction, and temporal folding.</p>
+<p>This module belongs to <a class="reference internal" href="pyfli.io.html#module-pyfli.io" title="pyfli.io"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyfli.io</span></code></a> and provides one normalized (H, W, T) import
+path for generic SPAD HDF5 files, SwissSPAD2 HDF5/BIN acquisitions, and SwissSPAD3
+HDF5 acquisitions.</p>
+<p class="rubric">Functions</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_check_format</span></code>(detector, input_format)</p></td>
+<td><p>Reject formats unsupported by a detector-specific loader.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_check_hdf5</span></code>(result, detector)</p></td>
+<td><p>Validate the known SwissSPAD split-gate layout after shared discovery.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_check_hp_map</span></code>(data, hot_pixel_map)</p></td>
+<td><p>Validate a spatial hot-pixel map for a SPAD cube.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_detect_format</span></code>(path, configured_format)</p></td>
+<td><p>Detect HDF5 or SwissSPAD2 BIN input unless configured explicitly.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_expected_repeats</span></code>(config)</p></td>
+<td><p>Resolve repeat count from an explicit value or acquisition frequencies.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_hdf5_args</span></code>(config, detector)</p></td>
+<td><p>Return generic HDF5 hints or a strict SwissSPAD HDF5 preset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_load_hdf5</span></code>(path, config, detector)</p></td>
+<td><p>Load one HDF5 file or combine a directory of HDF5 cubes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_load_raw</span></code>(path, config, detector)</p></td>
+<td><p>Load SPAD input without corrections or temporal folding.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_process</span></code>(data, config, hot_pixel_map, ...)</p></td>
+<td><p>Apply hot-pixel, pile-up, and background corrections in that order.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_process_folder</span></code>(path, config, detector, ...)</p></td>
+<td><p>Process each HDF5 cube before the configured folder sum or mean.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_read_hdf5</span></code>(path, config, detector)</p></td>
+<td><p>Read one HDF5 cube through the shared reader and validate its preset.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_sort_key</span></code>(value)</p></td>
+<td><p>Return a natural-sort key for numbered acquisition files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.io.spad_io.load_spad" title="pyfli.io.spad_io.load_spad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_spad</span></code></a>(path[, config, default_bit_depth, ...])</p></td>
+<td><p>Load SPAD data, apply optional corrections, then align and fold periods.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpadConfig</span></code></a>([input_format, bit_depth, ...])</p></td>
+<td><p>Store options for SPAD data import.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.io.spad_io.SpadIO" title="pyfli.io.spad_io.SpadIO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpadIO</span></code></a>()</p></td>
+<td><p>Provide generic, SwissSPAD2, and SwissSPAD3 SPAD loading.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.io.spad_io.SpadReadResult" title="pyfli.io.spad_io.SpadReadResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpadReadResult</span></code></a>(data, metadata[, fold_layout])</p></td>
+<td><p>Store normalized SPAD data, metadata, and an optional fold layout.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SpadConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pile_up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_frequency_mhz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_frequency_mhz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_repetitions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_fold_confidence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_search_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_smoothing_sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset_threshold_fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset_lead_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_dataset_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_time_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_gate_group_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_gate_order_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_gate_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_folder_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ss2_expected_gate_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ss2_top_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'top'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ss2_bottom_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'btm'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Store options for SPAD data import.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_format</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Input format selector: ‘auto’, ‘hdf5’, or ‘ss2_bin’.</p></li>
+<li><p><strong>bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Detector digitization bit depth used for optional pile-up correction.</p></li>
+<li><p><strong>pile_up</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to apply pile-up correction before folding.</p></li>
+<li><p><strong>fold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether repeated excitation periods should be aligned and summed.</p></li>
+<li><p><strong>detector_frequency_mhz</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Detector acquisition frequency used to constrain repeat count.</p></li>
+<li><p><strong>laser_frequency_mhz</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Laser repetition frequency used to constrain repeat count.</p></li>
+<li><p><strong>fold_repetitions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit expected number of excitation periods in the acquisition.</p></li>
+<li><p><strong>period_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit number of gates in one excitation period.</p></li>
+<li><p><strong>phase_shift</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit temporal circular shift. None enables automatic phase detection.</p></li>
+<li><p><strong>min_fold_confidence</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Minimum confidence accepted for automatic fold detection.</p></li>
+<li><p><strong>fold_validate</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether low-confidence automatic folding should raise an error.</p></li>
+<li><p><strong>period_search_radius</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fractional search radius around an expected period.</p></li>
+<li><p><strong>fold_smoothing_sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Circular Gaussian smoothing sigma used only for timing detection.</p></li>
+<li><p><strong>onset_threshold_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Peak-to-baseline fraction used by the onset detector.</p></li>
+<li><p><strong>onset_lead_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Gates the folded period starts before the detected onset. None selects
+5 % of the period with a minimum of two gates.</p></li>
+<li><p><strong>hdf5_dataset_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit stacked HDF5 dataset path for generic loading.</p></li>
+<li><p><strong>hdf5_time_axis</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit temporal axis for a stacked generic HDF5 dataset.</p></li>
+<li><p><strong>hdf5_gate_group_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit HDF5 group containing split 2D gate datasets.</p></li>
+<li><p><strong>hdf5_gate_order_attribute</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – HDF5 dataset attribute used to order split gate datasets.</p></li>
+<li><p><strong>hdf5_gate_prefix</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional split-gate dataset prefix used as a discovery hint.</p></li>
+<li><p><strong>hdf5_folder_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Combination mode for directories containing multiple HDF5 cubes.</p></li>
+<li><p><strong>ss2_expected_gate_count</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional expected SwissSPAD2 gate count before folding.</p></li>
+<li><p><strong>ss2_top_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Filename prefix for SwissSPAD2 top-detector chunks.</p></li>
+<li><p><strong>ss2_bottom_prefix</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Filename prefix for SwissSPAD2 bottom-detector chunks.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.input_format">
+<span class="sig-name descname"><span class="pre">input_format</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.input_format" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.bit_depth">
+<span class="sig-name descname"><span class="pre">bit_depth</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.bit_depth" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.pile_up">
+<span class="sig-name descname"><span class="pre">pile_up</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.pile_up" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.fold" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.detector_frequency_mhz">
+<span class="sig-name descname"><span class="pre">detector_frequency_mhz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.detector_frequency_mhz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.laser_frequency_mhz">
+<span class="sig-name descname"><span class="pre">laser_frequency_mhz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.laser_frequency_mhz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.fold_repetitions">
+<span class="sig-name descname"><span class="pre">fold_repetitions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.fold_repetitions" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.period_bins">
+<span class="sig-name descname"><span class="pre">period_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.period_bins" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.phase_shift">
+<span class="sig-name descname"><span class="pre">phase_shift</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.phase_shift" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.min_fold_confidence">
+<span class="sig-name descname"><span class="pre">min_fold_confidence</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.6</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.min_fold_confidence" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.fold_validate">
+<span class="sig-name descname"><span class="pre">fold_validate</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.fold_validate" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.period_search_radius">
+<span class="sig-name descname"><span class="pre">period_search_radius</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.15</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.period_search_radius" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.fold_smoothing_sigma">
+<span class="sig-name descname"><span class="pre">fold_smoothing_sigma</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.fold_smoothing_sigma" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.onset_threshold_fraction">
+<span class="sig-name descname"><span class="pre">onset_threshold_fraction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.onset_threshold_fraction" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.onset_lead_bins">
+<span class="sig-name descname"><span class="pre">onset_lead_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.onset_lead_bins" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.hdf5_dataset_path">
+<span class="sig-name descname"><span class="pre">hdf5_dataset_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.hdf5_dataset_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.hdf5_time_axis">
+<span class="sig-name descname"><span class="pre">hdf5_time_axis</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.hdf5_time_axis" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.hdf5_gate_group_path">
+<span class="sig-name descname"><span class="pre">hdf5_gate_group_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.hdf5_gate_group_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.hdf5_gate_order_attribute">
+<span class="sig-name descname"><span class="pre">hdf5_gate_order_attribute</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.hdf5_gate_order_attribute" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.hdf5_gate_prefix">
+<span class="sig-name descname"><span class="pre">hdf5_gate_prefix</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.hdf5_gate_prefix" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.hdf5_folder_mode">
+<span class="sig-name descname"><span class="pre">hdf5_folder_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sum'</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.hdf5_folder_mode" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.ss2_expected_gate_count">
+<span class="sig-name descname"><span class="pre">ss2_expected_gate_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.ss2_expected_gate_count" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.ss2_top_prefix">
+<span class="sig-name descname"><span class="pre">ss2_top_prefix</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'top'</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.ss2_top_prefix" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.ss2_bottom_prefix">
+<span class="sig-name descname"><span class="pre">ss2_bottom_prefix</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'btm'</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.ss2_bottom_prefix" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.from_value">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadConfig.from_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.from_value" title="Link to this definition">#</a></dt>
+<dd><p>Build a validated configuration from an object, mapping, or defaults.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><em>SpadConfig</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>default_bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><em>SpadConfig</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadConfig.to_metadata">
+<span class="sig-name descname"><span class="pre">to_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadConfig.to_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadConfig.to_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Return the configuration as serializable metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadReadResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SpadReadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadReadResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadReadResult" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Store normalized SPAD data, metadata, and an optional fold layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em>)</p></li>
+<li><p><strong>fold_layout</strong> (<a class="reference internal" href="pyfli.io.spad_folding.html#pyfli.io.spad_folding.SpadFoldLayout" title="pyfli.io.spad_folding.SpadFoldLayout"><em>SpadFoldLayout</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadReadResult.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#pyfli.io.spad_io.SpadReadResult.data" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadReadResult.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadReadResult.metadata" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadReadResult.fold_layout">
+<span class="sig-name descname"><span class="pre">fold_layout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyfli.io.spad_folding.html#pyfli.io.spad_folding.SpadFoldLayout" title="pyfli.io.spad_folding.SpadFoldLayout"><span class="pre">SpadFoldLayout</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#pyfli.io.spad_io.SpadReadResult.fold_layout" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.load_spad">
+<span class="sig-name descname"><span class="pre">load_spad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot_pixel_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#load_spad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.load_spad" title="Link to this definition">#</a></dt>
+<dd><p>Load SPAD data, apply optional corrections, then align and fold periods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – SPAD HDF5 path, SwissSPAD2 BIN path, or supported acquisition directory.</p></li>
+<li><p><strong>config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SpadConfig</span> <span class="pre">|</span> <span class="pre">dict[str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span></code>) – SPAD loading and processing options.</p></li>
+<li><p><strong>default_bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Detector bit depth used when config does not provide one.</p></li>
+<li><p><strong>fold_layout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SpadFoldLayout</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Existing fold layout to reuse for a related acquisition.</p></li>
+<li><p><strong>hot_pixel_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional 2D hot-pixel map.</p></li>
+<li><p><strong>background</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional background cube matching the pre-fold SPAD cube.</p></li>
+<li><p><strong>sub_bg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to subtract the supplied background before folding.</p></li>
+<li><p><strong>detector</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional detector preset: ‘ss2’ or ‘ss3’. None keeps generic discovery.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized SPAD cube and import metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyfli.io.spad_io.SpadReadResult" title="pyfli.io.spad_io.SpadReadResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpadReadResult</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadIO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SpadIO</span></span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadIO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadIO" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Provide generic, SwissSPAD2, and SwissSPAD3 SPAD loading.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadIO.get_format">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadIO.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadIO.get_format" title="Link to this definition">#</a></dt>
+<dd><p>Resolve and validate the input format without loading data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><em>SpadConfig</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>default_bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>detector</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadIO.load">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot_pixel_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadIO.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadIO.load" title="Link to this definition">#</a></dt>
+<dd><p>Load generic SPAD HDF5 or SwissSPAD2 BIN data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><em>SpadConfig</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>default_bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>fold_layout</strong> (<a class="reference internal" href="pyfli.io.spad_folding.html#pyfli.io.spad_folding.SpadFoldLayout" title="pyfli.io.spad_folding.SpadFoldLayout"><em>SpadFoldLayout</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>hot_pixel_map</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>background</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>sub_bg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.io.spad_io.SpadReadResult" title="pyfli.io.spad_io.SpadReadResult"><em>SpadReadResult</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadIO.load_ss2">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load_ss2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot_pixel_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pile_up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadIO.load_ss2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadIO.load_ss2" title="Link to this definition">#</a></dt>
+<dd><p>Load SwissSPAD2 HDF5 or native BIN data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><em>SpadConfig</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>default_bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>fold_layout</strong> (<a class="reference internal" href="pyfli.io.spad_folding.html#pyfli.io.spad_folding.SpadFoldLayout" title="pyfli.io.spad_folding.SpadFoldLayout"><em>SpadFoldLayout</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>hot_pixel_map</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>background</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>sub_bg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>pile_up</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.io.spad_io.SpadReadResult" title="pyfli.io.spad_io.SpadReadResult"><em>SpadReadResult</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_io.SpadIO.load_ss3">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load_ss3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_bit_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot_pixel_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pile_up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_io.html#SpadIO.load_ss3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_io.SpadIO.load_ss3" title="Link to this definition">#</a></dt>
+<dd><p>Load SwissSPAD3 HDF5 data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#pyfli.io.spad_io.SpadConfig" title="pyfli.io.spad_io.SpadConfig"><em>SpadConfig</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>default_bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>fold_layout</strong> (<a class="reference internal" href="pyfli.io.spad_folding.html#pyfli.io.spad_folding.SpadFoldLayout" title="pyfli.io.spad_folding.SpadFoldLayout"><em>SpadFoldLayout</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>hot_pixel_map</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>background</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>sub_bg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>pile_up</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.io.spad_io.SpadReadResult" title="pyfli.io.spad_io.SpadReadResult"><em>SpadReadResult</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig"><code class="docutils literal notranslate"><span class="pre">SpadConfig</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.input_format"><code class="docutils literal notranslate"><span class="pre">SpadConfig.input_format</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.bit_depth"><code class="docutils literal notranslate"><span class="pre">SpadConfig.bit_depth</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.pile_up"><code class="docutils literal notranslate"><span class="pre">SpadConfig.pile_up</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.fold"><code class="docutils literal notranslate"><span class="pre">SpadConfig.fold</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.detector_frequency_mhz"><code class="docutils literal notranslate"><span class="pre">SpadConfig.detector_frequency_mhz</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.laser_frequency_mhz"><code class="docutils literal notranslate"><span class="pre">SpadConfig.laser_frequency_mhz</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.fold_repetitions"><code class="docutils literal notranslate"><span class="pre">SpadConfig.fold_repetitions</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.period_bins"><code class="docutils literal notranslate"><span class="pre">SpadConfig.period_bins</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.phase_shift"><code class="docutils literal notranslate"><span class="pre">SpadConfig.phase_shift</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.min_fold_confidence"><code class="docutils literal notranslate"><span class="pre">SpadConfig.min_fold_confidence</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.fold_validate"><code class="docutils literal notranslate"><span class="pre">SpadConfig.fold_validate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.period_search_radius"><code class="docutils literal notranslate"><span class="pre">SpadConfig.period_search_radius</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.fold_smoothing_sigma"><code class="docutils literal notranslate"><span class="pre">SpadConfig.fold_smoothing_sigma</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.onset_threshold_fraction"><code class="docutils literal notranslate"><span class="pre">SpadConfig.onset_threshold_fraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.onset_lead_bins"><code class="docutils literal notranslate"><span class="pre">SpadConfig.onset_lead_bins</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.hdf5_dataset_path"><code class="docutils literal notranslate"><span class="pre">SpadConfig.hdf5_dataset_path</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.hdf5_time_axis"><code class="docutils literal notranslate"><span class="pre">SpadConfig.hdf5_time_axis</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.hdf5_gate_group_path"><code class="docutils literal notranslate"><span class="pre">SpadConfig.hdf5_gate_group_path</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.hdf5_gate_order_attribute"><code class="docutils literal notranslate"><span class="pre">SpadConfig.hdf5_gate_order_attribute</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.hdf5_gate_prefix"><code class="docutils literal notranslate"><span class="pre">SpadConfig.hdf5_gate_prefix</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.hdf5_folder_mode"><code class="docutils literal notranslate"><span class="pre">SpadConfig.hdf5_folder_mode</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.ss2_expected_gate_count"><code class="docutils literal notranslate"><span class="pre">SpadConfig.ss2_expected_gate_count</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.ss2_top_prefix"><code class="docutils literal notranslate"><span class="pre">SpadConfig.ss2_top_prefix</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.ss2_bottom_prefix"><code class="docutils literal notranslate"><span class="pre">SpadConfig.ss2_bottom_prefix</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.from_value"><code class="docutils literal notranslate"><span class="pre">SpadConfig.from_value()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadConfig.to_metadata"><code class="docutils literal notranslate"><span class="pre">SpadConfig.to_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadReadResult"><code class="docutils literal notranslate"><span class="pre">SpadReadResult</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadReadResult.data"><code class="docutils literal notranslate"><span class="pre">SpadReadResult.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadReadResult.metadata"><code class="docutils literal notranslate"><span class="pre">SpadReadResult.metadata</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadReadResult.fold_layout"><code class="docutils literal notranslate"><span class="pre">SpadReadResult.fold_layout</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.load_spad"><code class="docutils literal notranslate"><span class="pre">load_spad()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadIO"><code class="docutils literal notranslate"><span class="pre">SpadIO</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadIO.get_format"><code class="docutils literal notranslate"><span class="pre">SpadIO.get_format()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadIO.load"><code class="docutils literal notranslate"><span class="pre">SpadIO.load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadIO.load_ss2"><code class="docutils literal notranslate"><span class="pre">SpadIO.load_ss2()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_io.SpadIO.load_ss3"><code class="docutils literal notranslate"><span class="pre">SpadIO.load_ss3()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/api/generated/pyfli.io.spad_io.rst">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

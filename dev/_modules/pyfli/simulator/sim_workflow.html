@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.simulator.sim_workflow &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/simulator/sim_workflow';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/simulator/sim_workflow.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.simulator.sim_workflow</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.simulator.sim_workflow</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.combined.main_factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">MacroSimulator</span><span class="p">,</span> <span class="n">TCSPCSimulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.irf_sim.irf_offset_gen</span><span class="w"> </span><span class="kn">import</span> <span class="n">OffsetGen</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.separate.main_factory_gen</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContinuousSimulator</span><span class="p">,</span> <span class="n">PhotonCountSimulator</span>
+
+<span class="n">SIMULATOR_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"combined"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"continuous"</span><span class="p">:</span> <span class="n">MacroSimulator</span><span class="p">,</span>
+        <span class="s2">"discrete"</span><span class="p">:</span> <span class="n">TCSPCSimulator</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">"separate"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"continuous"</span><span class="p">:</span> <span class="n">ContinuousSimulator</span><span class="p">,</span>
+        <span class="s2">"discrete"</span><span class="p">:</span> <span class="n">PhotonCountSimulator</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="concat_sim_data">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.concat_sim_data">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">concat_sim_data</span><span class="p">(</span><span class="o">*</span><span class="n">datasets</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Concatenate multiple sim.sample() output dicts along the batch axis (axis=0).</span>
+<span class="sd">    Assumes all datasets share identical keys and per-sample shapes.</span>
+<span class="sd">    """</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="c1"># sanity check: all datasets must have the same keys</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
+            <span class="n">missing</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">extra</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Key mismatch in dataset </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: missing=</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">, extra=</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+    <span class="n">combined</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">arrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">]</span>
+        <span class="n">combined</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">arrs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">combined</span></div>
+
+
+
+<div class="viewcode-block" id="SimOutput">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.SimOutput">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimOutput</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulator</span> <span class="o">=</span> <span class="n">simulator</span>
+
+<div class="viewcode-block" id="SimOutput.run">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.SimOutput.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulator</span><span class="p">()</span>
+        <span class="n">maps</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"mono_map"</span><span class="p">]:</span>
+            <span class="n">tau1</span> <span class="o">=</span> <span class="n">tau2</span> <span class="o">=</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">maps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tau_map"</span><span class="p">,</span> <span class="n">maps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tau1_map"</span><span class="p">))</span>
+            <span class="n">alpha1</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="n">efficiency</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tau1</span><span class="p">,</span> <span class="n">tau2</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"tau1_map"</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"tau2_map"</span><span class="p">]</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"tau_mean_map"</span><span class="p">]</span>
+            <span class="n">alpha1</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"alpha1_map"</span><span class="p">]</span>
+            <span class="n">efficiency</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"fret_efficiency_map"</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"decay"</span><span class="p">:</span> <span class="n">val</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"decay"</span><span class="p">],</span>
+            <span class="s2">"irf_original"</span><span class="p">:</span> <span class="n">val</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"irf"</span><span class="p">],</span>
+            <span class="s2">"tau1"</span><span class="p">:</span> <span class="n">tau1</span><span class="p">,</span>
+            <span class="s2">"tau2"</span><span class="p">:</span> <span class="n">tau2</span><span class="p">,</span>
+            <span class="s2">"tau"</span><span class="p">:</span> <span class="n">tau</span><span class="p">,</span>
+            <span class="s2">"alpha1"</span><span class="p">:</span> <span class="n">alpha1</span><span class="p">,</span>
+            <span class="s2">"photon_count"</span><span class="p">:</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"photon_count_map"</span><span class="p">],</span>
+            <span class="s2">"Efficiency"</span><span class="p">:</span> <span class="n">efficiency</span><span class="p">,</span>
+            <span class="s2">"h_shift_jit_map"</span><span class="p">:</span> <span class="n">maps</span><span class="p">[</span><span class="s2">"h_shift_jit_map"</span><span class="p">],</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SimOutputWithIRFOffset">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.SimOutputWithIRFOffset">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimOutputWithIRFOffset</span><span class="p">(</span><span class="n">SimOutput</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulator</span><span class="p">,</span> <span class="n">irf_1d</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">simulator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">irf_1d</span> <span class="o">=</span> <span class="n">irf_1d</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_irf_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">i_off</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">irf_1d</span>
+        <span class="n">i_off_sum</span> <span class="o">=</span> <span class="n">i_off</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">i_off_sum</span><span class="p">)</span> <span class="ow">or</span> <span class="n">i_off_sum</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Invalid IRF: sum=</span><span class="si">{</span><span class="n">i_off_sum</span><span class="si">}</span><span class="s2">. IRF must be non-negative and non-zero."</span>
+            <span class="p">)</span>
+        <span class="n">i_off</span> <span class="o">=</span> <span class="n">i_off</span> <span class="o">/</span> <span class="n">i_off_sum</span>
+        <span class="k">return</span> <span class="n">i_off</span>
+
+<div class="viewcode-block" id="SimOutputWithIRFOffset.run">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.SimOutputWithIRFOffset.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"irf"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_irf_offset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SimGenerator">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.SimGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Wraps IRF shifting + a MacroSimulator/ContinuousSimulator/TCSPCSimulator/</span>
+<span class="sd">    PhotonCountSimulator engine + SimOutputWithIRFOffset for a single config.</span>
+<span class="sd">    Only accepts one config dict — raises if given a list/tuple of configs.</span>
+
+<span class="sd">    Engine selection has two independent axes:</span>
+
+<span class="sd">    - ``sensor_type`` (physics): ``config["sensor_type"]`` if present,</span>
+<span class="sd">      otherwise the ``sensor_type`` constructor argument. ``"continuous"``</span>
+<span class="sd">      samples from an intensity/ADC-scaled engine; ``"discrete"`` samples</span>
+<span class="sd">      from a photon-by-photon TCSPC engine.</span>
+<span class="sd">    - ``family`` (implementation): ``"separate"`` (default) uses</span>
+<span class="sd">      :class:`ContinuousSimulator`/:class:`PhotonCountSimulator`;</span>
+<span class="sd">      ``"combined"`` uses :class:`MacroSimulator`/:class:`TCSPCSimulator`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    family : str</span>
+<span class="sd">        Which implementation family to sample from — "separate" (default)</span>
+<span class="sd">        or "combined". See :data:`SIMULATOR_TYPES`.</span>
+<span class="sd">    sensor_type : str</span>
+<span class="sd">        Fallback "continuous"/"discrete" engine choice used only when</span>
+<span class="sd">        ``config`` doesn't already set ``sensor_type``. Defaults to</span>
+<span class="sd">        "discrete".</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">irf_data</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">,</span>
+        <span class="n">a_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="n">b_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="n">pixel</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">family</span><span class="o">=</span><span class="s2">"separate"</span><span class="p">,</span>
+        <span class="n">sensor_type</span><span class="o">=</span><span class="s2">"discrete"</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">"SimGenerator accepts exactly one config dict, not a "</span>
+                <span class="s2">"list/tuple of configs. Instantiate one generator per config "</span>
+                <span class="s2">"and combine their sampled outputs afterward if you need "</span>
+                <span class="s2">"multiple configs."</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"config must be a dict, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">family</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SIMULATOR_TYPES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"family must be one of </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">SIMULATOR_TYPES</span><span class="p">)</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="n">family</span><span class="si">!r}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="n">effective_sensor_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sensor_type"</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">effective_sensor_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SIMULATOR_TYPES</span><span class="p">[</span><span class="n">family</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"sensor_type must be one of </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">SIMULATOR_TYPES</span><span class="p">[</span><span class="n">family</span><span class="p">])</span><span class="si">}</span><span class="s2">, "</span>
+                <span class="sa">f</span><span class="s2">"got </span><span class="si">{</span><span class="n">effective_sensor_type</span><span class="si">!r}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulator_cls</span> <span class="o">=</span> <span class="n">SIMULATOR_TYPES</span><span class="p">[</span><span class="n">family</span><span class="p">][</span><span class="n">effective_sensor_type</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_gen</span> <span class="o">=</span> <span class="n">OffsetGen</span><span class="p">(</span>
+            <span class="n">irf_data</span><span class="p">,</span> <span class="n">a_range</span><span class="o">=</span><span class="n">a_range</span><span class="p">,</span> <span class="n">b_range</span><span class="o">=</span><span class="n">b_range</span><span class="p">,</span> <span class="n">pixel</span><span class="o">=</span><span class="n">pixel</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="SimGenerator.simulate_once">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.SimGenerator.simulate_once">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate_once</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">irf_1d</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset_gen</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+
+        <span class="n">fli_simulator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulator_cls</span><span class="p">(</span><span class="n">irf_data</span><span class="o">=</span><span class="n">irf_1d</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">SimOutputWithIRFOffset</span><span class="p">(</span><span class="n">fli_simulator</span><span class="p">,</span> <span class="n">irf_1d</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"h_shift_tof"</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"v_shift_bgp"</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"h_shift"</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">out</span><span class="p">[</span><span class="s2">"h_shift_jit_map"</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="WeightedConfigSimGenerator">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.WeightedConfigSimGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WeightedConfigSimGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Wraps one :class:`SimGenerator` per config combination and, on every</span>
+<span class="sd">    ``simulate_once()`` call, draws a fresh combination according to</span>
+<span class="sd">    ``probs`` before delegating to it.</span>
+
+<span class="sd">    This lets a single simulator built from this class (e.g. via</span>
+<span class="sd">    ``bayesflow.make_simulator([lambda: gen.simulate_once()])``) produce</span>
+<span class="sd">    draws sampled from a mixture of configs — such as the</span>
+<span class="sd">    ``(configs, probs)`` pair returned by</span>
+<span class="sd">    :meth:`~pyfli.data_cc.config_combinations.ConfigCombinationGenerator.combination_table` —</span>
+<span class="sd">    with no change needed to code downstream that only ever calls</span>
+<span class="sd">    ``simulate_once()``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    irf_data : np.ndarray</span>
+<span class="sd">        Full IRF cube, forwarded to each per-combination :class:`SimGenerator`.</span>
+<span class="sd">    configs : Sequence[dict]</span>
+<span class="sd">        One config dict per combination.</span>
+<span class="sd">    probs : Sequence[float]</span>
+<span class="sd">        Sampling probability for each entry in ``configs`` (same order,</span>
+<span class="sd">        same length). Renormalized if it doesn't already sum to 1.</span>
+<span class="sd">    a_range, b_range, pixel, family, sensor_type</span>
+<span class="sd">        Forwarded to every per-combination :class:`SimGenerator`.</span>
+<span class="sd">    seed : int | None</span>
+<span class="sd">        Seed for the combination-selection RNG (independent of each</span>
+<span class="sd">        :class:`SimGenerator`'s own internal randomness).</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">irf_data</span><span class="p">,</span>
+        <span class="n">configs</span><span class="p">,</span>
+        <span class="n">probs</span><span class="p">,</span>
+        <span class="n">a_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="n">b_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="n">pixel</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">family</span><span class="o">=</span><span class="s2">"separate"</span><span class="p">,</span>
+        <span class="n">sensor_type</span><span class="o">=</span><span class="s2">"discrete"</span><span class="p">,</span>
+        <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"configs and probs must be the same length, got "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generators</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">SimGenerator</span><span class="p">(</span>
+                <span class="n">irf_data</span><span class="p">,</span>
+                <span class="n">cfg</span><span class="p">,</span>
+                <span class="n">a_range</span><span class="o">=</span><span class="n">a_range</span><span class="p">,</span>
+                <span class="n">b_range</span><span class="o">=</span><span class="n">b_range</span><span class="p">,</span>
+                <span class="n">pixel</span><span class="o">=</span><span class="n">pixel</span><span class="p">,</span>
+                <span class="n">family</span><span class="o">=</span><span class="n">family</span><span class="p">,</span>
+                <span class="n">sensor_type</span><span class="o">=</span><span class="n">sensor_type</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">configs</span>
+        <span class="p">]</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">/</span> <span class="n">probs</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WeightedConfigSimGenerator.simulate_once">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.WeightedConfigSimGenerator.simulate_once">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate_once</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Picks one config combination per the weighted probabilities, then delegates to it."""</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generators</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generators</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">simulate_once</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="make_simulator">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.make_simulator">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_simulator</span><span class="p">(</span><span class="n">simulate_fn</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Run simulate_fn num_samples times and stack each output key along a new leading axis."""</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">simulate_fn</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="BatchSimulator">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.BatchSimulator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BatchSimulator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Run repeated FLI/FLIM simulations across parameter sets. The class is a convenience</span>
+<span class="sd">    layer for generating batches of synthetic datasets for validation or model training.</span>
+
+<span class="sd">    Unlike :func:`make_simulator`/:func:`concat_sim_data` (which batch the flattened</span>
+<span class="sd">    per-sample dict produced by :class:`SimOutput`), these methods batch the raw nested</span>
+<span class="sd">    ``{"raw_data": {...}, "results": {"maps": {...}, "TR_maps": {...}}}`` dict returned</span>
+<span class="sd">    directly by a simulator's ``__call__`` (e.g. :class:`MacroSimulator`,</span>
+<span class="sd">    :class:`~pyfli.simulator.separate.main_factory_gen.ContinuousSimulator`).</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_map_value_columns</span><span class="p">(</span><span class="n">samples</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Build one ``-1, 1``-shaped column per map key, filling ``np.nan`` for any</span>
+<span class="sd">        sample that doesn't have that key. Samples aren't guaranteed to share the</span>
+<span class="sd">        same map keys — e.g. a "mono" pixel from a ``mono_only_maps=True`` engine</span>
+<span class="sd">        only has ``{tau_map, photon_count_map, mono_map}``, not ``tau1_map``/etc.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="BatchSimulator.sim_BI">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.BatchSimulator.sim_BI">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sim_BI</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sim_funcs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_list</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generates a simplified batch dictionary with specific parameters.</span>
+<span class="sd">        Returns data as a dictionary of NumPy arrays.</span>
+<span class="sd">        """</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sim_func</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sim_funcs</span><span class="p">,</span> <span class="n">num_list</span><span class="p">):</span>
+            <span class="n">samples</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">sim_func</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="c1"># Wrapping each list in np.array for better performance and ML compatibility</span>
+        <span class="n">batch_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"decay"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"decay"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]),</span>
+            <span class="s2">"irf"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"irf"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]),</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_map_value_columns</span><span class="p">(</span>
+                <span class="n">samples</span><span class="p">,</span> <span class="p">(</span><span class="s2">"tau1_map"</span><span class="p">,</span> <span class="s2">"tau2_map"</span><span class="p">,</span> <span class="s2">"alpha1_map"</span><span class="p">,</span> <span class="s2">"photon_count_map"</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">batch_data</span></div>
+
+
+<div class="viewcode-block" id="BatchSimulator.generate_batch">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.BatchSimulator.generate_batch">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sim_func_list</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_list</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate batch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sim_func_list : np.ndarray</span>
+<span class="sd">            Simulator functions used to generate a batch.</span>
+<span class="sd">        num_list : int</span>
+<span class="sd">            Number of samples generated for each simulator function.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            Object produced by generate batch.</span>
+<span class="sd">        """</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sim_func</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sim_func_list</span><span class="p">,</span> <span class="n">num_list</span><span class="p">):</span>
+            <span class="n">samples</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">sim_func</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="c1"># Union of every sample's map keys, not just samples[0]'s — samples can</span>
+        <span class="c1"># legitimately have different key sets (see _map_value_columns).</span>
+        <span class="n">map_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">:</span>
+            <span class="n">map_keys</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">batch_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"raw_data"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"decay"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"decay"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]),</span>
+                <span class="s2">"irf"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"irf"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]),</span>
+            <span class="p">},</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"maps"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_value_columns</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">map_keys</span><span class="p">),</span>
+                <span class="s2">"TR_maps"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"fit_map"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">][</span><span class="s2">"fit_map"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+                    <span class="p">),</span>
+                    <span class="s2">"residual_map"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">][</span><span class="s2">"residual_map"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+                    <span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">batch_data</span></div>
+
+
+<div class="viewcode-block" id="BatchSimulator.generate_batch2D">
+<a class="viewcode-back" href="../../../api/generated/pyfli.simulator.sim_workflow.html#pyfli.simulator.sim_workflow.BatchSimulator.generate_batch2D">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_batch2D</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sim_funcs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_list</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate batch2 d.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sim_funcs : np.ndarray</span>
+<span class="sd">            Simulator functions used to generate a two-dimensional batch.</span>
+<span class="sd">        num_list : int</span>
+<span class="sd">            Number of samples generated for each simulator function.</span>
+<span class="sd">        shape : tuple[int, ...]</span>
+<span class="sd">            Output shape requested for generated simulation batches.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            Object produced by generate batch2d.</span>
+<span class="sd">        """</span>
+        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">num_list</span><span class="p">)</span> <span class="o">!=</span> <span class="n">rows</span> <span class="o">*</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sum of num_list must match shape product </span><span class="si">{</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sim_func</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sim_funcs</span><span class="p">,</span> <span class="n">num_list</span><span class="p">):</span>
+            <span class="n">samples</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">sim_func</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="c1"># Union of every sample's map keys, not just samples[0]'s — samples can</span>
+        <span class="c1"># legitimately have different key sets (see _map_value_columns).</span>
+        <span class="n">map_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">:</span>
+            <span class="n">map_keys</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">batch_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"raw_data"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"decay"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"decay"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="p">),</span>
+                <span class="s2">"irf"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"irf"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"maps"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">key</span><span class="p">:</span> <span class="n">col</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_value_columns</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">map_keys</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">},</span>
+                <span class="s2">"TR_maps"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"fit_map"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">][</span><span class="s2">"fit_map"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="s2">"residual_map"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">][</span><span class="s2">"residual_map"</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">batch_data</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

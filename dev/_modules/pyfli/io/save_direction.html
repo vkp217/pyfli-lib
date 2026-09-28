@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.io.save_direction &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/io/save_direction';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/io/save_direction.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.io.save_direction</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.io.save_direction</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Turn a ``save_config`` dictionary into a ready :class:`DataSaver` session.</span>
+
+<span class="sd">This module belongs to :mod:`pyfli.io` and is part of PyFLI detector importers, file</span>
+<span class="sd">readers, saving helpers, and processed-data loaders. Public API includes the class</span>
+<span class="sd">:class:`SaveLoadDirector`, which centralizes the branching that decides -- from a</span>
+<span class="sd">single config dict -- whether a session is saved, loaded, or skipped, and where its</span>
+<span class="sd">folder lives.</span>
+<span class="sd">"""</span>
+
+<span class="c1"># pyfli/io/save_direction.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.data_saving</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataSaver</span>
+
+
+<div class="viewcode-block" id="SaveLoadDirector">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.save_direction.html#pyfli.io.save_direction.SaveLoadDirector">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SaveLoadDirector</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Resolve a ``save_config`` dictionary into a :class:`DataSaver` session.</span>
+
+<span class="sd">    Instead of scattering ``if mode == ...`` / ``if auto_path ...`` checks through</span>
+<span class="sd">    a script, collect every save/load decision in one dict and hand it to this</span>
+<span class="sd">    class. :meth:`build` returns a writable session (``mode='save'``), reconnects</span>
+<span class="sd">    to an existing one (``mode='load'``), or returns ``None`` (``mode=None``).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config : dict | None</span>
+<span class="sd">        User-supplied settings. Any key that is omitted falls back to</span>
+<span class="sd">        :attr:`DEFAULTS`. Recognized keys:</span>
+
+<span class="sd">        ``mode`` : {'save', 'load', None}</span>
+<span class="sd">            ``'save'`` builds a writable session, ``'load'`` reconnects to an</span>
+<span class="sd">            existing one, ``None`` disables saving.</span>
+<span class="sd">        ``auto_path`` : bool</span>
+<span class="sd">            If ``True``, the session folder is derived from ``DATA_PATH``. If</span>
+<span class="sd">            ``False``, a manual path is required (see below).</span>
+<span class="sd">        ``DATA_PATH`` : str | None</span>
+<span class="sd">            Source data path; required when ``auto_path=True`` (for both save</span>
+<span class="sd">            and load).</span>
+<span class="sd">        ``manual_load_path`` : str | None</span>
+<span class="sd">            Exact existing session folder to load; used when ``mode='load'``</span>
+<span class="sd">            and ``auto_path=False``.</span>
+<span class="sd">        ``manual_save_root_path`` : str | None</span>
+<span class="sd">            Root under which the session folder is created; required when</span>
+<span class="sd">            ``mode='save'`` and ``auto_path=False`` (also accepted as a load</span>
+<span class="sd">            root).</span>
+<span class="sd">        ``bin_r`` : int</span>
+<span class="sd">            Spatial binning radius; part of the derived ``save_suffix``.</span>
+<span class="sd">        ``version`` : int</span>
+<span class="sd">            Analysis version; part of the derived ``save_suffix``.</span>
+<span class="sd">        ``new_session`` : bool</span>
+<span class="sd">            Forwarded to :class:`DataSaver` when ``mode='save'``.</span>
+<span class="sd">        ``MODEL_TYPE``, ``free_memory`` : carried through untouched for</span>
+<span class="sd">            downstream consumers.</span>
+<span class="sd">    **overrides : Any</span>
+<span class="sd">        Convenience keyword overrides merged on top of ``config``.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config : dict</span>
+<span class="sd">        The fully merged configuration, including the derived ``save_suffix``.</span>
+<span class="sd">    """</span>
+
+    <span class="n">DEFAULTS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"MODEL_TYPE"</span><span class="p">:</span> <span class="s2">"bi-exponential"</span><span class="p">,</span>
+        <span class="s2">"bin_r"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"free_memory"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"mode"</span><span class="p">:</span> <span class="s2">"save"</span><span class="p">,</span>  <span class="c1"># 'save' | 'load' | None</span>
+        <span class="s2">"auto_path"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># True -&gt; path auto-derived from DATA_PATH</span>
+        <span class="s2">"manual_load_path"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"manual_save_root_path"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"DATA_PATH"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"new_session"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">VALID_MODES</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"save"</span><span class="p">,</span> <span class="s2">"load"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULTS</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">config</span> <span class="ow">or</span> <span class="p">{}),</span> <span class="o">**</span><span class="n">overrides</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"mode"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALID_MODES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"save_config['mode'] must be one of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">VALID_MODES</span><span class="si">}</span><span class="s2">, "</span>
+                <span class="sa">f</span><span class="s2">"got </span><span class="si">{</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'mode'</span><span class="p">]</span><span class="si">!r}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">"save_suffix"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"bin</span><span class="si">{</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'bin_r'</span><span class="p">]</span><span class="si">}</span><span class="s2">_pf_Analysis_v</span><span class="si">{</span><span class="n">cfg</span><span class="p">[</span><span class="s1">'version'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">cfg</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># dict-like access, so existing ``cfg[...]`` call sites keep working</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<div class="viewcode-block" id="SaveLoadDirector.get">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.save_direction.html#pyfli.io.save_direction.SaveLoadDirector.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return ``self.config[key]`` if present, else ``default``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SaveLoadDirector.to_dict">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.save_direction.html#pyfli.io.save_direction.SaveLoadDirector.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return a shallow copy of the merged configuration."""</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_suffix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Folder-name suffix derived from ``bin_r`` and ``version``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"save_suffix"</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Configured session mode: ``'save'``, ``'load'``, or ``None``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"mode"</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(mode=</span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'mode'</span><span class="p">]</span><span class="si">!r}</span><span class="s2">, "</span>
+            <span class="sa">f</span><span class="s2">"auto_path=</span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'auto_path'</span><span class="p">]</span><span class="si">}</span><span class="s2">, save_suffix=</span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">'save_suffix'</span><span class="p">]</span><span class="si">!r}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># path resolution</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_data_saving_folder</span><span class="p">(</span><span class="n">data_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Base path that an auto-derived session hangs off of.</span>
+
+<span class="sd">        A file path is used as-is; a directory path gets a trailing ``"_"``</span>
+<span class="sd">        appended to its basename so :class:`DataSaver` builds a sibling folder</span>
+<span class="sd">        rather than nesting inside the data directory.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">data_path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data_path</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">data_path</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span><span class="si">}</span><span class="s2">_"</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_auto_target</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Auto-derived base path, or raise if ``DATA_PATH`` is unset."""</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"DATA_PATH"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data_path</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"auto_path=True requires DATA_PATH to be set (mode=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="si">!r}</span><span class="s2">)."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_saving_folder</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># per-mode builders</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataSaver</span><span class="p">:</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"auto_path"</span><span class="p">]:</span>
+            <span class="n">load_target</span> <span class="o">=</span> <span class="n">DataSaver</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_auto_target</span><span class="p">(),</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"save_suffix"</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">saver</span> <span class="o">=</span> <span class="n">DataSaver</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_target</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Data loaded (auto-derived path) - Session: "</span><span class="si">{</span><span class="n">saver</span><span class="o">.</span><span class="n">save_dir</span><span class="si">}</span><span class="s1">"'</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">saver</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"manual_load_path"</span><span class="p">]:</span>
+            <span class="n">load_target</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"manual_load_path"</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"manual_save_root_path"</span><span class="p">]:</span>
+            <span class="n">load_target</span> <span class="o">=</span> <span class="n">DataSaver</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span>
+                <span class="n">cfg</span><span class="p">[</span><span class="s2">"manual_save_root_path"</span><span class="p">],</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"save_suffix"</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"auto_path=False (mode='load') requires either 'manual_load_path' "</span>
+                <span class="s2">"or 'manual_save_root_path' to be set."</span>
+            <span class="p">)</span>
+        <span class="n">saver</span> <span class="o">=</span> <span class="n">DataSaver</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_target</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Data loaded - Session: "</span><span class="si">{</span><span class="n">saver</span><span class="o">.</span><span class="n">save_dir</span><span class="si">}</span><span class="s1">"'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">saver</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataSaver</span><span class="p">:</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"auto_path"</span><span class="p">]:</span>
+            <span class="n">saver</span> <span class="o">=</span> <span class="n">DataSaver</span><span class="p">(</span>
+                <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_auto_target</span><span class="p">(),</span>
+                <span class="n">folder_name</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s2">"save_suffix"</span><span class="p">],</span>
+                <span class="n">new_session</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s2">"new_session"</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Data Saving (auto-derived path) - Session: "</span><span class="si">{</span><span class="n">saver</span><span class="o">.</span><span class="n">save_dir</span><span class="si">}</span><span class="s1">"'</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">saver</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">"manual_save_root_path"</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"auto_path=False (mode='save') requires 'manual_save_root_path' to "</span>
+                <span class="s2">"be set -- no path to save the data was given."</span>
+            <span class="p">)</span>
+        <span class="n">saver</span> <span class="o">=</span> <span class="n">DataSaver</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s2">"manual_save_root_path"</span><span class="p">],</span>
+            <span class="n">folder_name</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s2">"save_suffix"</span><span class="p">],</span>
+            <span class="n">new_session</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s2">"new_session"</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Data Saving - Session: "</span><span class="si">{</span><span class="n">saver</span><span class="o">.</span><span class="n">save_dir</span><span class="si">}</span><span class="s1">"'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">saver</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""``mode=None``: saver disabled entirely."""</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"No data will be saved in this session"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># public entry point</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+<div class="viewcode-block" id="SaveLoadDirector.build">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.save_direction.html#pyfli.io.save_direction.SaveLoadDirector.build">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataSaver</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Construct the :class:`DataSaver` described by the configuration.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataSaver | None</span>
+<span class="sd">            A writable session (``mode='save'``), a reconnected session</span>
+<span class="sd">            (``mode='load'``), or ``None`` (``mode=None``).</span>
+<span class="sd">        """</span>
+        <span class="n">dispatch</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"save"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_save</span><span class="p">,</span>
+            <span class="s2">"load"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_load</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_none</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dispatch</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"mode"</span><span class="p">]]()</span></div>
+
+
+<div class="viewcode-block" id="SaveLoadDirector.from_config">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.save_direction.html#pyfli.io.save_direction.SaveLoadDirector.from_config">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_config</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataSaver</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        One-shot helper: ``SaveLoadDirector(config, **overrides).build()``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataSaver | None</span>
+<span class="sd">            Same as :meth:`build`.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pyfli.io.spad_hdf5 &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.io.spad_hdf5';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/api/generated/pyfli.io.spad_hdf5.html" />
+    <link rel="icon" href="../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyfli.io.spad_io" href="pyfli.io.spad_io.html" />
+    <link rel="prev" title="pyfli.io.spad_folding" href="pyfli.io.spad_folding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pyfli.html">pyfli</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analysis.html">pyfli.analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analyticalWorkflow.html">pyfli.analyticalWorkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.bayes_utils.html">pyfli.bayes_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_cc.html">pyfli.data_cc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_text.html">pyfli.data_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_vnp.html">pyfli.data_vnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.img.html">pyfli.img</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="pyfli.io.html">pyfli.io</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.data_operations.html">pyfli.io.data_operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.data_ops_static.html">pyfli.io.data_ops_static</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.data_saving.html">pyfli.io.data_saving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.detector.html">pyfli.io.detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.flim_decay_cube.html">pyfli.io.flim_decay_cube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.processed_data.html">pyfli.io.processed_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.save_direction.html">pyfli.io.save_direction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.spad_folding.html">pyfli.io.spad_folding</a></li>
+<li class="toctree-l3 current active"><a aria-current="page" class="current reference internal" href="#">pyfli.io.spad_hdf5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.spad_io.html">pyfli.io.spad_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.ss2_bin.html">pyfli.io.ss2_bin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.io.utils.html">pyfli.io.utils</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.irf_deconvolution.html">pyfli.irf_deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.laguerre.html">pyfli.laguerre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.log_save.html">pyfli.log_save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.phasor.html">pyfli.phasor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.plot_style.html">pyfli.plot_style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.reconstruction.html">pyfli.reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.roi_maker.html">pyfli.roi_maker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.simulator.html">pyfli.simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.solver.html">pyfli.solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.sp_analysis.html">pyfli.sp_analysis</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.html" class="nav-link">pyfli</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.io.html" class="nav-link">pyfli.io</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.io.spad_hdf5</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pyfli.io.spad_hdf5">
+<span id="pyfli-io-spad-hdf5"></span><h1>pyfli.io.spad_hdf5<a class="headerlink" href="#module-pyfli.io.spad_hdf5" title="Link to this heading">#</a></h1>
+<p>Discover and read SPAD data from arbitrary HDF5 structures.</p>
+<p>This module belongs to <a class="reference internal" href="pyfli.io.html#module-pyfli.io" title="pyfli.io"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyfli.io</span></code></a> and provides structure-aware HDF5 discovery
+without requiring detector-specific group or dataset names. Explicit metadata and
+user hints take priority over structural inference, while ambiguous layouts are
+reported instead of selected silently.</p>
+<p class="rubric">Functions</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_attribute_lookup</span></code>(attributes, name)</p></td>
+<td><p>Find an HDF5 attribute by normalized case-insensitive name.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_build_split_candidates</span></code>(infos, ...)</p></td>
+<td><p>Build candidate split-gate layouts from repeated 2D numeric datasets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_build_stacked_candidates</span></code>(infos, ...)</p></td>
+<td><p>Build candidate stacked-cube layouts from 3D numeric datasets.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_candidate_description</span></code>(candidate)</p></td>
+<td><p>Return a compact human-readable HDF5 candidate description.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_candidate_is_readable</span></code>(candidate)</p></td>
+<td><p>Return whether a candidate has enough information for deterministic loading.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_collect_numeric_datasets</span></code>(file_handle)</p></td>
+<td><p>Collect metadata for every non-compound numeric dataset in an HDF5 file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_extract_numeric_tokens</span></code>(path)</p></td>
+<td><p>Extract numeric tokens from an HDF5 path in left-to-right order.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_infer_attribute_order</span></code>(infos, ...)</p></td>
+<td><p>Infer gate ordering from a shared scalar numeric dataset attribute.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_infer_path_order</span></code>(infos)</p></td>
+<td><p>Infer ordering from the numeric path component that varies across datasets.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_infer_split_order</span></code>(infos, gate_order_attribute)</p></td>
+<td><p>Infer deterministic gate ordering using metadata first and path numbers second.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_infer_time_axis</span></code>(info, requested_time_axis)</p></td>
+<td><p>Infer a stacked cube's temporal axis using metadata before shape clues.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_is_numeric_dataset</span></code>(dataset)</p></td>
+<td><p>Return True for non-compound numeric datasets suitable for SPAD image data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_keyword_score</span></code>(paths)</p></td>
+<td><p>Return a small semantic bonus without making names part of the schema.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_normalize_name</span></code>(value)</p></td>
+<td><p>Normalize an attribute or axis label for semantic comparison.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_normalize_path</span></code>(path)</p></td>
+<td><p>Normalize an HDF5 object path to a leading-slash representation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_numeric_path_pattern</span></code>(path)</p></td>
+<td><p>Replace numeric tokens in a path so repeated datasets group together.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_numeric_scalar</span></code>(value)</p></td>
+<td><p>Convert a scalar numeric HDF5 attribute to float, otherwise return None.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parent_path</span></code>(path)</p></td>
+<td><p>Return the normalized HDF5 parent path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parse_axis_tokens</span></code>(value)</p></td>
+<td><p>Parse a common HDF5 axis-order attribute into normalized axis tokens.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_python_scalar</span></code>(value)</p></td>
+<td><p>Convert HDF5 attribute values to lightweight Python representations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_read_split_candidate</span></code>(file_handle, candidate)</p></td>
+<td><p>Read an ordered set of 2D gate datasets and stack them into (H, W, T).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_read_stacked_candidate</span></code>(file_handle, candidate)</p></td>
+<td><p>Read one stacked 3D dataset and move its temporal axis to the last dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_select_candidate</span></code>(candidates)</p></td>
+<td><p>Select one deterministic HDF5 layout, rejecting missing or ambiguous discovery.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.io.spad_hdf5.inspect_spad_hdf5" title="pyfli.io.spad_hdf5.inspect_spad_hdf5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inspect_spad_hdf5</span></code></a>(fname[, dataset_path, ...])</p></td>
+<td><p>Inspect an HDF5 file and return ranked candidate SPAD layouts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.io.spad_hdf5.read_spad_hdf5" title="pyfli.io.spad_hdf5.read_spad_hdf5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_spad_hdf5</span></code></a>(fname[, dataset_path, ...])</p></td>
+<td><p>Discover and normalize SPAD image data from an HDF5 file into (H, W, T).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.io.spad_hdf5.HDF5Candidate" title="pyfli.io.spad_hdf5.HDF5Candidate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HDF5Candidate</span></code></a>(kind, dataset_paths, score, ...)</p></td>
+<td><p>Describe one candidate SPAD layout discovered inside an HDF5 file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo" title="pyfli.io.spad_hdf5.HDF5DatasetInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HDF5DatasetInfo</span></code></a>(path, shape, dtype, ...)</p></td>
+<td><p>Describe one numeric HDF5 dataset without loading its full contents.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult" title="pyfli.io.spad_hdf5.SpadHDF5ReadResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpadHDF5ReadResult</span></code></a>(data, candidate, source_path)</p></td>
+<td><p>Store normalized SPAD HDF5 data and discovery metadata.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5DatasetInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">HDF5DatasetInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#HDF5DatasetInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Describe one numeric HDF5 dataset without loading its full contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>...</em><em>]</em>)</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em>)</p></li>
+<li><p><strong>dimension_labels</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5DatasetInfo.path">
+<span class="sig-name descname"><span class="pre">path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5DatasetInfo.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.shape" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5DatasetInfo.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.dtype" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5DatasetInfo.attributes">
+<span class="sig-name descname"><span class="pre">attributes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.attributes" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5DatasetInfo.dimension_labels">
+<span class="sig-name descname"><span class="pre">dimension_labels</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.dimension_labels" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">HDF5Candidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#HDF5Candidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Describe one candidate SPAD layout discovered inside an HDF5 file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>dataset_paths</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>)</p></li>
+<li><p><strong>score</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
+<li><p><strong>spatial_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>time_axis</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>gate_values</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>...</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>ordering_source</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>original_shape</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>...</em><em>] </em><em>| </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.kind">
+<span class="sig-name descname"><span class="pre">kind</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.kind" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.dataset_paths">
+<span class="sig-name descname"><span class="pre">dataset_paths</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.dataset_paths" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.score" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.spatial_shape">
+<span class="sig-name descname"><span class="pre">spatial_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.spatial_shape" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.time_axis">
+<span class="sig-name descname"><span class="pre">time_axis</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.time_axis" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.gate_values">
+<span class="sig-name descname"><span class="pre">gate_values</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.gate_values" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.ordering_source">
+<span class="sig-name descname"><span class="pre">ordering_source</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.ordering_source" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.original_shape">
+<span class="sig-name descname"><span class="pre">original_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.original_shape" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.HDF5Candidate.to_metadata">
+<span class="sig-name descname"><span class="pre">to_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#HDF5Candidate.to_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.HDF5Candidate.to_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Return a serializable candidate description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><em>object</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.SpadHDF5ReadResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SpadHDF5ReadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#SpadHDF5ReadResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Store normalized SPAD HDF5 data and discovery metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>candidate</strong> (<a class="reference internal" href="#pyfli.io.spad_hdf5.HDF5Candidate" title="pyfli.io.spad_hdf5.HDF5Candidate"><em>HDF5Candidate</em></a>)</p></li>
+<li><p><strong>source_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.SpadHDF5ReadResult.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.data" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.SpadHDF5ReadResult.candidate">
+<span class="sig-name descname"><span class="pre">candidate</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfli.io.spad_hdf5.HDF5Candidate" title="pyfli.io.spad_hdf5.HDF5Candidate"><span class="pre">HDF5Candidate</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.candidate" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.SpadHDF5ReadResult.source_path">
+<span class="sig-name descname"><span class="pre">source_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.source_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.SpadHDF5ReadResult.to_metadata">
+<span class="sig-name descname"><span class="pre">to_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#SpadHDF5ReadResult.to_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.to_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Return serializable metadata for the selected HDF5 layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><em>object</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.inspect_spad_hdf5">
+<span class="sig-name descname"><span class="pre">inspect_spad_hdf5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_group_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_order_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#inspect_spad_hdf5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.inspect_spad_hdf5" title="Link to this definition">#</a></dt>
+<dd><p>Inspect an HDF5 file and return ranked candidate SPAD layouts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – HDF5 file to inspect.</p></li>
+<li><p><strong>dataset_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit stacked 3D dataset path.</p></li>
+<li><p><strong>time_axis</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit temporal axis for a stacked 3D dataset.</p></li>
+<li><p><strong>gate_group_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit group path containing split 2D gate datasets.</p></li>
+<li><p><strong>gate_order_attribute</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Dataset attribute used to order split gates.</p></li>
+<li><p><strong>gate_prefix</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional dataset-name prefix used as a backwards-compatible discovery hint.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Candidate layouts sorted from highest to lowest discovery score.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list[HDF5Candidate]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.io.spad_hdf5.read_spad_hdf5">
+<span class="sig-name descname"><span class="pre">read_spad_hdf5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_group_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_order_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gate_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_hdf5.html#read_spad_hdf5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_hdf5.read_spad_hdf5" title="Link to this definition">#</a></dt>
+<dd><p>Discover and normalize SPAD image data from an HDF5 file into (H, W, T).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – HDF5 file to read.</p></li>
+<li><p><strong>dataset_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit stacked 3D dataset path when automatic discovery is ambiguous.</p></li>
+<li><p><strong>time_axis</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit temporal axis for a stacked 3D dataset.</p></li>
+<li><p><strong>gate_group_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit group path containing split 2D gate datasets.</p></li>
+<li><p><strong>gate_order_attribute</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Dataset attribute used to order split gate datasets.</p></li>
+<li><p><strong>gate_prefix</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional dataset-name prefix used as a backwards-compatible discovery hint.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized HDF5 data cube and discovery metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult" title="pyfli.io.spad_hdf5.SpadHDF5ReadResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpadHDF5ReadResult</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo"><code class="docutils literal notranslate"><span class="pre">HDF5DatasetInfo</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.path"><code class="docutils literal notranslate"><span class="pre">HDF5DatasetInfo.path</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.shape"><code class="docutils literal notranslate"><span class="pre">HDF5DatasetInfo.shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.dtype"><code class="docutils literal notranslate"><span class="pre">HDF5DatasetInfo.dtype</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.attributes"><code class="docutils literal notranslate"><span class="pre">HDF5DatasetInfo.attributes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5DatasetInfo.dimension_labels"><code class="docutils literal notranslate"><span class="pre">HDF5DatasetInfo.dimension_labels</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.kind"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.kind</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.dataset_paths"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.dataset_paths</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.score"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.score</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.spatial_shape"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.spatial_shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.time_axis"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.time_axis</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.gate_values"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.gate_values</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.ordering_source"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.ordering_source</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.original_shape"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.original_shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.HDF5Candidate.to_metadata"><code class="docutils literal notranslate"><span class="pre">HDF5Candidate.to_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult"><code class="docutils literal notranslate"><span class="pre">SpadHDF5ReadResult</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.data"><code class="docutils literal notranslate"><span class="pre">SpadHDF5ReadResult.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.candidate"><code class="docutils literal notranslate"><span class="pre">SpadHDF5ReadResult.candidate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.source_path"><code class="docutils literal notranslate"><span class="pre">SpadHDF5ReadResult.source_path</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.SpadHDF5ReadResult.to_metadata"><code class="docutils literal notranslate"><span class="pre">SpadHDF5ReadResult.to_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.inspect_spad_hdf5"><code class="docutils literal notranslate"><span class="pre">inspect_spad_hdf5()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.io.spad_hdf5.read_spad_hdf5"><code class="docutils literal notranslate"><span class="pre">read_spad_hdf5()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/api/generated/pyfli.io.spad_hdf5.rst">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -479,21 +479,25 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator Example</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="examples/single_decay_sim.html">1. Single-Pixel Decay Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/whole_image_sim.html">2. FLI Simulation for mimicking the time-resolved image acquisition</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">SwissSPAD Detector I/O</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="examples/ss2_io.html">1. SwissSPAD2 Data Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/ss2_processing.html">2. SwissSPAD2 Data Processing</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phasor Plotting</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="examples/Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NLSF &amp; MLE Fitting</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="examples/Monoexponential_fitting.html">1. Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) - Bi-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/Monoexponential_fitting.html">1. Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing</a></li>
 </ul>
 </div>
 </nav></div>
@@ -556,42 +560,34 @@
 <p>Worked examples showing <code class="docutils literal notranslate"><span class="pre">pyfli</span></code> end-to-end. Each notebook can be referenced and re-run directly,
 but you will need to supply your own local data paths before execution.</p>
 <p>The notebooks are listed explicitly below, grouped by category.</p>
-<section id="simulator-example">
-<h2>Simulator Example<a class="headerlink" href="#simulator-example" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator Example</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/single_decay_sim.html">1. Single-Pixel Decay Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/whole_image_sim.html">2. FLI Simulation for mimicking the time-resolved image acquisition</a></li>
 </ul>
 </div>
-</section>
-<section id="swissspad-detector-i-o">
-<h2>SwissSPAD Detector I/O<a class="headerlink" href="#swissspad-detector-i-o" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">SwissSPAD Detector I/O</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/ss2_io.html">1. SwissSPAD2 Data Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/ss2_processing.html">2. SwissSPAD2 Data Processing</a></li>
 </ul>
 </div>
-</section>
-<section id="phasor-plotting">
-<h2>Phasor Plotting<a class="headerlink" href="#phasor-plotting" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phasor Plotting</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples/Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
 </ul>
 </div>
-</section>
-<section id="nlsf-mle-fitting">
-<h2>NLSF &amp; MLE Fitting<a class="headerlink" href="#nlsf-mle-fitting" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NLSF &amp; MLE Fitting</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="examples/Monoexponential_fitting.html">1. Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) - Bi-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/Monoexponential_fitting.html">1. Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing</a></li>
 </ul>
 </div>
-</section>
 </section>
 
 
@@ -608,21 +604,6 @@ but you will need to supply your own local data paths before execution.</p>
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator-example">Simulator Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#swissspad-detector-i-o">SwissSPAD Detector I/O</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phasor-plotting">Phasor Plotting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nlsf-mle-fitting">NLSF &amp; MLE Fitting</a></li>
-</ul>
-  </nav></div>
 
   <div class="sidebar-secondary-item">
 

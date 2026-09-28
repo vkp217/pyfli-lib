@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.data_cc.irfAligner &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/data_cc/irfAligner';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/data_cc/irfAligner.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.data_cc.irfAligner</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.data_cc.irfAligner</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Align decay and IRF cubes with threshold-based rise detection and circular or Fourier</span>
+<span class="sd">shifts.</span>
+
+<span class="sd">This module belongs to :mod:`pyfli.data_cc` and is part of PyFLI array preprocessing</span>
+<span class="sd">helpers for normalization, masking, ROI extraction, and IRF alignment. Public API</span>
+<span class="sd">includes classes :class:`IRFAligner`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.fft</span><span class="w"> </span><span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">fftfreq</span><span class="p">,</span> <span class="n">ifft</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">uniform_filter1d</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..analyticalWorkflow.am_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnalyticalHelpers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.norm</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalization</span>
+
+
+<div class="viewcode-block" id="IRFAligner">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IRFAligner</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Run the irfaligner routine.</span>
+<span class="sd">    edges per pixel or globally and can shift signals with Fourier or circular methods</span>
+<span class="sd">    before fitting.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    decay : np.ndarray</span>
+<span class="sd">        Fluorescence decay trace to process.</span>
+<span class="sd">    irf : np.ndarray</span>
+<span class="sd">        Instrument response function aligned with the decay trace.</span>
+<span class="sd">    decay_noise_bins : tuple[int, int]</span>
+<span class="sd">        (start, end) bin range used to estimate the decay noise floor.</span>
+<span class="sd">    irf_noise_bins : tuple[int, int]</span>
+<span class="sd">        (start, end) bin range used to estimate the IRF noise floor.</span>
+<span class="sd">    laser_period : float</span>
+<span class="sd">        Laser repetition period in nanoseconds.</span>
+<span class="sd">    gate_delay : float | None</span>
+<span class="sd">        Time between gate bins in nanoseconds. Defaults to</span>
+<span class="sd">        ``laser_period / num_gates`` when not given.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">decay</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">irf</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">decay_noise_bins</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="n">irf_noise_bins</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="n">laser_period</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">gate_delay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">decay</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">laser_period</span> <span class="o">=</span> <span class="n">laser_period</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gate_delay</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">gate_delay</span> <span class="k">if</span> <span class="n">gate_delay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">laser_period</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">effective_freq</span> <span class="o">=</span> <span class="n">AnalyticalHelpers</span><span class="p">(</span>
+            <span class="n">laser_period</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">laser_period</span><span class="p">,</span> <span class="n">gate_delay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gate_delay</span><span class="p">,</span> <span class="n">num_gate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">freq_computation</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gate_delay</span>
+
+        <span class="n">d_start</span><span class="p">,</span> <span class="n">d_end</span> <span class="o">=</span> <span class="n">decay_noise_bins</span>
+        <span class="n">i_start</span><span class="p">,</span> <span class="n">i_end</span> <span class="o">=</span> <span class="n">irf_noise_bins</span>
+        <span class="n">d_bg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">decay</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">d_start</span><span class="p">:</span><span class="n">d_end</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">i_bg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">irf</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i_start</span><span class="p">:</span><span class="n">i_end</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">decay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">decay</span> <span class="o">-</span> <span class="n">d_bg</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">irf</span> <span class="o">-</span> <span class="n">i_bg</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">_threshold</span> <span class="o">=</span> <span class="mf">0.05</span>
+        <span class="n">d_peak</span><span class="p">,</span> <span class="n">i_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">decay</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">irf</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d_peak</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d_bg</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_threshold</span> <span class="o">*</span> <span class="n">d_peak</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Decay noise baseline (</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d_bg</span><span class="p">)</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">) exceeds </span><span class="si">{</span><span class="n">_threshold</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% "</span>
+                <span class="sa">f</span><span class="s2">"of peak (</span><span class="si">{</span><span class="n">d_peak</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">). decay_noise_bins window may be contaminated — "</span>
+                <span class="s2">"consider narrowing decay_noise_bins."</span><span class="p">,</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">i_peak</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">i_bg</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_threshold</span> <span class="o">*</span> <span class="n">i_peak</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"IRF noise baseline (</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">i_bg</span><span class="p">)</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">) exceeds </span><span class="si">{</span><span class="n">_threshold</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% "</span>
+                <span class="sa">f</span><span class="s2">"of peak (</span><span class="si">{</span><span class="n">i_peak</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">). irf_noise_bins window may be contaminated — "</span>
+                <span class="s2">"consider narrowing irf_noise_bins."</span><span class="p">,</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_find_rising_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Finds the fractional bin index where the signal first reaches</span>
+<span class="sd">        a certain percentage of its peak (the 'toe').</span>
+
+<span class="sd">        Pixels with no positive signal or no threshold crossing are marked</span>
+<span class="sd">        NaN rather than 0, so they can be distinguished from a genuine rise</span>
+<span class="sd">        at bin 0.</span>
+<span class="sd">        """</span>
+        <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">rising_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="p">):</span>
+                <span class="n">trace</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">peak_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">peak_val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">threshold</span> <span class="o">=</span> <span class="n">peak_val</span> <span class="o">*</span> <span class="n">fraction</span>
+                <span class="c1"># Find the first index that exceeds the threshold</span>
+                <span class="n">idx_above</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">trace</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx_above</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">first_idx</span> <span class="o">=</span> <span class="n">idx_above</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="c1"># Sub-pixel linear interpolation for the exact 'threshold' crossing</span>
+                <span class="k">if</span> <span class="n">first_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">y2</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="n">first_idx</span><span class="p">]</span>
+                    <span class="n">y1</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="n">first_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="c1"># Linear interp: x = x1 + (target - y1) * (dx / dy)</span>
+                    <span class="n">fractional_part</span> <span class="o">=</span> <span class="p">(</span><span class="n">threshold</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+                    <span class="n">rising_indices</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">first_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fractional_part</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">rising_indices</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">first_idx</span>
+
+        <span class="k">return</span> <span class="n">rising_indices</span>
+
+<div class="viewcode-block" id="IRFAligner.estimate_shift">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.estimate_shift">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_shift</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">manual_correction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Calculates how much the IRF must move to match the decay's start.</span>
+
+<span class="sd">        Pixels where either trace has no detectable rise (see</span>
+<span class="sd">        :meth:`_find_rising_point`) get a shift of 0 rather than a spurious</span>
+<span class="sd">        value, since there is no meaningful feature to align.</span>
+<span class="sd">        ``manual_correction`` is subtracted from every pixel's shift,</span>
+<span class="sd">        including those fallback pixels.</span>
+<span class="sd">        """</span>
+        <span class="n">t_decay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_rising_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">)</span>
+        <span class="n">t_irf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_rising_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">)</span>
+
+        <span class="c1"># Shift = Target - Source</span>
+        <span class="n">shifts</span> <span class="o">=</span> <span class="n">t_decay</span> <span class="o">-</span> <span class="n">t_irf</span>
+        <span class="n">invalid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">shifts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">invalid</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">invalid</span><span class="p">)</span><span class="si">}</span><span class="s2"> pixel(s) had no detectable rise in "</span>
+                <span class="s2">"the decay or IRF trace; their shift was set to 0."</span><span class="p">,</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">-</span> <span class="n">manual_correction</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.estimate_shift_debiased">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.estimate_shift_debiased">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_shift_debiased</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">low_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">,</span>
+        <span class="n">smooth_window</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">manual_correction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Estimates the per-pixel IRF shift from where each trace departs</span>
+<span class="sd">        from background, instead of :meth:`estimate_shift`'s 10%-of-peak</span>
+<span class="sd">        threshold.</span>
+
+<span class="sd">        ``decay = irf`` convolved with the fluorescence decay kernel makes</span>
+<span class="sd">        decay's rising flank intrinsically broader than IRF's, so a</span>
+<span class="sd">        shared peak-relative threshold is crossed later (relative to the</span>
+<span class="sd">        true photon arrival time) for decay than for IRF, inflating the</span>
+<span class="sd">        shift :meth:`estimate_shift` returns. Measuring the crossing much</span>
+<span class="sd">        closer to the true onset (``low_fraction``) removes most of that</span>
+<span class="sd">        bias — algebraically this is equivalent to subtracting each</span>
+<span class="sd">        trace's own rise-width (10%-of-peak bin minus background-departure</span>
+<span class="sd">        bin) from the naive shift, since that width term cancels out.</span>
+
+<span class="sd">        A low threshold on raw photon-count data fires on background</span>
+<span class="sd">        shot noise rather than the real pulse, so each trace is smoothed</span>
+<span class="sd">        first with a ``smooth_window``-bin moving average to suppress</span>
+<span class="sd">        that before the threshold is applied.</span>
+
+<span class="sd">        ``manual_correction`` is subtracted from every pixel's shift,</span>
+<span class="sd">        including fallback pixels with no detectable rise.</span>
+<span class="sd">        """</span>
+        <span class="n">smooth_decay</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">smooth_window</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"nearest"</span>
+        <span class="p">)</span>
+        <span class="n">smooth_irf</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">smooth_window</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"nearest"</span>
+        <span class="p">)</span>
+
+        <span class="n">t_decay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_rising_point</span><span class="p">(</span><span class="n">smooth_decay</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="n">low_fraction</span><span class="p">)</span>
+        <span class="n">t_irf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_rising_point</span><span class="p">(</span><span class="n">smooth_irf</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="n">low_fraction</span><span class="p">)</span>
+
+        <span class="n">shifts</span> <span class="o">=</span> <span class="n">t_decay</span> <span class="o">-</span> <span class="n">t_irf</span>
+        <span class="n">invalid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">shifts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">invalid</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">invalid</span><span class="p">)</span><span class="si">}</span><span class="s2"> pixel(s) had no detectable rise in "</span>
+                <span class="s2">"the smoothed decay or IRF trace; their shift was set to 0."</span><span class="p">,</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">-</span> <span class="n">manual_correction</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.estimate_shift_rmse">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.estimate_shift_rmse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_shift_rmse</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bin_window</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">left</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">right</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="n">max_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">manual_correction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Refines the per-pixel IRF shift by minimizing RMSE between the decay</span>
+<span class="sd">        trace and a candidate-shifted, amplitude-matched IRF within a local</span>
+<span class="sd">        comparison window.</span>
+
+<span class="sd">        If ``bin_window`` (start, end) is given, that range is used for</span>
+<span class="sd">        every pixel. Otherwise the window is centered per-pixel on the</span>
+<span class="sd">        decay's own rising point (from :meth:`_find_rising_point`),</span>
+<span class="sd">        spanning `left` bins before it and `right` bins after, shifted</span>
+<span class="sd">        inward at the trace edges rather than wrapped. Integer shifts in</span>
+<span class="sd">        ``[-max_shift, max_shift]`` are searched and refined to sub-bin</span>
+<span class="sd">        precision via a parabolic fit around the best candidate. Pixels</span>
+<span class="sd">        with no detectable decay rise fall back to a shift of 0.</span>
+<span class="sd">        ``manual_correction`` is subtracted from every pixel's shift,</span>
+<span class="sd">        including those fallback pixels.</span>
+<span class="sd">        """</span>
+        <span class="n">scaled_irf</span> <span class="o">=</span> <span class="n">Normalization</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">)</span><span class="o">.</span><span class="n">norm_scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bin_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_bin</span><span class="p">,</span> <span class="n">end_bin</span> <span class="o">=</span> <span class="n">bin_window</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="n">end_bin</span> <span class="o">-</span> <span class="n">start_bin</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">),</span> <span class="n">start_bin</span><span class="p">)</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t_decay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_rising_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">)</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">t_decay</span><span class="p">)</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">t_decay</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+            <span class="n">width</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">center</span> <span class="o">-</span> <span class="n">left</span>
+            <span class="c1"># Shift the window inward at the trace edges rather than wrap.</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">start</span><span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="o">~</span><span class="n">valid</span><span class="p">):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="o">~</span><span class="n">valid</span><span class="p">)</span><span class="si">}</span><span class="s2"> pixel(s) had no detectable decay "</span>
+                    <span class="s2">"rise; their RMSE-based shift was set to 0."</span><span class="p">,</span>
+                    <span class="ne">UserWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="n">win_idx</span> <span class="o">=</span> <span class="n">start</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">width</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">decay_win</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take_along_axis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">,</span> <span class="n">win_idx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">shift_candidates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">max_shift</span><span class="p">,</span> <span class="n">max_shift</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">rmse_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">):</span>
+            <span class="n">shifted_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">win_idx</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">irf_win</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take_along_axis</span><span class="p">(</span><span class="n">scaled_irf</span><span class="p">,</span> <span class="n">shifted_idx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">rmse_stack</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">irf_win</span> <span class="o">-</span> <span class="n">decay_win</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">best_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">rmse_stack</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">best_shift</span> <span class="o">=</span> <span class="n">shift_candidates</span><span class="p">[</span><span class="n">best_k</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="c1"># Sub-bin refinement: parabolic fit around the best integer candidate.</span>
+        <span class="n">interior</span> <span class="o">=</span> <span class="p">(</span><span class="n">best_k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">best_k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">k_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">best_k</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take_along_axis</span><span class="p">(</span><span class="n">rmse_stack</span><span class="p">,</span> <span class="p">(</span><span class="n">k_c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take_along_axis</span><span class="p">(</span><span class="n">rmse_stack</span><span class="p">,</span> <span class="n">k_c</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take_along_axis</span><span class="p">(</span><span class="n">rmse_stack</span><span class="p">,</span> <span class="p">(</span><span class="n">k_c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span>
+        <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">denom</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">best_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">interior</span><span class="p">,</span> <span class="n">best_shift</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">best_shift</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">best_shift</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-</span> <span class="n">manual_correction</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.estimate_shift_rmse_pixel">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.estimate_shift_rmse_pixel">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_shift_rmse_pixel</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">bin_window</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">left</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">right</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="n">max_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">manual_correction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Runs the :meth:`estimate_shift_rmse` search for a single pixel</span>
+<span class="sd">        (x, y) and returns the full RMSE-vs-shift curve plus the resulting</span>
+<span class="sd">        aligned IRF trace — useful to inspect why a particular shift was</span>
+<span class="sd">        selected, and how well it lines up with decay, without processing</span>
+<span class="sd">        the full cube.</span>
+
+<span class="sd">        ``manual_correction`` is subtracted from the RMSE-refined shift</span>
+<span class="sd">        before it is used to build "shifted_irf", matching</span>
+<span class="sd">        :meth:`estimate_shift_rmse`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            "shift_candidates" : integer shifts that were tested.</span>
+<span class="sd">            "rmse" : RMSE at each candidate shift, same order.</span>
+<span class="sd">            "best_shift" : final shift for this pixel (sub-bin refined,</span>
+<span class="sd">                minus ``manual_correction``), matching what</span>
+<span class="sd">                :meth:`estimate_shift_rmse` returns for it.</span>
+<span class="sd">            "window" : (start, end) bin range used for the comparison.</span>
+<span class="sd">            "decay_trace" : the pixel's full decay trace, unmodified.</span>
+<span class="sd">            "scaled_irf_trace" : the pixel's IRF trace, amplitude-matched</span>
+<span class="sd">                to decay via :meth:`~pyfli.data_cc.norm.Normalization.norm_scale`,</span>
+<span class="sd">                before any shift.</span>
+<span class="sd">            "shifted_irf" : "scaled_irf_trace" shifted by "best_shift"</span>
+<span class="sd">                (Fourier/fractional shift, full trace) — plot this</span>
+<span class="sd">                against "decay_trace" to see the resulting alignment.</span>
+<span class="sd">        """</span>
+        <span class="n">decay_trace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">irf_trace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">scaled_irf_trace</span> <span class="o">=</span> <span class="n">Normalization</span><span class="p">(</span><span class="n">irf_trace</span><span class="p">)</span><span class="o">.</span><span class="n">norm_scale</span><span class="p">(</span><span class="n">decay_trace</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bin_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">bin_window</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t_decay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_rising_point</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">t_decay</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Pixel (</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">) has no detectable decay rise; "</span>
+                    <span class="s2">"pass an explicit bin_window instead."</span>
+                <span class="p">)</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">t_decay</span><span class="p">)</span> <span class="o">-</span> <span class="n">left</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">start</span><span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">win_idx</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+        <span class="n">decay_win</span> <span class="o">=</span> <span class="n">decay_trace</span><span class="p">[</span><span class="n">win_idx</span><span class="p">]</span>
+
+        <span class="n">shift_candidates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">max_shift</span><span class="p">,</span> <span class="n">max_shift</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">):</span>
+            <span class="n">shifted_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">win_idx</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">rmse</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">scaled_irf_trace</span><span class="p">[</span><span class="n">shifted_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">decay_win</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">best_k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">rmse</span><span class="p">))</span>
+        <span class="n">best_shift</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">[</span><span class="n">best_k</span><span class="p">])</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">best_k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">shift_candidates</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y0</span><span class="p">,</span> <span class="n">y1_</span><span class="p">,</span> <span class="n">y2_</span> <span class="o">=</span> <span class="n">rmse</span><span class="p">[</span><span class="n">best_k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmse</span><span class="p">[</span><span class="n">best_k</span><span class="p">],</span> <span class="n">rmse</span><span class="p">[</span><span class="n">best_k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">denom</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y1_</span> <span class="o">+</span> <span class="n">y2_</span>
+            <span class="k">if</span> <span class="n">denom</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">best_shift</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">y2_</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">best_shift</span> <span class="o">-=</span> <span class="n">manual_correction</span>
+
+        <span class="n">freqs</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freqs</span> <span class="o">*</span> <span class="n">best_shift</span><span class="p">)</span>
+        <span class="n">shifted_irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ifft</span><span class="p">(</span><span class="n">fft</span><span class="p">(</span><span class="n">scaled_irf_trace</span><span class="p">)</span> <span class="o">*</span> <span class="n">phase</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"shift_candidates"</span><span class="p">:</span> <span class="n">shift_candidates</span><span class="p">,</span>
+            <span class="s2">"rmse"</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span>
+            <span class="s2">"best_shift"</span><span class="p">:</span> <span class="n">best_shift</span><span class="p">,</span>
+            <span class="s2">"window"</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">width</span><span class="p">)),</span>
+            <span class="s2">"decay_trace"</span><span class="p">:</span> <span class="n">decay_trace</span><span class="p">,</span>
+            <span class="s2">"scaled_irf_trace"</span><span class="p">:</span> <span class="n">scaled_irf_trace</span><span class="p">,</span>
+            <span class="s2">"shifted_irf"</span><span class="p">:</span> <span class="n">shifted_irf</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.apply_fourier_shift">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.apply_fourier_shift">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_fourier_shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shifts</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Apply fourier shift.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shifts : np.ndarray</span>
+<span class="sd">            Per-pixel temporal shifts applied to the IRF cube.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            Object produced by apply fourier shift.</span>
+<span class="sd">        """</span>
+        <span class="n">freqs</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="c1"># Apply the fractional shift in the frequency domain</span>
+        <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freqs</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">shifts</span><span class="p">[:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">])</span>
+
+        <span class="n">IRF_fft</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">aligned_irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ifft</span><span class="p">(</span><span class="n">IRF_fft</span> <span class="o">*</span> <span class="n">phase</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">aligned_irf</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.apply_circular_shift">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.apply_circular_shift">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_circular_shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shifts</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Applies a linear circular shift by rounding fractional shifts</span>
+<span class="sd">        to the nearest integer and rolling the array.</span>
+<span class="sd">        """</span>
+        <span class="n">aligned_irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">)</span>
+        <span class="c1"># Round shifts to nearest integer for np.roll</span>
+        <span class="n">int_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">shifts</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">):</span>
+                <span class="c1"># np.roll performs circular shifting</span>
+                <span class="n">aligned_irf</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:],</span> <span class="n">int_shifts</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">aligned_irf</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.align">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.align">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">align</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"fourier"</span><span class="p">,</span>
+        <span class="n">manual_correction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Aligns the IRF using the specified method.</span>
+<span class="sd">        """</span>
+        <span class="n">shifts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_shift</span><span class="p">(</span>
+            <span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span> <span class="n">manual_correction</span><span class="o">=</span><span class="n">manual_correction</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"circular"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_circular_shift</span><span class="p">(</span><span class="n">shifts</span><span class="p">),</span> <span class="n">shifts</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_fourier_shift</span><span class="p">(</span><span class="n">shifts</span><span class="p">),</span> <span class="n">shifts</span></div>
+
+
+<div class="viewcode-block" id="IRFAligner.align_pixel">
+<a class="viewcode-back" href="../../../api/generated/pyfli.data_cc.irfAligner.html#pyfli.data_cc.irfAligner.IRFAligner.align_pixel">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">align_pixel</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"fourier"</span><span class="p">,</span>
+        <span class="n">manual_correction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Aligns the IRF for a single pixel (x, y) — useful for quick inspection</span>
+<span class="sd">        of the alignment at a specific spatial location without processing the</span>
+<span class="sd">        full data cube.</span>
+<span class="sd">        """</span>
+        <span class="n">decay_trace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">irf_trace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">irf</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_rising_point</span><span class="p">(</span><span class="n">trace</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">"""</span>
+<span class="sd">            Run the rising point routine.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            trace : np.ndarray</span>
+<span class="sd">                One-dimensional decay trace being processed.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            Any</span>
+<span class="sd">                Object produced by rising point.</span>
+<span class="sd">            """</span>
+            <span class="n">peak_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">peak_val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">threshold</span> <span class="o">=</span> <span class="n">peak_val</span> <span class="o">*</span> <span class="n">fraction</span>
+            <span class="n">idx_above</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">trace</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx_above</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">first_idx</span> <span class="o">=</span> <span class="n">idx_above</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">first_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">v2</span><span class="p">,</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="n">first_idx</span><span class="p">],</span> <span class="n">trace</span><span class="p">[</span><span class="n">first_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">first_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">threshold</span> <span class="o">-</span> <span class="n">v1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">v2</span> <span class="o">-</span> <span class="n">v1</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">first_idx</span><span class="p">)</span>
+
+        <span class="n">raw_shift</span> <span class="o">=</span> <span class="n">_rising_point</span><span class="p">(</span><span class="n">decay_trace</span><span class="p">)</span> <span class="o">-</span> <span class="n">_rising_point</span><span class="p">(</span><span class="n">irf_trace</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">raw_shift</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"No detectable rise in the decay or IRF trace at pixel (</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">); "</span>
+                <span class="s2">"shift was set to 0."</span><span class="p">,</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">raw_shift</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">shift</span> <span class="o">=</span> <span class="n">raw_shift</span> <span class="o">-</span> <span class="n">manual_correction</span>
+
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"circular"</span><span class="p">:</span>
+            <span class="n">aligned_irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">irf_trace</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">shift</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">freqs</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freqs</span> <span class="o">*</span> <span class="n">shift</span><span class="p">)</span>
+            <span class="n">aligned_irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ifft</span><span class="p">(</span><span class="n">fft</span><span class="p">(</span><span class="n">irf_trace</span><span class="p">)</span> <span class="o">*</span> <span class="n">phase</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">aligned_irf</span><span class="p">,</span> <span class="n">shift</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

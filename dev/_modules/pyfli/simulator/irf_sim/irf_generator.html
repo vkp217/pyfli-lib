@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.simulator.irf_sim.irf_generator &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/simulator/irf_sim/irf_generator';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/simulator/irf_sim/irf_generator.html" />
+    <link rel="icon" href="../../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.simulator.irf_sim.irf_generator</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.simulator.irf_sim.irf_generator</h1><div class="highlight"><pre>
+<span></span><span class="c1"># simulator/irf_sim/irf_generator.py</span>
+
+<span class="sd">"""</span>
+<span class="sd">Generate synthetic instrument response function (IRF) traces for simulator and</span>
+<span class="sd">alignment testing.</span>
+
+<span class="sd">This module belongs to :mod:`pyfli.simulator.irf_sim` and is part of PyFLI synthetic</span>
+<span class="sd">FLI/FLIM data generation, hardware noise modeling, calibration, and validation tools.</span>
+<span class="sd">Public API includes classes :class:`IRFGenerator`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="IRFGenerator">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.irf_sim.irf_generator.html#pyfli.simulator.irf_sim.irf_generator.IRFGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IRFGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Generate synthetic IRF traces for testing alignment, fitting, and simulation code</span>
+<span class="sd">    without needing measured instrument data. Each method returns a 1D `(num_bins,)`</span>
+<span class="sd">    trace, or a `(H, W, num_bins)` cube with the same trace broadcast to every pixel</span>
+<span class="sd">    when `H` and `W` are both given.</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_broadcast</span><span class="p">(</span><span class="n">irf_1d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">H</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">W</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Broadcasts a 1D IRF trace to a (H, W, num_bins) cube when H and W are both</span>
+<span class="sd">        given, otherwise returns the 1D trace unchanged.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">H</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">W</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">irf_1d</span>
+        <span class="k">if</span> <span class="n">H</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">W</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"H and W must both be given for 3D output, or both omitted for 1D."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">irf_1d</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">irf_1d</span><span class="p">)))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<div class="viewcode-block" id="IRFGenerator.gaussianIRF">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.irf_sim.irf_generator.html#pyfli.simulator.irf_sim.irf_generator.IRFGenerator.gaussianIRF">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gaussianIRF</span><span class="p">(</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">num_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">H</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">W</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generates a Gaussian-shaped IRF: a narrow pulse centered at bin `mu`, peak</span>
+<span class="sd">        normalized to 1.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mu : float</span>
+<span class="sd">            Bin index of the pulse peak (fractional values are supported).</span>
+<span class="sd">        T : float</span>
+<span class="sd">            Laser period in nanoseconds.</span>
+<span class="sd">        num_bins : int</span>
+<span class="sd">            Number of time bins spanning one laser period.</span>
+<span class="sd">        sigma : float</span>
+<span class="sd">            Pulse spread, in nanoseconds. Converted to bins internally via</span>
+<span class="sd">            `gate_delay = T / num_bins`.</span>
+<span class="sd">        H, W : int | None</span>
+<span class="sd">            If both given, the trace is broadcast to a (H, W, num_bins) cube.</span>
+<span class="sd">            If both omitted, a 1D (num_bins,) trace is returned.</span>
+<span class="sd">        """</span>
+        <span class="n">gate_delay</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">num_bins</span>
+        <span class="n">sigma_bins</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">/</span> <span class="n">gate_delay</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span>
+        <span class="n">irf_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma_bins</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">IRFGenerator</span><span class="o">.</span><span class="n">_broadcast</span><span class="p">(</span><span class="n">irf_1d</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IRFGenerator.expdecay">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.irf_sim.irf_generator.html#pyfli.simulator.irf_sim.irf_generator.IRFGenerator.expdecay">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expdecay</span><span class="p">(</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">num_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span>
+        <span class="n">tau</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">H</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">W</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generates a single-exponential-decay IRF: a Dirac delta at bin `mu`</span>
+<span class="sd">        convolved with a very fast causal exponential decay, peak normalized to 1.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mu : float</span>
+<span class="sd">            Bin index of the delta impulse (rounded to the nearest bin).</span>
+<span class="sd">        T : float</span>
+<span class="sd">            Laser period in nanoseconds.</span>
+<span class="sd">        num_bins : int</span>
+<span class="sd">            Number of time bins spanning one laser period.</span>
+<span class="sd">        tau : float</span>
+<span class="sd">            Exponential decay time constant, in nanoseconds (0.1 ns or less for a</span>
+<span class="sd">            "very fast" IRF-like decay).</span>
+<span class="sd">        H, W : int | None</span>
+<span class="sd">            If both given, the trace is broadcast to a (H, W, num_bins) cube.</span>
+<span class="sd">            If both omitted, a 1D (num_bins,) trace is returned.</span>
+<span class="sd">        """</span>
+        <span class="n">gate_delay</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">num_bins</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span>
+        <span class="n">delta</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">mu</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span> <span class="o">*</span> <span class="n">gate_delay</span> <span class="o">/</span> <span class="n">tau</span><span class="p">)</span>
+        <span class="n">irf_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)[:</span><span class="n">num_bins</span><span class="p">]</span>
+        <span class="n">irf_1d</span> <span class="o">=</span> <span class="n">irf_1d</span> <span class="o">/</span> <span class="n">irf_1d</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">IRFGenerator</span><span class="o">.</span><span class="n">_broadcast</span><span class="p">(</span><span class="n">irf_1d</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IRFGenerator.gaussianExpIRF">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.irf_sim.irf_generator.html#pyfli.simulator.irf_sim.irf_generator.IRFGenerator.gaussianExpIRF">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gaussianExpIRF</span><span class="p">(</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">num_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">tau</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">H</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">W</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generates an exponentially modified Gaussian (EMG) IRF: a Gaussian pulse</span>
+<span class="sd">        (as in :meth:`gaussianIRF`) convolved with a fast causal exponential decay</span>
+<span class="sd">        (as in :meth:`expdecay`), peak normalized to 1.</span>
+
+<span class="sd">        This models a common real-detector IRF shape: a Gaussian core from optical</span>
+<span class="sd">        and timing jitter, with an exponential tail from the detector's electronic</span>
+<span class="sd">        response.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mu : float</span>
+<span class="sd">            Bin index of the Gaussian core's peak.</span>
+<span class="sd">        T : float</span>
+<span class="sd">            Laser period in nanoseconds.</span>
+<span class="sd">        num_bins : int</span>
+<span class="sd">            Number of time bins spanning one laser period.</span>
+<span class="sd">        sigma : float</span>
+<span class="sd">            Gaussian core spread, in nanoseconds.</span>
+<span class="sd">        tau : float</span>
+<span class="sd">            Exponential tail time constant, in nanoseconds.</span>
+<span class="sd">        H, W : int | None</span>
+<span class="sd">            If both given, the trace is broadcast to a (H, W, num_bins) cube.</span>
+<span class="sd">            If both omitted, a 1D (num_bins,) trace is returned.</span>
+<span class="sd">        """</span>
+        <span class="n">gate_delay</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">num_bins</span>
+        <span class="n">sigma_bins</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">/</span> <span class="n">gate_delay</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span>
+        <span class="n">gaussian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma_bins</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span> <span class="o">*</span> <span class="n">gate_delay</span> <span class="o">/</span> <span class="n">tau</span><span class="p">)</span>
+        <span class="n">irf_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">gaussian</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)[:</span><span class="n">num_bins</span><span class="p">]</span>
+        <span class="n">irf_1d</span> <span class="o">=</span> <span class="n">irf_1d</span> <span class="o">/</span> <span class="n">irf_1d</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">IRFGenerator</span><span class="o">.</span><span class="n">_broadcast</span><span class="p">(</span><span class="n">irf_1d</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

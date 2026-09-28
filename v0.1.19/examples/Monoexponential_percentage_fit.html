@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Select Region of Decay Curve Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data, 10-80% of the tail &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../_static/documentation_options.js?v=9c7764e8"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Monoexponential_percentage_fit';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/examples/Monoexponential_percentage_fit.html" />
+    <link rel="icon" href="../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="v0.1.19" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Select Region of Decay Curve Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data, 10-80% of the tail</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="select-region-of-decay-curve-fitting-example-nlsf-mle-mono-exponential-fli-data-10-80-of-the-tail">
+<h1>Select Region of Decay Curve Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data, 10-80% of the tail<a class="headerlink" href="#select-region-of-decay-curve-fitting-example-nlsf-mle-mono-exponential-fli-data-10-80-of-the-tail" title="Link to this heading">#</a></h1>
+<p>This example fits a selected region of the tge simulated, mono-exponential fluorescence lifetime image (FLI) pixel by pixel – <strong>not over the entire decay, but only over the part of its tail between 10% and 80% of the way from the peak to the end of the window</strong> – with two estimators, and compares them against the known ground truth:</p>
+<ul class="simple">
+<li><p><strong>Non-linear least squares (NLSF)</strong>: minimizes the weighted sum of squared residuals between the IRF-convolved model and the decay.</p></li>
+<li><p><strong>Maximum likelihood estimation (MLE)</strong>: maximizes the Poisson log-likelihood of the photon counts directly.</p></li>
+</ul>
+<p><strong>Tail fitting.</strong> The <em>tail</em> is the part of the decay after its peak. Here the first 10% of the tail – the peak and the early decay, where the IRF shape matters most – and the last 20% – the late gates, where dark counts dominate – are excluded, and only the gates in between are fitted. The forward model is still evaluated (and convolved with the IRF) over the whole trace; only the residuals, the likelihood and the fit statistics are restricted to the fit window, via the fitters’ <code class="docutils literal notranslate"><span class="pre">fit_indices=(start_gate,</span> <span class="pre">end_gate)</span></code> option.</p>
+<p>This example walks through:</p>
+<ul class="simple">
+<li><p>Simulating a whole FLI image with known lifetimes (as in the “Whole Image Simulation” example)</p></li>
+<li><p>Choosing the tail window from the decay peak</p></li>
+<li><p>Comparing NLSF and MLE on a single pixel, fitted over the tail window</p></li>
+<li><p>Fitting the whole image with NLSF and with MLE over the tail window</p></li>
+<li><p>Comparing the fitted lifetime maps and their distributions with the ground truth</p></li>
+<li><p>Inspecting the fit and residuals at individual pixels</p></li>
+</ul>
+<p><small>Author - Vikas</small></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"ex_helper"</span><span class="p">)</span>  <span class="c1"># local helper for synthetic image generation</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sim_general_image</span><span class="w"> </span><span class="kn">import</span> <span class="n">LettersShape</span><span class="p">,</span> <span class="n">ROIMaskGenerator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.analysis.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_pixel_diagnostic</span><span class="p">,</span> <span class="n">random_true_pixel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.analyticalWorkflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnalyticalHelpers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.data_cc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.data_text</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageDisplay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.data_vnp</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorProcessor</span><span class="p">,</span> <span class="n">DataViewer</span><span class="p">,</span> <span class="n">Plotter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataOperations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.simulator</span><span class="w"> </span><span class="kn">import</span> <span class="n">FLIModelImageGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.solver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseFLIFitter</span><span class="p">,</span>
+    <span class="n">BinnedFLIFitter</span><span class="p">,</span>
+    <span class="n">FittingComparator</span><span class="p">,</span>
+    <span class="n">FLICPUProcessor</span><span class="p">,</span>
+    <span class="n">MLEFLIFitter</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="generating-a-test-image">
+<h2>Generating a test image<a class="headerlink" href="#generating-a-test-image" title="Link to this heading">#</a></h2>
+<p>A test image is simulated to compare the ground truth against the estimated values. In this example, a 128 x 512 image is generated with the letters “F”, “L”, “I”, “M”. Each letter is assigned a different intensity value (grayscale bit size) and a different lifetime: 0.7 ± 0.05 ns, 0.8 ± 0.05 ns, 0.9 ± 0.05 ns, and 1.0 ± 0.05 ns, respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">512</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">ROIMaskGenerator</span><span class="p">((</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">FLIM_letters</span> <span class="o">=</span> <span class="n">LettersShape</span><span class="p">(</span><span class="n">letters</span><span class="o">=</span><span class="p">(</span><span class="s2">"F"</span><span class="p">,</span> <span class="s2">"L"</span><span class="p">,</span> <span class="s2">"I"</span><span class="p">,</span> <span class="s2">"M"</span><span class="p">),</span> <span class="n">gap</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+
+<span class="n">custom_intensities</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="c1"># Preview the generated image</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">plot_preview</span><span class="p">(</span>
+    <span class="n">FLIM_letters</span><span class="p">,</span>
+    <span class="n">bit_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">intensities</span><span class="o">=</span><span class="n">custom_intensities</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/77e9ffa4b9844d5ae9a14c0f71abfd02ad7ee243906b95edea094879274fc236.png" src="../_images/77e9ffa4b9844d5ae9a14c0f71abfd02ad7ee243906b95edea094879274fc236.png" />
+</div>
+</div>
+</section>
+<section id="loading-the-irf">
+<h2>Loading the IRF<a class="headerlink" href="#loading-the-irf" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path to the local IRF file</span>
+<span class="n">IRF_PATH</span> <span class="o">=</span> <span class="s2">"&lt;select file/folder path&gt;"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loader</span> <span class="o">=</span> <span class="n">DataOperations</span><span class="p">(</span><span class="n">irf_path</span><span class="o">=</span><span class="n">IRF_PATH</span><span class="p">)</span>
+<span class="n">irf_data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_irf</span><span class="p">()</span>
+
+<span class="n">gate_delay</span> <span class="o">=</span> <span class="mf">12.5</span> <span class="o">/</span> <span class="n">irf_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">num_gates</span> <span class="o">=</span> <span class="n">irf_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">AnalyticalHelpers</span><span class="p">(</span>
+    <span class="n">laser_period</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">gate_delay</span><span class="o">=</span><span class="n">gate_delay</span><span class="p">,</span> <span class="n">num_gate</span><span class="o">=</span><span class="n">num_gates</span>
+<span class="p">)</span><span class="o">.</span><span class="n">freq_computation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Initiating IRF load from: &lt;select file/folder path&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simulation-configuration">
+<h2>Simulation configuration<a class="headerlink" href="#simulation-configuration" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MODEL_TYPE</span></code> selects the decay model for both the simulation and the fits. Setting <code class="docutils literal notranslate"><span class="pre">mono_fraction</span></code> to 1.0 forces every simulated pixel to be mono-exponential.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_TYPE</span> <span class="o">=</span> <span class="s2">"mono-exponential"</span>
+
+<span class="c1"># Your constant, default configuration</span>
+<span class="n">BASE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># Modular Noise</span>
+    <span class="s2">"jitter"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># offset artifact (due to jitter)</span>
+    <span class="s2">"dcr_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Dark Count Rate (thermal background)</span>
+    <span class="s2">"poisson"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Shot noise — Large detector only</span>
+    <span class="s2">"qe_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Quantum efficiency scaling</span>
+    <span class="s2">"read_noise_on"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Gaussian read noise — Large detector only</span>
+    <span class="c1"># Sensor</span>
+    <span class="s2">"sensor_type"</span><span class="p">:</span> <span class="s2">"discrete"</span><span class="p">,</span>  <span class="c1"># "continuous" | "discrete"</span>
+    <span class="s2">"bit"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s2">"dcr"</span><span class="p">:</span> <span class="mf">0.08</span><span class="p">,</span>  <span class="c1"># Mean dark counts per bin</span>
+    <span class="s2">"laser_feq"</span><span class="p">:</span> <span class="n">freq</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># Laser repetition rate (MHz) → period = 12.5 ns</span>
+    <span class="s2">"round_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Round photon counts to integers — Macro_sim only</span>
+    <span class="s2">"clip_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Clip at bit-depth ceiling — Macro_sim: max_adc_val; TCSPC: max_bin_count</span>
+    <span class="c1"># Fluorescence Physics (FLI / FRET)</span>
+    <span class="s2">"tau2"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># τ₂ ~ TruncNormal(mu=1 ns, sigma=0.5 ns)</span>
+    <span class="s2">"tau2_dist"</span><span class="p">:</span> <span class="s2">"beta"</span><span class="p">,</span>  <span class="c1"># if dist "beta" or "normal" (default)</span>
+    <span class="s2">"efficiency"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># FRET efficiency E ~ Beta(2, 5)  → [0.1, 1.0]</span>
+    <span class="s2">"A1_fraction"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Amplitude fraction A₁ ~ Beta(2, 5) → [0.05, 0.95]</span>
+    <span class="s2">"photo_count"</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># Peak intensity ~ Beta(2, 5) × max_adc - large detectors</span>
+    <span class="s2">"mono_fraction"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>  <span class="c1"># Fraction of pixels forced mono-exponential (0.0 = all bi-exp)</span>
+    <span class="s2">"n_cycles"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1_500_000</span><span class="p">,</span> <span class="mi">2_000_000</span><span class="p">),</span>  <span class="c1"># Accumulation cycles — for photon counter</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Different ROIs (letter areas, in this case) are assigned different lifetimes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create a config by overriding defaults with specific test parameters."""</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">BASE_CONFIG</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">config</span>
+
+
+<span class="n">ROI0</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">ROI1</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span>
+    <span class="n">tau2_beta_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ROI2</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span>
+    <span class="n">tau2_beta_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ROI3</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span>
+    <span class="n">tau2_beta_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ROI4</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span>
+    <span class="n">tau2_beta_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img_intensity</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_intensity_image</span><span class="p">(</span>
+    <span class="n">FLIM_letters</span><span class="p">,</span> <span class="n">intensities</span><span class="o">=</span><span class="n">custom_intensities</span>
+<span class="p">)</span>
+<span class="n">img_cluster</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_cluster_mask</span><span class="p">(</span><span class="n">FLIM_letters</span><span class="p">)</span>
+<span class="n">b_bool_mask</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_binary_mask</span><span class="p">(</span><span class="n">FLIM_letters</span><span class="p">)</span>
+
+<span class="n">simulated_img</span> <span class="o">=</span> <span class="n">FLIModelImageGenerator</span><span class="p">(</span>
+    <span class="n">irf_data</span><span class="o">=</span><span class="n">irf_data</span><span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="p">:],</span>
+    <span class="n">intensity_image</span><span class="o">=</span><span class="n">img_intensity</span><span class="p">,</span>
+    <span class="n">roi_mask</span><span class="o">=</span><span class="n">img_cluster</span><span class="p">,</span>
+    <span class="n">roi_params</span><span class="o">=</span><span class="p">[</span><span class="n">ROI0</span><span class="p">,</span> <span class="n">ROI1</span><span class="p">,</span> <span class="n">ROI2</span><span class="p">,</span> <span class="n">ROI3</span><span class="p">,</span> <span class="n">ROI4</span><span class="p">],</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"PHOTON_COUNTER"</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bool_mask</span><span class="o">=</span><span class="n">b_bool_mask</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">gt_data</span> <span class="o">=</span> <span class="n">simulated_img</span><span class="o">.</span><span class="n">generate_image</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Generating PHOTON_COUNTER FLI Image [128x512x256]...
+Simulating Pixels:   0%|          | 0/65536 [00:00&lt;?, ?px/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                          
+</pre></div>
+</div>
+</div>
+</div>
+<section id="ground-truth-maps">
+<h3>Ground-truth maps<a class="headerlink" href="#ground-truth-maps" title="Link to this heading">#</a></h3>
+<p>The simulator returns the parameter maps used to generate the data. These are the reference values for the fits below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gt_maps</span> <span class="o">=</span> <span class="n">gt_data</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span>
+<span class="n">jet_m</span> <span class="o">=</span> <span class="n">ColorProcessor</span><span class="p">()</span><span class="o">.</span><span class="n">lowest_zero</span><span class="p">(</span><span class="s2">"jet"</span><span class="p">)</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">DataViewer</span><span class="p">()</span><span class="o">.</span><span class="n">display_data</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">gt_maps</span><span class="p">[</span><span class="s2">"tau_map"</span><span class="p">],</span> <span class="n">gt_maps</span><span class="p">[</span><span class="s2">"photon_count_map"</span><span class="p">]],</span>
+    <span class="n">structure</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">data_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"tau_map"</span><span class="p">,</span> <span class="s2">"photon_count_map"</span><span class="p">],</span>
+    <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="n">jet_m</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">v_ranges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e1fb7b699bd74ca2aaaeca571c4ede30e6de961add6c7526fabf4b001403ee0d.png" src="../_images/e1fb7b699bd74ca2aaaeca571c4ede30e6de961add6c7526fabf4b001403ee0d.png" />
+</div>
+</div>
+<p>Check the decay, IRF, and fit at a randomly selected pixel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_decay</span> <span class="o">=</span> <span class="n">gt_data</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"decay"</span><span class="p">]</span>
+<span class="n">_irf</span> <span class="o">=</span> <span class="n">gt_data</span><span class="p">[</span><span class="s2">"raw_data"</span><span class="p">][</span><span class="s2">"irf"</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">random_true_pixel</span><span class="p">(</span><span class="n">b_bool_mask</span><span class="p">)</span>
+<span class="n">TRs</span> <span class="o">=</span> <span class="n">gt_data</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"the non-zero pixel selected for probing is (</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="n">irf_norm</span> <span class="o">=</span> <span class="n">Normalization</span><span class="p">(</span><span class="n">_irf</span><span class="p">)</span><span class="o">.</span><span class="n">norm_scale</span><span class="p">(</span><span class="n">_decay</span><span class="p">)</span>
+<span class="n">DataViewer</span><span class="p">()</span><span class="o">.</span><span class="n">plot_fli_px</span><span class="p">(</span>
+    <span class="n">data_list</span><span class="o">=</span><span class="p">[</span><span class="n">_decay</span><span class="p">,</span> <span class="n">irf_norm</span><span class="p">,</span> <span class="n">TRs</span><span class="p">[</span><span class="s2">"fit_map"</span><span class="p">],</span> <span class="n">TRs</span><span class="p">[</span><span class="s2">"residual_map"</span><span class="p">]],</span>
+    <span class="n">pixel</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+    <span class="n">mode</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">mode2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">"decay"</span><span class="p">,</span> <span class="s2">"irf"</span><span class="p">,</span> <span class="s2">"fit"</span><span class="p">],</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">jet_m</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">MessageDisplay</span><span class="p">()</span><span class="o">.</span><span class="n">get_pixel_summary</span><span class="p">(</span><span class="n">data_maps</span><span class="o">=</span><span class="n">gt_maps</span><span class="p">,</span> <span class="n">px</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (72, 323)
+</pre></div>
+</div>
+<img alt="../_images/d412d80ecba9404df79166e762d14fc90389d03adc9adc720b5146cfd37a2f10.png" src="../_images/d412d80ecba9404df79166e762d14fc90389d03adc9adc720b5146cfd37a2f10.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
+  Pixel (72, 323)
+  ─────────────────────
+  A         13075.2559
+  α         —
+  τ₁        0.9336
+  τ₂        —
+  R²        —
+  Red.χ²    —
+  Raw.χ²    —
+  Pearson   —
+  v-shift   0.0000
+  h-shift   —
+  ─────────────────────
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="choosing-the-tail-window">
+<h2>Choosing the tail window<a class="headerlink" href="#choosing-the-tail-window" title="Link to this heading">#</a></h2>
+<p>The window is set once for the whole image from the peak of the summed decay, so every pixel is fitted over the same gates:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">peak_gate</span></code>: the gate where the summed decay of all letter pixels peaks;</p></li>
+<li><p>the tail is <code class="docutils literal notranslate"><span class="pre">peak_gate</span> <span class="pre">...</span> <span class="pre">num_gates</span> <span class="pre">-</span> <span class="pre">1</span></code>; the fit window runs from <code class="docutils literal notranslate"><span class="pre">TAIL_WINDOW[0]</span></code> (20%) to <code class="docutils literal notranslate"><span class="pre">TAIL_WINDOW[1]</span></code> (80%) of the tail;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FIT_INDICES</span> <span class="pre">=</span> <span class="pre">(tail_start,</span> <span class="pre">tail_end)</span></code> is passed to every fit below as <code class="docutils literal notranslate"><span class="pre">fit_indices</span></code> (the end gate is exclusive).</p></li>
+</ul>
+<p>Change <code class="docutils literal notranslate"><span class="pre">TAIL_WINDOW</span></code> to fit another part of the tail.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TAIL_WINDOW</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">summed_decay</span> <span class="o">=</span> <span class="n">_decay</span><span class="p">[</span><span class="n">b_bool_mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">peak_gate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">summed_decay</span><span class="p">))</span>
+<span class="n">tail_length</span> <span class="o">=</span> <span class="n">num_gates</span> <span class="o">-</span> <span class="n">peak_gate</span>
+<span class="n">tail_start</span> <span class="o">=</span> <span class="n">peak_gate</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">TAIL_WINDOW</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">tail_length</span><span class="p">))</span>
+<span class="n">tail_end</span> <span class="o">=</span> <span class="n">peak_gate</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">TAIL_WINDOW</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">tail_length</span><span class="p">))</span>
+<span class="n">FIT_INDICES</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail_start</span><span class="p">,</span> <span class="n">tail_end</span><span class="p">)</span>
+
+<span class="n">t_ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_gates</span><span class="p">)</span> <span class="o">*</span> <span class="n">gate_delay</span>
+<span class="n">in_window</span> <span class="o">=</span> <span class="n">summed_decay</span><span class="p">[</span><span class="n">tail_start</span><span class="p">:</span><span class="n">tail_end</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">summed_decay</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"peak gate </span><span class="si">{</span><span class="n">peak_gate</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">t_ns</span><span class="p">[</span><span class="n">peak_gate</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ns); tail = </span><span class="si">{</span><span class="n">tail_length</span><span class="si">}</span><span class="s2"> gates"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"fit window: gates </span><span class="si">{</span><span class="n">tail_start</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">tail_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">t_ns</span><span class="p">[</span><span class="n">tail_start</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">t_ns</span><span class="p">[</span><span class="n">tail_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ns), "</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">in_window</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% of the detected counts"</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">t_ns</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">summed_decay</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">"summed decay (letter pixels)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="n">tail_start</span><span class="p">],</span> <span class="n">t_ns</span><span class="p">[</span><span class="n">tail_end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"tab:orange"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"fit window"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="n">peak_gate</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"peak"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"time (ns)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"counts"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Tail window: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TAIL_WINDOW</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TAIL_WINDOW</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">% of the tail"</span><span class="p">,</span>
+    <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>peak gate 31 (1.51 ns); tail = 225 gates
+fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
+</pre></div>
+</div>
+<img alt="../_images/f70d9166d90c98191993d9d6af64da392e93690584d530f73e9d6446c03e60d1.png" src="../_images/f70d9166d90c98191993d9d6af64da392e93690584d530f73e9d6446c03e60d1.png" />
+</div>
+</div>
+</section>
+<section id="single-pixel-fit-over-the-tail-window-nlsf-vs-mle">
+<h2>Single-pixel fit over the tail window: NLSF vs MLE<a class="headerlink" href="#single-pixel-fit-over-the-tail-window-nlsf-vs-mle" title="Link to this heading">#</a></h2>
+<p>Before fitting the whole image, <code class="docutils literal notranslate"><span class="pre">FittingComparator</span></code> fits one randomly selected pixel with both estimators and plots the fits side by side:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;least_squares&quot;</span></code> uses <code class="docutils literal notranslate"><span class="pre">BaseFLIFitter</span></code> (NLSF)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;poisson&quot;</span></code> uses <code class="docutils literal notranslate"><span class="pre">MLEFLIFitter</span></code> (Poisson MLE)</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">p0</span></code> (initial guess) and <code class="docutils literal notranslate"><span class="pre">bounds</span></code> are left as <code class="docutils literal notranslate"><span class="pre">None</span></code>, so the fitter derives its own initial guess from the data. For a mono-exponential model the parameters are <code class="docutils literal notranslate"><span class="pre">[S,</span> <span class="pre">tau,</span> <span class="pre">v_shift,</span> <span class="pre">h_shift]</span></code>, and both can be passed in that order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">xd</span><span class="p">,</span> <span class="n">yd</span> <span class="o">=</span> <span class="n">random_true_pixel</span><span class="p">(</span><span class="n">b_bool_mask</span><span class="p">)</span>
+<span class="n">pixel_decay</span> <span class="o">=</span> <span class="n">_decay</span><span class="p">[</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">pixel_irf</span> <span class="o">=</span> <span class="n">_irf</span><span class="p">[</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">,</span> <span class="p">:]</span>
+
+<span class="n">comparator</span> <span class="o">=</span> <span class="n">FittingComparator</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">BaseFLIFitter</span><span class="p">,</span> <span class="n">MLEFLIFitter</span><span class="p">)</span>
+<span class="n">comp_results_table</span><span class="p">,</span> <span class="n">comp_fig</span> <span class="o">=</span> <span class="n">comparator</span><span class="o">.</span><span class="n">compare_selected</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">"least_squares"</span><span class="p">,</span> <span class="s2">"poisson"</span><span class="p">],</span>
+    <span class="n">y_data</span><span class="o">=</span><span class="n">pixel_decay</span><span class="p">,</span>
+    <span class="n">irf_data</span><span class="o">=</span><span class="n">pixel_irf</span><span class="p">,</span>
+    <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">p0</span><span class="o">=</span><span class="n">p0</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+    <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">fit_indices</span><span class="o">=</span><span class="n">FIT_INDICES</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>┌──────────────────────────────────────────────────────────────┐
+│  FLI Fitting Results  |  MONO-EXPONENTIAL                    │
+│  2 methods queued                                            │
+└──────────────────────────────────────────────────────────────┘
+
+
+┌────────────────┬──────┬─────────┬──────────┬─────────┬──────────┬──────────┬─────────┬──────────┐
+│ Method         │ Type │       A │        τ │      R² │   Red.χ² │   Raw.χ² │ v-shift │  h-shift │
+├────────────────┼──────┼─────────┼──────────┼─────────┼──────────┼──────────┼─────────┼──────────┤
+│ LEAST_SQUARES  │ NLSF │ 11169.81 │    0.916 │  0.9783 │   1.0270 │   167.81 │    0.13 │    0.049 │
+│ POISSON        │ MLE  │ 11168.82 │    0.917 │  0.9783 │   1.0270 │   167.81 │    0.13 │    0.049 │
+└────────────────┴──────┴─────────┴──────────┴─────────┴──────────┴──────────┴─────────┴──────────┘
+</pre></div>
+</div>
+<img alt="../_images/b0889aaabcd1c2991944e97010311f8cf4c9d12294babe29e89d46110f666757.png" src="../_images/b0889aaabcd1c2991944e97010311f8cf4c9d12294babe29e89d46110f666757.png" />
+</div>
+</div>
+</section>
+<section id="whole-image-fitting">
+<h2>Whole-image fitting<a class="headerlink" href="#whole-image-fitting" title="Link to this heading">#</a></h2>
+<p>Each pixel is fitted independently and in parallel on the CPU, over the tail window only (<code class="docutils literal notranslate"><span class="pre">fit_indices=FIT_INDICES</span></code>):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FLICPUProcessor(freq,</span> <span class="pre">fitter_class)</span></code> spreads the per-pixel fits over <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> worker processes. The fitter class sets the estimator family.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BinnedFLIFitter(...,</span> <span class="pre">bin_radius=0)</span></code> is the image-level entry point. A <code class="docutils literal notranslate"><span class="pre">bin_radius</span></code> of 0 fits every pixel as-is, and a larger radius sums each pixel with its neighbours first to raise the photon count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iter</span></code> caps the optimizer’s function evaluations per pixel.</p></li>
+</ul>
+<p>On a machine with a CUDA GPU, <code class="docutils literal notranslate"><span class="pre">FLIGPUProcessor</span></code> can be used in place of <code class="docutils literal notranslate"><span class="pre">FLICPUProcessor</span></code> to fit all pixels as one batch.</p>
+<section id="nlsf">
+<h3>NLSF<a class="headerlink" href="#nlsf" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAX_ITER</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">N_JOBS</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">nlsf_fitter</span> <span class="o">=</span> <span class="n">BinnedFLIFitter</span><span class="p">(</span><span class="n">FLICPUProcessor</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">BaseFLIFitter</span><span class="p">),</span> <span class="n">bin_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">results_nlsf</span> <span class="o">=</span> <span class="n">nlsf_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">b_img</span><span class="o">=</span><span class="n">_decay</span><span class="p">,</span>
+    <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf</span><span class="p">,</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="s2">"least_squares"</span><span class="p">,</span>
+    <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span>
+    <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_nlsf"</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span>
+    <span class="n">fit_indices</span><span class="o">=</span><span class="n">FIT_INDICES</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
+Fitting Pixels (least_squares): 100%|██████████| 10241/10241 [00:47&lt;00:00, 215.77px/s]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mle">
+<h3>MLE<a class="headerlink" href="#mle" title="Link to this heading">#</a></h3>
+<p>The same pipeline is run with <code class="docutils literal notranslate"><span class="pre">MLEFLIFitter</span></code> and the <code class="docutils literal notranslate"><span class="pre">&quot;poisson&quot;</span></code> estimator. MLE takes longer per pixel than NLSF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mle_fitter</span> <span class="o">=</span> <span class="n">BinnedFLIFitter</span><span class="p">(</span><span class="n">FLICPUProcessor</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">MLEFLIFitter</span><span class="p">),</span> <span class="n">bin_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">results_mle</span> <span class="o">=</span> <span class="n">mle_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">b_img</span><span class="o">=</span><span class="n">_decay</span><span class="p">,</span>
+    <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf</span><span class="p">,</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
+    <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span>
+    <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_mle"</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span>
+    <span class="n">fit_indices</span><span class="o">=</span><span class="n">FIT_INDICES</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
+Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:52&lt;00:00, 90.95px/s] 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="comparing-the-results">
+<h2>Comparing the results<a class="headerlink" href="#comparing-the-results" title="Link to this heading">#</a></h2>
+<p>Every fit result has the same layout: <code class="docutils literal notranslate"><span class="pre">results[&quot;results&quot;][&quot;maps&quot;]</span></code> holds the parameter maps (<code class="docutils literal notranslate"><span class="pre">tau_map</span></code>, <code class="docutils literal notranslate"><span class="pre">R2_map</span></code>, <code class="docutils literal notranslate"><span class="pre">reduced_chi2_map</span></code>, …), and <code class="docutils literal notranslate"><span class="pre">results[&quot;results&quot;][&quot;TR_maps&quot;]</span></code> holds the per-pixel fitted curves (<code class="docutils literal notranslate"><span class="pre">fit_map</span></code>) and residuals (<code class="docutils literal notranslate"><span class="pre">residual_map</span></code>).</p>
+<section id="lifetime-maps">
+<h3>Lifetime maps<a class="headerlink" href="#lifetime-maps" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiments</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"NLSF"</span><span class="p">:</span> <span class="n">results_nlsf</span><span class="p">,</span> <span class="s2">"MLE"</span><span class="p">:</span> <span class="n">results_mle</span><span class="p">}</span>
+<span class="n">all_datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">experiments</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<span class="n">all_fitset</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"TR_maps"</span><span class="p">]</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">experiments</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">DataViewer</span><span class="p">()</span><span class="o">.</span><span class="n">display_data</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">gt_maps</span><span class="p">[</span><span class="s2">"tau_map"</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="n">maps</span><span class="p">[</span><span class="s2">"tau_map"</span><span class="p">]</span> <span class="k">for</span> <span class="n">maps</span> <span class="ow">in</span> <span class="n">all_datasets</span><span class="p">],</span>
+    <span class="n">structure</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">data_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"tau_map_ground_truth"</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"tau_map_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">experiments</span><span class="p">],</span>
+    <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="n">jet_m</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">v_ranges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c412cec5e74991d3f0f8f5b2b0a95955fbabb8d19fff788a5f37d822bb662a78.png" src="../_images/c412cec5e74991d3f0f8f5b2b0a95955fbabb8d19fff788a5f37d822bb662a78.png" />
+</div>
+</div>
+</section>
+<section id="lifetime-distributions">
+<h3>Lifetime distributions<a class="headerlink" href="#lifetime-distributions" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Plotter</span></code> compares the lifetime values of the letter pixels across the sources. The <code class="docutils literal notranslate"><span class="pre">operations</span></code> dict is applied to every source: it keeps only pixels inside the mask, drops failed fits (NaN or zero) and discards values outside the threshold range. A list of dicts, one per source, can be passed instead to filter each source differently.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ground truth"</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">experiments</span><span class="p">)</span>
+<span class="n">plotter_ops</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"mask"</span><span class="p">:</span> <span class="n">b_bool_mask</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="s2">"remove_nan"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"remove_zero"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"threshold"</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">painter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span>
+    <span class="n">gt_maps</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">all_datasets</span><span class="p">,</span>
+    <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">"tau_map"</span><span class="p">],</span>
+    <span class="n">style_config</span><span class="o">=</span><span class="p">[</span><span class="s2">"#AAB7B8"</span><span class="p">,</span> <span class="s2">"#5DADE2"</span><span class="p">,</span> <span class="s2">"#EC7063"</span><span class="p">],</span>
+    <span class="n">source_names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+    <span class="n">operations</span><span class="o">=</span><span class="n">plotter_ops</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">painter</span><span class="o">.</span><span class="n">make_plot</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Lifetime: ground truth vs NLSF vs MLE"</span><span class="p">,</span>
+    <span class="n">graph_type</span><span class="o">=</span><span class="s2">"violin"</span><span class="p">,</span>
+    <span class="n">point_type</span><span class="o">=</span><span class="s2">"strip"</span><span class="p">,</span>
+    <span class="n">show_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_median</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_significance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+    <span class="n">correction</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/17f1a7994f00413075c8b0e1e9f8a80a2a849425aa7f77d792dd88c549cecfb3.png" src="../_images/17f1a7994f00413075c8b0e1e9f8a80a2a849425aa7f77d792dd88c549cecfb3.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">graph_type</span></code> can also be <code class="docutils literal notranslate"><span class="pre">&quot;box&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;swarm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;overlay&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;raincloud&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;kde&quot;</span></code>. Setting <code class="docutils literal notranslate"><span class="pre">test_type</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;paired&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;welch&quot;</span></code> adds significance tests between the sources.</p>
+</section>
+<section id="fits-at-a-single-pixel">
+<h3>Fits at a single pixel<a class="headerlink" href="#fits-at-a-single-pixel" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">plot_pixel_diagnostic</span></code> overlays the NLSF and MLE fitted curves on the measured decay at one pixel, with the residuals below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">random_true_pixel</span><span class="p">(</span><span class="n">b_bool_mask</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_pixel_diagnostic</span><span class="p">(</span>
+    <span class="n">_decay</span><span class="p">,</span>
+    <span class="n">all_fitset</span><span class="p">,</span>
+    <span class="nb">list</span><span class="p">(</span><span class="n">experiments</span><span class="p">),</span>
+    <span class="n">mask</span><span class="o">=</span><span class="n">b_bool_mask</span><span class="p">,</span>
+    <span class="n">pixel</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+    <span class="n">t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">,</span>
+    <span class="n">raw_style</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
+    <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05706c4403597b615eb7c575fb7cfec4fc85ca6984c45a4f90bd018e6f9b70e1.png" src="../_images/05706c4403597b615eb7c575fb7cfec4fc85ca6984c45a4f90bd018e6f9b70e1.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-test-image">Generating a test image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-irf">Loading the IRF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-configuration">Simulation configuration</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ground-truth-maps">Ground-truth maps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-tail-window">Choosing the tail window</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-pixel-fit-over-the-tail-window-nlsf-vs-mle">Single-pixel fit over the tail window: NLSF vs MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whole-image-fitting">Whole-image fitting</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlsf">NLSF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle">MLE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-results">Comparing the results</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifetime-maps">Lifetime maps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lifetime-distributions">Lifetime distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fits-at-a-single-pixel">Fits at a single pixel</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/examples/Monoexponential_percentage_fit.ipynb">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1. Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data processing &#8212; PyFli</title>
+    <title>1. Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing &#8212; PyFli</title>
   
   
   
@@ -59,7 +59,7 @@
     <link rel="icon" href="../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. Fitting Example (NLSF &amp; MLE) - Bi-exponential FLI data processing" href="Biexponential_fitting.html" />
+    <link rel="next" title="2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing" href="Biexponential_fitting.html" />
     <link rel="prev" title="2. Phasor method for Bi-exponential FLI Data processing" href="Phasor_analysis_bi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -479,21 +479,25 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator Example</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="single_decay_sim.html">1. Single-Pixel Decay Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whole_image_sim.html">2. FLI Simulation for mimicking the time-resolved image acquisition</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">SwissSPAD Detector I/O</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ss2_io.html">1. SwissSPAD2 Data Loading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ss2_processing.html">2. SwissSPAD2 Data Processing</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phasor Plotting</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NLSF &amp; MLE Fitting</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">1. Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) - Bi-exponential FLI data processing</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">1. Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing</a></li>
 </ul>
 </div>
 </nav></div>
@@ -537,7 +541,7 @@
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1. </span>Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data processing</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1. </span>Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing</span></li>
   </ul>
 </nav>
 </div>
@@ -554,11 +558,11 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="fitting-example-nlsf-mle-mono-exponential-fli-data-processing">
-<h1><span class="section-number">1. </span>Fitting Example (NLSF &amp; MLE) - Mono-exponential FLI data processing<a class="headerlink" href="#fitting-example-nlsf-mle-mono-exponential-fli-data-processing" title="Link to this heading">#</a></h1>
+  <section id="fitting-example-nlsf-mle-in-cpu-mono-exponential-fli-data-processing">
+<h1><span class="section-number">1. </span>Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing<a class="headerlink" href="#fitting-example-nlsf-mle-in-cpu-mono-exponential-fli-data-processing" title="Link to this heading">#</a></h1>
 <p>This example fits a simulated, mono-exponential fluorescence lifetime image (FLI) pixel by pixel with two estimators and compares them against the known ground truth:</p>
 <ul class="simple">
-<li><p><strong>Non-linear least squares (NLSF)</strong>: minimizes the sum of squared residuals between the IRF-convolved model and the decay. It is fast and works well when photon counts are high, since the noise is then close to Gaussian.</p></li>
+<li><p><strong>Non-linear least squares (NLSF)</strong>: minimizes the sum of squared residuals between the IRF-convolved model and the decay.</p></li>
 <li><p><strong>Maximum likelihood estimation (MLE)</strong>: maximizes the Poisson log-likelihood of the photon counts. It models the counting statistics directly, so it remains accurate at low photon counts, where least squares becomes biased.</p></li>
 </ul>
 <p>This example walks through:</p>
@@ -625,7 +629,6 @@
 </section>
 <section id="loading-the-irf">
 <h2><span class="section-number">1.2. </span>Loading the IRF<a class="headerlink" href="#loading-the-irf" title="Link to this heading">#</a></h2>
-<p>The instrument response function (IRF) is convolved with the decay model during both simulation and fitting. Its number of time gates also sets the gate width and the laser/acquisition frequencies used by the fitters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path to the local IRF file</span>
@@ -740,7 +743,10 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Generating PHOTON_COUNTER FLI Image [128x512x256]...
-                                                                          
+Simulating Pixels:   0%|          | 0/65536 [00:00&lt;?, ?px/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                          
 </pre></div>
 </div>
 </div>
@@ -768,7 +774,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/970cbbc453ded985914b8d645979d357bd72e71f737b00ccb0eab6742780c87e.png" src="../_images/970cbbc453ded985914b8d645979d357bd72e71f737b00ccb0eab6742780c87e.png" />
+<img alt="../_images/6c5321657c3f7fb2be2c25fe1ac7a71320666434fb4e42fb178927bc1276ba1c.png" src="../_images/6c5321657c3f7fb2be2c25fe1ac7a71320666434fb4e42fb178927bc1276ba1c.png" />
 </div>
 </div>
 <p>Check the decay, IRF, and fit at a randomly selected pixel.</p>
@@ -793,20 +799,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (27, 476)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (40, 185)
 </pre></div>
 </div>
-<img alt="../_images/4f3ca313a29d015ee4167fe03974ecfe8569b3a92b480f7d2fc4c149adf2b7d9.png" src="../_images/4f3ca313a29d015ee4167fe03974ecfe8569b3a92b480f7d2fc4c149adf2b7d9.png" />
+<img alt="../_images/2e7458ac1cfa93066c1cd7284aed2033c2a59093b863af86dcec43533848663f.png" src="../_images/2e7458ac1cfa93066c1cd7284aed2033c2a59093b863af86dcec43533848663f.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
-  Pixel (27, 476)
+  Pixel (40, 185)
   ─────────────────────
-  A         13376.7197
+  A         15243.1250
   α         —
-  τ₁        1.1319
+  τ₁        0.7494
   τ₂        —
   R²        —
   Red.χ²    —
   Raw.χ²    —
+  Pearson   —
   v-shift   0.0000
   h-shift   —
   ─────────────────────
@@ -857,12 +864,12 @@
 ┌────────────────┬──────┬─────────┬──────────┬─────────┬──────────┬──────────┬─────────┬──────────┐
 │ Method         │ Type │       A │        τ │      R² │   Red.χ² │   Raw.χ² │ v-shift │  h-shift │
 ├────────────────┼──────┼─────────┼──────────┼─────────┼──────────┼──────────┼─────────┼──────────┤
-│ LEAST_SQUARES  │ NLSF │  795.86 │    0.720 │  0.9950 │   1.0449 │   263.32 │    0.00 │   -0.106 │
-│ POISSON        │ MLE  │  712.49 │    0.730 │  0.9951 │   0.9548 │   240.60 │    0.25 │   -0.019 │
+│ LEAST_SQUARES  │ NLSF │ 11060.88 │    1.090 │  0.9924 │   1.2966 │   334.35 │    0.18 │    0.003 │
+│ POISSON        │ MLE  │ 11041.33 │    1.085 │  0.9924 │   1.2708 │   332.52 │    0.27 │    0.003 │
 └────────────────┴──────┴─────────┴──────────┴─────────┴──────────┴──────────┴─────────┴──────────┘
 </pre></div>
 </div>
-<img alt="../_images/572685b82e95510923820d61f3a2f579b13032ad87f1597de37c1332080bedb7.png" src="../_images/572685b82e95510923820d61f3a2f579b13032ad87f1597de37c1332080bedb7.png" />
+<img alt="../_images/93f98cbbee81a1c3d92b9b7edff9c10a1d41eb1b62644ffa4f332f18d6f359bf.png" src="../_images/93f98cbbee81a1c3d92b9b7edff9c10a1d41eb1b62644ffa4f332f18d6f359bf.png" />
 </div>
 </div>
 </section>
@@ -897,7 +904,7 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
-Fitting Pixels (least_squares): 100%|██████████| 10241/10241 [00:19&lt;00:00, 522.93px/s]
+Fitting Pixels (least_squares): 100%|██████████| 10241/10241 [00:32&lt;00:00, 317.52px/s]
 </pre></div>
 </div>
 </div>
@@ -923,7 +930,7 @@ Fitting Pixels (least_squares): 100%|██████████| 10241/10241
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
-Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:16&lt;00:00, 133.36px/s]
+Fitting Pixels (poisson): 100%|██████████| 10241/10241 [00:59&lt;00:00, 171.39px/s]
 </pre></div>
 </div>
 </div>
@@ -956,7 +963,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6776dd18883a91aab6d4e9b5a14810faf1427b36c7bb081137478a5c01bd8538.png" src="../_images/6776dd18883a91aab6d4e9b5a14810faf1427b36c7bb081137478a5c01bd8538.png" />
+<img alt="../_images/2bf0b62157f3a2abf9b7af1dee2a9010ddc79edda3d5d4d9ade2e33ecf74c5f6.png" src="../_images/2bf0b62157f3a2abf9b7af1dee2a9010ddc79edda3d5d4d9ade2e33ecf74c5f6.png" />
 </div>
 </div>
 </section>
@@ -996,7 +1003,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3f88a78df8a3b002c9a2346411c35602e623dbc408cd47434e8b3a61692c056e.png" src="../_images/3f88a78df8a3b002c9a2346411c35602e623dbc408cd47434e8b3a61692c056e.png" />
+<img alt="../_images/0b1a36c46be5b7d0578485c0ecde3e4f591e9a8fa019b1869aacece18540566c.png" src="../_images/0b1a36c46be5b7d0578485c0ecde3e4f591e9a8fa019b1869aacece18540566c.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">graph_type</span></code> can also be <code class="docutils literal notranslate"><span class="pre">&quot;box&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;swarm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;overlay&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;raincloud&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;kde&quot;</span></code>. Setting <code class="docutils literal notranslate"><span class="pre">test_type</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;paired&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;welch&quot;</span></code> adds significance tests between the sources.</p>
@@ -1022,7 +1029,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ebc2136bc55e681011a82dabe480f1fb418ff0249a567d37f06ad2ff80c5a7c.png" src="../_images/3ebc2136bc55e681011a82dabe480f1fb418ff0249a567d37f06ad2ff80c5a7c.png" />
+<img alt="../_images/c9f80b71f61537e5ed904fcdc6b3d327ed65226005ec8c8868571dc03b3e2648.png" src="../_images/c9f80b71f61537e5ed904fcdc6b3d327ed65226005ec8c8868571dc03b3e2648.png" />
 </div>
 </div>
 <p>The same pixel is shown for each estimator, along with the fitted parameters and goodness-of-fit metrics (R², reduced χ²).</p>
@@ -1044,56 +1051,50 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (28, 181)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (60, 446)
 --- NLSF ---
 </pre></div>
 </div>
-<img alt="../_images/e340731d6fb45c305ee1ebcb6710ff3d08532e68c168e7d810c4348bb2376494.png" src="../_images/e340731d6fb45c305ee1ebcb6710ff3d08532e68c168e7d810c4348bb2376494.png" />
+<img alt="../_images/252e36544ebdf1d774d3e74c69f4aeea03704b9c469714bea06d1090eb6e0b62.png" src="../_images/252e36544ebdf1d774d3e74c69f4aeea03704b9c469714bea06d1090eb6e0b62.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
-  Pixel (28, 181)
+  Pixel (60, 446)
   ─────────────────────
-  A         760.3301
+  A         11950.3438
   α         —
-  τ₁        0.7261
+  τ₁        1.1264
   τ₂        —
-  R²        0.9960
-  Red.χ²    0.8621
-  Raw.χ²    217.2543
-  v-shift   0.0000
-  h-shift   -0.1200
+  R²        0.9934
+  Red.χ²    1.0300
+  Raw.χ²    265.1899
+  Pearson   0.8358
+  v-shift   0.1664
+  h-shift   -0.0009
   ─────────────────────
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- MLE ---
 </pre></div>
 </div>
-<img alt="../_images/638f50fb7315736e7694dbee208601d823fb8a6551e7d7a384ac4c93018dd3d8.png" src="../_images/638f50fb7315736e7694dbee208601d823fb8a6551e7d7a384ac4c93018dd3d8.png" />
+<img alt="../_images/341a3ba7580b20168d32451cbdfff94edbaa9ad37d8a308f797f89d42aa646c8.png" src="../_images/341a3ba7580b20168d32451cbdfff94edbaa9ad37d8a308f797f89d42aa646c8.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
-  Pixel (28, 181)
+  Pixel (60, 446)
   ─────────────────────
-  A         641.5303
+  A         11922.6924
   α         —
-  τ₁        0.7367
+  τ₁        1.1177
   τ₂        —
-  R²        0.9961
-  Red.χ²    0.8150
-  Raw.χ²    205.3772
-  v-shift   0.1248
-  h-shift   0.0115
+  R²        0.9933
+  Red.χ²    0.9976
+  Raw.χ²    261.7461
+  Pearson   0.8310
+  v-shift   0.2945
+  h-shift   0.0022
   ─────────────────────
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="summary">
-<h2><span class="section-number">1.7. </span>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>NLSF</strong> (<code class="docutils literal notranslate"><span class="pre">BaseFLIFitter</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;least_squares&quot;</span></code>) is the faster option and a good default for pixels with high photon counts.</p></li>
-<li><p><strong>MLE</strong> (<code class="docutils literal notranslate"><span class="pre">MLEFLIFitter</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;poisson&quot;</span></code>) models photon-counting noise directly and is preferred at low photon counts, at the cost of longer fitting time.</p></li>
-<li><p>Both return results with the same structure, so the maps, distributions and pixel diagnostics above can be produced for either estimator, or for any other fitter in <code class="docutils literal notranslate"><span class="pre">pyfli.solver</span></code>.</p></li>
-</ul>
 </section>
 </section>
 
@@ -1138,7 +1139,6 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:1
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fits-at-a-single-pixel">1.6.3. Fits at a single pixel</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">1.7. Summary</a></li>
 </ul>
   </nav></div>
 

@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyfli.io.flim_decay_cube &#8212; PyFli</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/io/flim_decay_cube';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/_modules/pyfli/io/flim_decay_cube.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFli</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-pkg" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.io.flim_decay_cube</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.io.flim_decay_cube</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">flim_decay_cube.py</span>
+<span class="sd">==================</span>
+<span class="sd">Build a TCSPC decay-cube tensor from a Leica LIF file that contains</span>
+<span class="sd">LifFlimImage data encoded with the patent-pending Leica "reduced Time Tagged"</span>
+<span class="sd">compression scheme (US20230344447A1 / US12278654B2).</span>
+
+<span class="sd">Dimensions explained</span>
+<span class="sd">--------------------</span>
+<span class="sd">M  - mosaic / tile index  (number of tiles or time-lapse frames)</span>
+<span class="sd">Y  - image height (pixels)</span>
+<span class="sd">X  - image width  (pixels)</span>
+<span class="sd">H  - TCSPC histogram bin index  (number_bins_in_period ≈ laser-period / clock-period)</span>
+
+<span class="sd">The resulting decay cube has shape (M, Y, X, H) with dtype uint16.</span>
+<span class="sd">Each voxel [m, y, x, h] counts the photons that arrived in bin h of the</span>
+<span class="sd">TCSPC histogram for pixel (y, x) of mosaic tile / frame m.</span>
+
+<span class="sd">Compression format (from patent)</span>
+<span class="sd">---------------------------------</span>
+<span class="sd">The memory block is a standard zlib/Deflate stream (RFC 1950 / 1951).</span>
+<span class="sd">Inside, photon data are stored as a sequence of 16-bit "reduced Time Tagged"</span>
+<span class="sd">records, one record-stream per pixel, organised as follows (Fig. 2b / Fig. 5</span>
+<span class="sd">of US20230344447A1):</span>
+
+<span class="sd">  Record type         Bit layout (16 bits, little-endian)</span>
+<span class="sd">  ----------------    ---------------------------------------------------</span>
+<span class="sd">  Class marker        [bit15=0, bits14-11=detector(4), bit10=single_photon]</span>
+<span class="sd">  Photon record       [bits6-0=arrival_time_low(7), bit7=has_extension]</span>
+<span class="sd">  Extension record    [bits12-7=arrival_time_high(6)] – appended after</span>
+<span class="sd">                        a photon record when bit7 of that record is set</span>
+<span class="sd">  Pixel end marker    [bit15=1, bits9-0=run_length(skip empty pixels)]</span>
+<span class="sd">  Line end marker     [specific reserved bit pattern, marks end of scan line]</span>
+
+<span class="sd">Within each group (pixel), records are sorted by arrival time and then</span>
+<span class="sd">delta-encoded: each record stores (current – previous) arrival time.</span>
+<span class="sd">Decoding therefore requires a cumulative sum (prefix-sum) within each group.</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">    from flim_decay_cube import build_decay_cube, plot_decay_cube</span>
+<span class="sd">    import liffile</span>
+
+<span class="sd">    with liffile.LifFile('example.lif') as lif:</span>
+<span class="sd">        flim_img = lif.images['T23_005304_I1_2/FLIM']   # LifFlimImage</span>
+<span class="sd">        cube = build_decay_cube(flim_img)                # (M, Y, X, H) uint16</span>
+
+<span class="sd">    # Plot a single frame / pixel</span>
+<span class="sd">    plot_decay_cube(cube, flim_img)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">liffile</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lf</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Part 1 – Decode the compressed photon-tag stream into a decay cube</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="c1"># ── Record-type bit masks (16-bit little-endian words) ─────────────────────</span>
+<span class="c1"># The patent describes a "reduced Time Tagged" 16-bit layout.</span>
+<span class="c1"># Distinguish record types by their high bits:</span>
+<span class="c1">#   bit15=1                       → pixel / line marker</span>
+<span class="c1">#   bit15=0, bit14=0, bit13=0     → class marker   (starts a pixel group)</span>
+<span class="c1">#   bit15=0, bit7=0               → photon record  (7-bit arrival time)</span>
+<span class="c1">#   bit15=0, bit7=1               → photon record with extension</span>
+
+<span class="n">_MARKER_BIT</span> <span class="o">=</span> <span class="mh">0x8000</span>  <span class="c1"># bit 15  – set for pixel/line markers</span>
+<span class="n">_LINE_END_MARKER</span> <span class="o">=</span> <span class="mh">0xFFFF</span>  <span class="c1"># sentinel used by some firmware versions</span>
+<span class="n">_CLASS_MARKER_ID</span> <span class="o">=</span> <span class="mh">0x0000</span>  <span class="c1"># upper nibble == 0  → class/detector marker</span>
+
+<span class="c1"># Class marker layout:  [15:0] = [0, detector(4), single_photon(1), ...]</span>
+<span class="n">_CLASS_DET_SHIFT</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">_CLASS_DET_MASK</span> <span class="o">=</span> <span class="mh">0x0F</span>
+<span class="n">_CLASS_SINGLE_BIT</span> <span class="o">=</span> <span class="mh">0x0400</span>  <span class="c1"># bit 10</span>
+
+<span class="c1"># Photon record layout: [15:0] = [0, ..., has_ext(1), arrival_low(7)]</span>
+<span class="n">_PHOT_ATIME_MASK</span> <span class="o">=</span> <span class="mh">0x007F</span>  <span class="c1"># bits 6-0</span>
+<span class="n">_PHOT_EXT_BIT</span> <span class="o">=</span> <span class="mh">0x0080</span>  <span class="c1"># bit 7  – if set, next record holds upper bits</span>
+
+<span class="c1"># Extension record:     [15:0] = [0, ..., arrival_high(6), ...]</span>
+<span class="n">_EXT_ATIME_SHIFT</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># upper 6 bits sit at bits 12-7</span>
+<span class="n">_EXT_ATIME_MASK</span> <span class="o">=</span> <span class="mh">0x1F80</span>
+
+<span class="c1"># Pixel-end marker:     [15:0] = [1, ..., run_length(10)]</span>
+<span class="n">_PIXEL_RUN_MASK</span> <span class="o">=</span> <span class="mh">0x03FF</span>  <span class="c1"># bits 9-0</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_decompress_memory_block</span><span class="p">(</span><span class="n">flim_image</span><span class="p">:</span> <span class="s2">"lf.LifFlimImage"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Return the raw uint16 record stream from the LifFlimImage memory block.</span>
+
+<span class="sd">    For Format='LMSRAW' the memory block is already uncompressed — it is a</span>
+<span class="sd">    flat array of uint16 records written directly to disk.</span>
+
+<span class="sd">    For older or alternate firmware that compresses the payload we fall back</span>
+<span class="sd">    to a multi-layout zlib probe (offsets 0-256, chunked variants).</span>
+<span class="sd">    """</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">flim_image</span><span class="o">.</span><span class="n">memory_block</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">flim_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"RawData"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Format"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+
+    <span class="c1"># LMSRAW: raw uint16 stream, no compression</span>
+    <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"LMSRAW"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">raw</span>
+
+    <span class="c1"># Probe zlib at every 2-byte-aligned offset</span>
+    <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">257</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">wbits</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">47</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="n">offset</span><span class="p">:],</span> <span class="n">wbits</span><span class="o">=</span><span class="n">wbits</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">zlib</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="c1"># Chunked uint64 layout</span>
+    <span class="n">chunks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
+        <span class="n">sz</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack_from</span><span class="p">(</span><span class="s2">"&lt;Q"</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">pos</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="mi">8</span>
+        <span class="k">if</span> <span class="n">sz</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">sz</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="k">for</span> <span class="n">wbits</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">47</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">sz</span><span class="p">],</span> <span class="n">wbits</span><span class="o">=</span><span class="n">wbits</span><span class="p">))</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="n">zlib</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="n">sz</span>
+    <span class="k">if</span> <span class="n">chunks</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">b</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Format=</span><span class="si">{</span><span class="n">fmt</span><span class="si">!r}</span><span class="s2">: could not decompress FLIM memory block "</span>
+        <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes).</span><span class="se">\n</span><span class="s2">First 64 bytes: "</span> <span class="o">+</span> <span class="n">raw</span><span class="p">[:</span><span class="mi">64</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="build_decay_cube">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.build_decay_cube">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_decay_cube</span><span class="p">(</span>
+    <span class="n">flim_image</span><span class="p">:</span> <span class="s2">"lf.LifFlimImage"</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Build decay cube.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    flim_image : 'lf.LifFlimImage'</span>
+<span class="sd">        Leica LifFlimImage object containing raw FLIM data.</span>
+<span class="sd">    channel : int</span>
+<span class="sd">        Detector channel index to read or decode.</span>
+<span class="sd">    dtype : np.dtype</span>
+<span class="sd">        NumPy dtype used for output accumulation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Decay cube assembled from time-gated image data.</span>
+<span class="sd">    """</span>
+    <span class="n">sizes</span> <span class="o">=</span> <span class="n">flim_image</span><span class="o">.</span><span class="n">sizes</span>
+    <span class="n">n_frames</span> <span class="o">=</span> <span class="n">sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"M"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">n_y</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="s2">"Y"</span><span class="p">]</span>
+    <span class="n">n_x</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="s2">"X"</span><span class="p">]</span>
+    <span class="n">n_bins</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="s2">"H"</span><span class="p">]</span>
+
+    <span class="n">rd</span> <span class="o">=</span> <span class="n">flim_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"RawData"</span><span class="p">]</span>
+    <span class="n">bidir</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"BiDirectional"</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">invert_x</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"InvertImageX"</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">invert_y</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"InvertImageY"</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">line_start_m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LineStartMarker"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">line_end_m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LineEndMarker"</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">frame_m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"FrameMarker"</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+    <span class="c1"># Exact 16-bit marker values  (low byte always 0xA0)</span>
+    <span class="n">MARKER_LINE_START</span> <span class="o">=</span> <span class="p">(</span><span class="n">line_start_m</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0xA0</span>  <span class="c1"># 0x01A0</span>
+    <span class="n">MARKER_LINE_END</span> <span class="o">=</span> <span class="p">(</span><span class="n">line_end_m</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0xA0</span>  <span class="c1"># 0x02A0</span>
+    <span class="n">MARKER_FRAME</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame_m</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0xA0</span>  <span class="c1"># 0x04A0</span>
+    <span class="n">PIXEL_CLOCK</span> <span class="o">=</span> <span class="mh">0x54A0</span>  <span class="c1"># one per pixel dwell</span>
+
+    <span class="c1"># ── Raw record stream (uncompressed uint16 LE) ─────────────────────────</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">_decompress_memory_block</span><span class="p">(</span><span class="n">flim_image</span><span class="p">)</span>
+    <span class="n">recs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">raw</span><span class="p">[:</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"&lt;u2"</span><span class="p">)</span>
+
+    <span class="c1"># ── Output tensor ──────────────────────────────────────────────────────</span>
+    <span class="n">cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># ── Scan state ─────────────────────────────────────────────────────────</span>
+    <span class="n">frame_idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">line_idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pixel_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># -1 = before first pixel clock in this line</span>
+    <span class="n">in_line</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">recs</span><span class="p">:</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">rec</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="n">rec</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span>
+
+        <span class="c1"># ── PHOTON: low byte bit7 == 0 ────────────────────────────────────</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">low</span> <span class="o">&amp;</span> <span class="mh">0x80</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">in_line</span> <span class="ow">or</span> <span class="n">pixel_idx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># before first pixel clock</span>
+            <span class="n">atime</span> <span class="o">=</span> <span class="n">high</span>
+            <span class="n">ch</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7</span>
+            <span class="k">if</span> <span class="n">ch</span> <span class="o">!=</span> <span class="n">channel</span> <span class="ow">or</span> <span class="n">atime</span> <span class="o">&gt;=</span> <span class="n">n_bins</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Bidirectional: odd lines are scanned right-to-left</span>
+            <span class="n">px</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pixel_idx</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">bidir</span> <span class="ow">and</span> <span class="n">line_idx</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">else</span> <span class="n">pixel_idx</span>
+            <span class="n">py</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_y</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">line_idx</span><span class="p">)</span> <span class="k">if</span> <span class="n">invert_y</span> <span class="k">else</span> <span class="n">line_idx</span>
+            <span class="n">px</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">px</span><span class="p">)</span> <span class="k">if</span> <span class="n">invert_x</span> <span class="k">else</span> <span class="n">px</span>
+
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">px</span> <span class="o">&lt;</span> <span class="n">n_x</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">py</span> <span class="o">&lt;</span> <span class="n">n_y</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">frame_idx</span> <span class="o">&lt;</span> <span class="n">n_frames</span><span class="p">:</span>
+                <span class="n">cube</span><span class="p">[</span><span class="n">frame_idx</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">atime</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># ── SYNC / MARKER: low byte bit7 == 1 ────────────────────────────</span>
+        <span class="k">if</span> <span class="n">rec</span> <span class="o">==</span> <span class="n">MARKER_LINE_START</span><span class="p">:</span>
+            <span class="n">in_line</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">pixel_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># reset; first PIXEL_CLOCK sets it to 0</span>
+
+        <span class="k">elif</span> <span class="n">rec</span> <span class="o">==</span> <span class="n">MARKER_LINE_END</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">in_line</span><span class="p">:</span>
+                <span class="n">line_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">line_idx</span> <span class="o">&gt;=</span> <span class="n">n_y</span><span class="p">:</span>
+                    <span class="n">line_idx</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">frame_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">frame_idx</span> <span class="o">&gt;=</span> <span class="n">n_frames</span><span class="p">:</span>
+                        <span class="k">break</span>
+            <span class="n">in_line</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">pixel_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">elif</span> <span class="n">rec</span> <span class="o">==</span> <span class="n">MARKER_FRAME</span><span class="p">:</span>
+            <span class="n">frame_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">line_idx</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">pixel_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">in_line</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">frame_idx</span> <span class="o">&gt;=</span> <span class="n">n_frames</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">elif</span> <span class="n">rec</span> <span class="o">==</span> <span class="n">PIXEL_CLOCK</span><span class="p">:</span>
+            <span class="c1"># Each 0x54A0 = one pixel dwell period elapsed → advance pixel</span>
+            <span class="k">if</span> <span class="n">in_line</span><span class="p">:</span>
+                <span class="n">pixel_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">pixel_idx</span> <span class="o">&gt;=</span> <span class="n">n_x</span><span class="p">:</span>
+                    <span class="n">pixel_idx</span> <span class="o">=</span> <span class="n">n_x</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># clamp; LINE_END will reset</span>
+
+        <span class="c1"># else: SYNC_A laser record (0x04XX etc.) — ignored</span>
+
+    <span class="k">return</span> <span class="n">cube</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Part 2 – Alternative: read pre-computed FLIM maps (no patent issues)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="read_derived_images">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.read_derived_images">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_derived_images</span><span class="p">(</span>
+    <span class="n">lif_file</span><span class="p">:</span> <span class="s2">"lf.LifFile"</span><span class="p">,</span>
+    <span class="n">series_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Read all Leica-computed FLIM parameter maps for a given image series.</span>
+
+<span class="sd">    These are stored as ordinary LifImage objects (not LifFlimImage) so they</span>
+<span class="sd">    are always accessible without touching the patent-protected raw stream.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lif_file : LifFile</span>
+<span class="sd">        Open LifFile object.</span>
+<span class="sd">    series_name : str</span>
+<span class="sd">        Base name of the image series, e.g. ``'T23_005304_I1_2'``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict mapping short name → numpy array (shape M, Y, X per image).</span>
+<span class="sd">    Keys include: 'Intensity', 'FastFlim', 'StdDev', 'PhasorReal',</span>
+<span class="sd">    'PhasorImaginary', 'PhasorIntensity', 'PhasorMask',</span>
+<span class="sd">    'DecayTime', 'Amplitude', 'TailOffset', 'IRFBackground',</span>
+<span class="sd">    'IRFShift', 'FlimIntensity', 'AmplitudeSum', 'IntensitySum',</span>
+<span class="sd">    'MeanPhotonArrivalTime', 'MeanDecayTime', 'ChiSquare'.</span>
+<span class="sd">    """</span>
+    <span class="n">_name_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"Intensity"</span><span class="p">:</span> <span class="s2">"Intensity"</span><span class="p">,</span>
+        <span class="s2">"Fast Flim"</span><span class="p">:</span> <span class="s2">"FastFlim"</span><span class="p">,</span>
+        <span class="s2">"Standard Deviation"</span><span class="p">:</span> <span class="s2">"StdDev"</span><span class="p">,</span>
+        <span class="s2">"Phasor Real"</span><span class="p">:</span> <span class="s2">"PhasorReal"</span><span class="p">,</span>
+        <span class="s2">"Phasor Imaginary"</span><span class="p">:</span> <span class="s2">"PhasorImaginary"</span><span class="p">,</span>
+        <span class="s2">"Phasor Intensity"</span><span class="p">:</span> <span class="s2">"PhasorIntensity"</span><span class="p">,</span>
+        <span class="s2">"Phasor Mask"</span><span class="p">:</span> <span class="s2">"PhasorMask"</span><span class="p">,</span>
+        <span class="s2">"FlimDecayTime 1 ch1"</span><span class="p">:</span> <span class="s2">"DecayTime"</span><span class="p">,</span>
+        <span class="s2">"FlimAmplitude 1 ch1"</span><span class="p">:</span> <span class="s2">"Amplitude"</span><span class="p">,</span>
+        <span class="s2">"FlimTailOffset 1 ch1"</span><span class="p">:</span> <span class="s2">"TailOffset"</span><span class="p">,</span>
+        <span class="s2">"FlimInstrumentResponseFunctionBackground 1 ch1"</span><span class="p">:</span> <span class="s2">"IRFBackground"</span><span class="p">,</span>
+        <span class="s2">"FlimInstrumentResponseFunctionShift 1 ch1"</span><span class="p">:</span> <span class="s2">"IRFShift"</span><span class="p">,</span>
+        <span class="s2">"FlimIntensity 1 ch1"</span><span class="p">:</span> <span class="s2">"FlimIntensity"</span><span class="p">,</span>
+        <span class="s2">"FlimAmplitudeSum 1 ch1"</span><span class="p">:</span> <span class="s2">"AmplitudeSum"</span><span class="p">,</span>
+        <span class="s2">"FlimIntensitySum 1 ch1"</span><span class="p">:</span> <span class="s2">"IntensitySum"</span><span class="p">,</span>
+        <span class="s2">"FlimMeanPhotonArivalTime 1 ch1"</span><span class="p">:</span> <span class="s2">"MeanPhotonArrivalTime"</span><span class="p">,</span>
+        <span class="s2">"FlimMeanDecayTime 1 ch1"</span><span class="p">:</span> <span class="s2">"MeanDecayTime"</span><span class="p">,</span>
+        <span class="s2">"ChiSquare 1 ch1"</span><span class="p">:</span> <span class="s2">"ChiSquare"</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Normalise: strip trailing /FLIM so 'T23_.../FLIM' and 'T23_...' both work</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">series_name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">base</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">base</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">)]</span>
+
+    <span class="c1"># The derived images live at paths like:</span>
+    <span class="c1">#   'T23_005304_I1_2/FLIM/Intensity'</span>
+    <span class="c1"># img.name  = 'Intensity'              (only the last component)</span>
+    <span class="c1"># img.path  = 'T23_005304_I1_2/FLIM/Intensity'  (full path)</span>
+    <span class="c1"># We must match on img.path, not img.name.</span>
+    <span class="n">flim_prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">/FLIM/"</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">lif_file</span><span class="o">.</span><span class="n">images</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">img</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">flim_prefix</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">is_flim</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># skip the LifFlimImage itself (raises NotImplementedError)</span>
+        <span class="c1"># sub-image name = everything after 'Base/FLIM/'</span>
+        <span class="n">subname</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">flim_prefix</span><span class="p">)</span> <span class="p">:]</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">_name_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">subname</span><span class="p">,</span> <span class="n">subname</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">asarray</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Part 3 – Plotting helpers</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="plot_decay_cube">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.plot_decay_cube">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_decay_cube</span><span class="p">(</span>
+    <span class="n">cube</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">flim_image</span><span class="p">:</span> <span class="s2">"lf.LifFlimImage | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">pixel_yx</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Visualise the decay cube with four panels:</span>
+<span class="sd">      1. Intensity image  (sum over H axis)</span>
+<span class="sd">      2. Mean arrival-time image  (weighted mean over H)</span>
+<span class="sd">      3. Summed decay curve  (sum over all pixels in the frame)</span>
+<span class="sd">      4. Single-pixel decay curve  (central pixel or specified pixel)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : np.ndarray, shape (M, Y, X, H)</span>
+<span class="sd">    flim_image : LifFlimImage, optional</span>
+<span class="sd">        Used to recover physical time axis (ns).</span>
+<span class="sd">    frame : int</span>
+<span class="sd">        Which mosaic tile / time frame to display.</span>
+<span class="sd">    pixel_yx : (y, x) tuple, optional</span>
+<span class="sd">        Pixel for the single-pixel decay panel.  Defaults to image centre.</span>
+<span class="sd">    save_path : str, optional</span>
+<span class="sd">        If given, save figure to this path instead of showing interactively.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="n">M</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">M</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pixel_yx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pixel_yx</span> <span class="o">=</span> <span class="p">(</span><span class="n">Y</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">X</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">py</span><span class="p">,</span> <span class="n">px</span> <span class="o">=</span> <span class="n">pixel_yx</span>
+
+    <span class="c1"># Time axis</span>
+    <span class="k">if</span> <span class="n">flim_image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">t_ns</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="o">*</span> <span class="n">flim_image</span><span class="o">.</span><span class="n">tcspc_resolution</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e9</span>
+        <span class="n">xlabel</span> <span class="o">=</span> <span class="s2">"Arrival time (ns)"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">t_ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+        <span class="n">xlabel</span> <span class="o">=</span> <span class="s2">"TCSPC bin"</span>
+
+    <span class="n">frame_cube</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span>  <span class="c1"># (Y, X, H)</span>
+    <span class="n">intensity</span> <span class="o">=</span> <span class="n">frame_cube</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (Y, X)</span>
+
+    <span class="c1"># Weighted mean arrival time</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">t_ns</span> <span class="k">if</span> <span class="n">flim_image</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">intensity</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">mean_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame_cube</span> <span class="o">*</span> <span class="n">bins</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+
+    <span class="n">summed_decay</span> <span class="o">=</span> <span class="n">frame_cube</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># (H,)</span>
+    <span class="n">singlepix_decay</span> <span class="o">=</span> <span class="n">frame_cube</span><span class="p">[</span><span class="n">py</span><span class="p">,</span> <span class="n">px</span><span class="p">]</span>  <span class="c1"># (H,)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"FLIM Decay Cube  |  frame </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">M</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">  |  shape </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Panel 1 – Intensity</span>
+    <span class="n">im1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">intensity</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"hot"</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Intensity (photon count)"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"X (pixels)"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Y (pixels)"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+    <span class="c1"># Panel 2 – Mean arrival time</span>
+    <span class="n">im2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mean_t</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlGn_r"</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Mean photon arrival time"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"X (pixels)"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Y (pixels)"</span><span class="p">)</span>
+    <span class="n">cbar2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="n">cbar2</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="c1"># Mark the selected pixel</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="s2">"c+"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"pixel (</span><span class="si">{</span><span class="n">py</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">px</span><span class="si">}</span><span class="s2">)"</span>
+    <span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+    <span class="c1"># Panel 3 – Summed decay (log-scale)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">t_ns</span><span class="p">,</span> <span class="n">summed_decay</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"steelblue"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Summed decay (all pixels)"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Photon count"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="c1"># Panel 4 – Single pixel decay</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+        <span class="n">t_ns</span><span class="p">,</span>
+        <span class="n">singlepix_decay</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_ns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">"salmon"</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Single-pixel decay  (y=</span><span class="si">{</span><span class="n">py</span><span class="si">}</span><span class="s2">, x=</span><span class="si">{</span><span class="n">px</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Photon count"</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Figure saved to </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+<div class="viewcode-block" id="plot_derived_images">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.plot_derived_images">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_derived_images</span><span class="p">(</span>
+    <span class="n">derived</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">series_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Display a grid of all pre-computed FLIM parameter maps.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    derived : dict</span>
+<span class="sd">        Output of :func:`read_derived_images`.</span>
+<span class="sd">    series_name : str</span>
+<span class="sd">        Title label.</span>
+<span class="sd">    frame : int</span>
+<span class="sd">        Which frame / mosaic tile to show for 3-D arrays.</span>
+<span class="sd">    save_path : str, optional</span>
+<span class="sd">        Save figure instead of displaying.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">derived</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">cols</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">cols</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">rows</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">"FLIM derived images – </span><span class="si">{</span><span class="n">series_name</span><span class="si">}</span><span class="s2">  (frame </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">derived</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">arr</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="n">n</span><span class="p">:]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Figure saved to </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Part 4 – Convenience wrapper: try raw cube first, fall back to derived maps</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="load_flim_data">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.load_flim_data">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_flim_data</span><span class="p">(</span>
+    <span class="n">lif_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">series_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">use_derived_fallback</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="s2">"lf.LifFlimImage | None"</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    High-level entry point.</span>
+
+<span class="sd">    1. Opens the LIF file.</span>
+<span class="sd">    2. Locates the LifFlimImage for *series_name* (or the first one found).</span>
+<span class="sd">    3. Attempts to decode the raw photon-tag stream into a (M,Y,X,H) cube.</span>
+<span class="sd">    4. If decoding fails (format not yet supported), reads the pre-computed</span>
+<span class="sd">       derived FLIM maps instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cube : np.ndarray or None</span>
+<span class="sd">        Shape (M, Y, X, H) if successfully decoded, else None.</span>
+<span class="sd">    derived : dict</span>
+<span class="sd">        Pre-computed FLIM parameter maps (always populated).</span>
+<span class="sd">    flim_img : LifFlimImage or None</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">liffile</span>
+
+    <span class="k">with</span> <span class="n">liffile</span><span class="o">.</span><span class="n">LifFile</span><span class="p">(</span><span class="n">lif_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">lif</span><span class="p">:</span>
+        <span class="c1"># Find FLIM image.</span>
+        <span class="c1"># img.name  = last path component, e.g. 'FLIM'</span>
+        <span class="c1"># img.path  = full path,           e.g. 'T23_005304_I1_2/FLIM'</span>
+        <span class="c1"># series_name may be supplied as either the full path ('T23_.../FLIM')</span>
+        <span class="c1"># or just the base series name ('T23_...'), so we normalise both sides.</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_flim_path_matches</span><span class="p">(</span><span class="n">img</span><span class="p">:</span> <span class="s2">"lf.LifImageABC"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">"""</span>
+<span class="sd">            Run the FLIM path matches routine.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            img : 'lf.LifImageABC'</span>
+<span class="sd">                Image object or image array being processed.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            bool</span>
+<span class="sd">                Boolean result computed by FLIM path matches.</span>
+<span class="sd">            """</span>
+            <span class="k">if</span> <span class="n">series_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># Strip trailing /FLIM from the query so both forms work</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">series_name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">):</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">)]</span>
+            <span class="c1"># img.path has the full path; strip /FLIM from it for comparison</span>
+            <span class="n">img_base</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">img_base</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">):</span>
+                <span class="n">img_base</span> <span class="o">=</span> <span class="n">img_base</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">img_base</span> <span class="o">==</span> <span class="n">query</span> <span class="ow">or</span> <span class="n">img</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">series_name</span>
+
+        <span class="n">flim_img</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">lif</span><span class="o">.</span><span class="n">images</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">is_flim</span> <span class="ow">and</span> <span class="n">_flim_path_matches</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+                <span class="n">flim_img</span> <span class="o">=</span> <span class="n">img</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">flim_img</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">available</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="o">.</span><span class="n">path</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">lif</span><span class="o">.</span><span class="n">images</span> <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">is_flim</span><span class="p">]</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"No LifFlimImage found for series_name=</span><span class="si">{</span><span class="n">series_name</span><span class="si">!r}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="sa">f</span><span class="s2">"Available FLIM paths: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Derive the series name from the FLIM image path (strip '/FLIM')</span>
+        <span class="n">base_series</span> <span class="o">=</span> <span class="n">flim_img</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/FLIM"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+        <span class="n">base_series</span> <span class="o">=</span> <span class="n">base_series</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Read derived images (always works)</span>
+        <span class="n">derived</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">use_derived_fallback</span><span class="p">:</span>
+            <span class="n">derived</span> <span class="o">=</span> <span class="n">read_derived_images</span><span class="p">(</span><span class="n">lif</span><span class="p">,</span> <span class="n">base_series</span><span class="p">)</span>
+
+        <span class="c1"># Attempt raw cube decode</span>
+        <span class="n">cube</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cube</span> <span class="o">=</span> <span class="n">build_decay_cube</span><span class="p">(</span><span class="n">flim_img</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"[OK] Decoded decay cube: shape=</span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, total photons=</span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">NotImplementedError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">raw_hex</span> <span class="o">=</span> <span class="n">flim_img</span><span class="o">.</span><span class="n">memory_block</span><span class="o">.</span><span class="n">read</span><span class="p">()[:</span><span class="mi">64</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[WARN] Could not decode raw TCSPC stream: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"       Memory block first 64 bytes: </span><span class="si">{</span><span class="n">raw_hex</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"       Using pre-computed derived images instead."</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"       Derived keys available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">derived</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cube</span><span class="p">,</span> <span class="n">derived</span><span class="p">,</span> <span class="n">flim_img</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Part 5 – (X, Y, T) collapse and pixel-wise decay plotting</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">collapse_to_xyt</span><span class="p">(</span><span class="n">cube</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Sum the M (mosaic/frame) axis to get a single (Y, X, H) image.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : np.ndarray, shape (M, Y, X, H)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xyt : np.ndarray, shape (Y, X, H)  — dtype promoted to uint32 to avoid overflow</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">cube</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_xyt</span><span class="p">(</span>
+    <span class="n">xyt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">tcspc_resolution_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">97e-12</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">pixel_yx</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cmap_intensity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"hot"</span><span class="p">,</span>
+    <span class="n">cmap_lifetime</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"RdYlGn_r"</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Plot xyt.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xyt : np.ndarray</span>
+<span class="sd">        Decay cube with shape (Y, X, T).</span>
+<span class="sd">    tcspc_resolution_s : float</span>
+<span class="sd">        TCSPC bin width in seconds.</span>
+<span class="sd">    pixel_yx : tuple[int, int] | None</span>
+<span class="sd">        Selected pixel as a (row, column) coordinate.</span>
+<span class="sd">    cmap_intensity : str</span>
+<span class="sd">        Colormap used for intensity images.</span>
+<span class="sd">    cmap_lifetime : str</span>
+<span class="sd">        Colormap used for lifetime or mean-arrival-time images.</span>
+<span class="sd">    save_path : str | None</span>
+<span class="sd">        Path where the generated figure or array is saved.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Matplotlib figure or axes containing the XYT decay visualization.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">,</span> <span class="n">n_h</span> <span class="o">=</span> <span class="n">xyt</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">t_ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="n">tcspc_resolution_s</span> <span class="o">*</span> <span class="mf">1e9</span>  <span class="c1"># time axis in ns</span>
+
+    <span class="k">if</span> <span class="n">pixel_yx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pixel_yx</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_y</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_x</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pixel_yx</span><span class="p">)</span>  <span class="c1"># mutable so click handler can update it</span>
+
+    <span class="n">intensity</span> <span class="o">=</span> <span class="n">xyt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">intensity</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">mean_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyt</span> <span class="o">*</span> <span class="n">t_ns</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"FLIM (Y=</span><span class="si">{</span><span class="n">n_y</span><span class="si">}</span><span class="s2">, X=</span><span class="si">{</span><span class="n">n_x</span><span class="si">}</span><span class="s2">, H=</span><span class="si">{</span><span class="n">n_h</span><span class="si">}</span><span class="s2">)  |  "</span>
+        <span class="sa">f</span><span class="s2">"res=</span><span class="si">{</span><span class="n">tcspc_resolution_s</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e12</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> ps/bin  |  "</span>
+        <span class="sa">f</span><span class="s2">"total photons=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">intensity</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
+
+    <span class="n">ax_int</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax_tau</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax_sum</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax_pix</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># ── Panel 1: intensity ────────────────────────────────────────────────</span>
+    <span class="n">im1</span> <span class="o">=</span> <span class="n">ax_int</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">intensity</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_intensity</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">)</span>
+    <span class="n">ax_int</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Intensity (photon count)"</span><span class="p">)</span>
+    <span class="n">ax_int</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"X (pixels)"</span><span class="p">)</span>
+    <span class="n">ax_int</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Y (pixels)"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_int</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">marker_int</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax_int</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">sel</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"c+"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># ── Panel 2: mean arrival time ────────────────────────────────────────</span>
+    <span class="n">vmax_t</span> <span class="o">=</span> <span class="n">t_ns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">im2</span> <span class="o">=</span> <span class="n">ax_tau</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mean_t</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_lifetime</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax_t</span><span class="p">)</span>
+    <span class="n">ax_tau</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Mean photon arrival time (ns)"</span><span class="p">)</span>
+    <span class="n">ax_tau</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"X (pixels)"</span><span class="p">)</span>
+    <span class="n">ax_tau</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Y (pixels)"</span><span class="p">)</span>
+    <span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_tau</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="n">cb2</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">"ns"</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">marker_tau</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax_tau</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">sel</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"w+"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># ── Panel 3: summed decay ─────────────────────────────────────────────</span>
+    <span class="n">summed</span> <span class="o">=</span> <span class="n">xyt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">t_ns</span><span class="p">,</span> <span class="n">summed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"steelblue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Summed decay (all pixels, log scale)"</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Arrival time (ns)"</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Photon count"</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_ns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># ── Panel 4: single-pixel decay ───────────────────────────────────────</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">t_ns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">n_h</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">1.0</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax_pix</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">t_ns</span><span class="p">,</span> <span class="n">xyt</span><span class="p">[</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"salmon"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Arrival time (ns)"</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Photon count"</span><span class="p">)</span>
+    <span class="n">pix_title</span> <span class="o">=</span> <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pixel (y=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, x=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_ns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_pixel</span><span class="p">(</span><span class="n">py</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">px</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Update pixel.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        py : int</span>
+<span class="sd">            Pixel row coordinate.</span>
+<span class="sd">        px : int</span>
+<span class="sd">            Pixel column coordinate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            No object is returned; the function update pixel.</span>
+<span class="sd">        """</span>
+        <span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">py</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">px</span><span class="p">)</span>
+        <span class="n">decay</span> <span class="o">=</span> <span class="n">xyt</span><span class="p">[</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">decay</span><span class="p">):</span>
+            <span class="n">bar</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">decay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">pix_title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pixel (y=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, x=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">marker_int</span><span class="p">,</span> <span class="n">marker_tau</span><span class="p">):</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_click</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Run the on click routine.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : Any</span>
+<span class="sd">            GUI or Matplotlib event handled by the callback.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            No object is returned; the function perform on click.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">inaxes</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ax_int</span><span class="p">,</span> <span class="n">ax_tau</span><span class="p">)</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_update_pixel</span><span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s2">"button_press_event"</span><span class="p">,</span> <span class="n">_on_click</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Saved to </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Part 5 – (X, Y, T) collapse and pixel-wise decay plotting</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="collapse_to_xyt">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.collapse_to_xyt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">collapse_to_xyt</span><span class="p">(</span><span class="n">cube</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>  <span class="c1"># noqa: F811</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Sum the M (mosaic/frame) axis to get a single (Y, X, H) image.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : np.ndarray, shape (M, Y, X, H)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xyt : np.ndarray, shape (Y, X, H)  — dtype promoted to uint32 to avoid overflow</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">cube</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="plot_xyt">
+<a class="viewcode-back" href="../../../api/generated/pyfli.io.flim_decay_cube.html#pyfli.io.flim_decay_cube.plot_xyt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_xyt</span><span class="p">(</span>  <span class="c1"># noqa: F811</span>
+    <span class="n">xyt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">tcspc_resolution_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">97e-12</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">pixel_yx</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cmap_intensity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"hot"</span><span class="p">,</span>
+    <span class="n">cmap_lifetime</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"RdYlGn_r"</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Plot xyt.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xyt : np.ndarray</span>
+<span class="sd">        Decay cube with shape (Y, X, T).</span>
+<span class="sd">    tcspc_resolution_s : float</span>
+<span class="sd">        TCSPC bin width in seconds.</span>
+<span class="sd">    pixel_yx : tuple[int, int] | None</span>
+<span class="sd">        Selected pixel as a (row, column) coordinate.</span>
+<span class="sd">    cmap_intensity : str</span>
+<span class="sd">        Colormap used for intensity images.</span>
+<span class="sd">    cmap_lifetime : str</span>
+<span class="sd">        Colormap used for lifetime or mean-arrival-time images.</span>
+<span class="sd">    save_path : str | None</span>
+<span class="sd">        Path where the generated figure or array is saved.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        No object is returned; the function plot xyt.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="n">n_y</span><span class="p">,</span> <span class="n">n_x</span><span class="p">,</span> <span class="n">n_h</span> <span class="o">=</span> <span class="n">xyt</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">t_ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="n">tcspc_resolution_s</span> <span class="o">*</span> <span class="mf">1e9</span>  <span class="c1"># time axis in ns</span>
+
+    <span class="k">if</span> <span class="n">pixel_yx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pixel_yx</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_y</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_x</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pixel_yx</span><span class="p">)</span>  <span class="c1"># mutable so click handler can update it</span>
+
+    <span class="n">intensity</span> <span class="o">=</span> <span class="n">xyt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">intensity</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">mean_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyt</span> <span class="o">*</span> <span class="n">t_ns</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"FLIM (Y=</span><span class="si">{</span><span class="n">n_y</span><span class="si">}</span><span class="s2">, X=</span><span class="si">{</span><span class="n">n_x</span><span class="si">}</span><span class="s2">, H=</span><span class="si">{</span><span class="n">n_h</span><span class="si">}</span><span class="s2">)  |  "</span>
+        <span class="sa">f</span><span class="s2">"res=</span><span class="si">{</span><span class="n">tcspc_resolution_s</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e12</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> ps/bin  |  "</span>
+        <span class="sa">f</span><span class="s2">"total photons=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">intensity</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
+
+    <span class="n">ax_int</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax_tau</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax_sum</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax_pix</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># ── Panel 1: intensity ────────────────────────────────────────────────</span>
+    <span class="n">im1</span> <span class="o">=</span> <span class="n">ax_int</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">intensity</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_intensity</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">)</span>
+    <span class="n">ax_int</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Intensity (photon count)"</span><span class="p">)</span>
+    <span class="n">ax_int</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"X (pixels)"</span><span class="p">)</span>
+    <span class="n">ax_int</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Y (pixels)"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_int</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">marker_int</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax_int</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">sel</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"c+"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># ── Panel 2: mean arrival time ────────────────────────────────────────</span>
+    <span class="n">vmax_t</span> <span class="o">=</span> <span class="n">t_ns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">im2</span> <span class="o">=</span> <span class="n">ax_tau</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mean_t</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_lifetime</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"upper"</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax_t</span><span class="p">)</span>
+    <span class="n">ax_tau</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Mean photon arrival time (ns)"</span><span class="p">)</span>
+    <span class="n">ax_tau</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"X (pixels)"</span><span class="p">)</span>
+    <span class="n">ax_tau</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Y (pixels)"</span><span class="p">)</span>
+    <span class="n">cb2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_tau</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="n">cb2</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">"ns"</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">marker_tau</span><span class="p">,)</span> <span class="o">=</span> <span class="n">ax_tau</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">sel</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"w+"</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># ── Panel 3: summed decay ─────────────────────────────────────────────</span>
+    <span class="n">summed</span> <span class="o">=</span> <span class="n">xyt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">t_ns</span><span class="p">,</span> <span class="n">summed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"steelblue"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Summed decay (all pixels, log scale)"</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Arrival time (ns)"</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Photon count"</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax_sum</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_ns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># ── Panel 4: single-pixel decay ───────────────────────────────────────</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">t_ns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">n_h</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">1.0</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax_pix</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">t_ns</span><span class="p">,</span> <span class="n">xyt</span><span class="p">[</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"salmon"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Arrival time (ns)"</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Photon count"</span><span class="p">)</span>
+    <span class="n">pix_title</span> <span class="o">=</span> <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pixel (y=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, x=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">t_ns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_ns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_pixel</span><span class="p">(</span><span class="n">py</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">px</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Update pixel.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        py : int</span>
+<span class="sd">            Pixel row coordinate.</span>
+<span class="sd">        px : int</span>
+<span class="sd">            Pixel column coordinate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            No object is returned; the function update pixel.</span>
+<span class="sd">        """</span>
+        <span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">py</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">px</span><span class="p">)</span>
+        <span class="n">decay</span> <span class="o">=</span> <span class="n">xyt</span><span class="p">[</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">decay</span><span class="p">):</span>
+            <span class="n">bar</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">ax_pix</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">decay</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">pix_title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pixel (y=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, x=</span><span class="si">{</span><span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">marker_int</span><span class="p">,</span> <span class="n">marker_tau</span><span class="p">):</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_click</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Run the on click routine.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : Any</span>
+<span class="sd">            GUI or Matplotlib event handled by the callback.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            No object is returned; the function perform on click.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">inaxes</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ax_int</span><span class="p">,</span> <span class="n">ax_tau</span><span class="p">)</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_update_pixel</span><span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s2">"button_press_event"</span><span class="p">,</span> <span class="n">_on_click</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Saved to </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># CLI demo  (python flim_decay_cube.py example.lif  [series_name])</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">lif_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">series_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="n">cube</span><span class="p">,</span> <span class="n">derived</span><span class="p">,</span> <span class="n">flim_img</span> <span class="o">=</span> <span class="n">load_flim_data</span><span class="p">(</span><span class="n">lif_path</span><span class="p">,</span> <span class="n">series_name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cube</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Decay cube shape : </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">  (M, Y, X, H)"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  M = </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">  mosaic tiles / time frames"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Y = </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">  image height (pixels)"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  X = </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">  image width  (pixels)"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  H = </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">  TCSPC histogram bins"</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total photon count : </span><span class="si">{</span><span class="n">cube</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">plot_decay_cube</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">flim_img</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">derived</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Derived FLIM maps available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">derived</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">derived</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">30s</span><span class="si">}</span><span class="s2">  shape=</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">  dtype=</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">plot_derived_images</span><span class="p">(</span><span class="n">derived</span><span class="p">,</span> <span class="n">series_name</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFli developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
