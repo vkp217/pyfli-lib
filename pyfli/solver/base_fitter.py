@@ -24,6 +24,9 @@ from .shared_metrics import (
     enforce_tau_ordering,
 )
 
+NLSF_WEIGHTINGS = ("irls", "none", "neyman")
+"""Residual weightings of :meth:`BaseFLIFitter.least_squares_fit`."""
+
 
 class BaseFLIFitter:
     """
@@ -122,11 +125,12 @@ class BaseFLIFitter:
         p0: Any,
         bounds: np.ndarray,
         model_type: str,
-        use_weights: bool = True,
+        weighting: str = "irls",
+        use_weights: bool | None = None,
         **kwargs: Any,
     ) -> Any:
         """
-        Run the least squares fit routine.
+        Weighted non-linear least-squares fit, ``min sum_k w_k (mu_k - d_k)^2``.
 
         Parameters
         ----------
@@ -136,50 +140,92 @@ class BaseFLIFitter:
             Lower and upper parameter bounds supplied to the optimizer.
         model_type : str
             FLI model family, such as mono- or bi-exponential.
-        use_weights : bool
-            Whether residuals are weighted during least-squares fitting.
+        weighting : str
+            How the residual weights ``w_k`` are chosen (see :data:`NLSF_WEIGHTINGS`):
+
+            - ``"irls"`` (default): iteratively reweighted least squares. Each round
+              solves with the weights frozen at ``1 / max(mu_k, variance_floor)``
+              from the previous round's model, until the parameters stop changing.
+              At convergence ``sum_k (d_k - mu_k) / mu_k * dmu_k/dtheta = 0``, the
+              Poisson likelihood equations, so photon-count data gets
+              MLE-equivalent (unbiased) estimates.
+            - ``"none"``: unweighted; nearly unbiased but less precise for
+              Poisson data, since every gate counts equally.
+            - ``"neyman"``: weights ``1 / max(d_k, 1)`` from the measured data
+              (Neyman chi-square). Biased towards low counts -- for decays, towards
+              short lifetimes, increasingly so at low photon counts. Kept only to
+              reproduce results of earlier PyFLI versions.
+        use_weights : bool | None
+            Deprecated: ``True`` means ``weighting="neyman"`` (the former default)
+            and ``False`` means ``weighting="none"``.
         **kwargs : Any
-            Additional keyword options forwarded to the underlying implementation.
+            ``max_iter`` / ``maxiter`` (function evaluations per solve), ``ftol``,
+            ``xtol``, and for IRLS ``irls_max_rounds`` (default 20), ``irls_tol``
+            (relative parameter change for convergence, default 1e-6) and
+            ``variance_floor`` (default 1.0 counts).
 
         Returns
         -------
         Any
             Object produced by least squares fit.
         """
-        d_fit = self.decay[self.fit_indices]
-        weights = (
-            1.0 / np.sqrt(np.clip(d_fit, 1, None))
-            if use_weights
-            else np.ones_like(d_fit)
-        )
+        if use_weights is not None:
+            warnings.warn(
+                "use_weights is deprecated; use weighting='neyman' (former default) "
+                "or weighting='none'.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            weighting = "neyman" if use_weights else "none"
+        if weighting not in NLSF_WEIGHTINGS:
+            raise ValueError(
+                f"weighting must be one of {NLSF_WEIGHTINGS}, got {weighting!r}"
+            )
 
-        def residuals(params: Any) -> Any:
-            """
-            Run the residuals routine.
+        d_fit = np.asarray(self.decay[self.fit_indices], dtype=float)
+        solver_opts = {
+            "bounds": bounds,
+            "ftol": kwargs.get("ftol", 1e-7),
+            "xtol": kwargs.get("xtol", 1e-7),
+            "max_nfev": kwargs.get("max_iter", kwargs.get("maxiter", 500)),
+        }
 
-            Parameters
-            ----------
-            params : Any
-                Model, detector, or plotting parameters used by the routine.
+        def solve(x0: Any, weights: np.ndarray) -> Any:
+            def residuals(params: Any) -> Any:
+                full_model = self.model_fit(self.t, params, model_type=model_type)
+                return (full_model[self.fit_indices] - d_fit) * weights
 
-            Returns
-            -------
-            Any
-                Object produced by residuals.
-            """
-            full_model = self.model_fit(self.t, params, model_type=model_type)
-            return (full_model[self.fit_indices] - d_fit) * weights
+            return least_squares(residuals, x0=x0, **solver_opts)
 
-        max_nfev = kwargs.get("max_iter", kwargs.get("maxiter", 500))
-        res = least_squares(
-            residuals,
-            x0=p0,
+        robust_residuals = None
+        if weighting == "neyman":
+            res = solve(p0, 1.0 / np.sqrt(np.clip(d_fit, 1.0, None)))
+        elif weighting == "none":
+            res = solve(p0, np.ones_like(d_fit))
+            robust_residuals = res.fun
+        else:
+            floor = kwargs.get("variance_floor", 1.0)
+            tol = kwargs.get("irls_tol", 1e-6)
+            params = np.asarray(p0, dtype=float)
+            for _ in range(kwargs.get("irls_max_rounds", 20)):
+                mu = self.model_fit(self.t, params, model_type=model_type)
+                weights = 1.0 / np.sqrt(np.clip(mu[self.fit_indices], floor, None))
+                res = solve(params, weights)
+                change = np.max(
+                    np.abs(res.x - params) / np.maximum(np.abs(params), 1e-12)
+                )
+                params = res.x
+                if change < tol:
+                    break
+        return self._post_process(
+            res.x,
+            res.jac,
+            res.status,
+            model_type,
             bounds=bounds,
-            ftol=kwargs.get("ftol", 1e-7),
-            xtol=kwargs.get("xtol", 1e-7),
-            max_nfev=max_nfev,
+            objective_chi_sq=2.0 * float(res.cost),
+            robust_residuals=robust_residuals,
         )
-        return self._post_process(res.x, res.jac, res.status, model_type, bounds=bounds)
 
     def trust_region(
         self, p0: Any, bounds: np.ndarray, model_type: str, **kwargs: Any
@@ -335,6 +381,8 @@ class BaseFLIFitter:
         model_type: str,
         pcov: np.ndarray | None = None,
         bounds: np.ndarray | None = None,
+        objective_chi_sq: float | None = None,
+        robust_residuals: np.ndarray | None = None,
     ) -> tuple[Any, ...]:
         """
         Run the post process routine.
@@ -353,16 +401,41 @@ class BaseFLIFitter:
             Parameter covariance matrix.
         bounds : np.ndarray | None
             Lower and upper parameter bounds supplied to the optimizer.
+        objective_chi_sq : float | None
+            Minimized weighted sum of squares, used to scale the Jacobian-based
+            uncertainties; defaults to the Poisson deviance of the fit.
+        robust_residuals : np.ndarray | None
+            Residuals of an unweighted fit; when given, the uncertainties use the
+            heteroscedasticity-robust sandwich estimator instead (see
+            :meth:`calculate_uncertainties`).
 
         Returns
         -------
         tuple[Any, ...]
-            Tuple containing fitted parameters, errors, covariance, and quality metrics.
+            ``(popt, perr, r2, chi2, reduced_chi2, ssr, converged, rmse)``; ``chi2``
+            is the Poisson deviance and ``reduced_chi2`` is deviance / (n - p).
         """
-        if model_type == "bi-exponential":
-            popt, _, pcov = enforce_tau_ordering(popt, pcov=pcov, bounds=bounds)
-
         d_fit = self.decay[self.fit_indices]
+        perr = None
+        if pcov is None and jac is not None:
+            if objective_chi_sq is None:
+                unordered = self.model_fit(self.t, popt, model_type=model_type)
+                objective_chi_sq = compute_fli_stats(
+                    unordered[self.fit_indices], d_fit, len(popt)
+                )[1]
+            perr = self.calculate_uncertainties(
+                jac,
+                objective_chi_sq,
+                len(d_fit),
+                len(popt),
+                residuals=robust_residuals,
+            )
+
+        if model_type == "bi-exponential":
+            popt, perr, pcov = enforce_tau_ordering(
+                popt, perr=perr, pcov=pcov, bounds=bounds
+            )
+
         final_model = self.model_fit(self.t, popt, model_type=model_type)[
             self.fit_indices
         ]
@@ -372,15 +445,18 @@ class BaseFLIFitter:
 
         if pcov is not None:
             perr = np.sqrt(np.maximum(np.diag(pcov), 0))
-        elif jac is not None:
-            perr = self.calculate_uncertainties(jac, chi_sq, len(d_fit), len(popt))
-        else:
+        elif perr is None:
             perr = np.full(len(popt), np.nan)
 
         return popt, perr, r_sq, chi_sq, red_chi_sq, ssr, (1 if status > 0 else 0), rmse
 
     def calculate_uncertainties(
-        self, jacobian: Any, chi_sq: np.ndarray, n_data: int, n_params: int
+        self,
+        jacobian: Any,
+        chi_sq: np.ndarray,
+        n_data: int,
+        n_params: int,
+        residuals: np.ndarray | None = None,
     ) -> Any:
         """
         Calculate uncertainties.
@@ -395,19 +471,36 @@ class BaseFLIFitter:
             Number of samples, components, gates, or iterations used by the routine.
         n_params : int
             Number of fitted model parameters.
+        residuals : np.ndarray | None
+            Residuals of an unweighted fit. When given, the covariance is the
+            heteroscedasticity-robust sandwich ``(J^T J)^-1 J^T diag(r^2) J
+            (J^T J)^-1 * n / (n - p)``, since unweighted residuals of photon counts
+            do not share one variance; otherwise it is ``(J^T J)^-1 * chi_sq /
+            (n - p)`` for residuals already weighted by their inverse standard
+            deviation.
 
         Returns
         -------
         Any
-            Object produced by calculate uncertainties.
+            One-standard-deviation uncertainty of each parameter.
         """
         try:
             dof = n_data - n_params
             if dof <= 0 or chi_sq <= 0:
                 return np.zeros(n_params)
             red_chi_sq = chi_sq / dof
-            hessian_inv = np.linalg.pinv(jacobian.T @ jacobian)
-            return np.sqrt(np.maximum(np.diag(hessian_inv) * red_chi_sq, 0))
+            jacobian = np.asarray(jacobian, dtype=float)
+            col_norm = np.linalg.norm(jacobian, axis=0)
+            col_norm = np.where(col_norm > 0, col_norm, 1.0)
+            scaled = jacobian / col_norm
+            bread = np.linalg.pinv(scaled.T @ scaled)
+            if residuals is not None:
+                meat = scaled.T @ (scaled * (np.asarray(residuals) ** 2)[:, None])
+                cov = bread @ meat @ bread * n_data / dof
+            else:
+                cov = bread * red_chi_sq
+            cov = cov / np.outer(col_norm, col_norm)
+            return np.sqrt(np.maximum(np.diag(cov), 0))
         except Exception:
             return np.full(n_params, np.nan)
 

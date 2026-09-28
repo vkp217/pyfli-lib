@@ -16,6 +16,8 @@ from tqdm import tqdm
 
 from pyfli import logging
 
+from .shared_metrics import pearson_chi_square
+
 try:
     from .global_fitter import GlobalFLIFitter as _GlobalFLIFitter
 except ImportError:
@@ -298,11 +300,24 @@ class FLICPUProcessor:
                 "h_shift_map": p_maps[..., 3].astype(np.float32),
             }
 
+        gate_lo, gate_hi = (0, T) if fit_indices is None else fit_indices
+        gate_lo, gate_hi = max(gate_lo, 0), min(gate_hi, T)
+        pearson_map = np.zeros((H, W), dtype=np.float32)
+        fitted = pixel_health_map > 0
+        pearson_map[fitted] = pearson_chi_square(
+            fit_map[fitted, gate_lo:gate_hi], image_cube[fitted, gate_lo:gate_hi]
+        )
+        pearson_dof = max((gate_hi - gate_lo) - internal_popt_len, 1)
+
         param_maps.update(
             {
                 "R2_map": r2_map,
                 "chi2_map": stat_map,
                 "reduced_chi2_map": red_stat_map,
+                "pearson_chi2_map": pearson_map,
+                "pearson_reduced_chi2_map": (pearson_map / pearson_dof).astype(
+                    np.float32
+                ),
                 "rmse_map": rmse_map,
                 "convergence_map": conv_map,
                 "pixel_health_map": pixel_health_map,

@@ -100,8 +100,10 @@ def test_log_summary_false_is_silent(irf_delta, caplog):
 
 def test_biexponential_sdf_uses_per_tau_normalization(irf_delta):
     """Regression test for the 1/tau mixture-weight bug: sdf must match
-    forward_model.decay_kernel's convention, (a1/tau1)*exp(-t/tau1) +
-    ((1-a1)/tau2)*exp(-t/tau2), not the un-normalized a1*exp(...) + (1-a1)*exp(...)."""
+    forward_model.decay_kernel's gate-integrated convention, where each component
+    has unit area, a1*[exp(-t/tau1) - exp(-(t+dt)/tau1)] +
+    (1-a1)*[exp(-t/tau2) - exp(-(t+dt)/tau2)], so a1 is the photon fraction of
+    component 1 -- not the peak-height weighting a1*exp(...) + (1-a1)*exp(...)."""
     H, W, bins = 2, 2, irf_delta.shape[-1]
     tau1 = np.full((H, W), 0.4, dtype=np.float32)
     tau2 = np.full((H, W), 1.6, dtype=np.float32)
@@ -113,8 +115,13 @@ def test_biexponential_sdf_uses_per_tau_normalization(irf_delta):
     )
     sdf = out["results"]["TR_maps"]["sdf_map"]
 
-    t = np.linspace(0, 1000.0 / 80.0, bins, endpoint=False, dtype=np.float32)
-    expected = (0.3 / 0.4) * np.exp(-t / 0.4) + (0.7 / 1.6) * np.exp(-t / 1.6)
+    t = np.linspace(0, 1000.0 / 80.0, bins, endpoint=False)
+    dt = t[1] - t[0]
+
+    def gate(tau):
+        return np.exp(-t / tau) - np.exp(-(t + dt) / tau)
+
+    expected = 0.3 * gate(0.4) + 0.7 * gate(1.6)
     np.testing.assert_allclose(sdf[0, 0], expected, rtol=1e-4)
 
 

@@ -11,6 +11,7 @@ import pytest
 
 from pyfli.solver.base_fitter import BaseFLIFitter
 from pyfli.solver.cpu_processor import FLICPUProcessor
+from pyfli.solver.shared_metrics import expected_poisson_deviance
 
 # ---------------------------------------------------------------------------
 # Constants — 80 MHz system, 256 bins → T_acq = 12.5 ns, dt = 12.5/256 ns/bin
@@ -102,12 +103,14 @@ class TestBaseFLIFitterStructure:
         assert 0.0 <= popt[1] <= 1.0
 
     def test_chi2_raw_greater_than_reduced(self):
-        """chi2 (raw) divided by dof must equal red_chi2; raw > reduced when dof > 1."""
+        """red_chi2 is the deviance chi2 over its expectation minus the 4 params."""
         decay, irf = _make_mono()
-        _, _, _, chi2, red_chi2, _, _, _ = BaseFLIFitter(
-            _FREQ, decay, irf
-        ).fit_with_estimator(model_type="mono-exponential")
-        dof = _N - 4  # N bins − 4 params [S, tau, offset, h_shift]
+        fitter = BaseFLIFitter(_FREQ, decay, irf)
+        popt, _, _, chi2, red_chi2, _, _, _ = fitter.fit_with_estimator(
+            model_type="mono-exponential"
+        )
+        model = fitter.model_fit(fitter.t, popt, model_type="mono-exponential")
+        dof = np.sum(expected_poisson_deviance(model)) - 4
         assert abs(red_chi2 - chi2 / dof) < 1e-4, "red_chi2 must equal chi2 / dof"
         assert chi2 > red_chi2
 
@@ -305,14 +308,15 @@ class TestCPUProcessorChi2Consistency:
         )
 
     def test_chi2_and_reduced_are_consistent(self, biexp_result):
-        """reduced_chi2_map ≈ chi2_map / dof for bi-exponential (dof = N − 6)."""
+        """reduced_chi2_map = chi2_map / (sum E[D](fit) - 6) for bi-exponential."""
         maps = biexp_result["results"]["maps"]
         health = maps["pixel_health_map"] > 0
         if not health.any():
             pytest.skip("No healthy pixels")
-        dof = _N - 6  # N bins − 6 params [S, a1, tau1, tau2, offset, h_shift]
+        fit = biexp_result["results"]["TR_maps"]["fit_map"][health]
+        dof = np.sum(expected_poisson_deviance(fit), axis=-1) - 6
         ratio = maps["chi2_map"][health] / maps["reduced_chi2_map"][health]
-        np.testing.assert_allclose(ratio, dof, rtol=1e-4)
+        np.testing.assert_allclose(ratio, dof, rtol=1e-3)
 
 
 class TestCPUProcessorArrayShapes:

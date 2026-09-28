@@ -15,10 +15,18 @@ import numpy as np
 from scipy.signal import fftconvolve
 from tqdm import tqdm
 
-from pyfli.solver.forward_model import decay_kernel, model_numpy
-from pyfli.solver.shared_metrics import compute_fli_stats
-
-from .common_reconstruct import bi_reconstruction, mono_reconstruction
+from pyfli.solver.forward_model import (
+    decay_kernel,
+    gate_integrated_kernel,
+    model_numpy,
+    negative_lag_gates,
+)
+from pyfli.solver.shared_metrics import (
+    compute_fli_stats,
+    compute_pearson_stats,
+    pearson_chi_square,
+    reduced_poisson_deviance,
+)
 
 # Matches forward_model._EPS — kept as a local literal since that name is
 # module-private in forward_model.
@@ -217,11 +225,10 @@ class ParamToDecay:
         unit_params["photon_count_map"] = np.ones(
             np.asarray(params[self.required_keys[0]]).shape, dtype=np.float32
         )
-        kernel = self._kernel_vectorized(unit_params)
         convolved = (
-            self._convolve_with_irf_vectorized(kernel)
+            self._convolve_with_irf_vectorized(unit_params)
             if self.irf is not None
-            else kernel
+            else self._kernel_vectorized(unit_params)
         )
         fit_sum = np.sum(convolved, axis=-1)
         decay_total = np.asarray(decay).sum(axis=-1)
@@ -301,9 +308,11 @@ class ParamToDecay:
         The residual map follows :class:`pyfli.solver.FLICPUProcessor`'s /
         :class:`pyfli.solver.FLIGPUProcessor`'s convention (``decay - fit``);
         the accompanying ``fit_stats_maps`` use the same key names those two
-        processors expose in their ``maps`` dict (``R2_map``, ``chi2_map``,
-        ``reduced_chi2_map``, ``rmse_map``), and are computed per pixel via
-        :func:`compute_fli_stats` — the same function :class:`BaseFLIFitter`
+        processors expose in their ``maps`` dict (``R2_map``, ``chi2_map`` and
+        ``reduced_chi2_map`` -- the Poisson deviance and deviance / (n - p) --,
+        ``pearson_chi2_map``, ``pearson_reduced_chi2_map``, ``rmse_map``), and are
+        computed per pixel via :func:`compute_fli_stats` /
+        :func:`compute_pearson_stats` — the same functions :class:`BaseFLIFitter`
         uses — so goodness-of-fit numbers stay in lockstep with the rest of
         the solver package. Pixels outside ``bool_mask`` (or wherever
         ``fit_map`` is ``NaN``, e.g. because they were skipped) are left
@@ -319,6 +328,8 @@ class ParamToDecay:
         reduced_chi2_map = np.full((h, w), np.nan, dtype=np.float32)
         r2_map = np.full((h, w), np.nan, dtype=np.float32)
         rmse_map = np.full((h, w), np.nan, dtype=np.float32)
+        pearson_map = np.full((h, w), np.nan, dtype=np.float32)
+        pearson_reduced_map = np.full((h, w), np.nan, dtype=np.float32)
 
         for i, j in itertools.product(range(h), range(w)):
             if bool_mask is not None and not bool_mask[i, j]:
@@ -330,6 +341,9 @@ class ParamToDecay:
             reduced_chi2_map[i, j] = red_chi_sq
             r2_map[i, j] = r_sq
             rmse_map[i, j] = rmse
+            pearson_map[i, j], pearson_reduced_map[i, j] = compute_pearson_stats(
+                fit_map[i, j, :], decay[i, j, :], n_params
+            )
 
         return {
             "TR_maps": {"fit_map": fit_map, "residual_map": residual_map},
@@ -337,6 +351,8 @@ class ParamToDecay:
                 "R2_map": r2_map,
                 "chi2_map": chi2_map,
                 "reduced_chi2_map": reduced_chi2_map,
+                "pearson_chi2_map": pearson_map,
+                "pearson_reduced_chi2_map": pearson_reduced_map,
                 "rmse_map": rmse_map,
             },
         }
@@ -356,44 +372,63 @@ class ParamToDecay:
         any_map = np.asarray(params[self.required_keys[0]])
         return np.full(any_map.shape, self.PARAM_MAP_DEFAULTS[key], dtype=float)
 
-    def _kernel_vectorized(self, params: dict[str, np.ndarray]) -> np.ndarray:
-        """Build the un-convolved (H, W, T) kernel, matching ``decay_kernel``."""
-        S = self._get_map(params, "photon_count_map")
-        h_shift = self._get_map(params, "h_shift_map")
-        t_eff = np.clip(self.t[None, None, :] - h_shift[..., None], 0.0, None)
+    def _kernel_vectorized(
+        self, params: dict[str, np.ndarray], gate_start: np.ndarray | None = None
+    ) -> np.ndarray:
+        """
+        Build the un-convolved gate-integrated (H, W, T') kernel, matching
+        :func:`pyfli.solver.forward_model.gate_integrated_kernel` -- on the gates
+        starting at ``self.t`` (as ``decay_kernel``) unless `gate_start` is given.
+        """
+        dt = float(self.t[1] - self.t[0]) if self.t.size > 1 else 1.0
+        starts = self.t if gate_start is None else np.asarray(gate_start, dtype=float)
+        S = self._get_map(params, "photon_count_map")[..., None]
+        h_shift = self._get_map(params, "h_shift_map")[..., None]
 
         if self.model_type == "mono-exponential":
-            tau = self._get_map(params, "tau_map")
-            tau_safe = np.clip(tau, _EPS, None)[..., None]
-            return mono_reconstruction(t_eff, tau_safe, S[..., None])
+            kernel_params = (S, self._get_map(params, "tau_map")[..., None], 0.0)
+        else:
+            kernel_params = (
+                S,
+                self._get_map(params, "alpha1_map")[..., None],
+                self._get_map(params, "tau1_map")[..., None],
+                self._get_map(params, "tau2_map")[..., None],
+                0.0,
+            )
+        kernel, _ = gate_integrated_kernel(
+            starts[None, None, :], dt, kernel_params, self.model_type, h_shift=h_shift
+        )
+        return np.asarray(kernel, dtype=float)
 
-        alpha1 = self._get_map(params, "alpha1_map")
-        tau1 = self._get_map(params, "tau1_map")
-        tau2 = self._get_map(params, "tau2_map")
-        t1_safe = np.clip(tau1, _EPS, None)[..., None]
-        t2_safe = np.clip(tau2, _EPS, None)[..., None]
-        a1 = alpha1[..., None]
-        s = S[..., None]
-        return bi_reconstruction(t_eff, t1_safe, t2_safe, s * a1, s * (1.0 - a1))
-
-    def _convolve_with_irf_vectorized(self, kernel: np.ndarray) -> np.ndarray:
-        """Batch-convolve ``kernel`` with the (per-pixel-normalized) IRF."""
-        h, w, t = kernel.shape
+    def _convolve_with_irf_vectorized(
+        self, params: dict[str, np.ndarray]
+    ) -> np.ndarray:
+        """
+        Batch-convolve the kernel of `params` with the (per-pixel-normalized) IRF,
+        exactly as :func:`pyfli.solver.forward_model.model_numpy` does per pixel:
+        the kernel is evaluated on extra negative-lag gates when any onset
+        ``h_shift`` is negative, so an earlier onset shifts the curve.
+        """
+        t = self.num_gates
+        dt = float(self.t[1] - self.t[0]) if self.t.size > 1 else 1.0
+        n_neg = negative_lag_gates(self._get_map(params, "h_shift_map"), dt)
+        kernel = self._kernel_vectorized(params, np.arange(-n_neg, t) * dt)
+        h, w, _ = kernel.shape
         irf_arr = (
             self.irf if self.irf.ndim == 3 else np.broadcast_to(self.irf, (h, w, t))
         )
         irf_sum = np.sum(irf_arr, axis=-1, keepdims=True)
-        # Same fallback as model_numpy: raw (unnormalized) IRF when its sum <= 0.
         safe_sum = np.where(irf_sum > 0, irf_sum, 1.0)
         irf_norm = np.where(irf_sum > 0, irf_arr / safe_sum, irf_arr)
-        return fftconvolve(kernel, irf_norm, mode="full", axes=-1)[..., :t]
+        return fftconvolve(kernel, irf_norm, mode="full", axes=-1)[
+            ..., n_neg : n_neg + t
+        ]
 
     def _build_fit_map_vectorized(self, params: dict[str, np.ndarray]) -> np.ndarray:
-        kernel = self._kernel_vectorized(params)
         convolved = (
-            self._convolve_with_irf_vectorized(kernel)
+            self._convolve_with_irf_vectorized(params)
             if self.irf is not None
-            else kernel
+            else self._kernel_vectorized(params)
         )
         v_shift = self._get_map(params, "v_shift_map")
         return (convolved + v_shift[..., None]).astype(np.float32)
@@ -405,15 +440,17 @@ class ParamToDecay:
         bool_mask: np.ndarray | None,
     ) -> dict[str, Any]:
         """Vectorized equivalent of :meth:`_compute_tr_maps`, same formulas as
-        :func:`compute_fli_stats` (variance floored at 1.0, dof = T - n_params)."""
+        :func:`compute_fli_stats` / :func:`compute_pearson_stats` (Poisson deviance
+        and its expectation-normalized reduced value; Pearson with variance floored
+        at 1.0 and dof = T - n_params)."""
         n_params = len(self.param_keys)
         dof = max(self.num_gates - n_params, 1)
 
         residual_map = decay - fit_map
-        variance = np.clip(fit_map, 1.0, None)
         ssr = np.sum(residual_map**2, axis=-1)
-        chi2_map = np.sum(residual_map**2 / variance, axis=-1)
-        reduced_chi2_map = chi2_map / dof
+        chi2_map, reduced_chi2_map = reduced_poisson_deviance(fit_map, decay, n_params)
+        pearson_map = pearson_chi_square(fit_map, decay)
+        pearson_reduced_map = pearson_map / dof
         ss_tot = np.sum((decay - np.mean(decay, axis=-1, keepdims=True)) ** 2, axis=-1)
         r2_map = np.where(
             ss_tot > 0, 1.0 - ssr / np.where(ss_tot > 0, ss_tot, 1.0), 0.0
@@ -423,6 +460,8 @@ class ParamToDecay:
         if bool_mask is not None:
             chi2_map = np.where(bool_mask, chi2_map, np.nan)
             reduced_chi2_map = np.where(bool_mask, reduced_chi2_map, np.nan)
+            pearson_map = np.where(bool_mask, pearson_map, np.nan)
+            pearson_reduced_map = np.where(bool_mask, pearson_reduced_map, np.nan)
             r2_map = np.where(bool_mask, r2_map, np.nan)
             rmse_map = np.where(bool_mask, rmse_map, np.nan)
 
@@ -435,6 +474,8 @@ class ParamToDecay:
                 "R2_map": r2_map.astype(np.float32),
                 "chi2_map": chi2_map.astype(np.float32),
                 "reduced_chi2_map": reduced_chi2_map.astype(np.float32),
+                "pearson_chi2_map": pearson_map.astype(np.float32),
+                "pearson_reduced_chi2_map": pearson_reduced_map.astype(np.float32),
                 "rmse_map": rmse_map.astype(np.float32),
             },
         }
@@ -466,7 +507,7 @@ class ParamToDecay:
 
         kernel = self._kernel_vectorized(params)
         convolved = (
-            self._convolve_with_irf_vectorized(kernel)
+            self._convolve_with_irf_vectorized(params)
             if self.irf is not None
             else kernel
         )
