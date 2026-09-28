@@ -9,9 +9,9 @@ Reference for every public module in the ``pyfli`` package, organized by subpack
   global FLI fitting routines.
 - :mod:`pyfli.reconstruction` — Rebuilds modeled decay cubes, generate fit statistics
   maps from fitted parameter maps.
-- :mod:`pyfli.phasor` — Phasor-domain lifetime analysis: the full
-  phasor / universal-circle (SEPL) formalism (:mod:`~pyfli.phasor.phasorSEPL`)
-  and a compact CPU/GPU phasor analyzer (:mod:`~pyfli.phasor.phasorS`).
+- :mod:`pyfli.phasor` — Phasor-domain lifetime analysis: a compact CPU/GPU
+  phasor analyzer, acquisition-geometry loci and locus-based lifetime helpers
+  (:mod:`~pyfli.phasor.phasorS`).
 - :mod:`pyfli.analyticalWorkflow` — Analytical FLI reconstruction helpers.
 - :mod:`pyfli.laguerre` — Laguerre-basis deconvolution and fitting method.
 - :mod:`pyfli.simulator` — Synthetic FLI/FLIM data generation, hardware noise

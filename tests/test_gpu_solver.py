@@ -2,9 +2,9 @@
 Performance and correctness tests for FLIGPUProcessor.
 
 All 4 estimation methods are tested on synthetic ground-truth data:
-    CPU NLSF  — BaseFLIFitter  / least_squares  (Neyman WLS)
+    CPU NLSF  — BaseFLIFitter  / least_squares  (IRLS WLS, default)
     CPU MLE   — MLEFLIFitter   / minimize        (Poisson C-stat)
-    GPU NLSF  — FLIGPUProcessor / Adam          (Neyman WLS)
+    GPU NLSF  — FLIGPUProcessor / Adam          (IRLS WLS, default)
     GPU MLE   — FLIGPUProcessor / Adam          (Poisson C-stat)
 
 Both mono-exponential and bi-exponential models are covered.

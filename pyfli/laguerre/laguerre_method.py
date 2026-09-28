@@ -17,6 +17,7 @@ from tqdm.auto import tqdm
 from pyfli import logging
 
 from ..solver.base_static import moment_based_guess
+from ..solver.shared_metrics import reduced_poisson_deviance
 
 
 class LaguerreFLI:
@@ -694,8 +695,12 @@ class LaguerreFLI:
         variance[variance <= 0] = 1.0
         dof = max(T - self.n_laguerre, 1)
         residuals_d = decay_d - scaled_fit
-        chi_sq_raw = np.sum((residuals_d**2) / variance, axis=-1).astype(np.float32)
-        chi_sq_reduced = (chi_sq_raw / dof).astype(np.float32)
+        chi_sq_raw, chi_sq_reduced = reduced_poisson_deviance(
+            scaled_fit, decay_d, self.n_laguerre
+        )
+        chi_sq_raw = chi_sq_raw.astype(np.float32)
+        chi_sq_reduced = chi_sq_reduced.astype(np.float32)
+        pearson_raw = np.sum((residuals_d**2) / variance, axis=-1).astype(np.float32)
 
         ss_res = np.sum(residuals_d**2, axis=-1)
         ss_tot = np.sum((decay_d - decay_d.mean(axis=-1, keepdims=True)) ** 2, axis=-1)
@@ -751,6 +756,8 @@ class LaguerreFLI:
             "R2_map": r2_map,
             "chi2_map": chi_sq_raw,
             "reduced_chi2_map": chi_sq_reduced,
+            "pearson_chi2_map": pearson_raw,
+            "pearson_reduced_chi2_map": (pearson_raw / dof).astype(np.float32),
             "convergence_map": convergence,
             "pixel_health_map": pixel_health,
         }

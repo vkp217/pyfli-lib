@@ -32,35 +32,6 @@ def test_top_level_core_symbols_are_public():
         assert callable(getattr(pyfli, name))
 
 
-def test_top_level_phasor_helpers_are_public():
-    expected = [
-        "AcquisitionConfig",
-        "AcquisitionMode",
-        "phasor_continuous",
-        "phasor_discrete",
-        "phasor_gated_single",
-        "phasor_gated_N",
-        "phasor_truncated",
-        "phasor_offset",
-        "phasor_from_config",
-        "build_locus",
-        "build_loci",
-        "tau_grid",
-        "universal_semicircle",
-        "sepl_center_radius_discrete",
-        "phase_lifetime",
-        "modulus_lifetime",
-        "lifetime_from_phasor",
-        "phase_lifetime_gated",
-        "fractional_components",
-        "plot_phasor",
-        "plot_locus_comparison",
-        "plot_discrete_N_sweep",
-    ]
-    for name in expected:
-        assert hasattr(pyfli, name)
-
-
 def test_subpackages_available():
     assert pyfli.phasor is not None
     assert pyfli.sp_analysis is not None

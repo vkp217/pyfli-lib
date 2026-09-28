@@ -6,6 +6,7 @@ likelihood, CPU, GPU, binned, and global FLI fitting routines. Public API includ
 classes :class:`FLIGPUProcessor`.
 """
 
+import math
 import os
 import time
 from typing import Any
@@ -16,10 +17,8 @@ import torch
 from tqdm import tqdm
 
 from pyfli import logging
-from pyfli.reconstruction.common_reconstruct import (
-    bi_reconstruction_torch,
-    mono_reconstruction_torch,
-)
+
+from .shared_metrics import pearson_chi_square, reduced_poisson_deviance
 
 
 class FLIGPUProcessor:
@@ -84,7 +83,11 @@ class FLIGPUProcessor:
         self, params: Any, t: np.ndarray, irf: np.ndarray, model_type: str
     ) -> Any:
         """
-        Run the model kernel routine.
+        Batched forward model, identical to :func:`pyfli.solver.model_numpy`: the
+        gate-integrated decay with onset ``h_shift`` (evaluated on extra negative-lag
+        gates so an earlier onset shifts the curve instead of truncating it),
+        convolved with the normalized IRF, plus ``v_shift``. ``S`` is the total
+        photon count of the decay.
 
         Parameters
         ----------
@@ -102,34 +105,40 @@ class FLIGPUProcessor:
         Any
             Object produced by model kernel.
         """
+        T = t.shape[-1]
+        dt = self.T_acq / T
+        n_neg = math.ceil((self.T_acq / 4.0) / dt) + 1
+        lags = torch.arange(-n_neg, T, device=t.device, dtype=params.dtype) * dt
+        a = lags[None, :]
+        b_edge = a + dt
+        h_shift = params[:, -1:]
+        a_eff = torch.maximum(a, h_shift) - h_shift
+        b_eff = torch.maximum(b_edge, h_shift) - h_shift
+
+        def gate_fraction(tau: Any) -> Any:
+            return torch.exp(-a_eff / tau) - torch.exp(-b_eff / tau)
+
         if model_type == "mono-exponential":
-            S, tau, b, h_shift = (
-                params[:, 0:1],
-                params[:, 1:2],
-                params[:, 2:3],
-                params[:, 3:4],
-            )
-            t_eff = torch.clamp(t - h_shift, min=0.0)
-            decay = mono_reconstruction_torch(t_eff, tau, S)
+            S, tau, b = params[:, 0:1], params[:, 1:2], params[:, 2:3]
+            decay = S * gate_fraction(tau)
         else:
-            S, a1, t1, t2, b, h_shift = (
+            S, a1, t1, t2, b = (
                 params[:, 0:1],
                 params[:, 1:2],
                 params[:, 2:3],
                 params[:, 3:4],
                 params[:, 4:5],
-                params[:, 5:6],
             )
-            t_eff = torch.clamp(t - h_shift, min=0.0)
-            decay = bi_reconstruction_torch(t_eff, t1, t2, S * a1, S * (1.0 - a1))
+            decay = S * (a1 * gate_fraction(t1) + (1.0 - a1) * gate_fraction(t2))
 
         irf_norm = irf / irf.sum(dim=1, keepdim=True).clamp(min=1e-9)
 
-        T = t.shape[-1]
-        n_fft = 2 * T
+        n_fft = 2 * (T + n_neg)
         decay_fft = torch.fft.rfft(decay, n=n_fft)
         irf_fft = torch.fft.rfft(irf_norm, n=n_fft)
-        convolved = torch.fft.irfft(decay_fft * irf_fft, n=n_fft)[..., :T]
+        convolved = torch.fft.irfft(decay_fft * irf_fft, n=n_fft)[
+            ..., n_neg : n_neg + T
+        ]
         return convolved + b
 
     def _compute_crlb_errors(
@@ -206,6 +215,7 @@ class FLIGPUProcessor:
         data_name: str = "Torch_Fit",
         p0: Any | None = None,
         fit_indices: tuple[int, int] | None = None,
+        weighting: str = "irls",
         **kwargs: Any,
     ) -> Any:
         # Normalise mode tag: NLSF/LSE variants → 'NLSF', everything else → 'MLE'
@@ -237,6 +247,16 @@ class FLIGPUProcessor:
             focus on the tail of the decay. The forward model is still evaluated over
             the full trace (needed for correct IRF convolution); only the loss and fit
             statistics are restricted to this gate range. ``None`` fits the full trace.
+        weighting : str
+            Residual weights for ``mode="NLSF"`` (ignored for MLE, which uses the
+            Poisson deviance): ``"irls"`` (default) divides each squared residual by
+            the current model value held constant in the gradient -- the batched
+            counterpart of iteratively reweighted least squares, whose converged
+            solution solves the Poisson likelihood equations; ``"none"`` is
+            unweighted; ``"neyman"`` divides by the measured counts (former default,
+            biased towards short lifetimes at low counts). ``mode="NEYMAN"`` implies
+            ``"neyman"``. ``variance_floor`` (kwarg, default 1.0) floors the IRLS
+            variance.
         **kwargs : Any
             Additional keyword options forwarded to the underlying implementation.
 
@@ -245,8 +265,15 @@ class FLIGPUProcessor:
         Any
             Object produced by fit image.
         """
-        _NLSF_MODES = {"NLSF", "LSE", "WLS", "NEYMAN"}
+        _NLSF_MODES = {"NLSF", "LSE", "WLS", "NEYMAN", "LEAST_SQUARES"}
+        if mode.upper() == "NEYMAN":
+            weighting = "neyman"
+        if weighting not in ("irls", "none", "neyman"):
+            raise ValueError(
+                f"weighting must be 'irls', 'none' or 'neyman', got {weighting!r}"
+            )
         mode = "NLSF" if mode.upper() in _NLSF_MODES else "MLE"
+        variance_floor = kwargs.get("variance_floor", 1.0)
 
         start_time = time.time()
         H, W, T = image_cube.shape
@@ -288,7 +315,7 @@ class FLIGPUProcessor:
             raw_p[:, -2] = torch.log(
                 torch.clamp(p_guess[:, -2], min=1e-6)
             )  # log(v_shift)
-            raw_p[:, -1] = 0.0  # atanh(h_shift/bound)=0
+            raw_p[:, -1] = math.atanh(0.5 * (self.T_acq / T) / (self.T_acq / 4.0))
             if model_type == "bi-exponential":
                 raw_p[:, 1] = torch.logit(torch.clamp(p_guess[:, 1], 0.001, 0.999))
                 raw_p[:, 2] = torch.log(torch.clamp(p_guess[:, 2], min=1e-3))
@@ -302,7 +329,7 @@ class FLIGPUProcessor:
         pixel_health_map = np.ones(H * W, dtype=np.float32)
 
         if mode == "NLSF":
-            # Neyman chi-squared: weights by measured data — matches CPU BaseFLIFitter
+
             def objective_fn(p_raw: np.ndarray) -> Any:
                 """
                 Run the objective fn routine.
@@ -321,8 +348,13 @@ class FLIGPUProcessor:
                 pred = self._model_kernel(p_phys, t_axis, flat_irf, model_type)
                 pred_sel = pred[:, gate_start:gate_end]
                 data_sel = flat_data[:, gate_start:gate_end]
-                data_safe = torch.clamp(data_sel, min=1.0)
-                per_px = torch.sum((pred_sel - data_sel) ** 2 / data_safe, dim=1)
+                if weighting == "neyman":
+                    variance = torch.clamp(data_sel, min=1.0)
+                elif weighting == "none":
+                    variance = torch.ones_like(data_sel)
+                else:
+                    variance = torch.clamp(pred_sel.detach(), min=variance_floor)
+                per_px = torch.sum((pred_sel - data_sel) ** 2 / variance, dim=1)
                 return per_px[torch.isfinite(per_px)].sum()
         else:
             # Poisson MLE (C-statistic): matches CPU MLEFLIFitter
@@ -344,7 +376,7 @@ class FLIGPUProcessor:
                 pred = self._model_kernel(p_phys, t_axis, flat_irf, model_type)
                 pred_sel = pred[:, gate_start:gate_end]
                 data_sel = flat_data[:, gate_start:gate_end]
-                pred_safe = torch.clamp(pred_sel, min=1.0)
+                pred_safe = torch.clamp(pred_sel, min=1e-9)
                 per_px = 2.0 * torch.sum(
                     pred_safe
                     - data_sel
@@ -397,8 +429,12 @@ class FLIGPUProcessor:
             data_sel = flat_data[:, gate_start:gate_end]
             res_sel = res_flat[:, gate_start:gate_end]
 
-            chi2_raw_flat = torch.sum((res_sel**2) / torch.clamp(fit_sel, 1.0), dim=1)
-            chi2_red_flat = chi2_raw_flat / dof
+            fit_sel_np = fit_sel.detach().cpu().numpy().astype(np.float64)
+            data_sel_np = data_sel.detach().cpu().numpy().astype(np.float64)
+            chi2_raw_flat, chi2_red_flat = reduced_poisson_deviance(
+                fit_sel_np, data_sel_np, p_final.shape[1]
+            )
+            pearson_flat = pearson_chi_square(fit_sel_np, data_sel_np)
 
             ss_tot = torch.sum(
                 (data_sel - data_sel.mean(dim=1, keepdim=True)) ** 2, dim=1
@@ -428,8 +464,10 @@ class FLIGPUProcessor:
         full_perr[valid_idx] = perr_flat.detach().cpu().numpy()
         full_fit[valid_idx] = fit_flat.detach().cpu().numpy()
         full_res[valid_idx] = res_flat.detach().cpu().numpy()
-        full_chi2_raw[valid_idx] = chi2_raw_flat.detach().cpu().numpy()
-        full_chi2_red[valid_idx] = chi2_red_flat.detach().cpu().numpy()
+        full_chi2_raw[valid_idx] = chi2_raw_flat
+        full_chi2_red[valid_idx] = chi2_red_flat
+        full_pearson = np.zeros(H * W)
+        full_pearson[valid_idx] = pearson_flat
         full_r2[valid_idx] = r2_flat.detach().cpu().numpy()
         full_rmse[valid_idx] = rmse_flat.detach().cpu().numpy()
 
@@ -452,7 +490,7 @@ class FLIGPUProcessor:
             at_bound = (p_np[:, 1] <= tau_lo * 1.01) | (p_np[:, 1] >= tau_hi * 0.99)
         health_mask[valid_idx] = np.where(at_bound | (chi2_red_np > 5.0), 0.0, 1.0)
 
-        return self._reconstruct_dataset(
+        dataset = self._reconstruct_dataset(
             full_popt.reshape(H, W, -1),
             full_perr.reshape(H, W, -1),
             full_fit.reshape(H, W, T),
@@ -466,6 +504,13 @@ class FLIGPUProcessor:
             mode,
             data_name,
         )
+        dataset["results"]["maps"]["pearson_chi2_map"] = full_pearson.reshape(
+            H, W
+        ).astype(np.float32)
+        dataset["results"]["maps"]["pearson_reduced_chi2_map"] = (
+            full_pearson.reshape(H, W) / dof
+        ).astype(np.float32)
+        return dataset
 
     def _reconstruct_dataset(
         self,
@@ -652,7 +697,8 @@ class FLIGPUProcessor:
         m1 = np.trapezoid(t_rel * d_post, dx=dt, axis=1)
 
         tau_mean = np.clip(m1 / m0, 0.05, self.T_laser * 0.8)
-        s_guess = np.clip(m0 / (1.0 - np.exp(-self.T_acq / tau_mean)), 1e-3, None)
+        inside = -np.expm1(-self.T_acq / tau_mean)
+        s_guess = np.clip(clean_d.sum(axis=1) / inside, 1e-3, None)
         offset_safe = np.clip(offset_guess, 0.0, None)
 
         h_shift_guess = np.zeros(P)

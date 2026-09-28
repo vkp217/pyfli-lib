@@ -147,6 +147,7 @@ class MessageDisplay:
         ("R²", ["R2_map"]),
         ("Red.χ²", ["reduced_chi2_map"]),
         ("Raw.χ²", ["chi2_map"]),
+        ("Pearson", ["pearson_reduced_chi2_map"]),
         ("v-shift", ["v_shift_map"]),
         ("h-shift", ["h_shift_map"]),
     ]
