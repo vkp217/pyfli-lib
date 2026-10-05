@@ -17,4 +17,4 @@ If you use `pyfli` in your research, please cite this package:
 }
 ```
 
-You can also cite the repository directly: <https://github.com/vkp217/pyfli-pkg>.
+You can also cite the repository directly: <https://github.com/vkp217/pyfli-lib>.
