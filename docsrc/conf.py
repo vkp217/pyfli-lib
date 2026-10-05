@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import json
 import os
 import sys
 from datetime import datetime
+from pathlib import Path
+from xml.sax.saxutils import escape as xml_escape
 
 # -- Path setup --------------------------------------------------------------
 # docsrc/ lives at the repo root, next to the ``pyfli`` package itself, so
@@ -18,17 +21,20 @@ try:
     from sphinx_polyversion.git import GitRef  # noqa: F401
 
     USE_POLYVERSION = True
-    current = load(globals())["current"].name
+    _poly_data = load(globals())
+    current = _poly_data["current"].name
+    latest = _poly_data["latest"].name
 except ImportError:
     USE_POLYVERSION = False
     current = "local"
+    latest = "main"
 
 import pyfli
 
 # -- Project information ------------------------------------------------------
-project = "PyFli"
+project = "PyFLI"
 author = "Vikas Pandey"
-copyright = f"2025-{datetime.now().year}, PyFli developer and maintainer: {author}"
+copyright = f"2025-{datetime.now().year}, PyFLI developer and maintainer: {author}"
 release = current if USE_POLYVERSION and current != "local" else pyfli.__version__
 version = release
 
@@ -128,18 +134,19 @@ nb_execution_mode = "off"
 # -- HTML output ----------------------------------------------------------------
 html_theme = "pydata_sphinx_theme"
 html_static_path = ["_static"]
-html_title = "PyFli"
-html_baseurl = "https://pyfli.org/"
+html_title = "PyFLI"
+SITE_URL = "https://pyfli.org"
+html_baseurl = f"{SITE_URL}/{latest}/"
 html_show_sourcelink = True
 html_sourcelink_suffix = ""
 
 html_theme_options = {
     "logo": {
-        "text": "PyFli",
+        "text": "PyFLI",
         "image_light": "../pyfli/img/PyFLI_logo_light.png",
         "image_dark": "../pyfli/img/PyFLI_logo_dark.png",
     },
-    "github_url": "https://github.com/vkp217/pyfli-pkg",
+    "github_url": "https://github.com/vkp217/pyfli-lib",
     "navbar_end": ["theme-switcher", "navbar-icon-links", "version-switcher"],
     "switcher": {
         "json_url": "https://pyfli.org/versions.json",
@@ -165,10 +172,63 @@ html_theme_options = {
 
 html_context = {
     "github_user": "vkp217",
-    "github_repo": "pyfli-pkg",
+    "github_repo": "pyfli-lib",
     "github_version": current,
     "doc_path": "docsrc",
+    "seo_home_url": html_baseurl,
+    "seo_home_title": (
+        "PyFLI | Open-Source FLIM Analysis & Fluorescence Lifetime Imaging in Python"
+    ),
+    "seo_description": (
+        "PyFLI is an open-source Python library for Fluorescence Lifetime Imaging "
+        "Microscopy (FLIM) analysis: TCSPC and SPAD data processing, phasor plot "
+        "analysis, NLSF/MLE lifetime fitting with IRF deconvolution, and FLIM "
+        "data simulation for deep-learning model training."
+    ),
+    "seo_image_url": f"{html_baseurl}_static/pyfli-social-card.png",
+    "seo_pypi_url": "https://pypi.org/project/pyfli-lib/",
+    "seo_repo_url": "https://github.com/vkp217/pyfli-lib",
+    "seo_paper_url": "https://arxiv.org/abs/2609.11994",
 }
+html_context["seo_jsonld"] = json.dumps(
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PyFLI",
+        "alternateName": "pyfli-lib",
+        "url": html_context["seo_home_url"],
+        "description": html_context["seo_description"],
+        "image": html_context["seo_image_url"],
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "Fluorescence Lifetime Imaging (FLIM) analysis",
+        "operatingSystem": "Windows, Linux, macOS",
+        "programmingLanguage": "Python",
+        "softwareVersion": pyfli.__version__,
+        "downloadUrl": html_context["seo_pypi_url"],
+        "installUrl": html_context["seo_pypi_url"],
+        "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+        "isAccessibleForFree": True,
+        "keywords": (
+            "FLIM analysis, fluorescence lifetime imaging software, "
+            "fluorescence lifetime imaging microscopy, TCSPC, SPAD, "
+            "phasor plot analysis, maximum likelihood estimation, "
+            "instrument response function, IRF deconvolution, FLIM simulation, "
+            "deep learning FLIM, Python"
+        ),
+        "author": {"@type": "Person", "name": author},
+        "sameAs": [html_context["seo_repo_url"], html_context["seo_pypi_url"]],
+        "citation": {
+            "@type": "ScholarlyArticle",
+            "name": (
+                "PyFLI: A Python Library for Simulation, Parameter Estimation, "
+                "and Benchmarking in Fluorescence Lifetime Imaging"
+            ),
+            "url": html_context["seo_paper_url"],
+        },
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    },
+    indent=2,
+)
 
 html_logo = "../pyfli/img/PyFLI_logo.png"
 html_favicon = "../pyfli/img/PyFLI_logo.png"
@@ -208,5 +268,27 @@ def _skip_proprietary_members(app, what, name, obj, skip, options):
     return skip
 
 
+def _write_sitemap(app, exception):
+    """Write ``sitemap.xml`` listing every page under its canonical URL."""
+    if exception is not None or app.builder.format != "html":
+        return
+    base = app.config.html_baseurl
+    urls = []
+    for docname in sorted(app.env.found_docs):
+        if docname == app.config.root_doc:
+            urls.append(base)
+        else:
+            urls.append(base + app.builder.get_target_uri(docname))
+    entries = "\n".join(f"  <url><loc>{xml_escape(url)}</loc></url>" for url in urls)
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{entries}\n"
+        "</urlset>\n"
+    )
+    (Path(app.outdir) / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+
+
 def setup(app):
     app.connect("autodoc-skip-member", _skip_proprietary_members)
+    app.connect("build-finished", _write_sitemap)

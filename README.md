@@ -1,31 +1,33 @@
 <p align="center">
-  <img src="pyfli/img/PyFLI_logo.png" alt="PyFLI Logo" width="300"/>
+  <img src="pyfli/img/PyFLI_logo.png" alt="PyFLI logo: open-source FLIM analysis software in Python" width="300"/>
 </p>
 
-# pyfli: A Unified Platform for FLI Data Processing
+# PyFLI (`pyfli-lib`): A Unified Open-Source Python Library for FLIM Analysis and Fluorescence Lifetime Imaging
+
 
 [![Website](https://img.shields.io/badge/website-pyfli.org-blue.svg)](https://pyfli.org)
 [![PyPI version](https://img.shields.io/pypi/v/pyfli-lib.svg)](https://pypi.org/project/pyfli-lib/)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://github.com/vkp217/pyfli-pkg/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/vkp217/pyfli-pkg/actions/workflows/tests.yml)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/vkp217/pyfli-pkg/issues)
+[![Tests](https://github.com/vkp217/pyfli-lib/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/vkp217/pyfli-lib/actions/workflows/tests.yml)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/vkp217/pyfli-lib/issues)
 
 
 
-`pyfli` is a comprehensive library designed for **Fluorescence Lifetime Imaging (FLI)** data simulation, data processing and benchmarking. It streamlines the workflow for handling diverse file formats from various hardware manufacturers and provides a standardized pipeline for both traditional analytical and deep-learning-based inference.
+**PyFLI** is an open-source Python library for **Fluorescence Lifetime Imaging (FLI/FLIM)** analysis. It loads TCSPC, SPAD and ICCD data from different manufacturers through one interface, for both microscopy (FLIM) and macroscopic imaging (MFLI), and provides:
 
-**Keywords:** Fluorescence Lifetime Imaging, FLIM, MFLI, FLI, FLI-data simulator, TCSPC, Phasor analysis, ICCD, SPAD, Laguerre deconvolution, non-linear least squares fitting (NLSF), maximum likelihood estimation (MLE), rapid lifetime determination (RLD), Bayesian inference (BayesFLI), compressed sensing (CS), hyperspectral imaging, benchmarking, bioimaging, microscopy, Python
+* **Traditional analysis:** NLSF and MLE lifetime fitting, RLD, Laguerre deconvolution and phasor plot analysis, on CPU or GPU.
+* **Advanced analysis:** FLIM Deep-learning inference, and compressed-sensing reconstruction for single-pixel hyperspectral FLI.
+* **Advanced statistical analysis:**
+  * **Precision limits:** CRLB-derived bounds for fitted parameters, computed from the Poisson Fisher information matrix (Cramér-Rao lower bound, CRLB).
+  * **Photon economy:** coefficient of variation of lifetime estimates as a function of photon count.
+  * **Error analysis:** per-pixel error against simulated ground truth, and goodness-of-fit with Poisson deviance.
+  * **Method comparison:** results from every fitting method binned and compared across factors such as photon count, plus mono- vs. bi-exponential model classification.
+  * **Distribution tests:** classical and multivariate tests that compare simulated and experimental data.
+  * **Cross-software benchmarking:** import results processed in other software and compare them with PyFLI.
+* **A standardized platform for FLIM deep learning:** a complete pipeline for training, running and benchmarking FLIM deep-learning models. It includes a detector-aware simulator that generates labeled training data with known ground truth, and a common benchmark that compares networks against analytical methods.
 
 ---
-
-## Key Features
-
-* **Universal Processing Pipeline:** Simplifies the handling of multiple FLI file types (ICCD, SPAD, TCSPC).
-* **Enhanced FLI Simulator:** A robust simulation engine adaptable to specific camera hardware parameters and noise models.
-* **Standardized Inference:** Unified interface for time-resolved microscopy and macroscopic FLI data (MFLI).
-* **Benchmarking:** Comparing traditional analytical methods and data processed in other software for benchmarking in place.
-* **Compressed-Sensing Reconstruction:** Single-pixel hyperspectral FLI reconstruction from compressed measurements.
 
 ## Supported Data Acquisition Methods
 
@@ -37,7 +39,7 @@ The platform provides native support for several high-end imaging systems:
 
 ## Data Processing & Analysis
 
-`pyfli` implements industry-standard analytical methods to extract lifetime information:
+PyFLI (`pyfli-lib`) implements standard analytical methods to extract lifetime information:
 
 * **Non-linear Least Squares Fitting (NLSF):** Robust mathematical approach for exponential decay modeling.
 * **Phasor Plot Analysis:** Graphical, model-free transformation of fluorescence decay into a 2D polar plot for easy species separation.
@@ -79,9 +81,17 @@ decay_data = loader.load_data()
 irf_data = loader.load_irf()
 ```
 
+## Documentation
+
+Full documentation, examples and API reference are at [pyfli.org](https://pyfli.org). Guides:
+
+* [How to perform phasor plot analysis in Python with PyFLI](https://pyfli.org/main/user_guide/phasor_plot_analysis.html)
+* [Training deep-learning FLIM models on simulated data](https://pyfli.org/main/user_guide/deep_learning_flim_simulation.html)
+* [Example notebooks: NLSF/MLE fitting, phasor analysis, FLIM simulation and SPAD data I/O](https://pyfli.org/main/examples.html)
+
 ## Citation
 
-If you use `pyfli` in your research, please cite this package:
+If you use PyFLI in your research, please cite this package:
 
 > Pandey V., Erbas I., Barroso M., Radev S., Intes X. *PyFLI: A Python Library for Simulation, Parameter Estimation, and Benchmarking in Fluorescence Lifetime Imaging.*
 > https://arxiv.org/abs/2609.11994
@@ -103,6 +113,6 @@ If you use `pyfli` in your research, please cite this package:
 ## Repository & Issues
 
 The source code is hosted on GitHub. Please report any bugs or feature requests via the issues tracker.
-* **Website:** [https://pyfli.org](https://pyfli.org)
-* **GitHub:** [https://github.com/vkp217/pyfli-pkg](https://github.com/vkp217/pyfli-pkg)
+* **Website:** [PyFLI, the open-source FLIM analysis framework (pyfli.org)](https://pyfli.org)
+* **GitHub:** [https://github.com/vkp217/pyfli-lib](https://github.com/vkp217/pyfli-lib)
 * **Contact:** For any queries, reach out at [pyfli4lifetime@gmail.com](mailto:pyfli4lifetime@gmail.com) or [support@pyfli.org](mailto:support@pyfli.org)

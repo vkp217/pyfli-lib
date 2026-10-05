@@ -29,8 +29,8 @@ pip install "pyfli-lib[tf]"
 To work on `pyfli` itself, clone the repository and install it in editable mode with the development extras (`pytest`, `black`, `pre-commit`):
 
 ```bash
-git clone https://github.com/vkp217/pyfli-pkg.git
-cd pyfli-pkg
+git clone https://github.com/vkp217/pyfli-lib.git
+cd pyfli-lib
 pip install -e ".[dev]"
 ```
 
@@ -45,7 +45,7 @@ pre-commit install
 Install the latest `dev` branch directly with `pip`, without cloning the repository:
 
 ```bash
-pip install "git+https://github.com/vkp217/pyfli-pkg.git@dev"
+pip install "git+https://github.com/vkp217/pyfli-lib.git@dev"
 ```
 
 ## Requirements

@@ -14,10 +14,10 @@ The name `pyfli` was already taken on PyPI, so the distribution is published as 
 It depends on your data. NLSF is the standard general-purpose choice; MLE is better suited to low-photon-count data; RLD is the fastest option for real-time or high-frame-rate processing. Phasor analysis is model-free and useful for quick visual species separation without fitting a model at all.
 
 **How do I cite `pyfli`?**
-See the {doc}`citation` page for the full BibTeX entry, or cite the repository directly: <https://github.com/vkp217/pyfli-pkg>.
+See the {doc}`citation` page for the full BibTeX entry, or cite the repository directly: <https://github.com/vkp217/pyfli-lib>.
 
 **Where do I report a bug or request a feature?**
-On the [GitHub issue tracker](https://github.com/vkp217/pyfli-pkg/issues).
+On the [GitHub issue tracker](https://github.com/vkp217/pyfli-lib/issues).
 
 **Where can I get help?**
 Open an issue on GitHub, or email [support@pyfli.org](mailto:support@pyfli.org) or [pyfli4lifetime@gmail.com](mailto:pyfli4lifetime@gmail.com).

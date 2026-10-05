@@ -1,5 +1,5 @@
-PyFli
-=====
+PyFLI: Open-Source FLIM Analysis in Python
+==========================================
 
 .. image:: ../pyfli/img/PyFLI_logo_light.png
    :width: 220
@@ -13,10 +13,15 @@ PyFli
    :alt: PyFLI logo
    :class: only-dark
 
-**PyFli** is a unified platform for Fluorescence Lifetime Imaging (FLI) data
-analysis, simulation and visulalization. It streamlines the workflow for handling diverse file formats
-from different hardware manufacturers, and provides a standardized pipeline
-for both traditional analytical and deep-learning-based lifetime inference.
+**PyFLI** is an open-source Python library for **Fluorescence Lifetime Imaging
+Microscopy (FLIM) analysis**, simulation and visualization. It loads
+time-resolved data from TCSPC systems, SPAD arrays and gated ICCD cameras
+through one interface, and estimates fluorescence lifetimes with phasor plot
+analysis, non-linear least squares and maximum likelihood estimation (MLE)
+fitting with instrument response function (IRF) deconvolution, or trained
+deep-learning models. Its FLIM simulator generates realistic, detector-specific
+training and benchmarking data. PyFLI is described in the
+`PyFLI manuscript (arXiv:2609.11994) <https://arxiv.org/abs/2609.11994>`_.
 
 .. grid:: 1 2 3 3
    :gutter: 3
@@ -24,8 +29,8 @@ for both traditional analytical and deep-learning-based lifetime inference.
    .. grid-item-card:: Streamlined Processing Pipeline
       :class-card: sd-border-0
 
-      Simplifies handling data acquired by different imaging systems.
-      consistent loading and processing interface.
+      Simplifies handling FLIM data acquired by different imaging systems,
+      with a consistent loading and processing interface.
 
    .. grid-item-card:: Enhanced FLI Simulator
       :class-card: sd-border-0
@@ -36,17 +41,17 @@ for both traditional analytical and deep-learning-based lifetime inference.
    .. grid-item-card:: Standardized Inference
       :class-card: sd-border-0
 
-      One unified interface for time-resolved data across modalities (microscopy - FLIM, mesoscopy- m-FLI and
-      macroscopic - MFLI) FLI data .
+      One unified interface for time-resolved data across modalities:
+      microscopy (FLIM), mesoscopy (m-FLI) and macroscopic imaging (MFLI).
 
 Overview
---------------------
+--------
 
-``pyfli`` sits between raw instrument output and lifetime results: it loads
+PyFLI sits between raw instrument output and lifetime results: it loads
 and pre-processes decay data from a given acquisition system, then hands it
 to one of several interchangeable analytical or deep-learning fitting
-backends.
-The simulator can be used to generate the FLI/FLIM data for model training etc.
+backends. The simulator generates FLI/FLIM data with known ground truth for
+deep-learning model training and for benchmarking lifetime estimators.
 
 
 Supported Acquisition Methods
@@ -60,8 +65,9 @@ Supported Acquisition Methods
 Data Processing & Analysis
     * **Non-linear Least Squares Fitting (NLSF)** — robust exponential decay
       modeling.
-    * **Phasor Plot Analysis** — graphical, model-free transformation of
-      fluorescence decay into a 2D polar plot for species separation.
+    * **Phasor Plot Analysis** — graphical, fit-free transformation of
+      fluorescence decay into a 2D polar plot for species separation
+      (see :doc:`user_guide/phasor_plot_analysis`).
     * **Maximum Likelihood Estimation (MLE)** — statistical estimator
       optimized for low-photon regimes.
     * **Rapid Lifetime Determination (RLD)** — computationally efficient
@@ -111,6 +117,43 @@ Where to go next
       :link-type: doc
 
       Answers to common setup and usage questions.
+
+Cite PyFLI
+----------
+
+If PyFLI helps your research, please cite the manuscript:
+Pandey V., Erbas I., Barroso M., Radev S., Intes X. *PyFLI: A Python Library
+for Simulation, Parameter Estimation, and Benchmarking in Fluorescence Lifetime
+Imaging.* `arXiv:2609.11994 <https://arxiv.org/abs/2609.11994>`_. BibTeX is on
+the :doc:`citation` page.
+
+FLIM analysis guides
+--------------------
+
+.. grid:: 1 1 2 2
+   :gutter: 3
+
+   .. grid-item-card:: How to perform phasor plot analysis in Python with PyFLI
+      :link: user_guide/phasor_plot_analysis
+      :link-type: doc
+
+      Turn TCSPC or SPAD decay cubes into phasor coordinates, calibrate them
+      with the IRF, read off per-pixel lifetimes, and separate two lifetime
+      species, all without fitting.
+
+      +++
+      :octicon:`arrow-right` Read the phasor guide
+
+   .. grid-item-card:: Training deep-learning FLIM models on simulated data
+      :link: user_guide/deep_learning_flim_simulation
+      :link-type: doc
+
+      Generate labeled FLIM training sets with realistic IRFs and detector
+      noise, randomize acquisition conditions, and run a trained model over a
+      lifetime image.
+
+      +++
+      :octicon:`arrow-right` Read the deep-learning guide
 
 .. toctree::
    :maxdepth: 2

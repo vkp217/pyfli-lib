@@ -1,12 +1,12 @@
 # Contributing
 
-Contributions are welcome! `pyfli` is developed on GitHub at [vkp217/pyfli-pkg](https://github.com/vkp217/pyfli-pkg).
+Contributions are welcome! `pyfli` is developed on GitHub at [vkp217/pyfli-lib](https://github.com/vkp217/pyfli-lib).
 
 ## Development setup
 
 ```bash
-git clone https://github.com/vkp217/pyfli-pkg.git
-cd pyfli-pkg
+git clone https://github.com/vkp217/pyfli-lib.git
+cd pyfli-lib
 pip install -e ".[dev]"
 pre-commit install
 ```
@@ -46,4 +46,4 @@ Open `docsrc/_build/html/index.html` in a browser to preview your changes.
 
 ## Reporting issues
 
-Found a bug or have a feature request? Please open an issue on the [issue tracker](https://github.com/vkp217/pyfli-pkg/issues).
+Found a bug or have a feature request? Please open an issue on the [issue tracker](https://github.com/vkp217/pyfli-lib/issues).
