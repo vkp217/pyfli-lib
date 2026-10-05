@@ -13,7 +13,7 @@ GitHub. Version numbers and dates below follow the releases published on
 <script>
 (function () {
   var container = document.getElementById("gh-issues-widget");
-  fetch("https://api.github.com/repos/vkp217/pyfli-pkg/issues?state=open&per_page=20")
+  fetch("https://api.github.com/repos/vkp217/pyfli-lib/issues?state=open&per_page=20")
     .then(function (r) {
       if (!r.ok) { throw new Error("GitHub API error: " + r.status); }
       return r.json();
@@ -45,7 +45,7 @@ GitHub. Version numbers and dates below follow the releases published on
       var p = document.createElement("p");
       p.textContent = "Could not load issues from GitHub (" + err.message + "). ";
       var a = document.createElement("a");
-      a.href = "https://github.com/vkp217/pyfli-pkg/issues";
+      a.href = "https://github.com/vkp217/pyfli-lib/issues";
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       a.textContent = "View issues on GitHub";
@@ -56,7 +56,7 @@ GitHub. Version numbers and dates below follow the releases published on
 </script>
 ```
 
-[View all issues on GitHub](https://github.com/vkp217/pyfli-pkg/issues)
+[View all issues on GitHub](https://github.com/vkp217/pyfli-lib/issues)
 
 ## Release history
 

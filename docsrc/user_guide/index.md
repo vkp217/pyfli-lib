@@ -6,7 +6,8 @@ more depth than the {doc}`../quickstart`.
 ```{toctree}
 :maxdepth: 1
 :titlesonly:
-:numbered:
 
 introduction
+phasor_plot_analysis
+deep_learning_flim_simulation
 ```
