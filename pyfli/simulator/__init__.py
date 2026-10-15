@@ -1,16 +1,8 @@
 # pyfli/simulator/__init__.py
 # ruff: noqa: F401
 
-"""
-Provide simulator tools for PyFLI synthetic FLI/FLIM data generation, hardware noise
-modeling, calibration, and validation tools.
+"""Synthetic FLI/FLIM data generation, hardware noise modeling, calibration and validation."""
 
-This module belongs to :mod:`pyfli.simulator` and is part of PyFLI synthetic FLI/FLIM
-data generation, hardware noise modeling, calibration, and validation tools. The module
-primarily re-exports package symbols or constants for downstream imports.
-"""
-
-from .calibration_engine import FLICalibrator
 from .combined.main_factory import MacroSimulator, TCSPCSimulator
 from .combined.sim_image_generator import FLIImageGenerator
 from .combined.simulator_engine import FLIEngine
@@ -32,5 +24,5 @@ from .sim_workflow import (
 )
 
 
-# [FLICalibrator, FLIValidator, ParameterSampler,
+# [FLIValidator, ParameterSampler,
 # NoiseEngine, FLIEngine, MacroSimulator, TCSPCSimulator, FLIImageGenerator, BatchSimulator]

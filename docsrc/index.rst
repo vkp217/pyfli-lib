@@ -176,7 +176,6 @@ FLIM analysis guides
    :hidden:
 
    api/index
-   changelog
    citation
 
 .. toctree::
@@ -192,6 +191,13 @@ FLIM analysis guides
    :hidden:
 
    user_guide/index
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Changelog
+   :hidden:
+
+   changelog
 
 .. toctree::
    :maxdepth: 1

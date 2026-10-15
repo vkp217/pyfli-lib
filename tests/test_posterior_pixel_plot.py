@@ -1,15 +1,4 @@
-"""
-Tests for pyfli.bayes_utils.posterior_pixel_plot, including its compatibility
-with the other two modules in pyfli.bayes_utils:
-  - ParamSelector (param_combinations.py) -- backs center="best" and
-    must agree with posterior_pixel_plot's own reconstruction on which sample
-    wins and what its scaled curve looks like.
-  - BiPipeline (inference.py) -- its `output_samples` dict is exactly the
-    `output_combination` shape/key contract posterior_pixel_plot consumes.
-
-All tests use purely synthetic numpy arrays; no file I/O, Keras, or GPU
-required.
-"""
+"""Tests for pyfli.bayes_utils.posterior_pixel_plot."""
 
 import matplotlib
 
@@ -212,6 +201,49 @@ def test_custom_ci_levels_change_band_count(irf, decay, output_combination):
     assert labels.count("50% credible interval") == 1
     assert not any("92%" in lbl or "68%" in lbl for lbl in labels)
     plt.close(fig)
+
+
+@pytest.mark.parametrize("decay_alpha", [0.3, 1.0])
+def test_decay_style_scatter_draws_points_with_alpha(
+    irf, decay, output_combination, decay_alpha
+):
+    fig, ax = plot_pixel_posterior_fit(
+        output_combination,
+        decay,
+        irf,
+        _FREQ_ACQ,
+        pixel=(1, 1),
+        decay_style="scatter",
+        decay_alpha=decay_alpha,
+    )
+    assert len(ax.get_lines()) == 1
+    points = ax.collections[-1]
+    np.testing.assert_allclose(points.get_offsets()[:, 0], np.arange(_T))
+    np.testing.assert_allclose(points.get_offsets()[:, 1], decay[1, 1, :])
+    assert points.get_alpha() == decay_alpha
+    labels = [t.get_text() for t in ax.get_legend().get_texts()]
+    assert labels[-1] == "Decay (measured)" and len(labels) == 4
+    plt.close(fig)
+
+
+@pytest.mark.parametrize("decay_alpha", [0.25, 0.8])
+def test_decay_style_line_default_uses_alpha(
+    irf, decay, output_combination, decay_alpha
+):
+    fig, ax = plot_pixel_posterior_fit(
+        output_combination, decay, irf, _FREQ_ACQ, pixel=(1, 1), decay_alpha=decay_alpha
+    )
+    decay_line = ax.get_lines()[1]
+    np.testing.assert_allclose(decay_line.get_ydata(), decay[1, 1, :])
+    assert decay_line.get_alpha() == decay_alpha
+    plt.close(fig)
+
+
+def test_unknown_decay_style_raises(irf, decay, output_combination):
+    with pytest.raises(ValueError, match="decay_style"):
+        plot_pixel_posterior_fit(
+            output_combination, decay, irf, _FREQ_ACQ, pixel=(0, 0), decay_style="bars"
+        )
 
 
 # ---------------------------------------------------------------------------

@@ -1,12 +1,6 @@
 """
-Plot a single pixel's posterior-sample decay reconstructions against its
-measured decay, in the style of a posterior-predictive check: shaded credible-
-interval bands plus a chosen central curve (best-fitting sample, median, or
-mean), overlaid on the actual measured decay.
-
-Belongs to :mod:`pyfli.bayes_utils`, downstream of
-:class:`pyfli.bayes_utils.param_combinations.ParamSelector` and
-:class:`pyfli.reconstruction.ParamToDecay`.
+Posterior-predictive plot of one pixel's sampled decay reconstructions against its
+measured decay.
 """
 
 import matplotlib.colors as mcolors
@@ -25,6 +19,9 @@ _MODEL_PARAM_KEYS: dict[str, tuple[str, ...]] = {
 
 #: Valid values for the `center` argument.
 CENTERS: tuple[str, ...] = ("best", "median", "mean")
+
+#: Valid values for the `decay_style` argument.
+DECAY_STYLES: tuple[str, ...] = ("line", "scatter")
 
 # the whole model (central curve + credible bands).
 _DECAY_COLOR = "#0D0D0D"
@@ -117,6 +114,7 @@ def plot_pixel_posterior_fit(
     decay_alpha: float = 0.8,
     title: str | None = None,
     ax: "plt.Axes | None" = None,
+    decay_style: str = "line",
 ):
     """
     Plot one pixel's posterior-sample decay reconstructions as nested
@@ -163,11 +161,14 @@ def plot_pixel_posterior_fit(
     fit_alpha : float
         Opacity of the central fit curve.
     decay_alpha : float
-        Opacity of the measured-decay line.
+        Opacity of the measured decay (line or scatter points, see `decay_style`).
     title : str | None
         Axes title; defaults to ``f"Pixel ({x}, {y})"``.
     ax : matplotlib.axes.Axes | None
         Axes to draw into. If omitted, a new figure/axes is created and shown.
+    decay_style : str
+        How the measured decay is drawn: ``"line"`` (default) or ``"scatter"``
+        (one point per time bin).
 
     Returns
     -------
@@ -180,6 +181,10 @@ def plot_pixel_posterior_fit(
         )
     if center not in CENTERS:
         raise ValueError(f"Unknown center: {center!r}; expected one of {CENTERS}")
+    if decay_style not in DECAY_STYLES:
+        raise ValueError(
+            f"Unknown decay_style: {decay_style!r}; expected one of {DECAY_STYLES}"
+        )
 
     if np.ndim(band_alpha) == 0:
         band_alpha_by_level = {level: float(band_alpha) for level in ci_levels}
@@ -255,15 +260,26 @@ def plot_pixel_posterior_fit(
         zorder=_Z_FIT,
         solid_capstyle="round",
     )
-    (decay_line,) = ax.plot(
-        t,
-        decay_px,
-        color=decay_color,
-        lw=2.0,
-        alpha=decay_alpha,
-        zorder=_Z_DECAY,
-        solid_capstyle="round",
-    )
+    if decay_style == "scatter":
+        decay_line = ax.scatter(
+            t,
+            decay_px,
+            color=decay_color,
+            s=10,
+            alpha=decay_alpha,
+            edgecolors="none",
+            zorder=_Z_DECAY,
+        )
+    else:
+        (decay_line,) = ax.plot(
+            t,
+            decay_px,
+            color=decay_color,
+            lw=2.0,
+            alpha=decay_alpha,
+            zorder=_Z_DECAY,
+            solid_capstyle="round",
+        )
 
     ax.set_xlabel("Time Bin")
     ax.set_ylabel("Counts")
