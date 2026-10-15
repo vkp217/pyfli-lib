@@ -12,6 +12,7 @@ predictive fit (:func:`plot_pixel_posterior_fit`).
 
 from .param_combinations import ParamSelector
 from .posterior_pixel_plot import plot_pixel_posterior_fit
+from .unc_trustworthiness import trustworthiness_CrI, trustworthiness_gof, unc
 
 # BiPipeline needs Keras (the "tf" extra) -- keep the rest of this package
 # importable without it, matching pyfli.analysis's fbi_analysis fallback.
@@ -33,4 +34,11 @@ except ImportError:
             )
 
 
-__all__ = ["BiPipeline", "ParamSelector", "plot_pixel_posterior_fit"]
+__all__ = [
+    "BiPipeline",
+    "ParamSelector",
+    "plot_pixel_posterior_fit",
+    "trustworthiness_CrI",
+    "trustworthiness_gof",
+    "unc",
+]

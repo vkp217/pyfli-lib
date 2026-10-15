@@ -18,6 +18,7 @@ from pyfli.phasor.phasorS import (
     AcquisitionMode,
     MonoLocus,
     discrete_locus_circle,
+    discrete_phasor_lifetime,
     lifetime_from_locus,
     modulation_lifetime,
     phase_lifetime,
@@ -163,3 +164,20 @@ def test_plot_discrete_n_sweep_draws_one_line_per_n():
     labels = [line.get_label() for line in ax.get_lines()]
     assert {"N = 4", "N = 16", "N = 64"} <= set(labels)
     plt.close(ax.figure)
+
+
+@pytest.mark.parametrize("n_bins,harmonic", [(16, 1), (64, 1), (256, 2)])
+def test_discrete_phasor_lifetime_inverts_binned_locus(n_bins, harmonic):
+    x = np.exp(-PERIOD_NS / (n_bins * TAU))
+    z = (1 - x) / (1 - x * np.exp(2j * np.pi * harmonic / n_bins))
+    gc, sc, r = discrete_locus_circle(n_bins, harmonic)
+    np.testing.assert_allclose(np.hypot(z.real - gc, z.imag - sc), r, rtol=1e-9)
+    tau = discrete_phasor_lifetime(z.real, z.imag, n_bins, PERIOD_NS, harmonic)
+    np.testing.assert_allclose(tau, TAU, rtol=1e-9)
+
+
+def test_discrete_phasor_lifetime_off_locus_is_nan():
+    tau = discrete_phasor_lifetime(
+        np.array([1.0, 0.0, -0.3]), np.array([0.0, 0.0, -0.2]), 256, PERIOD_NS
+    )
+    assert tau.shape == (3,) and np.all(np.isnan(tau))

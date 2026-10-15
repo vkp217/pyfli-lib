@@ -1,17 +1,4 @@
-"""
-Theoretical phasor locus construction and plotting.
-
-This module belongs to :mod:`pyfli.phasor.phasorS` and is part of PyFLI's compact
-phasor analyzer for CPU and optional GPU FLI workflows. Public API includes the
-:class:`MonoLocus` class.
-
-Unlike :class:`~pyfli.phasor.phasorS.phasor_simple.PhasorAnalyzer`, which estimates
-phasor coordinates from measured decay data, :class:`MonoLocus` traces the
-theoretical phasor curve a perfect, Dirac-excited, single-exponential decay
-traces under a given acquisition geometry (binning, gating, truncation, or
-excitation offset). These loci are the reference curves against which measured
-phasors can be checked for acquisition-induced bias.
-"""
+"""Theoretical phasor locus construction and plotting."""
 
 from typing import Any
 
@@ -131,21 +118,12 @@ class MonoLocus:
     def _gated_single_gs(
         self, tau_ns: np.ndarray, gate_width_frac: float, harmonic: int = 1
     ) -> tuple[Any, ...]:
-        """Phasor of a PSED viewed through a single square gate starting at t=0."""
-        tau_s = np.asarray(tau_ns, dtype=float) * 1e-9
-        T_s = 1.0 / self.frequency
-        W_s = gate_width_frac * T_s
-        omega_k = harmonic * self.omega
-
-        wt = omega_k * tau_s
-        eW = np.exp(-W_s / tau_s)
-        eT = np.exp(-T_s / tau_s)
-        wW = omega_k * W_s
-
-        denom = (1.0 + wt**2) * (1.0 - eT)
-        cos_int = 1.0 - eW * (np.cos(wW) - wt * np.sin(wW))
-        sin_int = wt * (1.0 - eW * np.cos(wW)) - eW * np.sin(wW)
-        return cos_int / denom, sin_int / denom
+        """
+        Phasor of a PSED recorded only through a single square gate ``[0, W)``,
+        ``W = gate_width_frac * T``, normalised by the photons inside the gate (as a
+        measured phasor is). This is the truncated-window locus with ``t_rec = W``.
+        """
+        return self._truncated_gs(tau_ns, gate_width_frac, harmonic)
 
     def _gated_n_gs(
         self,
@@ -154,7 +132,12 @@ class MonoLocus:
         n_gates: int,
         harmonic: int = 1,
     ) -> tuple[Any, ...]:
-        """Phasor of a PSED viewed through ``n_gates`` equidistant square gates."""
+        """
+        Phasor of a PSED viewed through ``n_gates`` equidistant square gates of width
+        ``W = gate_width_frac * T`` opening at ``t_k = k T / n_gates``. A gate that runs
+        past the end of the period collects the start of the next pulse's decay (the
+        PSED is periodic), so its part beyond ``T`` wraps to ``[0, t_k + W - T)``.
+        """
         tau_s = np.asarray(tau_ns, dtype=float) * 1e-9
         T_s = 1.0 / self.frequency
         W_s = gate_width_frac * T_s
@@ -164,7 +147,11 @@ class MonoLocus:
         phase = 2.0 * np.pi * harmonic * k / n_gates
 
         tau2 = tau_s[:, None]
-        I_k = np.exp(-t_k / tau2) - np.exp(-(t_k + W_s) / tau2)
+        end_in_period = np.minimum(t_k + W_s, T_s)
+        wrapped = np.maximum(t_k + W_s - T_s, 0.0)
+        I_k = (np.exp(-t_k / tau2) - np.exp(-end_in_period / tau2)) + (
+            1.0 - np.exp(-wrapped / tau2)
+        )
 
         I_sum = I_k.sum(axis=1)
         g = (I_k * np.cos(phase)).sum(axis=1) / I_sum
@@ -192,12 +179,16 @@ class MonoLocus:
     def _offset_gs(
         self, tau_ns: np.ndarray, t0_frac: float, harmonic: int = 1
     ) -> tuple[Any, ...]:
-        """Phasor of a PSED whose excitation pulse is offset within the window."""
+        """
+        Phasor of a PSED whose excitation pulse arrives ``t0 = t0_frac * T`` after the
+        start of the window: the decay is delayed by ``t0``, so the phasor rotates by
+        ``+harmonic * omega * t0`` (counter-clockwise, ``S = sum I sin(omega t)``).
+        """
         g0, s0 = self._continuous_gs(tau_ns, harmonic)
         T_s = 1.0 / self.frequency
         phi = harmonic * self.omega * (t0_frac * T_s)
         c, si = np.cos(phi), np.sin(phi)
-        return g0 * c + s0 * si, s0 * c - g0 * si
+        return g0 * c - s0 * si, g0 * si + s0 * c
 
     # ── drawing (built on phasor_simple_utils, same look as PhasorPlotsMixin) ──
 
@@ -257,12 +248,21 @@ class MonoLocus:
 
         ax.plot(g, s, color=color, lw=2.2, zorder=3, label=label)
 
-        tick_taus = _TAU_MARKS_NS[_TAU_MARKS_NS <= tau_ns.max()]
+        tick_taus = _TAU_MARKS_NS[
+            (_TAU_MARKS_NS >= tau_ns.min()) & (_TAU_MARKS_NS <= tau_ns.max())
+        ]
         if tick_taus.size:
             g_mark = np.interp(tick_taus, tau_ns, g)
             s_mark = np.interp(tick_taus, tau_ns, s)
             _draw_lifetime_ticks(
-                ax, g_mark, s_mark, color=color, lw=2, fontsize=8, show_units=True
+                ax,
+                g_mark,
+                s_mark,
+                color=color,
+                lw=2,
+                fontsize=8,
+                show_units=True,
+                taus=tick_taus,
             )
 
         _style_phasor_ax(ax, title=title, half_circle=half_circle)

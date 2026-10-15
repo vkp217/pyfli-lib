@@ -1,11 +1,4 @@
-"""
-Provide plotting mixins for phasor maps, overlays, pixel fits, and harmonic
-visualizations.
-
-This module belongs to :mod:`pyfli.phasor.phasorS` and is part of PyFLI's compact
-phasor analyzer for CPU and optional GPU FLI workflows. Public API includes classes
-:class:`PhasorPlotsMixin`.
-"""
+"""Plotting mixins for phasor maps, overlays, pixel fits and harmonics."""
 
 from typing import Any
 
@@ -15,7 +8,9 @@ import numpy as np
 import seaborn as sns
 import torch
 from matplotlib.cm import ScalarMappable
-from matplotlib.colors import Normalize
+from matplotlib.colors import ListedColormap, Normalize
+
+from pyfli.reconstruction.common_reconstruct import periodic_instrument_exponential
 
 from .phasor_simple_utils import (
     _TAU_MARKS_NS,
@@ -72,6 +67,79 @@ class PhasorPlotsMixin:
             int_norm = (intensity - intensity.min()) / denom
             colors = colors * int_norm[:, :, np.newaxis]
         return colors
+
+    def _normal_lifetime_colorbar(
+        self,
+        G: np.ndarray,
+        S: np.ndarray,
+        mask: np.ndarray,
+        colormap: str,
+        half_circle: bool,
+    ) -> tuple[Any, ...]:
+        """
+        Colour bar matching :meth:`phasor_radial_color`, labelled in lifetimes.
+
+        A pixel's hue is ``H = (theta - theta_lo) / (pi - theta_lo)`` with ``theta`` its
+        angle around the semicircle centre ``(1/2, 0)`` (``theta_lo = 0`` for the half
+        circle, ``-pi`` otherwise). The semicircle point at angle ``theta`` has lifetime
+        ``tau_N = tan(theta / 2) / omega`` (the normal lifetime), so the bar shows the
+        colormap over the data's ``H`` range, with ticks at ``theta = 2 atan(omega tau)``
+        for round lifetimes.
+
+        Returns
+        -------
+        tuple[Any, ...]
+            ``(mappable, tick_positions, tick_lifetimes_ns)``.
+        """
+        theta_lo = 0.0 if half_circle else -np.pi
+        span = np.pi - theta_lo
+        theta = np.arctan2(np.asarray(S, dtype=float), np.asarray(G, dtype=float) - 0.5)
+        h = np.clip((theta - theta_lo) / span, 0.0, 1.0)
+        h = h[np.asarray(mask, dtype=bool) & np.isfinite(h)]
+        h_lo, h_hi = (float(h.min()), float(h.max())) if h.size else (0.0, 1.0)
+        if h_hi - h_lo < 1e-3:
+            h_lo, h_hi = max(h_lo - 0.01, 0.0), min(h_hi + 0.01, 1.0)
+        cmap = plt.colormaps[colormap]
+        bar_cmap = ListedColormap(cmap(np.linspace(h_lo, h_hi, 256)))
+        sm = ScalarMappable(cmap=bar_cmap, norm=Normalize(vmin=h_lo, vmax=h_hi))
+        sm.set_array([])
+        omega_ns = 2.0 * np.pi * self.frequency * 1e-9
+        candidates = np.array(
+            [
+                0.01,
+                0.02,
+                0.05,
+                0.1,
+                0.2,
+                0.3,
+                0.5,
+                0.7,
+                1,
+                1.5,
+                2,
+                3,
+                4,
+                5,
+                7,
+                10,
+                15,
+                20,
+                50,
+                100,
+            ]
+        )
+        h_cand = (2.0 * np.arctan(omega_ns * candidates) - theta_lo) / span
+        keep = (h_cand >= h_lo) & (h_cand <= h_hi)
+        if keep.sum() < 2:
+            ends = theta_lo + np.array([h_lo, h_hi]) * span
+            ends = np.clip(ends, 0.0, np.pi - 1e-9)
+            tau_ends = np.round(np.tan(ends / 2.0) / omega_ns, 3)
+            return (
+                sm,
+                (2.0 * np.arctan(omega_ns * tau_ends) - theta_lo) / span,
+                tau_ends,
+            )
+        return sm, h_cand[keep], candidates[keep]
 
     def phasor_radial_color(
         self,
@@ -765,10 +833,13 @@ class PhasorPlotsMixin:
         else:
             tau_val = tau_ns
 
-        t_ns_t = torch.tensor(
-            self.t_s_np * 1e9, dtype=torch.float32, device=self.device
-        )
-        model_t = torch.exp(-t_ns_t / tau_val).unsqueeze(0)
+        model_t = torch.tensor(
+            periodic_instrument_exponential(
+                float(tau_val), len(self.t_s_np), 1e9 / self.frequency
+            ),
+            dtype=torch.float32,
+            device=self.device,
+        ).unsqueeze(0)
 
         irf_trace_np = irf[y, x, :] if irf.ndim == 3 else np.asarray(irf)
         irf_trace_t = torch.tensor(
@@ -1024,7 +1095,7 @@ class PhasorPlotsMixin:
         S_2d = S[0] if S.ndim == 3 else S
 
         phasor_colors_raw = self.phasor_radial_color(
-            G_2d, S_2d, half_circle=half_circle
+            G_2d, S_2d, colormap=colormap, half_circle=half_circle
         )
 
         if mask is None:
@@ -1044,20 +1115,13 @@ class PhasorPlotsMixin:
         axes[0].set_title("Phasor Color Projections")
         axes[0].axis("off")
 
-        phi = np.arctan2(S_2d, G_2d)
-        first_q = phi[(G_2d > 0) & (S_2d > 0)]
-        phi_min_val = float(np.nanmin(first_q)) if first_q.size > 0 else 0.0
-        phi_max_val = float(np.nanmax(first_q)) if first_q.size > 0 else 0.5
-        omega = 2 * np.pi * self.frequency
-        tau_min = np.tan(np.clip(phi_min_val, 1e-6, np.pi / 2 - 0.05)) / omega * 1e9
-        tau_max = np.tan(np.clip(phi_max_val, 1e-6, np.pi / 2 - 0.05)) / omega * 1e9
-
-        sm = ScalarMappable(
-            cmap=plt.colormaps[colormap], norm=Normalize(vmin=tau_min, vmax=tau_max)
+        sm, h_ticks, tau_ticks = self._normal_lifetime_colorbar(
+            G_2d, S_2d, active_mask, colormap, half_circle
         )
-        sm.set_array([])
         cbar = fig.colorbar(sm, ax=axes[0], fraction=0.046, pad=0.04)
-        cbar.set_label("Lifetime (ns)")
+        cbar.set_ticks(h_ticks)
+        cbar.set_ticklabels([f"{t:g}" for t in tau_ticks])
+        cbar.set_label("Normal lifetime τ_N (ns)")
 
         ug, us = _universal_circle_xy(half_circle=half_circle)
         axes[1].plot(ug, us, "k--", alpha=0.8, zorder=1)

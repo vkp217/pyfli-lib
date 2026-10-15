@@ -1,10 +1,4 @@
-"""
-Provide supplementary phasor plots as a :class:`PhasorAnalyzer` subclass.
-
-This module belongs to :mod:`pyfli.phasor.phasorS` and is part of PyFLI's compact
-phasor analyzer for CPU and optional GPU FLI workflows. Public API includes the
-class :class:`PhasorAdditionalPlots`.
-"""
+"""Supplementary phasor plots as a :class:`PhasorAnalyzer` subclass."""
 
 import colorsys
 from typing import Any
@@ -53,8 +47,9 @@ class PhasorAdditionalPlots(PhasorAnalyzer):
         Convert enclosed-probability-mass proportions to iso-density thresholds.
 
         This mirrors how :func:`seaborn.kdeplot` turns ``levels`` into contour
-        values: a proportion ``p`` maps to the density threshold whose
-        ``density >= threshold`` region encloses a fraction ``p`` of the mass.
+        values: a proportion ``p`` maps to the density threshold below which a
+        fraction ``p`` of the mass lies, i.e. the ``density >= threshold`` region
+        encloses a fraction ``1 - p`` of the mass.
 
         Parameters
         ----------
@@ -155,7 +150,8 @@ class PhasorAdditionalPlots(PhasorAnalyzer):
             ``vmin, vmax = cmap_scale[0], cmap_scale[1]``.
         harmonic : int
             Harmonic slice used when ``Gc``/``Sc`` are 3-D stacks (``0`` is the
-            first harmonic).
+            first harmonic). The phase lifetime of slice ``k`` is computed at its own
+            frequency ``(k + 1) * f``.
         axes : Any | None
             Length-2 sequence of Matplotlib axes ``(map_ax, scatter_ax)``. A new
             1x2 figure is created when ``None``.
@@ -184,7 +180,9 @@ class PhasorAdditionalPlots(PhasorAnalyzer):
         G_2d = Gc[harmonic] if Gc.ndim == 3 else Gc
         S_2d = Sc[harmonic] if Sc.ndim == 3 else Sc
 
-        tau_map_ns = np.asarray(self.compute_lifetime(G_2d, S_2d), dtype=float)
+        tau_map_ns = np.asarray(self.compute_lifetime(G_2d, S_2d), dtype=float) / (
+            harmonic + 1
+        )
 
         if boolean_mask is None:
             mask_2d = np.ones(tau_map_ns.shape, dtype=bool)

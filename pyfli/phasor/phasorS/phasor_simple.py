@@ -1,10 +1,4 @@
-"""
-Implement a compact phasor analyzer for CPU and optional GPU workflows.
-
-This module belongs to :mod:`pyfli.phasor.phasorS` and is part of PyFLI's compact
-phasor analyzer for CPU and optional GPU FLI workflows. Public API includes classes
-:class:`PhasorAnalyzer`.
-"""
+"""Compact phasor analyzer for CPU and optional GPU workflows."""
 
 from typing import Any
 
@@ -14,8 +8,12 @@ import numpy as np
 import torch
 
 from pyfli import logging
-from pyfli.reconstruction.common_reconstruct import bi_reconstruction_torch
+from pyfli.reconstruction.common_reconstruct import (
+    periodic_bin_exponential,
+    periodic_instrument_exponential,
+)
 
+from .phasor_lifetime import normal_lifetime
 from .phasor_simple_plots import PhasorPlotsMixin
 
 
@@ -326,6 +324,26 @@ class PhasorAnalyzer(PhasorPlotsMixin):
 
         return np.real(P_true), np.imag(P_true)
 
+    def calibrate_reference(
+        self,
+        G: np.ndarray,
+        S: np.ndarray,
+        ref_data: np.ndarray,
+        ref_lifetime_ns: float | None = None,
+    ) -> tuple[Any, ...]:
+        """Correctly spelled name of :meth:`calibratre_reference` (same arguments and result)."""
+        return self.calibratre_reference(G, S, ref_data, ref_lifetime_ns)
+
+    def calibrate_reference_pixelwise(
+        self,
+        G: np.ndarray,
+        S: np.ndarray,
+        ref_data: np.ndarray,
+        ref_lifetime_ns: float | None = None,
+    ) -> tuple[Any, ...]:
+        """Correctly spelled name of :meth:`calibratre_reference_pixelwise` (same arguments and result)."""
+        return self.calibratre_reference_pixelwise(G, S, ref_data, ref_lifetime_ns)
+
     def calibratre_reference_pixelwise(
         self,
         G: np.ndarray,
@@ -443,7 +461,12 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         Returns
         -------
         np.ndarray
-            Lifetime map derived from phasor coordinates.
+            Phase lifetime ``S / (omega G)`` in ns, with ``omega`` the laser (first
+            harmonic) angular frequency: pass first-harmonic phasors, or divide by
+            ``k`` for harmonic ``k``. For binned data this standard phase lifetime
+            carries the gate-width bias of the binned locus (a few % at 256 bins);
+            :func:`~pyfli.phasor.phasorS.discrete_phasor_lifetime` inverts the binned
+            locus exactly.
         """
         G = np.asarray(G, dtype=np.float64)
         S = np.asarray(S, dtype=np.float64)
@@ -464,14 +487,124 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         Returns
         -------
         Any
-            Object produced by compute modulation lifetime.
+            Modulation lifetime ``sqrt(1 / M^2 - 1) / omega`` in ns, ``M^2 = G^2 + S^2``,
+            with ``omega`` the laser (first harmonic) angular frequency: pass
+            first-harmonic phasors, or divide by ``k`` for harmonic ``k``.
         """
         G = np.asarray(G, dtype=np.float64)
         S = np.asarray(S, dtype=np.float64)
         M_sq = np.clip(G**2 + S**2, self.eps, 1.0 - self.eps)
         return np.sqrt(1.0 / M_sq - 1.0) / self.omega * 1e9
 
+    def compute_normal_lifetime(self, G: np.ndarray, S: np.ndarray) -> np.ndarray:
+        """
+        Compute the normal lifetime ``tau_N``: the lifetime of the universal-semicircle
+        point nearest to each phasor
+        (:func:`~pyfli.phasor.phasorS.phasor_lifetime.normal_lifetime`).
+
+        Parameters
+        ----------
+        G : np.ndarray
+            Phasor real coordinate (IRF-calibrated, first harmonic).
+        S : np.ndarray
+            Phasor imaginary coordinate.
+
+        Returns
+        -------
+        np.ndarray
+            Normal lifetime map in nanoseconds.
+        """
+        return normal_lifetime(G, S, self.frequency)
+
+    def compute_apparent_lifetimes(
+        self, G: np.ndarray, S: np.ndarray
+    ) -> dict[str, np.ndarray]:
+        """
+        Compute the phase, modulation and normal lifetimes of each phasor.
+
+        Parameters
+        ----------
+        G : np.ndarray
+            Phasor real coordinate (IRF-calibrated, first harmonic).
+        S : np.ndarray
+            Phasor imaginary coordinate.
+
+        Returns
+        -------
+        dict[str, np.ndarray]
+            ``{"tau_phi", "tau_m", "tau_n"}`` maps in nanoseconds, from
+            :meth:`compute_lifetime`, :meth:`compute_modulation_lifetime` and
+            :meth:`compute_normal_lifetime`.
+        """
+        return {
+            "tau_phi": self.compute_lifetime(G, S),
+            "tau_m": self.compute_modulation_lifetime(G, S),
+            "tau_n": self.compute_normal_lifetime(G, S),
+        }
+
     # ── two-component analysis ────────────────────────────────────────────────
+
+    def component_kernel(self, tau_ns: Any, model: str = "continuous") -> np.ndarray:
+        """
+        Per-bin photon distribution of a pure periodically excited mono-exponential
+        component over this analyzer's time axis (one laser period), before IRF
+        convolution.
+
+        Parameters
+        ----------
+        tau_ns : Any
+            Lifetime(s) in nanoseconds (any shape ``S``).
+        model : str
+            ``"continuous"``: excitation photons arrive anywhere inside their bin, as in
+            a real instrument
+            (:func:`~pyfli.reconstruction.common_reconstruct.periodic_instrument_exponential`).
+            ``"bin_start"``: every excitation at a bin start, as in pyfli's simulators
+            (:func:`~pyfli.reconstruction.common_reconstruct.periodic_bin_exponential`).
+
+        Returns
+        -------
+        np.ndarray
+            ``S + (T,)``, summing to 1 along the last axis.
+        """
+        n_bins, period_ns = len(self.t_s_np), 1e9 / self.frequency
+        if model == "continuous":
+            return periodic_instrument_exponential(tau_ns, n_bins, period_ns)
+        if model == "bin_start":
+            return periodic_bin_exponential(tau_ns, n_bins, period_ns)
+        raise ValueError(f"model must be 'continuous' or 'bin_start', got {model!r}")
+
+    def component_phasor(
+        self, tau_ns: Any, harmonic: int = 1, model: str = "continuous"
+    ) -> tuple[Any, ...]:
+        """
+        Phasor of a pure mono-exponential component as it appears in IRF-calibrated
+        binned data on this analyzer's time axis.
+
+        ``model="continuous"`` (real instruments) gives the universal-semicircle point
+        :meth:`lifetime_to_phasor`, exactly. ``model="bin_start"`` (data simulated by
+        pyfli's ``PhotonCountSimulator`` / ``ContinuousSimulator``, whose excitations
+        sit at bin starts) gives the binned locus, which is rotated by about half a bin
+        (phase lifetime a few % lower at 256 bins).
+
+        Parameters
+        ----------
+        tau_ns : Any
+            Lifetime(s) in nanoseconds.
+        harmonic : int
+            Harmonic (1 = laser frequency).
+        model : str
+            ``"continuous"`` or ``"bin_start"`` (see :meth:`component_kernel`).
+
+        Returns
+        -------
+        tuple[Any, ...]
+            ``(g, s)`` with the shape of `tau_ns`.
+        """
+        if model == "continuous":
+            return self.lifetime_to_phasor(tau_ns, harmonic * self.frequency)
+        p = self.component_kernel(tau_ns, model)
+        w = harmonic * self.omega * self.t_s_np
+        return p @ np.cos(w), p @ np.sin(w)
 
     def compute_fractions(
         self,
@@ -484,6 +617,7 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         plot_graph: bool = True,
         ax: Any | None = None,
         half_circle: bool = False,
+        component_model: str = "continuous",
     ) -> tuple[Any, ...]:
         """
         Compute fractions.
@@ -508,14 +642,20 @@ class PhasorAnalyzer(PhasorPlotsMixin):
             Matplotlib axes object on which the plot is drawn.
         half_circle : bool
             Whether to draw only the upper half of the universal phasor circle.
+        component_model : str
+            Where a pure component's calibrated phasor lies (see
+            :meth:`component_phasor`): ``"continuous"`` (default, the universal
+            semicircle -- real instruments) or ``"bin_start"`` (pyfli's
+            ``PhotonCountSimulator`` / ``ContinuousSimulator`` data).
 
         Returns
         -------
         tuple[Any, ...]
-            Tuple containing component fractions estimated from phasor geometry.
+            ``(A1, A2)``: intensity (photon) fractions of the two components, from the
+            projection of each phasor onto the line between the component phasors.
         """
-        g1, s1 = self.lifetime_to_phasor(tau1_ns, self.frequency)
-        g2, s2 = self.lifetime_to_phasor(tau2_ns, self.frequency)
+        g1, s1 = self.component_phasor(tau1_ns, model=component_model)
+        g2, s2 = self.component_phasor(tau2_ns, model=component_model)
 
         if plot_graph:
             created_fig = ax is None
@@ -561,58 +701,73 @@ class PhasorAnalyzer(PhasorPlotsMixin):
 
     def _convolve_batch(self, signal: np.ndarray, kernel: np.ndarray) -> Any:
         """
-        Run the convolve batch routine.
+        Circular (periodic) convolution of a batch of decays with IRFs.
+
+        The time axis spans one laser period and the excitation repeats, so the IRF
+        spread of photons near the end of the period wraps to its start, as in the
+        measured decays (and in the phasor model, which assumes periodic excitation).
 
         Parameters
         ----------
         signal : np.ndarray
-            Signal batch convolved with the supplied kernel.
+            Signal batch convolved with the supplied kernel, ``(N, T)``.
         kernel : np.ndarray
-            Convolution kernel applied to the signal batch.
+            Convolution kernel applied to the signal batch, ``(N, T)`` or ``(1, T)``.
 
         Returns
         -------
         Any
-            Object produced by convolve batch.
+            Convolved batch, ``(N, T)``.
         """
-        N, T = signal.shape
-        L = 2 * T - 1
-        nfft = 1 << (L - 1).bit_length()
-        S_fft = torch.fft.rfft(signal, n=nfft, dim=1)
-        K_fft = torch.fft.rfft(kernel, n=nfft, dim=1)
-        out = torch.fft.irfft(S_fft * K_fft, n=nfft, dim=1)
-        return out[:, :T]
+        T = signal.shape[1]
+        S_fft = torch.fft.rfft(signal, n=T, dim=1)
+        K_fft = torch.fft.rfft(kernel, n=T, dim=1)
+        return torch.fft.irfft(S_fft * K_fft, n=T, dim=1)
 
     def _build_model_decay(
-        self, A1: Any, A2: Any, tau1_ns: np.ndarray, tau2_ns: np.ndarray
+        self,
+        A1: Any,
+        A2: Any,
+        tau1_ns: np.ndarray,
+        tau2_ns: np.ndarray,
+        component_model: str = "continuous",
     ) -> Any:
         """
-        Build model decay.
+        Build the per-bin photon distribution of a bi-exponential mixture.
+
+        ``A1`` / ``A2`` are intensity (photon) fractions, as returned by
+        :meth:`compute_fractions`; each component is the periodic per-bin distribution
+        of :meth:`component_kernel` for `component_model`, so the model is consistent
+        with the phasor model used for the fractions.
 
         Parameters
         ----------
         A1 : Any
-            Amplitude or fraction of the first exponential component.
+            Intensity fraction of the first exponential component, per pixel.
         A2 : Any
-            Amplitude or fraction of the second exponential component.
+            Intensity fraction of the second exponential component, per pixel.
         tau1_ns : np.ndarray
-            Short lifetime component in nanoseconds.
+            Short lifetime component in nanoseconds (scalar or one per pixel).
         tau2_ns : np.ndarray
-            Long lifetime component in nanoseconds.
+            Long lifetime component in nanoseconds (scalar or one per pixel).
+        component_model : str
+            ``"continuous"`` or ``"bin_start"`` (see :meth:`component_kernel`).
 
         Returns
         -------
         Any
-            Object produced by build model decay.
+            Model decays ``(n_pixels, T)``, each summing to ``A1 + A2``.
         """
-        t_ns = torch.tensor(self.t_s_np * 1e9, dtype=torch.float32, device=self.device)
-        a1 = torch.tensor(
-            A1.ravel(), dtype=torch.float32, device=self.device
-        ).unsqueeze(1)
-        a2 = torch.tensor(
-            A2.ravel(), dtype=torch.float32, device=self.device
-        ).unsqueeze(1)
-        return bi_reconstruction_torch(t_ns, tau1_ns, tau2_ns, a1, a2)
+        a1 = np.asarray(A1, dtype=float).ravel()[:, None]
+        a2 = np.asarray(A2, dtype=float).ravel()[:, None]
+        p1 = self.component_kernel(
+            np.asarray(tau1_ns, dtype=float).ravel(), component_model
+        )
+        p2 = self.component_kernel(
+            np.asarray(tau2_ns, dtype=float).ravel(), component_model
+        )
+        model = a1 * p1 + a2 * p2
+        return torch.tensor(model, dtype=torch.float32, device=self.device)
 
     def _normalize_irf(self, irf: np.ndarray) -> Any:
         """
@@ -642,6 +797,7 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         tau2_ns: np.ndarray | None = None,
         plot: bool = True,
         axes: Any | None = None,
+        component_model: str = "continuous",
     ) -> Any:
         """
         Run the analyze biexponential and reconstruct routine.
@@ -662,16 +818,23 @@ class PhasorAnalyzer(PhasorPlotsMixin):
             Whether diagnostic plots should be generated.
         axes : Any | None
             Matplotlib axes collection used for drawing subplots.
+        component_model : str
+            ``"continuous"`` (default, real instruments) or ``"bin_start"`` (pyfli
+            simulated data); used for both the fractions and the reconstruction.
 
         Returns
         -------
         Any
-            Object produced by analyze biexponential and reconstruct.
+            Reconstructed decays ``(H, W, T)``: the periodic bi-exponential with the
+            phasor fractions, circularly convolved with each pixel's IRF; every pixel
+            sums to 1 (multiply by the pixel's photon count to compare with the data).
         """
         if tau1_ns is None or tau2_ns is None:
             return None
 
-        A1, A2 = self.compute_fractions(G, S, tau1_ns, tau2_ns, plot_graph=False)
+        A1, A2 = self.compute_fractions(
+            G, S, tau1_ns, tau2_ns, plot_graph=False, component_model=component_model
+        )
         tau_map_ns = self.compute_lifetime(G, S)
 
         if plot:
@@ -703,7 +866,7 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         H, W = A1.shape
         T = irf.shape[2]
 
-        model_t = self._build_model_decay(A1, A2, tau1_ns, tau2_ns)
+        model_t = self._build_model_decay(A1, A2, tau1_ns, tau2_ns, component_model)
         irf_t = self._normalize_irf(irf)
         recon_t = self._convolve_batch(model_t, irf_t)
         reconstructed_decay = recon_t.cpu().numpy().reshape(H, W, T)
