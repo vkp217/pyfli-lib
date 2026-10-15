@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    
+    <title>pyfli.analysis.precision &#8212; PyFLI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.analysis.precision';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/dev/api/generated/pyfli.analysis.precision.html" />
+    <link rel="icon" href="../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyfli.analysis.precision.crb_precision" href="pyfli.analysis.precision.crb_precision.html" />
+    <link rel="prev" title="pyfli.analysis.phasor_analysis" href="pyfli.analysis.phasor_analysis.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFLI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pyfli.html">pyfli</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="pyfli.analysis.html">pyfli.analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pyfli.analysis.factor_analysis.html">pyfli.analysis.factor_analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.analysis.fit_analysis.html">pyfli.analysis.fit_analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.analysis.load_results.html">pyfli.analysis.load_results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.analysis.phasor_analysis.html">pyfli.analysis.phasor_analysis</a></li>
+<li class="toctree-l3 current active has-children"><a aria-current="page" class="current reference internal" href="#">pyfli.analysis.precision</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.analysis.precision.crb_precision.html">pyfli.analysis.precision.crb_precision</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.analysis.precision.fisher_crlb.html">pyfli.analysis.precision.fisher_crlb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.analysis.precision.fit_free_lifetime.html">pyfli.analysis.precision.fit_free_lifetime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.analysis.precision.monte_carlo_precision.html">pyfli.analysis.precision.monte_carlo_precision</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.analysis.stat_tests.html">pyfli.analysis.stat_tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.analysis.utils.html">pyfli.analysis.utils</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analyticalWorkflow.html">pyfli.analyticalWorkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.bayes_utils.html">pyfli.bayes_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_cc.html">pyfli.data_cc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_text.html">pyfli.data_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_vnp.html">pyfli.data_vnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.img.html">pyfli.img</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.io.html">pyfli.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.irf_deconvolution.html">pyfli.irf_deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.laguerre.html">pyfli.laguerre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.log_save.html">pyfli.log_save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.phasor.html">pyfli.phasor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.plot_style.html">pyfli.plot_style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.reconstruction.html">pyfli.reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.roi_maker.html">pyfli.roi_maker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.simulator.html">pyfli.simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.solver.html">pyfli.solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.sp_analysis.html">pyfli.sp_analysis</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.html" class="nav-link">pyfli</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.analysis.html" class="nav-link">pyfli.analysis</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.analysis.precision</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pyfli.analysis.precision">
+<span id="pyfli-analysis-precision"></span><h1>pyfli.analysis.precision<a class="headerlink" href="#module-pyfli.analysis.precision" title="Link to this heading">#</a></h1>
+<p>Lifetime precision: Cramér-Rao bounds, fit-free estimators and Monte Carlo studies.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crb_cv_map">
+<span class="sig-name descname"><span class="pre">crb_cv_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/crb_precision.html#crb_cv_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crb_cv_map" title="Link to this definition">#</a></dt>
+<dd><p>Per-pixel ideal CV map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tau_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – True lifetime per pixel, shape <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code> (e.g. the simulator’s ground-truth
+<code class="docutils literal notranslate"><span class="pre">maps[&quot;tau_map&quot;]</span></code>).</p></li>
+<li><p><strong>n_photons_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Expected signal photons per pixel, shape <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code> (e.g. the simulator’s
+<code class="docutils literal notranslate"><span class="pre">maps[&quot;photon_count_map&quot;]</span></code>, or the decay sum minus <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*</span> <span class="pre">background</span></code>).</p></li>
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Shared IRF <code class="docutils literal notranslate"><span class="pre">(T,)</span></code> or per-pixel IRF cube <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W,</span> <span class="pre">T)</span></code>.</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition period in ns.</p></li>
+<li><p><strong>mask</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Pixels to compute; others are NaN. Defaults to <code class="docutils literal notranslate"><span class="pre">tau_map</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>.</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – See <a class="reference internal" href="#pyfli.analysis.precision.crb_lifetime_cv" title="pyfli.analysis.precision.crb_lifetime_cv"><code class="xref py py-func docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a>.</p></li>
+<li><p><strong>fit_background</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – See <a class="reference internal" href="#pyfli.analysis.precision.crb_lifetime_cv" title="pyfli.analysis.precision.crb_lifetime_cv"><code class="xref py py-func docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code> ideal CV map; multiply by <code class="docutils literal notranslate"><span class="pre">sqrt(n_photons_map)</span></code> for the F-value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crb_f_value">
+<span class="sig-name descname"><span class="pre">crb_f_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/crb_precision.html#crb_f_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crb_f_value" title="Link to this definition">#</a></dt>
+<dd><p>Ideal F-value <code class="docutils literal notranslate"><span class="pre">CV_ideal</span> <span class="pre">*</span> <span class="pre">sqrt(N)</span></code>. Without background it does not depend on
+<cite>n_photons</cite>; with background it rises as the signal-to-background ratio drops.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tau</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>n_photons</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>fit_background</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crb_for_cv_bins">
+<span class="sig-name descname"><span class="pre">crb_for_cv_bins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/crb_precision.html#crb_for_cv_bins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crb_for_cv_bins" title="Link to this definition">#</a></dt>
+<dd><p>Ideal CV for every photon-count bin of a <code class="xref py py-meth docutils literal notranslate"><span class="pre">pyfli.data_vnp.CVPlot.compute()</span></code>
+table, so it can be plotted against (or merged with) the measured curves.</p>
+<p>Bin membership is rebuilt from the table’s <code class="docutils literal notranslate"><span class="pre">bin_low</span></code> / <code class="docutils literal notranslate"><span class="pre">bin_high</span></code> edges on
+<cite>photon_map</cite> (the same photon map given to <code class="docutils literal notranslate"><span class="pre">CVPlot</span></code>), per <code class="docutils literal notranslate"><span class="pre">cluster</span></code> when the
+table has clusters. Within a bin, the per-pixel CRB variances are averaged, so
+<code class="docutils literal notranslate"><span class="pre">cv_crb</span> <span class="pre">=</span> <span class="pre">sqrt(mean((cv_i</span> <span class="pre">*</span> <span class="pre">tau_i)</span> <span class="pre">**</span> <span class="pre">2))</span> <span class="pre">/</span> <span class="pre">mean(tau_i)</span></code> – the CV an ideal
+estimator would show across those pixels, excluding the true lifetime spread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cv_df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code>) – Output of <code class="docutils literal notranslate"><span class="pre">CVPlot.compute</span></code> (columns <code class="docutils literal notranslate"><span class="pre">cluster</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_rank</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_low</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bin_high</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_center</span></code>).</p></li>
+<li><p><strong>tau_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – True lifetime per pixel (ground truth), <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code>.</p></li>
+<li><p><strong>photon_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Photon map used for binning in <code class="docutils literal notranslate"><span class="pre">CVPlot</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">decay.sum(axis=-1)</span></code>).</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – See <a class="reference internal" href="#pyfli.analysis.precision.crb_lifetime_cv" title="pyfli.analysis.precision.crb_lifetime_cv"><code class="xref py py-func docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a>.</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – See <a class="reference internal" href="#pyfli.analysis.precision.crb_lifetime_cv" title="pyfli.analysis.precision.crb_lifetime_cv"><code class="xref py py-func docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a>.</p></li>
+<li><p><strong>mask</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Pixel mask used in <code class="docutils literal notranslate"><span class="pre">CVPlot</span></code>.</p></li>
+<li><p><strong>cluster_mask</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – The same cluster labels and names given to <code class="docutils literal notranslate"><span class="pre">CVPlot</span></code>, if any.</p></li>
+<li><p><strong>cluster_names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – The same cluster labels and names given to <code class="docutils literal notranslate"><span class="pre">CVPlot</span></code>, if any.</p></li>
+<li><p><strong>n_photons_map</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Expected <em>signal</em> photons per pixel for the bound; defaults to <cite>photon_map</cite>.
+Pass the ground-truth <code class="docutils literal notranslate"><span class="pre">photon_count_map</span></code> to exclude dark counts.</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – See <a class="reference internal" href="#pyfli.analysis.precision.crb_lifetime_cv" title="pyfli.analysis.precision.crb_lifetime_cv"><code class="xref py py-func docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a>.</p></li>
+<li><p><strong>fit_background</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – See <a class="reference internal" href="#pyfli.analysis.precision.crb_lifetime_cv" title="pyfli.analysis.precision.crb_lifetime_cv"><code class="xref py py-func docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>One row per (cluster, bin): <code class="docutils literal notranslate"><span class="pre">cluster</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_rank</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_center</span></code>,
+<code class="docutils literal notranslate"><span class="pre">tau_true</span></code>, <code class="docutils literal notranslate"><span class="pre">n_signal</span></code>, <code class="docutils literal notranslate"><span class="pre">cv_crb</span></code> and <code class="docutils literal notranslate"><span class="pre">F_crb</span></code> (<code class="docutils literal notranslate"><span class="pre">cv_crb</span> <span class="pre">*</span>
+<span class="pre">sqrt(bin_center)</span></code>, directly comparable with a measured <code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">*</span>
+<span class="pre">sqrt(bin_center)</span></code>). Merge with the measured table on
+<code class="docutils literal notranslate"><span class="pre">[&quot;cluster&quot;,</span> <span class="pre">&quot;bin_rank&quot;]</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crb_lifetime_cv">
+<span class="sig-name descname"><span class="pre">crb_lifetime_cv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/crb_precision.html#crb_lifetime_cv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crb_lifetime_cv" title="Link to this definition">#</a></dt>
+<dd><p>Ideal (Cramér-Rao) coefficient of variation of the lifetime, <code class="docutils literal notranslate"><span class="pre">sigma_tau</span> <span class="pre">/</span> <span class="pre">tau</span></code>.</p>
+<p>The unknowns are the photon count <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">tau</span></code> (plus the background level
+when <cite>fit_background</cite> is True, which is what NLSF / MLE fits with a free offset
+<code class="docutils literal notranslate"><span class="pre">v_shift</span></code> do). The background level itself always enters the Poisson noise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tau</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">|</span> <span class="pre">np.ndarray</span></code>) – True lifetime (ns) and expected number of detected <em>signal</em> photons;
+broadcast against each other.</p></li>
+<li><p><strong>n_photons</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">|</span> <span class="pre">np.ndarray</span></code>) – True lifetime (ns) and expected number of detected <em>signal</em> photons;
+broadcast against each other.</p></li>
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – IRF of shape <code class="docutils literal notranslate"><span class="pre">(T,)</span></code>, or one IRF per value with shape <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">+</span> <span class="pre">(T,)</span></code>.</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition period in ns.</p></li>
+<li><p><strong>background_per_bin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">|</span> <span class="pre">np.ndarray</span></code>) – Expected background (dark) counts per gate, e.g. the simulator’s <code class="docutils literal notranslate"><span class="pre">dcr</span></code>.</p></li>
+<li><p><strong>fit_background</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Treat the background level as an extra unknown parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ideal CV with the broadcast shape of the inputs; NaN where <code class="docutils literal notranslate"><span class="pre">tau</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code> or an input is not finite. <code class="docutils literal notranslate"><span class="pre">CV</span> <span class="pre">*</span> <span class="pre">sqrt(N)</span></code> is the F-value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crlb_covariance">
+<span class="sig-name descname"><span class="pre">crlb_covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#crlb_covariance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crlb_covariance" title="Link to this definition">#</a></dt>
+<dd><p>Cramér-Rao bound on the covariance, <code class="docutils literal notranslate"><span class="pre">I^-1</span></code> per batch entry. A (near-)singular
+Fisher matrix – an unidentifiable parameter – falls back to the
+pseudo-inverse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>info</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crlb_cv">
+<span class="sig-name descname"><span class="pre">crlb_cv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#crlb_cv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crlb_cv" title="Link to this definition">#</a></dt>
+<dd><p>Smallest achievable coefficient of variation <code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">/</span> <span class="pre">value</span></code> of parameter <cite>index</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.crlb_std">
+<span class="sig-name descname"><span class="pre">crlb_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#crlb_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.crlb_std" title="Link to this definition">#</a></dt>
+<dd><p>Smallest achievable standard deviation of parameter <cite>index</cite>, per batch entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.estimate_lifetimes">
+<span class="sig-name descname"><span class="pre">estimate_lifetimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/monte_carlo_precision.html#estimate_lifetimes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.estimate_lifetimes" title="Link to this definition">#</a></dt>
+<dd><p>Lifetime of every decay with one method: <code class="docutils literal notranslate"><span class="pre">&quot;NLSF&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;MLE&quot;</span></code> (fits),
+<code class="docutils literal notranslate"><span class="pre">&quot;mean_arrival&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;phasor&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;phasor_bin_corrected&quot;</span></code> (fit-free,
+background-subtracted).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decays</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.estimator_efficiency">
+<span class="sig-name descname"><span class="pre">estimator_efficiency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv_measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv_bound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#estimator_efficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.estimator_efficiency" title="Link to this definition">#</a></dt>
+<dd><p>Statistical efficiency <code class="docutils literal notranslate"><span class="pre">(cv_bound</span> <span class="pre">/</span> <span class="pre">cv_measured)</span> <span class="pre">**</span> <span class="pre">2</span></code>: 1 when an estimator
+reaches the CRLB, smaller otherwise (a biased estimator can exceed 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cv_measured</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>cv_bound</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.f_value">
+<span class="sig-name descname"><span class="pre">f_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#f_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.f_value" title="Link to this definition">#</a></dt>
+<dd><p>Photon-economy F-value <code class="docutils literal notranslate"><span class="pre">CV</span> <span class="pre">*</span> <span class="pre">sqrt(N)</span></code>: 1 for an ideal photon-counting
+measurement, larger for any real instrument or estimator. Applies equally to a
+measured CV and to a CRLB CV.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cv</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>n_photons</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.fisher_information">
+<span class="sig-name descname"><span class="pre">fisher_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'poisson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#fisher_information"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.fisher_information" title="Link to this definition">#</a></dt>
+<dd><p>Fisher matrices <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K,</span> <span class="pre">K)</span></code> of a batched model at <cite>params</cite> <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) – <code class="docutils literal notranslate"><span class="pre">model(params)</span></code> -&gt; channel means <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">T)</span></code>.</p></li>
+<li><p><strong>params</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Parameter vectors <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K)</span></code>.</p></li>
+<li><p><strong>noise</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – <code class="docutils literal notranslate"><span class="pre">&quot;poisson&quot;</span></code> (counts; the means come from the model) or <code class="docutils literal notranslate"><span class="pre">&quot;gaussian&quot;</span></code>
+(needs <cite>sigma</cite>).</p></li>
+<li><p><strong>sigma</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Noise standard deviation for <code class="docutils literal notranslate"><span class="pre">noise=&quot;gaussian&quot;</span></code>.</p></li>
+<li><p><strong>jacobian</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Analytic Jacobian <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K,</span> <span class="pre">T)</span></code>; computed numerically when None.</p></li>
+<li><p><strong>rel_step</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Finite-difference steps (see <a class="reference internal" href="#pyfli.analysis.precision.numerical_jacobian" title="pyfli.analysis.precision.numerical_jacobian"><code class="xref py py-func docutils literal notranslate"><span class="pre">numerical_jacobian()</span></code></a>).</p></li>
+<li><p><strong>abs_step</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Finite-difference steps (see <a class="reference internal" href="#pyfli.analysis.precision.numerical_jacobian" title="pyfli.analysis.precision.numerical_jacobian"><code class="xref py py-func docutils literal notranslate"><span class="pre">numerical_jacobian()</span></code></a>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.fit_free_lifetime_maps">
+<span class="sig-name descname"><span class="pre">fit_free_lifetime_maps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fit_free_lifetime.html#fit_free_lifetime_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.fit_free_lifetime_maps" title="Link to this definition">#</a></dt>
+<dd><p>All fit-free lifetime maps for an image cube, ready for <code class="docutils literal notranslate"><span class="pre">CVPlot</span></code> /
+<code class="docutils literal notranslate"><span class="pre">FactorAnalysis</span></code>: <code class="docutils literal notranslate"><span class="pre">{&quot;tau_mean_arrival&quot;,</span> <span class="pre">&quot;tau_mean_arrival_naive&quot;,</span>
+<span class="pre">&quot;tau_phasor&quot;,</span> <span class="pre">&quot;tau_phasor_bin_corrected&quot;}</span></code>, each <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code> with NaN outside
+<cite>mask</cite>.</p>
+<p><cite>irf</cite> may be a shared <code class="docutils literal notranslate"><span class="pre">(T,)</span></code> IRF or the <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W,</span> <span class="pre">T)</span></code> cube, in which case the
+mean IRF over <cite>mask</cite> is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decay</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>mask</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.fit_lifetimes">
+<span class="sig-name descname"><span class="pre">fit_lifetimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/monte_carlo_precision.html#fit_lifetimes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.fit_lifetimes" title="Link to this definition">#</a></dt>
+<dd><p>Fit every decay of <cite>decays</cite> <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">T)</span></code> with a mono-exponential model using
+<code class="docutils literal notranslate"><span class="pre">FLICPUProcessor</span></code> and the fitter/estimator of <cite>method</cite> (<code class="docutils literal notranslate"><span class="pre">&quot;NLSF&quot;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&quot;MLE&quot;</span></code>). Returns the fitted lifetimes <code class="docutils literal notranslate"><span class="pre">(M,)</span></code>; failed fits are NaN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decays</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.gate_times">
+<span class="sig-name descname"><span class="pre">gate_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_gates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fit_free_lifetime.html#gate_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.gate_times" title="Link to this definition">#</a></dt>
+<dd><p>Gate start times <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">*</span> <span class="pre">laser_period</span> <span class="pre">/</span> <span class="pre">n_gates</span></code> in ns (endpoint excluded).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_gates</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.gated_bin_probabilities">
+<span class="sig-name descname"><span class="pre">gated_bin_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/expected_decay.html#gated_bin_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.gated_bin_probabilities" title="Link to this definition">#</a></dt>
+<dd><p>Expected per-gate photon distribution of <code class="docutils literal notranslate"><span class="pre">PhotonCountSimulator</span></code> for lifetime(s)
+<cite>tau</cite>: the wrapped, gate-integrated exponential (<code class="xref py py-func docutils literal notranslate"><span class="pre">wrapped_gate_exponential()</span></code>)
+circularly convolved with the IRF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tau</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">|</span> <span class="pre">np.ndarray</span></code>) – Lifetime(s) in ns; any shape <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p></li>
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – IRF of shape <code class="docutils literal notranslate"><span class="pre">(T,)</span></code> (shared) or <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">+</span> <span class="pre">(T,)</span></code> (one per lifetime); normalised
+to unit sum here.</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition period in ns; the <code class="docutils literal notranslate"><span class="pre">T</span></code> gates cover <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">laser_period)</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of shape <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">+</span> <span class="pre">(T,)</span></code> whose last axis sums to 1.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.gated_decay_model">
+<span class="sig-name descname"><span class="pre">gated_decay_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/crb_precision.html#gated_decay_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.gated_decay_model" title="Link to this definition">#</a></dt>
+<dd><p>Expected counts per gate <code class="docutils literal notranslate"><span class="pre">mu_k</span> <span class="pre">=</span> <span class="pre">N</span> <span class="pre">*</span> <span class="pre">p_k(tau)</span> <span class="pre">+</span> <span class="pre">b</span></code> for parameter vectors
+<code class="docutils literal notranslate"><span class="pre">params</span></code> <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">3)</span></code> ordered as <code class="xref py py-data docutils literal notranslate"><span class="pre">PARAMS</span></code> (<code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">tau</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>); <cite>irf</cite> is
+<code class="docutils literal notranslate"><span class="pre">(T,)</span></code> or <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">T)</span></code>. This is the model handed to the generic
+<a class="reference internal" href="pyfli.analysis.precision.fisher_crlb.html#pyfli.analysis.precision.fisher_crlb.fisher_information" title="pyfli.analysis.precision.fisher_crlb.fisher_information"><code class="xref py py-func docutils literal notranslate"><span class="pre">fisher_crlb.fisher_information()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.gaussian_fisher_information">
+<span class="sig-name descname"><span class="pre">gaussian_fisher_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobian</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#gaussian_fisher_information"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.gaussian_fisher_information" title="Link to this definition">#</a></dt>
+<dd><p>Fisher matrices <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K,</span> <span class="pre">K)</span></code> for independent Gaussian channels with known noise
+standard deviation <cite>sigma</cite> (scalar, <code class="docutils literal notranslate"><span class="pre">(T,)</span></code> or <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">T)</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>jacobian</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.mean_arrival_lifetime">
+<span class="sig-name descname"><span class="pre">mean_arrival_lifetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fit_free_lifetime.html#mean_arrival_lifetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.mean_arrival_lifetime" title="Link to this definition">#</a></dt>
+<dd><p>Lifetime whose exact gated-model first moment equals the measured mean arrival
+time (method of moments with the wrap-around / gate / IRF model).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Photon histograms, time axis last.</p></li>
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Shared IRF <code class="docutils literal notranslate"><span class="pre">(T,)</span></code>.</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition period in ns.</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Expected background counts per gate, subtracted before the moment.</p></li>
+<li><p><strong>tau_grid</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Lifetimes (ns) of the lookup table; defaults to 2000 log-spaced values in
+<code class="docutils literal notranslate"><span class="pre">[0.01,</span> <span class="pre">5</span> <span class="pre">*</span> <span class="pre">laser_period]</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lifetime per decay (ns); NaN for empty decays or means outside the table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.mean_arrival_time_naive">
+<span class="sig-name descname"><span class="pre">mean_arrival_time_naive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fit_free_lifetime.html#mean_arrival_time_naive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.mean_arrival_time_naive" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">&lt;t&gt;_decay</span> <span class="pre">-</span> <span class="pre">&lt;t&gt;_IRF</span></code> per decay (ns) – the textbook first-moment lifetime,
+exact only for an unlimited window without wrap-around or gating.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decay</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>irf</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.numerical_jacobian">
+<span class="sig-name descname"><span class="pre">numerical_jacobian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#numerical_jacobian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.numerical_jacobian" title="Link to this definition">#</a></dt>
+<dd><p>Central-difference Jacobian <code class="docutils literal notranslate"><span class="pre">dmu/dtheta</span></code> of a batched model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) – <code class="docutils literal notranslate"><span class="pre">model(params)</span></code> with <cite>params</cite> <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K)</span></code> returning channel means <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">T)</span></code>.</p></li>
+<li><p><strong>params</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Parameter vectors <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K)</span></code> (or <code class="docutils literal notranslate"><span class="pre">(K,)</span></code> for a single one).</p></li>
+<li><p><strong>rel_step</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Step for parameter <code class="docutils literal notranslate"><span class="pre">k</span></code> is <code class="docutils literal notranslate"><span class="pre">max(rel_step</span> <span class="pre">*</span> <span class="pre">|theta_k|,</span> <span class="pre">abs_step)</span></code>.</p></li>
+<li><p><strong>abs_step</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Step for parameter <code class="docutils literal notranslate"><span class="pre">k</span></code> is <code class="docutils literal notranslate"><span class="pre">max(rel_step</span> <span class="pre">*</span> <span class="pre">|theta_k|,</span> <span class="pre">abs_step)</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Jacobian of shape <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K,</span> <span class="pre">T)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.phasor_lifetime">
+<span class="sig-name descname"><span class="pre">phasor_lifetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_per_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_corrected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fit_free_lifetime.html#phasor_lifetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.phasor_lifetime" title="Link to this definition">#</a></dt>
+<dd><p>First-harmonic phasor lifetime at the laser repetition frequency, calibrated
+with the IRF, via <code class="xref py py-class docutils literal notranslate"><span class="pre">PhasorAnalyzer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Photon histograms, time axis last.</p></li>
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Shared IRF <code class="docutils literal notranslate"><span class="pre">(T,)</span></code>.</p></li>
+<li><p><strong>laser_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition period in ns (the phasor frequency is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">laser_period</span></code>).</p></li>
+<li><p><strong>background_per_bin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Expected background counts per gate, subtracted before the phasor.</p></li>
+<li><p><strong>bin_corrected</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – False (default): the standard phase lifetime <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">/</span> <span class="pre">(omega</span> <span class="pre">*</span> <span class="pre">G)</span></code> from
+<code class="docutils literal notranslate"><span class="pre">PhasorAnalyzer.compute_lifetime</span></code>. True: invert the calibrated phasor
+<code class="docutils literal notranslate"><span class="pre">z</span> <span class="pre">=</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">q)</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">q</span> <span class="pre">*</span> <span class="pre">exp(i*omega*dt))</span></code> of the exact wrapped, gated
+exponential for <code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">=</span> <span class="pre">exp(-dt</span> <span class="pre">/</span> <span class="pre">tau)</span></code>, which removes the gate-width bias.</p></li>
+<li><p><strong>device</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Torch device for <code class="docutils literal notranslate"><span class="pre">PhasorAnalyzer</span></code> (calibration runs in torch).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lifetime per decay (ns), shape <code class="docutils literal notranslate"><span class="pre">decay.shape[:-1]</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.plot_monte_carlo">
+<span class="sig-name descname"><span class="pre">plot_monte_carlo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(13,</span> <span class="pre">4.5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/monte_carlo_precision.html#plot_monte_carlo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.plot_monte_carlo" title="Link to this definition">#</a></dt>
+<dd><p>Plot a <a class="reference internal" href="#pyfli.analysis.precision.run_monte_carlo" title="pyfli.analysis.precision.run_monte_carlo"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_monte_carlo()</span></code></a> table: CV vs. photon count (log-log) with the
+Cramér-Rao bound, and the F-value vs. photon count with the bound and the ideal
+<code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">1</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.0.6)"><em>DataFrame</em></a>)</p></li>
+<li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.poisson_fisher_information">
+<span class="sig-name descname"><span class="pre">poisson_fisher_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jacobian</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#poisson_fisher_information"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.poisson_fisher_information" title="Link to this definition">#</a></dt>
+<dd><p>Fisher matrices <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K,</span> <span class="pre">K)</span></code> for independent Poisson channels with means <cite>mu</cite>
+<code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">T)</span></code> and Jacobian <code class="docutils literal notranslate"><span class="pre">(P,</span> <span class="pre">K,</span> <span class="pre">T)</span></code>. Channels with <code class="docutils literal notranslate"><span class="pre">mu</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code> carry no
+information and are skipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>jacobian</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.run_monte_carlo">
+<span class="sig-name descname"><span class="pre">run_monte_carlo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_counts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('NLSF',</span> <span class="pre">'MLE',</span> <span class="pre">'mean_arrival',</span> <span class="pre">'phasor')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_feq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crb_fit_background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/monte_carlo_precision.html#run_monte_carlo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.run_monte_carlo" title="Link to this definition">#</a></dt>
+<dd><p>Monte Carlo precision of each method against photon count, for one fixed
+lifetime.</p>
+<p>For every photon count <code class="docutils literal notranslate"><span class="pre">N</span></code> in <cite>photon_counts</cite>, <cite>n_repeats</cite> decays are
+simulated, every method estimates the lifetime of every decay, and the spread
+of the estimates is summarized. The Cramér-Rao bound for the same <code class="docutils literal notranslate"><span class="pre">tau</span></code>,
+<code class="docutils literal notranslate"><span class="pre">N</span></code>, IRF, window and background is added for reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – IRF trace <code class="docutils literal notranslate"><span class="pre">(T,)</span></code>.</p></li>
+<li><p><strong>tau</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – True lifetime (ns) shared by all copies.</p></li>
+<li><p><strong>photon_counts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">iterable</span></code> of <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Expected signal photons per decay (each &gt;= 10).</p></li>
+<li><p><strong>n_repeats</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Copies per photon count.</p></li>
+<li><p><strong>methods</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">iterable</span></code> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Any of <code class="docutils literal notranslate"><span class="pre">&quot;NLSF&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;MLE&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mean_arrival&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;phasor&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;phasor_bin_corrected&quot;</span></code>.</p></li>
+<li><p><strong>laser_feq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition rate in MHz.</p></li>
+<li><p><strong>dcr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Dark counts per gate (0 disables them).</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Optimizer iteration budget for the fits.</p></li>
+<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Parallel fitting jobs.</p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Base seed; photon count <code class="docutils literal notranslate"><span class="pre">i</span></code> uses <code class="docutils literal notranslate"><span class="pre">seed</span> <span class="pre">+</span> <span class="pre">i</span></code>.</p></li>
+<li><p><strong>crb_fit_background</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Whether the bound treats the background as unknown (as fits with a free
+offset do). Defaults to <code class="docutils literal notranslate"><span class="pre">dcr</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>One row per (method, N): <code class="docutils literal notranslate"><span class="pre">method</span></code>, <code class="docutils literal notranslate"><span class="pre">n_photons</span></code>, <code class="docutils literal notranslate"><span class="pre">n_detected</span></code> (mean
+total counts), <code class="docutils literal notranslate"><span class="pre">n_valid</span></code>, <code class="docutils literal notranslate"><span class="pre">tau_true</span></code>, <code class="docutils literal notranslate"><span class="pre">tau_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">tau_std</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bias</span></code>, <code class="docutils literal notranslate"><span class="pre">rel_bias</span></code>, <code class="docutils literal notranslate"><span class="pre">cv</span></code> (std / mean), <code class="docutils literal notranslate"><span class="pre">F</span></code> (<code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">*</span> <span class="pre">sqrt(N)</span></code>),
+<code class="docutils literal notranslate"><span class="pre">cv_crb</span></code>, <code class="docutils literal notranslate"><span class="pre">F_crb</span></code> and <code class="docutils literal notranslate"><span class="pre">efficiency</span></code> (<code class="docutils literal notranslate"><span class="pre">(cv_crb</span> <span class="pre">/</span> <span class="pre">cv)</span> <span class="pre">**</span> <span class="pre">2</span></code>, see
+<a class="reference internal" href="pyfli.analysis.precision.fisher_crlb.html#pyfli.analysis.precision.fisher_crlb.estimator_efficiency" title="pyfli.analysis.precision.fisher_crlb.estimator_efficiency"><code class="xref py py-func docutils literal notranslate"><span class="pre">fisher_crlb.estimator_efficiency()</span></code></a>; 1 means the method reaches the
+bound).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.select_parameters">
+<span class="sig-name descname"><span class="pre">select_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/fisher_crlb.html#select_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.select_parameters" title="Link to this definition">#</a></dt>
+<dd><p>Fisher sub-matrices for the parameters in <cite>indices</cite>, i.e. the information when
+every other parameter is known exactly and not estimated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>indices</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.analysis.precision.simulate_fixed_lifetime_decays">
+<span class="sig-name descname"><span class="pre">simulate_fixed_lifetime_decays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_photons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_feq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/analysis/precision/monte_carlo_precision.html#simulate_fixed_lifetime_decays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.analysis.precision.simulate_fixed_lifetime_decays" title="Link to this definition">#</a></dt>
+<dd><p>Simulate <cite>n_repeats</cite> independent photon histograms of one pixel with lifetime
+<cite>tau</cite> and on average <cite>n_photons</cite> detected signal photons, using
+<code class="docutils literal notranslate"><span class="pre">PhotonCountSimulator</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – IRF trace <code class="docutils literal notranslate"><span class="pre">(T,)</span></code> (or a cube, from which the simulator picks one pixel).</p></li>
+<li><p><strong>tau</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fixed lifetime in ns.</p></li>
+<li><p><strong>n_photons</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Expected signal photons per decay; must be &gt;= 10 (the simulator needs at
+least 1000 laser cycles).</p></li>
+<li><p><strong>n_repeats</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of independent copies.</p></li>
+<li><p><strong>laser_feq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Laser repetition rate in MHz (period <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">/</span> <span class="pre">laser_feq</span></code> ns).</p></li>
+<li><p><strong>dcr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Dark counts per gate added by the simulator (0 disables them).</p></li>
+<li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Seeds the simulator engine and NumPy’s global RNG (used for dark counts).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(decays,</span> <span class="pre">irf_used)</span></code>: decays <code class="docutils literal notranslate"><span class="pre">(n_repeats,</span> <span class="pre">T)</span></code> and the normalized IRF the
+simulator convolved with <code class="docutils literal notranslate"><span class="pre">(T,)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[np.ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Modules</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyfli.analysis.precision.crb_precision.html#module-pyfli.analysis.precision.crb_precision" title="pyfli.analysis.precision.crb_precision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crb_precision</span></code></a></p></td>
+<td><p>Cramér-Rao lower bound on mono-exponential lifetime precision for gated / TCSPC data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyfli.analysis.precision.fisher_crlb.html#module-pyfli.analysis.precision.fisher_crlb" title="pyfli.analysis.precision.fisher_crlb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fisher_crlb</span></code></a></p></td>
+<td><p>Generic Fisher information and Cramér-Rao lower bound (CRLB) tools.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyfli.analysis.precision.fit_free_lifetime.html#module-pyfli.analysis.precision.fit_free_lifetime" title="pyfli.analysis.precision.fit_free_lifetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_free_lifetime</span></code></a></p></td>
+<td><p>Fit-free mono-exponential lifetimes from the photon histogram: mean arrival time and phasor lifetime.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyfli.analysis.precision.monte_carlo_precision.html#module-pyfli.analysis.precision.monte_carlo_precision" title="pyfli.analysis.precision.monte_carlo_precision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">monte_carlo_precision</span></code></a></p></td>
+<td><p>Monte Carlo lifetime precision: repeated simulation of one pixel across photon counts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crb_cv_map"><code class="docutils literal notranslate"><span class="pre">crb_cv_map()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crb_f_value"><code class="docutils literal notranslate"><span class="pre">crb_f_value()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crb_for_cv_bins"><code class="docutils literal notranslate"><span class="pre">crb_for_cv_bins()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crb_lifetime_cv"><code class="docutils literal notranslate"><span class="pre">crb_lifetime_cv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crlb_covariance"><code class="docutils literal notranslate"><span class="pre">crlb_covariance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crlb_cv"><code class="docutils literal notranslate"><span class="pre">crlb_cv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.crlb_std"><code class="docutils literal notranslate"><span class="pre">crlb_std()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.estimate_lifetimes"><code class="docutils literal notranslate"><span class="pre">estimate_lifetimes()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.estimator_efficiency"><code class="docutils literal notranslate"><span class="pre">estimator_efficiency()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.f_value"><code class="docutils literal notranslate"><span class="pre">f_value()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.fisher_information"><code class="docutils literal notranslate"><span class="pre">fisher_information()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.fit_free_lifetime_maps"><code class="docutils literal notranslate"><span class="pre">fit_free_lifetime_maps()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.fit_lifetimes"><code class="docutils literal notranslate"><span class="pre">fit_lifetimes()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.gate_times"><code class="docutils literal notranslate"><span class="pre">gate_times()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.gated_bin_probabilities"><code class="docutils literal notranslate"><span class="pre">gated_bin_probabilities()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.gated_decay_model"><code class="docutils literal notranslate"><span class="pre">gated_decay_model()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.gaussian_fisher_information"><code class="docutils literal notranslate"><span class="pre">gaussian_fisher_information()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.mean_arrival_lifetime"><code class="docutils literal notranslate"><span class="pre">mean_arrival_lifetime()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.mean_arrival_time_naive"><code class="docutils literal notranslate"><span class="pre">mean_arrival_time_naive()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.numerical_jacobian"><code class="docutils literal notranslate"><span class="pre">numerical_jacobian()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.phasor_lifetime"><code class="docutils literal notranslate"><span class="pre">phasor_lifetime()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.plot_monte_carlo"><code class="docutils literal notranslate"><span class="pre">plot_monte_carlo()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.poisson_fisher_information"><code class="docutils literal notranslate"><span class="pre">poisson_fisher_information()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.run_monte_carlo"><code class="docutils literal notranslate"><span class="pre">run_monte_carlo()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.select_parameters"><code class="docutils literal notranslate"><span class="pre">select_parameters()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.analysis.precision.simulate_fixed_lifetime_decays"><code class="docutils literal notranslate"><span class="pre">simulate_fixed_lifetime_decays()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/api/generated/pyfli.analysis.precision.rst">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFLI developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

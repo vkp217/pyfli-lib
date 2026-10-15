@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../_static/documentation_options.js?v=9c7764e8"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.analysis.fit_analysis';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/api/generated/pyfli.analysis.fit_analysis.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/api/generated/pyfli.analysis.fit_analysis.html" />
     <link rel="icon" href="../../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,6 +65,7 @@
     <link rel="prev" title="pyfli.analysis.factor_analysis" href="pyfli.analysis.factor_analysis.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="v0.1.19" />
   
@@ -185,8 +186,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
   </a>
 </li>
 
@@ -199,13 +200,6 @@
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
 <li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
-    Citation
-  </a>
-</li>
-
-
-<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
     Contributing
   </a>
@@ -215,6 +209,13 @@
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -372,13 +373,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../citation.html">
     Citation
   </a>
@@ -395,6 +389,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -624,9 +625,9 @@ datasets. Public API includes functions <a class="reference internal" href="#pyf
 <li><p><strong>all_datasets</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[dict]</span>&#160;&#160; <span class="pre">from</span> <span class="pre">load_fitting_results()</span></code>)</p></li>
 <li><p><strong>names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[str]</span></code>)</p></li>
 <li><p><strong>map_keys</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[str]</span>&#160;&#160;&#160; <span class="pre">keys</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">extract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">e.g.</span> <span class="pre">[``</span></code>’tau_map’<a href="#id1"><span class="problematic" id="id2">``</span></a><code class="xref py py-class docutils literal notranslate"><span class="pre">]</span> <span class="pre">or</span></code>) – [‘alpha1_map’, ‘tau1_map’, ‘tau2_map’]</p></li>
-<li><p><strong>v_ranges</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[tuple]</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Display range per map, e.g. [(0, 1.5)] or [(0,1),(0,2),(0,2)].
+<li><p><strong>v_ranges</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[tuple]</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Display range per map, e.g. [(0, 1.5)] or [(0,1),(0,2),(0,2)].
 Pass None to let DataViewer auto-scale.</p></li>
-<li><p><strong>saver</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataSaver</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>saver</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataSaver</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
 <li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">colormap</span> <span class="pre">—</span> <span class="pre">defaults</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">jet</span> <span class="pre">with</span> <span class="pre">zero→black</span></code>)</p></li>
 </ul>
 </dd>
@@ -649,11 +650,11 @@ Pass None to let DataViewer auto-scale.</p></li>
 </dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>binned_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>all_fitset</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>mask</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>saver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>binned_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>all_fitset</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>mask</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>saver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -667,13 +668,13 @@ Pass None to let DataViewer auto-scale.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span>&#160;&#160; <span class="pre">index</span> <span class="pre">into</span> <span class="pre">all_fitset</span> <span class="pre">/</span> <span class="pre">all_datasets</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">display</span> <span class="pre">(default</span> <span class="pre">0)</span></code>)</p></li>
-<li><p><strong>binned_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>binned_irf</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>all_fitset</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>all_datasets</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>mask</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
-<li><p><strong>saver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>binned_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>binned_irf</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>all_fitset</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>all_datasets</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>mask</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>saver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -699,11 +700,11 @@ Thresholds fall back to DEFAULT_KEY_THRESHOLDS when not overridden.</p>
 <li><p><strong>graph_type</strong> (str         <code class="docutils literal notranslate"><span class="pre">'box'</span></code>, <code class="docutils literal notranslate"><span class="pre">'violin'</span></code>, <code class="docutils literal notranslate"><span class="pre">'swarm'</span></code>, <code class="docutils literal notranslate"><span class="pre">'overlay'</span></code><code class="xref py py-class docutils literal notranslate"><span class="pre">,</span></code>) – ‘raincloud’, or ‘kde’</p></li>
 <li><p><strong>test_type</strong> (str         <code class="docutils literal notranslate"><span class="pre">'none'</span></code>, <code class="docutils literal notranslate"><span class="pre">'paired'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'welch'</span></code>)</p></li>
 <li><p><strong>colors_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">per-source</span> <span class="pre">colour</span> <span class="pre">hex</span> <span class="pre">strings</span></code>)</p></li>
-<li><p><strong>per_key_thresholds</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Override thresholds per key, e.g.
+<li><p><strong>per_key_thresholds</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Override thresholds per key, e.g.
 <code class="docutils literal notranslate"><span class="pre">{'tau_map':</span> <span class="pre">(0,</span> <span class="pre">3),</span> <span class="pre">'alpha1_map':</span> <span class="pre">(0,</span> <span class="pre">1)}</span></code>.
 Keys not listed fall back to DEFAULT_KEY_THRESHOLDS.</p></li>
-<li><p><strong>percentile_clip</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span>&#160;&#160; <span class="pre">(low%</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">high%)</span> <span class="pre">applied</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">every</span> <span class="pre">key;</span></code>) – pass None to disable</p></li>
-<li><p><strong>saver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>percentile_clip</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">None</span>&#160;&#160; <span class="pre">(low%</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">high%)</span> <span class="pre">applied</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">every</span> <span class="pre">key;</span></code>) – pass None to disable</p></li>
+<li><p><strong>saver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -730,9 +731,9 @@ overridden.</p>
 <li><p><strong>names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[str]</span></code>)</p></li>
 <li><p><strong>map_keys</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list[str]</span>&#160;&#160; <span class="pre">e.g.</span> <span class="pre">[``</span></code>’tau_map’<a href="#id5"><span class="problematic" id="id6">``</span></a><code class="xref py py-class docutils literal notranslate"><span class="pre">]</span> <span class="pre">or</span></code>) – [‘alpha1_map’, ‘tau1_map’, ‘tau2_map’]</p></li>
 <li><p><strong>mask</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span>&#160; <span class="pre">(H</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">W)</span> <span class="pre">bool</span></code>)</p></li>
-<li><p><strong>per_key_thresholds</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Override per key, e.g. <code class="docutils literal notranslate"><span class="pre">{'tau2_map':</span> <span class="pre">(0,</span> <span class="pre">3)}</span></code>.
+<li><p><strong>per_key_thresholds</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Override per key, e.g. <code class="docutils literal notranslate"><span class="pre">{'tau2_map':</span> <span class="pre">(0,</span> <span class="pre">3)}</span></code>.
 Keys not listed fall back to DEFAULT_KEY_THRESHOLDS.</p></li>
-<li><p><strong>saver</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataSaver</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>saver</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataSaver</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
 <li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span>&#160;&#160; <span class="pre">colormap</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">spatial</span> <span class="pre">map</span> <span class="pre">panels</span></code>)</p></li>
 </ul>
 </dd>
@@ -752,9 +753,9 @@ Keys not listed fall back to DEFAULT_KEY_THRESHOLDS.</p></li>
 <li><p><strong>all_datasets</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Collection of fitted datasets to classify, compare, or summarize.</p></li>
 <li><p><strong>names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Dataset names used in summaries and plots.</p></li>
 <li><p><strong>mask</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Boolean or labeled mask selecting pixels for the operation.</p></li>
-<li><p><strong>alpha_upper</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Upper alpha-fraction threshold used by the classifier.</p></li>
-<li><p><strong>alpha_lower</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Lower alpha-fraction threshold used by the classifier.</p></li>
-<li><p><strong>tau_tol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Lifetime tolerance used by the mono/bi classifier.</p></li>
+<li><p><strong>alpha_upper</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Upper alpha-fraction threshold used by the classifier.</p></li>
+<li><p><strong>alpha_lower</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Lower alpha-fraction threshold used by the classifier.</p></li>
+<li><p><strong>tau_tol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Lifetime tolerance used by the mono/bi classifier.</p></li>
 <li><p><strong>scatter_keys</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Parameter keys used in classifier scatter plots.</p></li>
 <li><p><strong>saver</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional saver used to persist messages or figures.</p></li>
 </ul>
@@ -824,8 +825,8 @@ Keys not listed fall back to DEFAULT_KEY_THRESHOLDS.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">

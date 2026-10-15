@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>pyfli.simulator.calibration.calibrator &#8212; PyFLI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=71ba2b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/simulator/calibration/calibrator';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/dev/_modules/pyfli/simulator/calibration/calibrator.html" />
+    <link rel="icon" href="../../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFLI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../citation.html">
+    Citation
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.simulator.calibration.calibrator</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.simulator.calibration.calibrator</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""End-to-end calibration: experimental 3D decay cube -&gt; pyfli simulator config."""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">replace</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">uniform_filter1d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">beta</span> <span class="k">as</span> <span class="n">beta_dist</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..sim_calibrator</span><span class="w"> </span><span class="kn">import</span> <span class="n">FLIValidator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..sim_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">SIM_FAMILY</span><span class="p">,</span> <span class="n">CalibrationInputs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.coverage</span><span class="w"> </span><span class="kn">import</span> <span class="n">coverage_fractions</span><span class="p">,</span> <span class="n">ensure_coverage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.data_io</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ExperimentalData</span><span class="p">,</span>
+    <span class="n">ReferenceMaps</span><span class="p">,</span>
+    <span class="n">load_experimental_data</span><span class="p">,</span>
+    <span class="n">load_reference_maps</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.expected_decay</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecayForwardModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.irf_estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">estimate_irf</span><span class="p">,</span> <span class="n">split_background</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.optimizer</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CalibrationState</span><span class="p">,</span>
+    <span class="n">ObjectiveContext</span><span class="p">,</span>
+    <span class="n">evaluate</span><span class="p">,</span>
+    <span class="n">refresh_photon_prior</span><span class="p">,</span>
+    <span class="n">run_calibration_rounds</span><span class="p">,</span>
+    <span class="n">stage_parameter_names</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.pixel_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">select_signal_pixels</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.prior_estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">BetaPrior</span><span class="p">,</span> <span class="n">PriorSet</span><span class="p">,</span> <span class="n">lifetime_priors</span><span class="p">,</span> <span class="n">quick_pixel_fits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.sim_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_sim_config</span><span class="p">,</span> <span class="n">make_generator</span><span class="p">,</span> <span class="n">save_calibration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.summary_stats</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">StatsComparator</span><span class="p">,</span>
+    <span class="n">background_bins</span><span class="p">,</span>
+    <span class="n">compute_stats</span><span class="p">,</span>
+    <span class="n">inactive_bins</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="CalibrationResult">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.calibrator.html#pyfli.simulator.calibration.CalibrationResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CalibrationResult</span><span class="p">:</span>
+    <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">sim_generator_kwargs</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">CalibrationState</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">selection_report</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">validation</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">history</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">files</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">best_fit</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CalibrationResult.make_generator">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.calibrator.html#pyfli.simulator.calibration.CalibrationResult.make_generator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimGenerator</span><span class="p">:</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim_generator_kwargs</span>
+        <span class="k">return</span> <span class="n">make_generator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">irf_cube</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+            <span class="n">kw</span><span class="p">[</span><span class="s2">"a_range"</span><span class="p">],</span>
+            <span class="n">kw</span><span class="p">[</span><span class="s2">"b_range"</span><span class="p">],</span>
+            <span class="n">inactive_bins</span><span class="o">=</span><span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"inactive_bins"</span><span class="p">),</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DetectorSimCalibrator">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.calibrator.html#pyfli.simulator.calibration.DetectorSimCalibrator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DetectorSimCalibrator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">CalibrationInputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inp</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">data_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">))</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">data_path</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">output_dir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">data_path</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2">_sim_calibration_bin</span><span class="si">{</span><span class="n">inputs</span><span class="o">.</span><span class="n">bin_radius</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">inputs</span><span class="o">.</span><span class="n">detector_type</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">inputs</span><span class="o">.</span><span class="n">model_type</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------ steps</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initial_lifetimes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fm</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ExperimentalData</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">irf_est</span><span class="p">,</span> <span class="n">dcr</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ReferenceMaps</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Parameter values used to initialise the Beta priors, plus where they came from."""</span>
+        <span class="n">inp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inp</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sel</span> <span class="o">=</span> <span class="n">mask</span> <span class="k">if</span> <span class="n">ref</span><span class="o">.</span><span class="n">aligned_with</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spatial_shape</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">ref</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">sel</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"tau1"</span><span class="p">,</span> <span class="s2">"tau2"</span><span class="p">,</span> <span class="s2">"alpha1"</span><span class="p">,</span> <span class="s2">"efficiency"</span><span class="p">,</span> <span class="s2">"tau"</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s2">"tau2"</span> <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span> <span class="k">else</span> <span class="s2">"tau"</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">"Reference maps are not pixel-aligned with the data: using all their valid pixels"</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s2">"tau"</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">values</span><span class="p">[</span><span class="s2">"tau"</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s2">"tau2"</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">values</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"reference:</span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">"</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">"Reference maps have too few valid pixels: falling back to quick fits"</span>
+            <span class="p">)</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">pick</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">n_fit_pixels</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">decays</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">pick</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pick</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span>
+        <span class="n">pf</span> <span class="o">=</span> <span class="n">irf_est</span><span class="o">.</span><span class="n">pooled_fit</span>
+        <span class="n">init</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"tau2"</span><span class="p">:</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"tau_long_ns"</span><span class="p">],</span>
+            <span class="s2">"efficiency"</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"tau_short_ns"</span><span class="p">]</span> <span class="o">/</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"tau_long_ns"</span><span class="p">],</span>
+            <span class="s2">"alpha1"</span><span class="p">:</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"frac_short"</span><span class="p">],</span>
+            <span class="s2">"tau"</span><span class="p">:</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"frac_short"</span><span class="p">]</span> <span class="o">*</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"tau_short_ns"</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"frac_short"</span><span class="p">])</span> <span class="o">*</span> <span class="n">pf</span><span class="p">[</span><span class="s2">"tau_long_ns"</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="n">irf_norm</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">with_baseline</span><span class="p">(</span><span class="n">irf_est</span><span class="o">.</span><span class="n">effective_irf</span><span class="p">(),</span> <span class="n">irf_est</span><span class="o">.</span><span class="n">b_max</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">quick_pixel_fits</span><span class="p">(</span>
+            <span class="n">fm</span><span class="p">,</span> <span class="n">decays</span><span class="p">,</span> <span class="n">irf_norm</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">decays</span><span class="p">),</span> <span class="n">dcr</span><span class="p">),</span> <span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span><span class="p">,</span> <span class="n">init</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span><span class="p">,</span> <span class="s2">"quick_fit"</span>
+
+<div class="viewcode-block" id="DetectorSimCalibrator.run">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.calibrator.html#pyfli.simulator.calibration.DetectorSimCalibrator.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CalibrationResult</span><span class="p">:</span>
+        <span class="n">inp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inp</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">load_experimental_data</span><span class="p">(</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">data_path</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">irf_path</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">bg_path</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">mask_path</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">bin_radius</span>
+        <span class="p">)</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">n_bins</span>
+        <span class="n">adc_ceiling</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">inp</span><span class="o">.</span><span class="n">bit_depth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span> <span class="o">==</span> <span class="s2">"continuous"</span> <span class="ow">and</span> <span class="n">inp</span><span class="o">.</span><span class="n">bit_depth</span><span class="p">)</span>
+            <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 1. sample pixels only</span>
+        <span class="n">mask</span><span class="p">,</span> <span class="n">sel_report</span> <span class="o">=</span> <span class="n">select_signal_pixels</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">selection</span><span class="p">,</span> <span class="n">adc_ceiling</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"Too few sample pixels selected; see the selection report / relax the criteria"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># 2. experimental statistics on a random subset of the sample pixels</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span>
+        <span class="n">n_cal</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">n_exp_pixels</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span>
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">order</span><span class="p">[:</span><span class="n">n_cal</span><span class="p">]]</span>
+        <span class="n">held_out</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">n_cal</span> <span class="p">:</span> <span class="n">n_cal</span> <span class="o">+</span> <span class="n">inp</span><span class="o">.</span><span class="n">n_exp_pixels</span><span class="p">]]</span>
+        <span class="n">exp_decays</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">sub</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sub</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">inactive</span> <span class="o">=</span> <span class="n">inactive_bins</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">sel_report</span><span class="p">[</span><span class="s2">"inactive_bins"</span><span class="p">]</span> <span class="o">=</span> <span class="n">inactive</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inactive</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">inactive</span><span class="p">)</span><span class="si">}</span><span class="s2"> time bins never record a count (outside the acquisition window): "</span>
+                <span class="s2">"they are zeroed in the simulated decays"</span>
+            <span class="p">)</span>
+        <span class="n">bg_bins</span> <span class="o">=</span> <span class="n">background_bins</span><span class="p">(</span><span class="n">exp_decays</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">exp_stats</span> <span class="o">=</span> <span class="n">compute_stats</span><span class="p">(</span><span class="n">exp_decays</span><span class="p">,</span> <span class="n">bg_bins</span><span class="p">)</span>
+
+        <span class="c1"># pyfli's jitter shifts every decay by U{-2..2} bins (edge SD ~1.4 bins). Data whose</span>
+        <span class="c1"># rising edges are tighter than that cannot have been produced with jitter on.</span>
+        <span class="n">edge_sd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">[</span><span class="s2">"edge"</span><span class="p">],</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">]))</span> <span class="o">/</span> <span class="mf">1.349</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">jitter</span> <span class="o">==</span> <span class="s2">"auto"</span><span class="p">:</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">jitter</span> <span class="o">=</span> <span class="n">edge_sd</span> <span class="o">&gt;=</span> <span class="mf">1.0</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Rising-edge SD </span><span class="si">{</span><span class="n">edge_sd</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> bins -&gt; simulator jitter </span><span class="si">{</span><span class="s1">'on'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">inp</span><span class="o">.</span><span class="n">jitter</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'off'</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="n">sel_report</span><span class="p">[</span><span class="s2">"edge_sd_bins"</span><span class="p">]</span> <span class="o">=</span> <span class="n">edge_sd</span>
+
+        <span class="c1"># 3. IRF (experimental template or simulated EMG) + pooled lifetimes / background</span>
+        <span class="n">fm</span> <span class="o">=</span> <span class="n">DecayForwardModel</span><span class="p">(</span>
+            <span class="n">T</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">laser_period_ns</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">jitter</span><span class="p">,</span> <span class="n">inactive</span>
+        <span class="p">)</span>
+        <span class="n">irf_est</span> <span class="o">=</span> <span class="n">estimate_irf</span><span class="p">(</span><span class="n">fm</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">irf</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">irf_mode</span><span class="p">)</span>
+        <span class="c1"># dark counts: pre-edge level = dcr + slope * counts across pixels (the slope is the</span>
+        <span class="c1"># signal-proportional previous-pulse tail), so the intercept is the dark-count rate</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">exp_decays</span><span class="p">[:,</span> <span class="n">bg_bins</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">[</span><span class="s2">"counts"</span><span class="p">],</span> <span class="n">pre</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fm</span><span class="o">.</span><span class="n">circular</span><span class="p">:</span>
+            <span class="n">dcr0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">split_background</span><span class="p">(</span><span class="n">irf_est</span><span class="p">,</span> <span class="n">fm</span><span class="p">,</span> <span class="n">bg_bins</span><span class="p">,</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">),</span> <span class="mf">1e-4</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dcr0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">intercept</span><span class="p">,</span> <span class="n">irf_est</span><span class="o">.</span><span class="n">pooled_fit</span><span class="p">[</span><span class="s2">"dcr_per_bin_per_pixel"</span><span class="p">],</span> <span class="mf">1e-4</span><span class="p">)</span>
+        <span class="n">sel_report</span><span class="p">[</span><span class="s2">"dcr_regression"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"intercept"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">intercept</span><span class="p">),</span>
+            <span class="s2">"slope"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">slope</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="c1"># 4. initial lifetime priors from reference maps or quick fits</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">load_reference_maps</span><span class="p">(</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">reference_path</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">reference_source</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">reference_alpha</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">reference_path</span>
+            <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="n">values</span><span class="p">,</span> <span class="n">prior_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_lifetimes</span><span class="p">(</span>
+            <span class="n">fm</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">irf_est</span><span class="p">,</span> <span class="n">dcr0</span><span class="p">,</span> <span class="n">ref</span>
+        <span class="p">)</span>
+        <span class="n">tau2_p</span><span class="p">,</span> <span class="n">eff_p</span><span class="p">,</span> <span class="n">a1_p</span><span class="p">,</span> <span class="n">moments</span> <span class="o">=</span> <span class="n">lifetime_priors</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">laser_period_ns</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">prior_inflation</span>
+        <span class="p">)</span>
+
+        <span class="n">exp_counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">exp_peaks</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">exp_decays</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">dcr0</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">ObjectiveContext</span><span class="p">(</span>
+            <span class="n">fm</span><span class="o">=</span><span class="n">fm</span><span class="p">,</span>
+            <span class="n">detector_type</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span><span class="p">,</span>
+            <span class="n">laser_freq_mhz</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">laser_freq_mhz</span><span class="p">,</span>
+            <span class="n">jitter</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">jitter</span><span class="p">,</span>
+            <span class="n">comparator</span><span class="o">=</span><span class="n">StatsComparator</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">),</span>
+            <span class="n">bg_bins</span><span class="o">=</span><span class="n">bg_bins</span><span class="p">,</span>
+            <span class="n">exp_counts</span><span class="o">=</span><span class="n">exp_counts</span><span class="p">,</span>
+            <span class="n">exp_peaks</span><span class="o">=</span><span class="n">exp_peaks</span><span class="p">,</span>
+            <span class="n">data_max</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">exp_decays</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+            <span class="n">bit_depth</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">bit_depth</span><span class="p">,</span>
+            <span class="n">prior_inflation</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">prior_inflation</span><span class="p">,</span>
+            <span class="n">n_sim</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">n_sim_pixels</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">reference_moments</span><span class="o">=</span><span class="n">moments</span> <span class="k">if</span> <span class="n">ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{},</span>
+            <span class="n">reference_weight</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">reference_weight</span> <span class="k">if</span> <span class="n">ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">inactive_bins</span><span class="o">=</span><span class="n">inactive</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">priors</span> <span class="o">=</span> <span class="n">PriorSet</span><span class="p">(</span>
+            <span class="n">tau2_p</span><span class="p">,</span>
+            <span class="n">eff_p</span><span class="p">,</span>
+            <span class="n">a1_p</span><span class="p">,</span>
+            <span class="n">BetaPrior</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="mi">16</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">mono_fraction</span><span class="p">,</span>
+            <span class="n">prior_source</span><span class="p">,</span>
+            <span class="n">moments</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span> <span class="o">==</span> <span class="s2">"continuous"</span><span class="p">:</span>
+            <span class="c1"># pyfli scales the configured dcr by bit / 8; store the config value</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">refresh_photon_prior</span><span class="p">(</span><span class="n">CalibrationState</span><span class="p">(</span><span class="n">irf_est</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">dcr0</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">replace</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">dcr</span><span class="o">=</span><span class="n">dcr0</span> <span class="o">/</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">bit</span> <span class="o">/</span> <span class="mf">8.0</span><span class="p">))</span>
+            <span class="n">ctx</span> <span class="o">=</span> <span class="n">replace</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">bit_depth</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">bit</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">refresh_photon_prior</span><span class="p">(</span><span class="n">CalibrationState</span><span class="p">(</span><span class="n">irf_est</span><span class="p">,</span> <span class="n">priors</span><span class="p">,</span> <span class="n">dcr0</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+        <span class="n">init_state</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="n">init_dist</span><span class="p">,</span> <span class="n">init_parts</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Initial distance </span><span class="si">{</span><span class="n">init_dist</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">init_parts</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># 5. simulation-based optimisation</span>
+        <span class="n">nuisance</span><span class="p">,</span> <span class="n">prior_names</span> <span class="o">=</span> <span class="n">stage_parameter_names</span><span class="p">(</span>
+            <span class="n">state</span><span class="p">,</span>
+            <span class="n">ctx</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">optimize_irf</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">optimize_noise</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">optimize_priors</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">hist</span> <span class="o">=</span> <span class="n">run_calibration_rounds</span><span class="p">(</span>
+            <span class="n">state</span><span class="p">,</span>
+            <span class="n">ctx</span><span class="p">,</span>
+            <span class="n">nuisance</span><span class="p">,</span>
+            <span class="n">prior_names</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">n_bank_pixels</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">bank_rounds</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">max_evals_stage1</span><span class="p">,</span>
+            <span class="n">inp</span><span class="o">.</span><span class="n">max_evals_stage2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">history</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+        <span class="n">best_fit</span> <span class="o">=</span> <span class="n">state</span>
+
+        <span class="n">cov_seed</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">seed</span> <span class="o">+</span> <span class="mi">4243</span>
+        <span class="n">coverage_trace</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">target_coverage</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">coverage_trace</span><span class="p">,</span> <span class="n">cov_cal</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">cov_sim_stats</span> <span class="o">=</span> <span class="n">ensure_coverage</span><span class="p">(</span>
+                <span class="n">state</span><span class="p">,</span>
+                <span class="n">ctx</span><span class="p">,</span>
+                <span class="n">exp_stats</span><span class="p">,</span>
+                <span class="n">exp_counts</span><span class="p">,</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">target_coverage</span><span class="p">,</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">n_coverage_pixels</span><span class="p">,</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">max_coverage_iter</span><span class="p">,</span>
+                <span class="n">seed</span><span class="o">=</span><span class="n">cov_seed</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">cov_sim_stats</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
+                <span class="n">state</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">n_coverage_pixels</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cov_seed</span>
+            <span class="p">)</span>
+            <span class="n">cov_cal</span> <span class="o">=</span> <span class="n">coverage_fractions</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">,</span> <span class="n">cov_sim_stats</span><span class="p">)</span>
+        <span class="n">cov_held</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">held_out</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="n">held_stats</span> <span class="o">=</span> <span class="n">compute_stats</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">held_out</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">held_out</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">bg_bins</span>
+            <span class="p">)</span>
+            <span class="n">cov_held</span> <span class="o">=</span> <span class="n">coverage_fractions</span><span class="p">(</span><span class="n">held_stats</span><span class="p">,</span> <span class="n">cov_sim_stats</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">best_sim_stats</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
+            <span class="n">best_fit</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">n_coverage_pixels</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cov_seed</span>
+        <span class="p">)</span>
+        <span class="n">cov_best</span> <span class="o">=</span> <span class="n">coverage_fractions</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">,</span> <span class="n">best_sim_stats</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Coverage of the experiment: best fit </span><span class="si">{</span><span class="n">cov_best</span><span class="si">}</span><span class="s2"> -&gt; final </span><span class="si">{</span><span class="n">cov_cal</span><span class="si">}</span><span class="s2">; held-out pixels </span><span class="si">{</span><span class="n">cov_held</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 6. independent validation (fresh random numbers, more pixels)</span>
+        <span class="n">val_seed</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">seed</span> <span class="o">+</span> <span class="mi">7919</span>
+        <span class="n">dist</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">sim_stats</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">n_validation_pixels</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">val_seed</span>
+        <span class="p">)</span>
+        <span class="n">best_val</span><span class="p">,</span> <span class="n">best_val_parts</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
+            <span class="n">best_fit</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">n_validation_pixels</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">val_seed</span>
+        <span class="p">)</span>
+        <span class="n">init_val</span><span class="p">,</span> <span class="n">init_val_parts</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
+            <span class="n">init_state</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">n_validation_pixels</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">val_seed</span>
+        <span class="p">)</span>
+        <span class="n">validator</span> <span class="o">=</span> <span class="n">FLIValidator</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"calibration"</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="n">run_comprehensive_test</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">"raw_data"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"decay"</span><span class="p">:</span> <span class="n">sim</span><span class="p">[</span><span class="s2">"decay"</span><span class="p">]}},</span> <span class="n">exp_decays</span>
+        <span class="p">)</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"distance_initial"</span><span class="p">:</span> <span class="n">init_val</span><span class="p">,</span>
+            <span class="s2">"distance_initial_parts"</span><span class="p">:</span> <span class="n">init_val_parts</span><span class="p">,</span>
+            <span class="s2">"distance_best_fit"</span><span class="p">:</span> <span class="n">best_val</span><span class="p">,</span>
+            <span class="s2">"distance_best_fit_parts"</span><span class="p">:</span> <span class="n">best_val_parts</span><span class="p">,</span>
+            <span class="s2">"distance_final"</span><span class="p">:</span> <span class="n">dist</span><span class="p">,</span>
+            <span class="s2">"distance_final_parts"</span><span class="p">:</span> <span class="n">parts</span><span class="p">,</span>
+            <span class="s2">"coverage_target"</span><span class="p">:</span> <span class="n">inp</span><span class="o">.</span><span class="n">target_coverage</span><span class="p">,</span>
+            <span class="s2">"coverage_best_fit"</span><span class="p">:</span> <span class="n">cov_best</span><span class="p">,</span>
+            <span class="s2">"coverage_final"</span><span class="p">:</span> <span class="n">cov_cal</span><span class="p">,</span>
+            <span class="s2">"coverage_held_out"</span><span class="p">:</span> <span class="n">cov_held</span><span class="p">,</span>
+            <span class="s2">"n_held_out_pixels"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">held_out</span><span class="p">),</span>
+            <span class="s2">"coverage_trace"</span><span class="p">:</span> <span class="n">coverage_trace</span><span class="p">,</span>
+            <span class="s2">"fli_validator"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">vm</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span>
+                    <span class="s2">"cosine_similarity"</span><span class="p">,</span>
+                    <span class="s2">"kl_divergence"</span><span class="p">,</span>
+                    <span class="s2">"ks_p_value"</span><span class="p">,</span>
+                    <span class="s2">"hist_intersection"</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">},</span>
+            <span class="s2">"n_validation_pixels"</span><span class="p">:</span> <span class="n">inp</span><span class="o">.</span><span class="n">n_validation_pixels</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Validation: distance </span><span class="si">{</span><span class="n">init_val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (initial) -&gt; </span><span class="si">{</span><span class="n">best_val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (best fit) -&gt; </span><span class="si">{</span><span class="n">dist</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> "</span>
+            <span class="sa">f</span><span class="s2">"(covering); </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'fli_validator'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 7. save</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">build_sim_config</span><span class="p">(</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">priors</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">dcr</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">laser_freq_mhz</span><span class="p">,</span> <span class="n">inp</span><span class="o">.</span><span class="n">jitter</span>
+        <span class="p">)</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"a_range"</span><span class="p">:</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">a_range</span><span class="p">()],</span>
+            <span class="s2">"b_range"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">b_max</span><span class="p">)],</span>
+            <span class="s2">"pixel"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="s2">"family"</span><span class="p">:</span> <span class="n">SIM_FAMILY</span><span class="p">,</span>
+            <span class="s2">"sensor_type"</span><span class="p">:</span> <span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span><span class="p">,</span>
+            <span class="s2">"inactive_bins"</span><span class="p">:</span> <span class="n">inactive</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+        <span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">CalibrationResult</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">sel_report</span><span class="p">,</span> <span class="n">validation</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span>
+        <span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">best_fit</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"config"</span><span class="p">:</span> <span class="n">build_sim_config</span><span class="p">(</span>
+                <span class="n">best_fit</span><span class="o">.</span><span class="n">priors</span><span class="p">,</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span><span class="p">,</span>
+                <span class="n">best_fit</span><span class="o">.</span><span class="n">dcr</span><span class="p">,</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">laser_freq_mhz</span><span class="p">,</span>
+                <span class="n">inp</span><span class="o">.</span><span class="n">jitter</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="s2">"sim_generator_kwargs"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="o">**</span><span class="n">kw</span><span class="p">,</span>
+                <span class="s2">"a_range"</span><span class="p">:</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">best_fit</span><span class="o">.</span><span class="n">a_range</span><span class="p">()],</span>
+                <span class="s2">"b_range"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">best_fit</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">b_max</span><span class="p">)],</span>
+            <span class="p">},</span>
+            <span class="s2">"priors"</span><span class="p">:</span> <span class="n">best_fit</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">summary</span><span class="p">(),</span>
+            <span class="s2">"dcr_config"</span><span class="p">:</span> <span class="n">best_fit</span><span class="o">.</span><span class="n">dcr</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span>
+            <span class="n">result</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">exp_decays</span><span class="p">,</span> <span class="n">exp_stats</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">sim_stats</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">init_state</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+    <span class="c1"># ----------------------------------------------------------------- output</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">res</span><span class="p">:</span> <span class="n">CalibrationResult</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">exp_decays</span><span class="p">,</span>
+        <span class="n">exp_stats</span><span class="p">,</span>
+        <span class="n">sim</span><span class="p">,</span>
+        <span class="n">sim_stats</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">,</span>
+        <span class="n">init_state</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span>
+        <span class="n">inp_dict</span> <span class="o">=</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"irf"</span><span class="p">:</span> <span class="s2">"calibrated_irf.npy"</span><span class="p">,</span>
+            <span class="s2">"mask"</span><span class="p">:</span> <span class="s2">"signal_mask.npy"</span><span class="p">,</span>
+            <span class="s2">"history"</span><span class="p">:</span> <span class="s2">"optimization_history.csv"</span><span class="p">,</span>
+            <span class="s2">"validation_sample"</span><span class="p">:</span> <span class="s2">"validation_simulated_pixels.npz"</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"irf"</span><span class="p">]),</span> <span class="n">res</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">irf_cube</span><span class="p">())</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"mask"</span><span class="p">]),</span> <span class="n">res</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"history"</span><span class="p">]),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"validation_sample"</span><span class="p">]),</span> <span class="o">**</span><span class="n">sim</span><span class="p">)</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"inputs"</span><span class="p">:</span> <span class="n">inp_dict</span><span class="p">,</span>
+            <span class="s2">"config"</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+            <span class="s2">"sim_generator_kwargs"</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">sim_generator_kwargs</span><span class="p">,</span>
+            <span class="s2">"irf"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"source"</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                <span class="s2">"file"</span><span class="p">:</span> <span class="n">files</span><span class="p">[</span><span class="s2">"irf"</span><span class="p">],</span>
+                <span class="s2">"params"</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                <span class="s2">"a_range"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">a_range</span><span class="p">()),</span>
+                <span class="s2">"b_range"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">b_range</span><span class="p">()),</span>
+                <span class="s2">"pooled_fit"</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">pooled_fit</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"priors"</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">summary</span><span class="p">(),</span>
+            <span class="s2">"priors_initial"</span><span class="p">:</span> <span class="n">init_state</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">summary</span><span class="p">(),</span>
+            <span class="s2">"best_fit"</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">best_fit</span><span class="p">,</span>
+            <span class="s2">"dcr_config"</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">dcr</span><span class="p">,</span>
+            <span class="s2">"photon_scale"</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">photon_scale</span><span class="p">,</span>
+            <span class="s2">"pixel_selection"</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">selection_report</span><span class="p">,</span>
+            <span class="s2">"validation"</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">validation</span><span class="p">,</span>
+            <span class="s2">"usage"</span><span class="p">:</span> <span class="s2">"from pyfli.simulator.calibration import load_calibrated_generator; "</span>
+            <span class="s2">"gen = load_calibrated_generator('&lt;this file&gt;'); gen.simulate_once()"</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">files</span><span class="p">[</span><span class="s2">"config"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"calibrated_sim_config.json"</span>
+        <span class="n">save_calibration</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"config"</span><span class="p">]),</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">files</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plots</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">exp_decays</span><span class="p">,</span> <span class="n">exp_stats</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">sim_stats</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">files</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Calibration saved to </span><span class="si">{</span><span class="n">out</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_plots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">exp_decays</span><span class="p">,</span> <span class="n">exp_stats</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">sim_stats</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">st</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># pixel selection</span>
+        <span class="n">inten</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">4.6</span><span class="p">))</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">inten</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"magma"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"log10 intensity"</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"sample mask (</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">selection_report</span><span class="p">[</span><span class="s1">'mode'</span><span class="p">]</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> px"</span>
+        <span class="p">)</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">inten</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">120</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">inten</span><span class="p">[</span><span class="o">~</span><span class="n">res</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">bins</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">"rejected (background / noise)"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">inten</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">mask</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">bins</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"sample"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"log10 counts / pixel"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">[:</span><span class="mi">2</span><span class="p">]:</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">files</span><span class="p">[</span><span class="s2">"plot_selection"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"pixel_selection.png"</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"plot_selection"</span><span class="p">]),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+        <span class="c1"># simulated vs experimental decays</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">[</span><span class="s2">"mean_decay"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">"experimental (sample pixels)"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">sim_stats</span><span class="p">[</span><span class="s2">"mean_decay"</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"calibrated simulation"</span><span class="p">)</span>
+        <span class="n">irf_n</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">effective_irf</span><span class="p">()</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span>
+            <span class="n">irf_n</span> <span class="o">/</span> <span class="n">irf_n</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="n">exp_stats</span><span class="p">[</span><span class="s2">"mean_decay"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+            <span class="s2">":"</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"IRF (</span><span class="si">{</span><span class="n">st</span><span class="o">.</span><span class="n">irf</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"pooled decay shape"</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">"time bin"</span><span class="p">,</span>
+            <span class="n">ylim</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">exp_stats</span><span class="p">[</span><span class="s2">"mean_decay"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-4</span><span class="p">,</span>
+                <span class="n">exp_stats</span><span class="p">[</span><span class="s2">"mean_decay"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="nb">min</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">[</span><span class="s2">"log_counts"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">sim_stats</span><span class="p">[</span><span class="s2">"log_counts"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span>
+            <span class="nb">max</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">[</span><span class="s2">"log_counts"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">sim_stats</span><span class="p">[</span><span class="s2">"log_counts"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+            <span class="mi">70</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+            <span class="n">exp_stats</span><span class="p">[</span><span class="s2">"log_counts"</span><span class="p">],</span> <span class="n">b</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"experimental"</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+            <span class="n">sim_stats</span><span class="p">[</span><span class="s2">"log_counts"</span><span class="p">],</span> <span class="n">b</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"simulated"</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"photons / pixel"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"log10 counts"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">e1</span><span class="p">,</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">exp_stats</span><span class="p">[</span><span class="s2">"phasor1"</span><span class="p">],</span> <span class="n">sim_stats</span><span class="p">[</span><span class="s2">"phasor1"</span><span class="p">]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span>
+            <span class="n">s1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">s1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">,</span> <span class="n">mincnt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="s2">"log"</span>
+        <span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4000</span><span class="p">))</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">e1</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">e1</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"raw phasor (h=1): simulated (blue) vs experimental (red)"</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">"G"</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="s2">"S"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">"edge"</span><span class="p">,</span> <span class="s2">"rising-edge position (bins)"</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"bg_frac"</span><span class="p">,</span> <span class="s2">"pre-edge background / mean level"</span><span class="p">),</span>
+        <span class="p">):</span>
+            <span class="n">e</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">exp_stats</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">[</span><span class="n">key</span><span class="p">])],</span>
+                <span class="n">sim_stats</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sim_stats</span><span class="p">[</span><span class="n">key</span><span class="p">])],</span>
+            <span class="p">)</span>
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">],</span> <span class="mf">99.5</span><span class="p">),</span> <span class="mi">70</span>
+            <span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"experimental"</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"simulated"</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">e2</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">exp_stats</span><span class="p">[</span><span class="s2">"phasor2"</span><span class="p">],</span> <span class="n">sim_stats</span><span class="p">[</span><span class="s2">"phasor2"</span><span class="p">]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span>
+            <span class="n">s2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">s2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">,</span> <span class="n">mincnt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="s2">"log"</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">e2</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">e2</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"raw phasor (h=2)"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"G"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"S"</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">validation</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="o">.</span><span class="n">model_type</span><span class="si">}</span><span class="s2">: distance </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">'distance_initial'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">'distance_final'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">files</span><span class="p">[</span><span class="s2">"plot_validation"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"sim_vs_experiment.png"</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"plot_validation"</span><span class="p">]),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+        <span class="c1"># priors vs initial values</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="s2">"tau2"</span><span class="p">,</span>
+                <span class="s2">"tau2"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span> <span class="k">else</span> <span class="s2">"tau"</span><span class="p">,</span>
+                <span class="s2">"tau2 (ns)"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span> <span class="k">else</span> <span class="s2">"tau (ns)"</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="o">.</span><span class="n">is_bi</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="s2">"efficiency"</span><span class="p">,</span> <span class="s2">"efficiency"</span><span class="p">,</span> <span class="s2">"efficiency E = 1 - tau1/tau2"</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"alpha1"</span><span class="p">,</span> <span class="s2">"alpha1"</span><span class="p">,</span> <span class="s2">"A1 (photon fraction of tau1)"</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.8</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">pname</span><span class="p">,</span> <span class="n">vkey</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">priors</span><span class="p">,</span> <span class="n">pname</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">vkey</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]))</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">vals</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+                <span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+                    <span class="n">vals</span><span class="p">,</span>
+                    <span class="mi">60</span><span class="p">,</span>
+                    <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
+                    <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"initial (</span><span class="si">{</span><span class="n">st</span><span class="o">.</span><span class="n">priors</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="n">sim_key</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"tau2"</span><span class="p">:</span> <span class="s2">"tau2"</span><span class="p">,</span> <span class="s2">"efficiency"</span><span class="p">:</span> <span class="s2">"Efficiency"</span><span class="p">,</span> <span class="s2">"alpha1"</span><span class="p">:</span> <span class="s2">"alpha1"</span><span class="p">}[</span>
+                <span class="n">pname</span>
+            <span class="p">]</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+                <span class="n">sim</span><span class="p">[</span><span class="n">sim_key</span><span class="p">],</span>
+                <span class="mi">60</span><span class="p">,</span>
+                <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
+                <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">histtype</span><span class="o">=</span><span class="s2">"step"</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">"calibrated simulation"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">beta_dist</span><span class="o">.</span><span class="n">pdf</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span>
+                <span class="s2">"k"</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Beta(</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">a</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">b</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="s2">"photon_count"</span><span class="p">],</span> <span class="mi">60</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+            <span class="s2">"photon prior: "</span>
+            <span class="o">+</span> <span class="p">(</span>
+                <span class="s2">"expected photons (0.01 x n_cycles)"</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inp</span><span class="o">.</span><span class="n">detector_type</span> <span class="o">==</span> <span class="s2">"discrete"</span>
+                <span class="k">else</span> <span class="s2">"peak A (ADC)"</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">files</span><span class="p">[</span><span class="s2">"plot_priors"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"priors.png"</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"plot_priors"</span><span class="p">]),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">history</span><span class="p">):</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">stage</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"stage"</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="s2">"objective"</span><span class="p">]</span><span class="o">.</span><span class="n">cummin</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stage</span><span class="si">}</span><span class="s2"> (best so far)"</span><span class="p">)</span>
+                <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">g</span><span class="p">[</span><span class="s2">"objective"</span><span class="p">],</span> <span class="s2">"."</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"evaluation"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"objective"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+            <span class="n">files</span><span class="p">[</span><span class="s2">"plot_history"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"optimization_history.png"</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">files</span><span class="p">[</span><span class="s2">"plot_history"</span><span class="p">]),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">files</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFLI developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

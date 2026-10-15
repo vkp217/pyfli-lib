@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../_static/documentation_options.js?v=9c7764e8"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.bayes_utils';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/api/generated/pyfli.bayes_utils.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/api/generated/pyfli.bayes_utils.html" />
     <link rel="icon" href="../../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,6 +65,7 @@
     <link rel="prev" title="pyfli.analyticalWorkflow.am_utils" href="pyfli.analyticalWorkflow.am_utils.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="v0.1.19" />
   
@@ -185,8 +186,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
   </a>
 </li>
 
@@ -199,13 +200,6 @@
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
 <li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
-    Citation
-  </a>
-</li>
-
-
-<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
     Contributing
   </a>
@@ -215,6 +209,13 @@
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -372,13 +373,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../citation.html">
     Citation
   </a>
@@ -395,6 +389,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -584,11 +585,11 @@ predictive fit (<a class="reference internal" href="#pyfli.bayes_utils.plot_pixe
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfli.bayes_utils.BiPipeline">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BiPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(128,</span> <span class="pre">128)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/bayes_utils/inference.html#BiPipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.bayes_utils.BiPipeline" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Encapsulates the Bi direct-inference pipeline for FLI decay maps.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.bayes_utils.BiPipeline.MODEL_KEYS">
-<span class="sig-name descname"><span class="pre">MODEL_KEYS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'bi-exponential':</span> <span class="pre">['tau1',</span> <span class="pre">'tau2',</span> <span class="pre">'alpha1'],</span> <span class="pre">'mono-exponential':</span> <span class="pre">['tau']}</span></span><a class="headerlink" href="#pyfli.bayes_utils.BiPipeline.MODEL_KEYS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">MODEL_KEYS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.15)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'bi-exponential':</span> <span class="pre">['tau1',</span> <span class="pre">'tau2',</span> <span class="pre">'alpha1'],</span> <span class="pre">'mono-exponential':</span> <span class="pre">['tau']}</span></span><a class="headerlink" href="#pyfli.bayes_utils.BiPipeline.MODEL_KEYS" title="Link to this definition">#</a></dt>
 <dd><p>keys produced per model type</p>
 </dd></dl>
 
@@ -714,14 +715,14 @@ never draw anything, just reserve a blank column.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfli.bayes_utils.ParamSelector">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ParamSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq_acq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bi-exponential'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'compute_detailed_results'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/bayes_utils/param_combinations.html#ParamSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Evaluate a stack of posterior-sample parameter combinations against
 measured decay data, and select the best-fitting combination per pixel
 by a chosen goodness-of-fit metric.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>freq_acq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Acquisition frequency (e.g. 80 MHz), passed straight through to
+<li><p><strong>freq_acq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Acquisition frequency (e.g. 80 MHz), passed straight through to
 compute_detailed_results’ freq_acq argument.</p></li>
 <li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Passed through to compute_detailed_results unchanged for every
 sample and for the final best-combination re-fit.</p></li>
@@ -735,8 +736,8 @@ the real ROI can otherwise look “healthy” even though its params are
 meaningless placeholders). Stored as the default for
 compute_best_model_fit_result’s own bool_mask argument, which uses it
 to NaN-out excluded pixels in the final result’s output maps.</p></li>
-<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – “bi-exponential” or “mono-exponential”.</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Which implementation reconstructs each sample’s fit/residual/
+<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – “bi-exponential” or “mono-exponential”.</p></li>
+<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Which implementation reconstructs each sample’s fit/residual/
 goodness-of-fit maps: <code class="docutils literal notranslate"><span class="pre">&quot;compute_detailed_results&quot;</span></code> (default, the
 rescale-to-measured-totals implementation in
 <a class="reference internal" href="pyfli.reconstruction.detailed_results.html#module-pyfli.reconstruction.detailed_results" title="pyfli.reconstruction.detailed_results"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyfli.reconstruction.detailed_results</span></code></a>)
@@ -749,7 +750,7 @@ shape, so switching backends doesn’t change any downstream code.</p></li>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.bayes_utils.ParamSelector.METRICS">
-<span class="sig-name descname"><span class="pre">METRICS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'R2':</span> <span class="pre">('r2_stack',</span> <span class="pre">'max'),</span> <span class="pre">'RMSE':</span> <span class="pre">('rmse_stack',</span> <span class="pre">'min'),</span> <span class="pre">'chi2':</span> <span class="pre">('chi2_stack',</span> <span class="pre">'min'),</span> <span class="pre">'reduced_chi2':</span> <span class="pre">('reduced_chi2_stack',</span> <span class="pre">'min')}</span></span><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector.METRICS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">METRICS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.15)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'R2':</span> <span class="pre">('r2_stack',</span> <span class="pre">'max'),</span> <span class="pre">'RMSE':</span> <span class="pre">('rmse_stack',</span> <span class="pre">'min'),</span> <span class="pre">'chi2':</span> <span class="pre">('chi2_stack',</span> <span class="pre">'min'),</span> <span class="pre">'reduced_chi2':</span> <span class="pre">('reduced_chi2_stack',</span> <span class="pre">'min')}</span></span><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector.METRICS" title="Link to this definition">#</a></dt>
 <dd><p>(stack_key, “min” | “max”)} – whether the metric
 should be minimized (chi2/reduced_chi2/RMSE) or maximized (R2) to find
 the best-fitting sample per pixel.</p>
@@ -762,13 +763,13 @@ the best-fitting sample per pixel.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.bayes_utils.ParamSelector.BACKENDS">
-<span class="sig-name descname"><span class="pre">BACKENDS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('compute_detailed_results',</span> <span class="pre">'reconstructor')</span></span><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector.BACKENDS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BACKENDS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('compute_detailed_results',</span> <span class="pre">'reconstructor')</span></span><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector.BACKENDS" title="Link to this definition">#</a></dt>
 <dd><p>Valid values for the <code class="docutils literal notranslate"><span class="pre">backend</span></code> constructor argument.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.bayes_utils.ParamSelector.REDUCERS">
-<span class="sig-name descname"><span class="pre">REDUCERS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><span class="pre">Callable</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'mean':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;,</span> <span class="pre">'median':</span> <span class="pre">&lt;function</span> <span class="pre">median&gt;}</span></span><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector.REDUCERS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">REDUCERS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.15)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'mean':</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;,</span> <span class="pre">'median':</span> <span class="pre">&lt;function</span> <span class="pre">median&gt;}</span></span><a class="headerlink" href="#pyfli.bayes_utils.ParamSelector.REDUCERS" title="Link to this definition">#</a></dt>
 <dd><p>numpy function} for
 compute_aggregate_model_fit_result’s non-“best” methods – collapses
 the NUM_SAMPLES axis of each output_combination array to a single
@@ -790,10 +791,10 @@ per-pixel value. Add an entry here to support another reduction
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>output_combination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict[str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray]</span></code>) – e.g. <code class="docutils literal notranslate"><span class="pre">{'tau1':</span> <span class="pre">(H,W,NUM_SAMPLES),</span> <span class="pre">'tau2':</span> <span class="pre">(H,W,NUM_SAMPLES),</span> <span class="pre">'alpha1':</span> <span class="pre">(H,W,NUM_SAMPLES)}</span></code>
 for bi-exponential, or <code class="docutils literal notranslate"><span class="pre">{'tau':</span> <span class="pre">(H,W,NUM_SAMPLES)}</span></code> for mono-exponential.</p></li>
-<li><p><strong>keep_per_sample_results</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If True, also returns the full compute_detailed_results() dict for
+<li><p><strong>keep_per_sample_results</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If True, also returns the full compute_detailed_results() dict for
 every sample (memory-heavy for large images/NUM_SAMPLES). Default
 False – only the scalar metric stacks are kept.</p></li>
-<li><p><strong>progress</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Show a tqdm progress bar over the NUM_SAMPLES loop. Default True;
+<li><p><strong>progress</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Show a tqdm progress bar over the NUM_SAMPLES loop. Default True;
 pass False for quiet use (e.g. a 1x1-pixel crop). The per-sample
 backend log line is suppressed regardless, so it never competes
 with the bar.</p></li>
@@ -808,7 +809,7 @@ with the bar.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -823,8 +824,8 @@ build the corresponding best-per-pixel parameter maps.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>output_combination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict[str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray]</span></code>) – Same dict passed to evaluate_all_samples (each array (H, W, NUM_SAMPLES)).</p></li>
-<li><p><strong>stacks</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Output of evaluate_all_samples.</p></li>
-<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – One of “chi2”, “reduced_chi2”, “RMSE”, “R2”.</p></li>
+<li><p><strong>stacks</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Output of evaluate_all_samples.</p></li>
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – One of “chi2”, “reduced_chi2”, “RMSE”, “R2”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -838,7 +839,7 @@ in output_combination (e.g. tau1/tau2/alpha1)</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -853,8 +854,8 @@ combination.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>output_combination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict[str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray]</span></code>) – Same dict passed to evaluate_all_samples.</p></li>
-<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – One of “chi2”, “reduced_chi2”, “RMSE”, “R2”.</p></li>
-<li><p><strong>data_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Dataset name recorded in the returned result dict.</p></li>
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – One of “chi2”, “reduced_chi2”, “RMSE”, “R2”.</p></li>
+<li><p><strong>data_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Dataset name recorded in the returned result dict.</p></li>
 <li><p><strong>stacks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Precomputed <a class="reference internal" href="#pyfli.bayes_utils.ParamSelector.evaluate_all_samples" title="pyfli.bayes_utils.ParamSelector.evaluate_all_samples"><code class="xref py py-meth docutils literal notranslate"><span class="pre">evaluate_all_samples()</span></code></a> output for this exact
 <code class="docutils literal notranslate"><span class="pre">output_combination</span></code>. When given, the per-sample evaluation loop
 (NUM_SAMPLES reconstructions) is skipped and these stacks are used
@@ -901,7 +902,7 @@ top-level <code class="docutils literal notranslate"><span class="pre">sample_se
 stacks and best_params used to produce the final maps.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -917,7 +918,7 @@ configured backend once on that combination.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>output_combination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict[str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray]</span></code>) – Same dict passed to evaluate_all_samples/compute_best_model_fit_result
 (each array (H, W, NUM_SAMPLES)).</p></li>
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – <dl>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – <dl>
 <dt>How to reduce the NUM_SAMPLES axis to a single per-pixel value:</dt><dd><ul>
 <li><dl>
 <dt>”best”<span class="classifier">per-pixel sample that optimizes <code class="docutils literal notranslate"><span class="pre">metric</span></code></span></dt><dd><p>(delegates to compute_best_model_fit_result;
@@ -937,9 +938,9 @@ the per-pixel mean or median tau/alpha1.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Only used when method=”best”; one of “chi2”, “reduced_chi2”,
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Only used when method=”best”; one of “chi2”, “reduced_chi2”,
 “RMSE”, “R2” (see <a class="reference internal" href="#pyfli.bayes_utils.ParamSelector.METRICS" title="pyfli.bayes_utils.ParamSelector.METRICS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">METRICS</span></code></a>).</p></li>
-<li><p><strong>data_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Dataset name recorded in the returned result dict.</p></li>
+<li><p><strong>data_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Dataset name recorded in the returned result dict.</p></li>
 <li><p><strong>bool_mask</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional (H, W) boolean mask; defaults to <code class="docutils literal notranslate"><span class="pre">self.bool_mask</span></code> (set at
 construction) when not given. Forwarded to
 compute_best_model_fit_result for method=”best”; for the reducer
@@ -980,14 +981,14 @@ for bi-exponential, or <code class="docutils literal notranslate"><span class="p
 – same shape convention as <a class="reference internal" href="#pyfli.bayes_utils.ParamSelector" title="pyfli.bayes_utils.ParamSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParamSelector</span></code></a>.</p></li>
 <li><p><strong>decay</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Measured decay, <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W,</span> <span class="pre">T)</span></code>.</p></li>
 <li><p><strong>irf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – IRF, <code class="docutils literal notranslate"><span class="pre">(T,)</span></code> (shared) or <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W,</span> <span class="pre">T)</span></code> (per-pixel).</p></li>
-<li><p><strong>freq_acq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Acquisition frequency (MHz), i.e. <code class="docutils literal notranslate"><span class="pre">freq[1]</span></code>.</p></li>
+<li><p><strong>freq_acq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Acquisition frequency (MHz), i.e. <code class="docutils literal notranslate"><span class="pre">freq[1]</span></code>.</p></li>
 <li><p><strong>pixel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> pixel to plot.</p></li>
-<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – <code class="docutils literal notranslate"><span class="pre">&quot;bi-exponential&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;mono-exponential&quot;</span></code>.</p></li>
-<li><p><strong>center</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Which curve to draw as the central line: <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>
+<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – <code class="docutils literal notranslate"><span class="pre">&quot;bi-exponential&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;mono-exponential&quot;</span></code>.</p></li>
+<li><p><strong>center</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Which curve to draw as the central line: <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>
 across posterior samples, or <code class="docutils literal notranslate"><span class="pre">&quot;best&quot;</span></code> (the single sample that
 optimizes <code class="docutils literal notranslate"><span class="pre">metric</span></code> at this pixel, via
 <a class="reference internal" href="#pyfli.bayes_utils.ParamSelector.select_best_combination" title="pyfli.bayes_utils.ParamSelector.select_best_combination"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParamSelector.select_best_combination()</span></code></a>).</p></li>
-<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Only used when <code class="docutils literal notranslate"><span class="pre">center=&quot;best&quot;</span></code>; one of
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Only used when <code class="docutils literal notranslate"><span class="pre">center=&quot;best&quot;</span></code>; one of
 <a class="reference internal" href="#pyfli.bayes_utils.ParamSelector.METRICS" title="pyfli.bayes_utils.ParamSelector.METRICS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ParamSelector.METRICS</span></code></a> (<code class="docutils literal notranslate"><span class="pre">&quot;chi2&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;reduced_chi2&quot;</span></code>,
 <code class="docutils literal notranslate"><span class="pre">&quot;RMSE&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;R2&quot;</span></code>).</p></li>
 <li><p><strong>ci_levels</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">]</span></code>) – Nested credible-interval widths to shade, e.g. <code class="docutils literal notranslate"><span class="pre">(92,</span> <span class="pre">68)</span></code> shades a
@@ -1091,8 +1092,8 @@ per-bin sample distribution).</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">

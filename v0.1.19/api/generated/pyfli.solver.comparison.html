@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../_static/documentation_options.js?v=9c7764e8"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.solver.comparison';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/api/generated/pyfli.solver.comparison.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/api/generated/pyfli.solver.comparison.html" />
     <link rel="icon" href="../../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,6 +65,7 @@
     <link rel="prev" title="pyfli.solver.binned_fitter" href="pyfli.solver.binned_fitter.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="v0.1.19" />
   
@@ -185,8 +186,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
   </a>
 </li>
 
@@ -199,13 +200,6 @@
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
 <li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
-    Citation
-  </a>
-</li>
-
-
-<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
     Contributing
   </a>
@@ -215,6 +209,13 @@
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -372,13 +373,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../citation.html">
     Citation
   </a>
@@ -395,6 +389,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -600,14 +601,14 @@ classes <a class="reference internal" href="#pyfli.solver.comparison.FittingComp
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfli.solver.comparison.FittingComparator">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">FittingComparator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_fitter_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mle_fitter_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/solver/comparison.html#FittingComparator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.solver.comparison.FittingComparator" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Compare fitting methods on selected pixels or whole datasets. It runs base and MLE
 fitters, summarizes model statistics, plots comparisons, and saves comparison
 outputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Acquisition frequency information used to derive timing constants.</p></li>
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Acquisition frequency information used to derive timing constants.</p></li>
 <li><p><strong>base_fitter_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Least-squares fitter class used as a fitting backend.</p></li>
 <li><p><strong>mle_fitter_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Maximum-likelihood fitter class used as a fitting backend.</p></li>
 </ul>
@@ -623,11 +624,11 @@ outputs.</p>
 <li><p><strong>methods</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Names of fitting methods to include in the comparison.</p></li>
 <li><p><strong>y_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Observed decay data passed to the fitter.</p></li>
 <li><p><strong>irf_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Instrument response data used to convolve or simulate decays.</p></li>
-<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – FLI model family, such as mono- or bi-exponential.</p></li>
+<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – FLI model family, such as mono- or bi-exponential.</p></li>
 <li><p><strong>p0</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Initial parameter vector supplied to the optimizer.</p></li>
 <li><p><strong>bounds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Lower and upper parameter bounds supplied to the optimizer.</p></li>
-<li><p><strong>yscale</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Scale used for the y-axis.</p></li>
-<li><p><strong>plot</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether diagnostic plots should be generated.</p></li>
+<li><p><strong>yscale</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Scale used for the y-axis.</p></li>
+<li><p><strong>plot</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether diagnostic plots should be generated.</p></li>
 <li><p><strong>fit_indices</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int]</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional (gate_num_start, gate_num_end) gate range to fit over.</p></li>
 </ul>
 </dd>
@@ -649,11 +650,11 @@ outputs.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>y_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Observed decay data passed to the fitter.</p></li>
 <li><p><strong>irf_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Instrument response data used to convolve or simulate decays.</p></li>
-<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – FLI model family, such as mono- or bi-exponential.</p></li>
+<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – FLI model family, such as mono- or bi-exponential.</p></li>
 <li><p><strong>p0</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Initial parameter vector supplied to the optimizer.</p></li>
 <li><p><strong>bounds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Lower and upper parameter bounds supplied to the optimizer.</p></li>
-<li><p><strong>yscale</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Scale used for the y-axis.</p></li>
-<li><p><strong>plot</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether diagnostic plots should be generated.</p></li>
+<li><p><strong>yscale</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Scale used for the y-axis.</p></li>
+<li><p><strong>plot</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether diagnostic plots should be generated.</p></li>
 <li><p><strong>fit_indices</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int]</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Optional (gate_num_start, gate_num_end) gate range to fit over.</p></li>
 </ul>
 </dd>
@@ -676,15 +677,15 @@ outputs.</p>
 <li><p><strong>saver</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Optional saver used to persist messages or figures.</p></li>
 <li><p><strong>results_table</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Rows of fit comparison results written to disk.</p></li>
 <li><p><strong>fig</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Matplotlib figure object to update or save.</p></li>
-<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – FLI model family, such as mono- or bi-exponential.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Dataset, experiment, figure, or output name.</p></li>
+<li><p><strong>model_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – FLI model family, such as mono- or bi-exponential.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Dataset, experiment, figure, or output name.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>No object is returned; the function save results.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -747,8 +748,8 @@ outputs.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">

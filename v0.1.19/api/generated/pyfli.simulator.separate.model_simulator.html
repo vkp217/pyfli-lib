@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../_static/documentation_options.js?v=9c7764e8"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.simulator.separate.model_simulator';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/api/generated/pyfli.simulator.separate.model_simulator.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/api/generated/pyfli.simulator.separate.model_simulator.html" />
     <link rel="icon" href="../../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,6 +65,7 @@
     <link rel="prev" title="pyfli.simulator.separate.main_factory_gen" href="pyfli.simulator.separate.main_factory_gen.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="v0.1.19" />
   
@@ -185,8 +186,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
   </a>
 </li>
 
@@ -199,13 +200,6 @@
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
 <li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
-    Citation
-  </a>
-</li>
-
-
-<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
     Contributing
   </a>
@@ -215,6 +209,13 @@
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -372,13 +373,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../citation.html">
     Citation
   </a>
@@ -395,6 +389,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -621,21 +622,21 @@ independent of image geometry.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>irf_full</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Full instrument response function sampled over the decay window.</p></li>
 <li><p><strong>tau2</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float]</span></code>) – Long lifetime component.</p></li>
-<li><p><strong>tau2_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Distribution used to sample donor-only lifetimes.</p></li>
+<li><p><strong>tau2_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Distribution used to sample donor-only lifetimes.</p></li>
 <li><p><strong>tau2_beta_range</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">]</span></code>) – Shape-parameter range for beta-distributed tau2 values.</p></li>
 <li><p><strong>efficiency</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">]</span></code>) – FRET transfer efficiency used to derive simulated lifetime components.</p></li>
 <li><p><strong>A1_fraction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">]</span></code>) – Amplitude fraction assigned to the first exponential component.</p></li>
 <li><p><strong>photo_count</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int]</span></code>) – Expected photon count used to scale the simulated decay.</p></li>
-<li><p><strong>mono_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fraction of pixels or events assigned to the mono-exponential component.</p></li>
-<li><p><strong>bit</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Bit depth or quantization setting for simulated detector output.</p></li>
+<li><p><strong>mono_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fraction of pixels or events assigned to the mono-exponential component.</p></li>
+<li><p><strong>bit</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Bit depth or quantization setting for simulated detector output.</p></li>
 <li><p><strong>n_cycles</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int]</span></code>) – Number of excitation cycles used when constructing the simulated decay.
 A bare int is the upper bound (lower bound fixed at 1000); a
 <code class="docutils literal notranslate"><span class="pre">(low,</span> <span class="pre">high)</span></code> tuple sets both bounds, and both must be &gt;= 1000.
 The per-call cycle count is drawn from a Beta distribution (shaped
 by <code class="docutils literal notranslate"><span class="pre">photo_count</span></code>) over that range.</p></li>
-<li><p><strong>dcr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Detector dark-count rate used by the noise model.</p></li>
-<li><p><strong>laser_feq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Laser repetition frequency used by the simulation.</p></li>
-<li><p><strong>pileup_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – ‘wrap’ (default) folds photons back via modulo; ‘truncate’ drops them.</p></li>
+<li><p><strong>dcr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Detector dark-count rate used by the noise model.</p></li>
+<li><p><strong>laser_feq</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Laser repetition frequency used by the simulation.</p></li>
+<li><p><strong>pileup_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – ‘wrap’ (default) folds photons back via modulo; ‘truncate’ drops them.</p></li>
 <li><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Seed for reproducible random sampling.</p></li>
 <li><p><strong>**kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Additional keyword arguments forwarded to the underlying implementation.</p></li>
 </ul>
@@ -647,7 +648,7 @@ by <code class="docutils literal notranslate"><span class="pre">photo_count</spa
 <dd><p>Samples the lifetime parameter for a single pixel (pure single-exponential).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -658,7 +659,7 @@ by <code class="docutils literal notranslate"><span class="pre">photo_count</spa
 <dd><p>Samples lifetime and fraction parameters for a single pixel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -702,7 +703,7 @@ by <code class="docutils literal notranslate"><span class="pre">photo_count</spa
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Any</span></code>) – Detector parameter object or fitted parameter vector.</p></li>
-<li><p><strong>n_cycles</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of simulated laser cycles.</p></li>
+<li><p><strong>n_cycles</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of simulated laser cycles.</p></li>
 <li><p><strong>mu_per_cycle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Expected photons per laser cycle in the TCSPC simulation.</p></li>
 </ul>
 </dd>
@@ -775,8 +776,8 @@ by <code class="docutils literal notranslate"><span class="pre">photo_count</spa
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">

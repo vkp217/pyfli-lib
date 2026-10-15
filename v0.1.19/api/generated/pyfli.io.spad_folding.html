@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
     <script src="../../_static/documentation_options.js?v=9c7764e8"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.io.spad_folding';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/api/generated/pyfli.io.spad_folding.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/api/generated/pyfli.io.spad_folding.html" />
     <link rel="icon" href="../../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -65,6 +65,7 @@
     <link rel="prev" title="pyfli.io.save_direction" href="pyfli.io.save_direction.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="v0.1.19" />
   
@@ -185,8 +186,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
   </a>
 </li>
 
@@ -199,13 +200,6 @@
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
 <li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../citation.html">
-    Citation
-  </a>
-</li>
-
-
-<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
     Contributing
   </a>
@@ -215,6 +209,13 @@
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -372,13 +373,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../changelog.html">
-    Changelog
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../citation.html">
     Citation
   </a>
@@ -395,6 +389,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide/index.html">
     User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
   </a>
 </li>
 
@@ -643,96 +644,96 @@ integrated trace, while all shifts and sums are applied to the original data cub
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SpadFoldLayout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_bins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_bins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_shift</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset_lead_bins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle_similarity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual_phase</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/io/spad_folding.html#SpadFoldLayout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Store the detected or user-specified layout of a periodic SPAD acquisition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>original_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of temporal gates before folding.</p></li>
-<li><p><strong>period_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of gates in one excitation period.</p></li>
-<li><p><strong>repeat_count</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of repeated excitation periods contained in the acquisition.</p></li>
-<li><p><strong>phase_origin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Gate index inside one period that is treated as the start of the decay.</p></li>
-<li><p><strong>phase_shift</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Circular shift applied on the time axis before folding.</p></li>
-<li><p><strong>onset_index</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Detected or implied gate index of the signal onset inside one period.</p></li>
-<li><p><strong>onset_lead_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of gates the folded period starts before the signal onset.</p></li>
+<li><p><strong>original_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of temporal gates before folding.</p></li>
+<li><p><strong>period_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of gates in one excitation period.</p></li>
+<li><p><strong>repeat_count</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of repeated excitation periods contained in the acquisition.</p></li>
+<li><p><strong>phase_origin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Gate index inside one period that is treated as the start of the decay.</p></li>
+<li><p><strong>phase_shift</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Circular shift applied on the time axis before folding.</p></li>
+<li><p><strong>onset_index</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Detected or implied gate index of the signal onset inside one period.</p></li>
+<li><p><strong>onset_lead_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of gates the folded period starts before the signal onset.</p></li>
 <li><p><strong>pulse_positions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple[int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">]</span></code>) – Expected pulse-onset positions in the original acquisition.</p></li>
-<li><p><strong>period_score</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Circular-autocorrelation score for the selected temporal period.</p></li>
-<li><p><strong>cycle_similarity</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Mean pairwise similarity between aligned repeated periods.</p></li>
-<li><p><strong>signal_score</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Signal-to-baseline confidence score used during onset detection.</p></li>
-<li><p><strong>confidence</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Combined confidence score for automatic folding.</p></li>
-<li><p><strong>manual_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether period_bins was supplied explicitly by the user.</p></li>
-<li><p><strong>manual_phase</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether phase_shift was supplied explicitly by the user.</p></li>
+<li><p><strong>period_score</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Circular-autocorrelation score for the selected temporal period.</p></li>
+<li><p><strong>cycle_similarity</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Mean pairwise similarity between aligned repeated periods.</p></li>
+<li><p><strong>signal_score</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Signal-to-baseline confidence score used during onset detection.</p></li>
+<li><p><strong>confidence</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Combined confidence score for automatic folding.</p></li>
+<li><p><strong>manual_period</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether period_bins was supplied explicitly by the user.</p></li>
+<li><p><strong>manual_phase</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether phase_shift was supplied explicitly by the user.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.original_bins">
-<span class="sig-name descname"><span class="pre">original_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.original_bins" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">original_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.original_bins" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.period_bins">
-<span class="sig-name descname"><span class="pre">period_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.period_bins" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">period_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.period_bins" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.repeat_count">
-<span class="sig-name descname"><span class="pre">repeat_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.repeat_count" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">repeat_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.repeat_count" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.phase_origin">
-<span class="sig-name descname"><span class="pre">phase_origin</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.phase_origin" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">phase_origin</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.phase_origin" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.phase_shift">
-<span class="sig-name descname"><span class="pre">phase_shift</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.phase_shift" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">phase_shift</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.phase_shift" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.onset_index">
-<span class="sig-name descname"><span class="pre">onset_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.onset_index" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">onset_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.onset_index" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.onset_lead_bins">
-<span class="sig-name descname"><span class="pre">onset_lead_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.onset_lead_bins" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">onset_lead_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.onset_lead_bins" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.pulse_positions">
-<span class="sig-name descname"><span class="pre">pulse_positions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.pulse_positions" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">pulse_positions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.pulse_positions" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.period_score">
-<span class="sig-name descname"><span class="pre">period_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.period_score" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">period_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.period_score" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.cycle_similarity">
-<span class="sig-name descname"><span class="pre">cycle_similarity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.cycle_similarity" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cycle_similarity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.cycle_similarity" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.signal_score">
-<span class="sig-name descname"><span class="pre">signal_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.signal_score" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">signal_score</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.signal_score" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.confidence" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.confidence" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.manual_period">
-<span class="sig-name descname"><span class="pre">manual_period</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.manual_period" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">manual_period</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.manual_period" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfli.io.spad_folding.SpadFoldLayout.manual_phase">
-<span class="sig-name descname"><span class="pre">manual_phase</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.manual_phase" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">manual_phase</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pyfli.io.spad_folding.SpadFoldLayout.manual_phase" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -778,7 +779,7 @@ integrated trace, while all shifts and sums are applied to the original data cub
 <li><p><strong>trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – One-dimensional temporal trace.</p></li>
 <li><p><strong>expected_repeats</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Expected number of repeated excitation periods. When provided, the search is
 constrained around len(trace) / expected_repeats.</p></li>
-<li><p><strong>search_radius</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fractional search radius around the expected period when expected_repeats is
+<li><p><strong>search_radius</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fractional search radius around the expected period when expected_repeats is
 provided.</p></li>
 </ul>
 </dd>
@@ -799,7 +800,7 @@ provided.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – One-dimensional temporal trace.</p></li>
-<li><p><strong>period_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of gates in one excitation period.</p></li>
+<li><p><strong>period_bins</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of gates in one excitation period.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -819,8 +820,8 @@ provided.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>folded_trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – One-period temporal trace. The signal may wrap across the first/last gate.</p></li>
-<li><p><strong>smoothing_sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Gaussian smoothing sigma used only for onset detection.</p></li>
-<li><p><strong>threshold_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fraction of peak-to-baseline amplitude used for the rising-edge crossing.</p></li>
+<li><p><strong>smoothing_sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Gaussian smoothing sigma used only for onset detection.</p></li>
+<li><p><strong>threshold_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fraction of peak-to-baseline amplitude used for the rising-edge crossing.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -840,7 +841,7 @@ provided.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – Three-dimensional SPAD data cube with shape (H, W, T).</p></li>
-<li><p><strong>phase_shift</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Integer shift applied along the temporal axis. A negative value moves
+<li><p><strong>phase_shift</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Integer shift applied along the temporal axis. A negative value moves
 later gates toward the beginning of the temporal sequence.</p></li>
 </ul>
 </dd>
@@ -864,11 +865,11 @@ later gates toward the beginning of the temporal sequence.</p></li>
 <li><p><strong>expected_repeats</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Expected number of repeated excitation periods.</p></li>
 <li><p><strong>period_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit period length. When None, the period is detected automatically.</p></li>
 <li><p><strong>phase_shift</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Explicit circular shift. When None, signal onset is detected automatically.</p></li>
-<li><p><strong>min_confidence</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Minimum accepted combined confidence for automatic folding validation.</p></li>
-<li><p><strong>validate</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to reject a detected layout whose confidence is below min_confidence.</p></li>
-<li><p><strong>search_radius</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fractional period-search radius around an expected period.</p></li>
-<li><p><strong>smoothing_sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Circular Gaussian smoothing sigma used only on the detection trace.</p></li>
-<li><p><strong>threshold_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Peak-to-baseline fraction used to locate the fluorescence onset.</p></li>
+<li><p><strong>min_confidence</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Minimum accepted combined confidence for automatic folding validation.</p></li>
+<li><p><strong>validate</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to reject a detected layout whose confidence is below min_confidence.</p></li>
+<li><p><strong>search_radius</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Fractional period-search radius around an expected period.</p></li>
+<li><p><strong>smoothing_sigma</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Circular Gaussian smoothing sigma used only on the detection trace.</p></li>
+<li><p><strong>threshold_fraction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Peak-to-baseline fraction used to locate the fluorescence onset.</p></li>
 <li><p><strong>onset_lead_bins</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span></code>) – Number of gates the folded period starts before the detected onset so the
 complete rising edge and pre-pulse baseline are kept at the start of the
 period. None selects 5 % of the period, with a minimum of two gates.
@@ -979,8 +980,8 @@ Ignored when phase_shift is supplied explicitly.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
