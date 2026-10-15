@@ -1,22 +1,4 @@
-"""
-Acquisition configuration and lifetime helpers built on :class:`MonoLocus`.
-
-This module belongs to :mod:`pyfli.phasor.phasorS`. It complements
-:class:`~pyfli.phasor.phasorS.phasor_locus.MonoLocus` with:
-
-- :class:`AcquisitionMode` / :class:`AcquisitionConfig` -- one validated object
-  describing the acquisition geometry, which traces its own locus;
-- :func:`phase_lifetime` / :func:`modulation_lifetime` -- lifetime estimators for
-  any harmonic;
-- :func:`lifetime_from_locus` -- nearest-point lifetime on any traced locus;
-- :func:`phase_lifetime_gated` -- exact phase inversion of the single-gate locus;
-- :func:`discrete_locus_circle` -- analytic centre and radius of the binned locus;
-- :func:`plot_discrete_n_sweep` -- convergence of the binned locus with the number
-  of bins.
-
-Units follow :class:`MonoLocus`: frequencies in hertz, times in nanoseconds, window
-lengths as fractions of the laser period.
-"""
+"""Acquisition configuration and lifetime helpers built on :class:`MonoLocus`."""
 
 from dataclasses import dataclass
 from enum import StrEnum
@@ -311,6 +293,43 @@ def discrete_locus_circle(n_bins: int, harmonic: int = 1) -> tuple[float, float,
         return 0.5, 0.0, 0.5
     sc = -0.5 * np.tan(half_phi)
     return 0.5, float(sc), float(np.hypot(0.5, sc))
+
+
+def discrete_phasor_lifetime(
+    g: ArrayLike,
+    s: ArrayLike,
+    n_bins: int,
+    period_ns: float,
+    harmonic: int = 1,
+) -> np.ndarray:
+    """
+    Exact lifetime of a phasor on the binned mono-exponential locus.
+
+    Inverts ``z = (1 - x) / (1 - x e^{i phi})`` (see :func:`discrete_locus_circle`) for
+    ``x = exp(-T / (n_bins tau))`` with ``phi = 2 pi harmonic / n_bins``:
+    ``x = Re[(z - 1) / (z e^{i phi} - 1)]``, ``tau = -(T / n_bins) / ln(x)``. ``g``, ``s``
+    must be IRF-calibrated phasors over one full period ``T = period_ns``.
+
+    This locus is exact when every excitation (IRF) photon is placed at a bin start,
+    as in pyfli's ``PhotonCountSimulator`` / ``ContinuousSimulator``; there the
+    standard phase lifetime is a few % low and this inversion removes that bias. For
+    data from a real instrument, whose IRF photons are spread within their bins, the
+    calibrated phasor lies on the universal semicircle instead (see
+    :func:`pyfli.reconstruction.common_reconstruct.periodic_instrument_exponential`):
+    use :func:`phase_lifetime` there, not this function.
+
+    Returns
+    -------
+    np.ndarray
+        Lifetimes in nanoseconds, same shape as `g`; ``NaN`` where ``x`` falls outside
+        ``(0, 1)`` (off the locus, e.g. noise or background).
+    """
+    z = np.asarray(g, dtype=float) + 1j * np.asarray(s, dtype=float)
+    phi = 2.0 * np.pi * harmonic / n_bins
+    dt = period_ns / n_bins
+    with np.errstate(invalid="ignore", divide="ignore"):
+        x = ((z - 1.0) / (z * np.exp(1j * phi) - 1.0)).real
+        return np.where((x > 0) & (x < 1), -dt / np.log(x), np.nan)
 
 
 def plot_discrete_n_sweep(

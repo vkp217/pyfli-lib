@@ -1,11 +1,4 @@
-"""
-Compute phasor coordinates from binned decay data and save phasor-derived lifetime maps.
-
-This module belongs to :mod:`pyfli.analysis` and is part of PyFLI post-processing,
-diagnostics, statistical comparison, and result-loading utilities for fitted FLI/FLIM
-datasets. Public API includes functions :func:`compute_freq_axis`,
-:func:`compute_phasor`, :func:`plot_phasor_figures`, and :func:`save_phasor_result`.
-"""
+"""Compute phasor coordinates from binned decay data and save phasor lifetime maps."""
 
 import os
 from typing import Any
@@ -32,7 +25,9 @@ def compute_freq_axis(
     -------
     freq         : tuple from AnalyticalHelpers.freq_computation()
     freq_hz      : float
-    time_axis_ns : np.ndarray  length T
+    time_axis_ns : np.ndarray  length T, gate start times ``k * T / num_gates``
+                   covering exactly one laser period (endpoint excluded), so the
+                   phasor sums are the discrete Fourier transform at the laser frequency
     """
     num_gates = binned_irf.shape[2]
     gate_delay = laser_period_ns / num_gates
@@ -40,7 +35,7 @@ def compute_freq_axis(
         laser_period=laser_period_ns, gate_delay=gate_delay, num_gate=num_gates
     ).freq_computation()
     freq_hz = freq[1] * 1e6
-    time_axis_ns = np.linspace(0, gate_delay * num_gates, num_gates)
+    time_axis_ns = np.arange(num_gates) * gate_delay
     return freq, freq_hz, time_axis_ns
 
 

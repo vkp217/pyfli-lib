@@ -1,10 +1,4 @@
-"""
-Provide shared phasor plotting geometry and axis styling helpers.
-
-This module belongs to :mod:`pyfli.phasor.phasorS` and is part of PyFLI's compact
-phasor analyzer for CPU and optional GPU FLI workflows. The module primarily re-exports
-package symbols or constants for downstream imports.
-"""
+"""Shared phasor plotting geometry and axis styling helpers."""
 
 from typing import Any
 
@@ -51,6 +45,7 @@ def _draw_lifetime_ticks(
     lw: float = 2,
     fontsize: int = 7,
     show_units: bool = False,
+    taus: Any = None,
 ) -> None:
     """
     Draw lifetime ticks.
@@ -75,6 +70,9 @@ def _draw_lifetime_ticks(
         Font size used for phasor plot labels.
     show_units : bool
         If ``True``, include lifetime units in text labels.
+    taus : Any
+        Lifetimes (ns) labelling the ticks, matched positionally to `G_mark`;
+        defaults to ``_TAU_MARKS_NS``.
 
     Returns
     -------
@@ -82,7 +80,7 @@ def _draw_lifetime_ticks(
         No object is returned; the function perform draw lifetime ticks.
     """
     cx, cy = _UNIVERSAL_CIRCLE_CENTER
-    for tau, Gm, Sm in zip(_TAU_MARKS_NS, G_mark, S_mark):
+    for tau, Gm, Sm in zip(_TAU_MARKS_NS if taus is None else taus, G_mark, S_mark):
         normal = np.array([Gm - cx, Sm - cy])
         norm = np.linalg.norm(normal)
         if norm == 0:

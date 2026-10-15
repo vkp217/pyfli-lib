@@ -1,18 +1,13 @@
 # ruff: noqa: F401
 
 #### inside "data_vnp"
-"""
-Provide data vnp tools for PyFLI visualization, normalization, plotting, and mono-
-versus-bi-exponential comparison tools.
-
-This module belongs to :mod:`pyfli.data_vnp` and is part of PyFLI visualization,
-normalization, plotting, and mono-versus-bi-exponential comparison tools. The module
-primarily re-exports package symbols or constants for downstream imports.
-"""
+"""Visualization, normalization, plotting and mono- vs bi-exponential comparison tools."""
 
 from .color_processor import ColorProcessor
 from .cv_plot import CVPlot
 from .data_viewer import DataViewer
+from .model_selector import ModelSelector
+from .model_selector_plotter import ModelSelectorPlotter
 from .mono_bi_classifier import MonoBiClassifier, ParamCorrelationMatrix
 from .multi_plotter import (
     DataProcessor,
