@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>pyfli.simulator.calibration.sweep_combination &#8212; PyFLI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=71ba2b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/simulator/calibration/sweep_combination';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/dev/_modules/pyfli/simulator/calibration/sweep_combination.html" />
+    <link rel="icon" href="../../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFLI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../citation.html">
+    Citation
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.simulator.calibration.sweep_combination</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.simulator.calibration.sweep_combination</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Combine per-experiment calibrations into one sweep-style simulator setup."""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">beta</span> <span class="k">as</span> <span class="n">beta_dist</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli</span><span class="w"> </span><span class="kn">import</span> <span class="n">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.data_cc.config_combinations</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigCombinationGenerator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..sim_workflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">SIM_FAMILY</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.coverage</span><span class="w"> </span><span class="kn">import</span> <span class="n">coverage_fractions</span><span class="p">,</span> <span class="n">resupport_beta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.data_io</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_experimental_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.prior_estimation</span><span class="w"> </span><span class="kn">import</span> <span class="n">BetaPrior</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.sim_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TUPLE_KEYS</span><span class="p">,</span>
+    <span class="n">TimeWindowedGenerator</span><span class="p">,</span>
+    <span class="n">draw_pixels</span><span class="p">,</span>
+    <span class="n">make_generator</span><span class="p">,</span>
+    <span class="n">stack_outputs</span><span class="p">,</span>
+    <span class="n">to_jsonable</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.summary_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">background_bins</span><span class="p">,</span> <span class="n">compute_stats</span>
+
+<span class="n">SENSOR_FIXED</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"discrete"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"bit"</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">"qe_on"</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+    <span class="s2">"continuous"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"qe_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"read_noise_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"round_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"poisson"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+<span class="n">COMMON_FIXED</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"dcr_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"clip_on"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"tau2_dist"</span><span class="p">:</span> <span class="s2">"beta"</span><span class="p">,</span>
+    <span class="s2">"pileup_mode"</span><span class="p">:</span> <span class="s2">"wrap"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">COMMON_SWEEP_KEYS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"jitter"</span><span class="p">,</span>
+    <span class="s2">"efficiency"</span><span class="p">,</span>
+    <span class="s2">"A1_fraction"</span><span class="p">,</span>
+    <span class="s2">"tau2"</span><span class="p">,</span>
+    <span class="s2">"photo_count"</span><span class="p">,</span>
+    <span class="s2">"dcr"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">RUN_SETTINGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"SAVING"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">"SANITY_PLOT"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">"COMPARE_PLOT"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"BASE_OUT"</span><span class="p">:</span> <span class="s2">"&lt;select output folder path&gt;"</span><span class="p">,</span>
+    <span class="s2">"GEN_MODE_DEFAULT"</span><span class="p">:</span> <span class="s2">"weighted"</span><span class="p">,</span>
+    <span class="s2">"CARTESIAN_NUM_SAMPLE"</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+    <span class="s2">"GEN_MODE"</span><span class="p">:</span> <span class="s2">"weighted"</span><span class="p">,</span>
+    <span class="s2">"NUM_SAMPLE"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">"TOTAL_SAMPLES"</span><span class="p">:</span> <span class="mi">20_000</span><span class="p">,</span>
+    <span class="s2">"SEED"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">MAX_CARTESIAN</span> <span class="o">=</span> <span class="mi">100_000</span>
+
+
+<div class="viewcode-block" id="ExperimentCalibration">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.ExperimentCalibration">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExperimentCalibration</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">json_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"config"</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"sim_generator_kwargs"</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="s2">"detector_type"</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ExperimentCalibration.irf_template">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.ExperimentCalibration.irf_template">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">irf_template</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_path</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"irf"</span><span class="p">][</span><span class="s2">"file"</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="load_experiment">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.load_experiment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_experiment</span><span class="p">(</span><span class="n">json_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExperimentCalibration</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ExperimentCalibration</span><span class="p">(</span>
+        <span class="n">name</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">json_path</span><span class="p">)),</span> <span class="n">json_path</span><span class="p">,</span> <span class="n">payload</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_prior</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BetaPrior</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">BetaPrior</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"a"</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s2">"b"</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s2">"offset"</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s2">"scale"</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="cdf_error">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.cdf_error">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cdf_error</span><span class="p">(</span><span class="n">old</span><span class="p">:</span> <span class="n">BetaPrior</span><span class="p">,</span> <span class="n">new</span><span class="p">:</span> <span class="n">BetaPrior</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2001</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Maximum difference between the two priors' CDFs, in physical units."""</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+        <span class="nb">min</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">new</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span>
+        <span class="nb">max</span><span class="p">(</span><span class="n">old</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">old</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">new</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">new</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span>
+        <span class="n">n</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">f_old</span> <span class="o">=</span> <span class="n">beta_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">old</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span> <span class="o">/</span> <span class="n">old</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">old</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">old</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">f_new</span> <span class="o">=</span> <span class="n">beta_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">new</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span> <span class="o">/</span> <span class="n">new</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">new</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">new</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f_old</span> <span class="o">-</span> <span class="n">f_new</span><span class="p">)))</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_sweep_entry</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""Deduplicate values (keeping first-seen order) and add up their weights."""</span>
+    <span class="n">out_v</span><span class="p">,</span> <span class="n">out_w</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">out_v</span><span class="p">:</span>
+            <span class="n">out_w</span><span class="p">[</span><span class="n">out_v</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">w</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out_v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">out_w</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">out_w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out_v</span><span class="p">,</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="n">total</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">out_w</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split</span><span class="p">(</span><span class="n">per_key</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">],</span> <span class="n">weights</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Keys with one distinct value go to the fixed config, the rest to sweep + weights."""</span>
+    <span class="n">fixed</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">sweep_w</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{},</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">per_key</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">_sweep_entry</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fixed</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sweep</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">sweep_w</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span>
+    <span class="k">return</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">sweep_w</span>
+
+
+<div class="viewcode-block" id="combine_calibrations">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.combine_calibrations">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">combine_calibrations</span><span class="p">(</span>
+    <span class="n">json_paths</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">weighting</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"equal"</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Build the combined sweep setup from per-experiment ``calibrated_sim_config.json`` files</span>
+<span class="sd">    (``name -&gt; path``) and write it to ``output_dir`` as ``combined_sim_setup.json``,</span>
+<span class="sd">    ``combined_sim_setup.py`` (same constants, importable) and ``irfs/&lt;name&gt;.txt``.</span>
+
+<span class="sd">    ``weighting``: "equal" (every experiment counts the same) or "pixels" (by number of</span>
+<span class="sd">    sample pixels). Returns the setup dict.</span>
+<span class="sd">    """</span>
+    <span class="n">exps</span> <span class="o">=</span> <span class="p">[</span><span class="n">load_experiment</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">json_paths</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exps</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No calibrations to combine"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"detector_type"</span><span class="p">,</span> <span class="s2">"model_type"</span><span class="p">,</span> <span class="s2">"laser_freq_mhz"</span><span class="p">):</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Experiments disagree on </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">vals</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">n_bins</span> <span class="o">=</span> <span class="p">{</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">irf_template</span><span class="p">())</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">n_bins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Experiments have different numbers of time bins: </span><span class="si">{</span><span class="n">n_bins</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">detector</span> <span class="o">=</span> <span class="n">exps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">detector</span>
+    <span class="n">laser</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">exps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="s2">"laser_freq_mhz"</span><span class="p">])</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">n_bins</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">weighting</span> <span class="o">==</span> <span class="s2">"pixels"</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">e</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"pixel_selection"</span><span class="p">][</span><span class="s2">"n_selected"</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">exps</span><span class="p">))</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">wi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">exps</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">wi</span>
+
+    <span class="n">report</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">tau2</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">_prior</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"priors"</span><span class="p">][</span><span class="s2">"tau2"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">offset</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tau2</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">hi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">scale</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tau2</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">tau2_new</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">resupport_beta</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tau2</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">report</span><span class="p">[</span><span class="s2">"tau2"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">cdf_error</span><span class="p">(</span><span class="n">tau2</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">tau2_new</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">tau2</span><span class="p">}</span>
+
+    <span class="n">photon</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">_prior</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="s2">"priors"</span><span class="p">][</span><span class="s2">"photon"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}</span>
+    <span class="n">sensor_fixed</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">SENSOR_FIXED</span><span class="p">[</span><span class="n">detector</span><span class="p">])</span>
+    <span class="n">dcr</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"dcr"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">detector</span> <span class="o">==</span> <span class="s2">"discrete"</span><span class="p">:</span>
+        <span class="n">c_lo</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"n_cycles"</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">)</span>
+        <span class="n">c_hi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"n_cycles"</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">)</span>
+        <span class="n">photon_new</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">resupport_beta</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">c_lo</span><span class="p">,</span> <span class="n">c_hi</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">photon</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">report</span><span class="p">[</span><span class="s2">"photo_count"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">cdf_error</span><span class="p">(</span><span class="n">photon</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">photon_new</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">photon</span><span class="p">}</span>
+        <span class="n">sensor_fixed</span><span class="p">[</span><span class="s2">"n_cycles"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_lo</span><span class="p">,</span> <span class="n">c_hi</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bits</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"bit"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}</span>
+        <span class="n">b_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">bits</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">phys</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">n</span><span class="p">:</span> <span class="n">BetaPrior</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">bits</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">photon</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="n">photon_new</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">resupport_beta</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="n">b_max</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">phys</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">report</span><span class="p">[</span><span class="s2">"photo_count"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">cdf_error</span><span class="p">(</span><span class="n">phys</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">photon_new</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">phys</span><span class="p">}</span>
+        <span class="n">dcr</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">v</span> <span class="o">*</span> <span class="n">bits</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">/</span> <span class="n">b_max</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dcr</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">sensor_fixed</span><span class="p">[</span><span class="s2">"bit"</span><span class="p">]</span> <span class="o">=</span> <span class="n">b_max</span>
+
+    <span class="n">per_key</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"jitter"</span><span class="p">:</span> <span class="p">[</span><span class="nb">bool</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"jitter"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span>
+        <span class="s2">"efficiency"</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"efficiency"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span>
+        <span class="s2">"A1_fraction"</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"A1_fraction"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span>
+        <span class="s2">"tau2"</span><span class="p">:</span> <span class="p">[</span><span class="n">tau2_new</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span>
+        <span class="s2">"photo_count"</span><span class="p">:</span> <span class="p">[</span><span class="n">photon_new</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span>
+        <span class="s2">"dcr"</span><span class="p">:</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">dcr</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="n">fixed</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">sweep_w</span> <span class="o">=</span> <span class="n">_split</span><span class="p">(</span><span class="n">per_key</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">common_config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">**</span><span class="n">COMMON_FIXED</span><span class="p">,</span>
+        <span class="s2">"laser_feq"</span><span class="p">:</span> <span class="n">laser</span><span class="p">,</span>
+        <span class="s2">"tau2_beta_range"</span><span class="p">:</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+        <span class="o">**</span><span class="n">fixed</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">irf_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">"irfs"</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">irf_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gate_delay</span> <span class="o">=</span> <span class="mf">1000.0</span> <span class="o">/</span> <span class="n">laser</span> <span class="o">/</span> <span class="n">T</span>
+    <span class="n">irf_runs</span><span class="p">,</span> <span class="n">irf_info</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">irf_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.txt"</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">irf_template</span><span class="p">(),</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">"</span><span class="si">%.8g</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">irf_runs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">path</span><span class="p">,</span> <span class="n">detector</span><span class="p">,</span> <span class="n">gate_delay</span><span class="p">))</span>
+        <span class="n">irf_info</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"experiment"</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">"a_range"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">"a_range"</span><span class="p">]),</span>
+            <span class="s2">"b_range"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">"b_range"</span><span class="p">]),</span>
+            <span class="s2">"inactive_bins"</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"inactive_bins"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[],</span>
+        <span class="p">}</span>
+    <span class="n">a_range</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">"a_range"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irf_info</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+        <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">"a_range"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irf_info</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+    <span class="p">)</span>
+    <span class="n">b_range</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">"b_range"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irf_info</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+    <span class="n">n_combos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sweep</span><span class="o">.</span><span class="n">values</span><span class="p">()]))</span> <span class="k">if</span> <span class="n">sweep</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="n">worst</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">worst</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Re-expressing priors on the common support changed a CDF by up to </span><span class="si">{</span><span class="n">worst</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">: "</span>
+            <span class="s2">"the experiments' ranges differ a lot; see resupport_cdf_error"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_combos</span> <span class="o">&gt;</span> <span class="n">MAX_CARTESIAN</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n_combos</span><span class="si">}</span><span class="s2"> sweep combinations: too many to enumerate. Use make_combined_generator "</span>
+            <span class="s2">"(samples the keys independently, same distribution as GEN_MODE='weighted')."</span>
+        <span class="p">)</span>
+
+    <span class="n">sensors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"discrete"</span><span class="p">:</span> <span class="p">({},</span> <span class="p">{},</span> <span class="p">{}),</span> <span class="s2">"continuous"</span><span class="p">:</span> <span class="p">({},</span> <span class="p">{},</span> <span class="p">{})}</span>
+    <span class="n">sensors</span><span class="p">[</span><span class="n">detector</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sensor_fixed</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{})</span>
+    <span class="n">setup</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"IRF_RUNS"</span><span class="p">:</span> <span class="n">irf_runs</span><span class="p">,</span>
+        <span class="s2">"IRF_RUN_INFO"</span><span class="p">:</span> <span class="n">irf_info</span><span class="p">,</span>
+        <span class="s2">"MONO_FRACTIONS"</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">({</span><span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"mono_fraction"</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">}),</span>
+        <span class="s2">"LASER_PERIOD_NS"</span><span class="p">:</span> <span class="mf">1000.0</span> <span class="o">/</span> <span class="n">laser</span><span class="p">,</span>
+        <span class="s2">"A_RANGE"</span><span class="p">:</span> <span class="n">a_range</span><span class="p">,</span>
+        <span class="s2">"B_RANGE"</span><span class="p">:</span> <span class="n">b_range</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">RUN_SETTINGS</span><span class="p">,</span>
+        <span class="s2">"COMMON_CONFIG"</span><span class="p">:</span> <span class="n">common_config</span><span class="p">,</span>
+        <span class="s2">"DISCRETE_CONFIG"</span><span class="p">:</span> <span class="n">sensors</span><span class="p">[</span><span class="s2">"discrete"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">"CONTINUOUS_CONFIG"</span><span class="p">:</span> <span class="n">sensors</span><span class="p">[</span><span class="s2">"continuous"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">"COMMON_SWEEP"</span><span class="p">:</span> <span class="n">sweep</span><span class="p">,</span>
+        <span class="s2">"DISCRETE_SWEEP"</span><span class="p">:</span> <span class="n">sensors</span><span class="p">[</span><span class="s2">"discrete"</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">"CONTINUOUS_SWEEP"</span><span class="p">:</span> <span class="n">sensors</span><span class="p">[</span><span class="s2">"continuous"</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">"COMMON_WEIGHTS"</span><span class="p">:</span> <span class="n">sweep_w</span><span class="p">,</span>
+        <span class="s2">"DISCRETE_WEIGHTS"</span><span class="p">:</span> <span class="n">sensors</span><span class="p">[</span><span class="s2">"discrete"</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s2">"CONTINUOUS_WEIGHTS"</span><span class="p">:</span> <span class="n">sensors</span><span class="p">[</span><span class="s2">"continuous"</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s2">"EXPERIMENT_CONFIGS"</span><span class="p">:</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">json_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">},</span>
+        <span class="s2">"EXPERIMENT_WEIGHTS"</span><span class="p">:</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exps</span><span class="p">},</span>
+        <span class="s2">"EXPERIMENT_SWEEP_VALUES"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">per_key</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">sweep</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">exps</span><span class="p">)</span>
+        <span class="p">},</span>
+        <span class="s2">"N_COMBINATIONS"</span><span class="p">:</span> <span class="n">n_combos</span><span class="p">,</span>
+        <span class="s2">"RESUPPORT_CDF_ERROR"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">"combined_sim_setup.json"</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">to_jsonable</span><span class="p">(</span><span class="n">setup</span><span class="p">),</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">write_setup_module</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">"combined_sim_setup.py"</span><span class="p">))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Combined </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">exps</span><span class="p">)</span><span class="si">}</span><span class="s2"> calibrations into </span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">: sweep keys </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">sweep</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n_combos</span><span class="si">}</span><span class="s2"> combinations, max re-expression CDF error </span><span class="si">{</span><span class="n">worst</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">setup</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_py</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="s2">" "</span> <span class="o">*</span> <span class="n">indent</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pad</span><span class="si">}</span><span class="s2">    </span><span class="si">{</span><span class="n">k</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">_py</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">indent</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="si">}</span><span class="s2">,"</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="s2">"{</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">pad</span><span class="si">}</span><span class="se">}}</span><span class="s2">"</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">obj</span>
+        <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">90</span>
+    <span class="p">):</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pad</span><span class="si">}</span><span class="s2">    </span><span class="si">{</span><span class="n">_py</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">indent</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="si">}</span><span class="s2">,"</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">"[</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">pad</span><span class="si">}</span><span class="s2">]"</span>
+    <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="write_setup_module">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.write_setup_module">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">write_setup_module</span><span class="p">(</span><span class="n">setup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Write ``setup`` as an importable Python module of constants, plus ``SENSOR_SETUP``."""</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'"""'</span><span class="p">,</span>
+        <span class="s2">"Combined pyfli simulator setup generated by pyfli.simulator.calibration.combine_calibrations."</span><span class="p">,</span>
+        <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"Calibrated values: IRF_RUNS, MONO_FRACTIONS, *_CONFIG, *_SWEEP, *_WEIGHTS (one sweep value per"</span><span class="p">,</span>
+        <span class="s2">"experiment; EXPERIMENT_CONFIGS lists each experiment's own calibrated config). IRF_RUN_INFO holds the"</span><span class="p">,</span>
+        <span class="s2">"exact OffsetGen ranges and inactive time bins of each IRF. SAVING ... SEED are run settings with"</span><span class="p">,</span>
+        <span class="s2">"default values, not calibration results."</span><span class="p">,</span>
+        <span class="s1">'"""'</span><span class="p">,</span>
+        <span class="s2">""</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">setup</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">_py</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"SENSOR_SETUP = {"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'    "discrete": (DISCRETE_CONFIG, DISCRETE_SWEEP, DISCRETE_WEIGHTS),'</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="s1">'    "continuous": (CONTINUOUS_CONFIG, CONTINUOUS_SWEEP, CONTINUOUS_WEIGHTS),'</span>
+    <span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"}"</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_combined_setup">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.load_combined_setup">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_combined_setup</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Read ``combined_sim_setup.json`` back, restoring the tuples the simulator expects."""</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">setup</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fix</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">TUPLE_KEYS</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">"tau2_beta_range"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">v</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fix_sweep</span><span class="p">(</span><span class="n">sw</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">sw</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"COMMON_CONFIG"</span><span class="p">,</span> <span class="s2">"DISCRETE_CONFIG"</span><span class="p">,</span> <span class="s2">"CONTINUOUS_CONFIG"</span><span class="p">):</span>
+        <span class="n">setup</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">fix</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"COMMON_SWEEP"</span><span class="p">,</span> <span class="s2">"DISCRETE_SWEEP"</span><span class="p">,</span> <span class="s2">"CONTINUOUS_SWEEP"</span><span class="p">):</span>
+        <span class="n">setup</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">fix_sweep</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="n">setup</span><span class="p">[</span><span class="s2">"IRF_RUNS"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"IRF_RUNS"</span><span class="p">]]</span>
+    <span class="n">setup</span><span class="p">[</span><span class="s2">"A_RANGE"</span><span class="p">],</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"B_RANGE"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">tuple</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s2">"A_RANGE"</span><span class="p">]),</span>
+        <span class="nb">tuple</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s2">"B_RANGE"</span><span class="p">]),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">setup</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parts</span><span class="p">(</span><span class="n">setup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mono_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">**</span><span class="n">setup</span><span class="p">[</span><span class="s2">"COMMON_CONFIG"</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">setup</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sensor_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_CONFIG"</span><span class="p">],</span>
+        <span class="s2">"sensor_type"</span><span class="p">:</span> <span class="n">sensor_type</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">mono_fraction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base</span><span class="p">[</span><span class="s2">"mono_fraction"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mono_fraction</span><span class="p">)</span>
+    <span class="n">sweep</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">setup</span><span class="p">[</span><span class="s2">"COMMON_SWEEP"</span><span class="p">],</span> <span class="o">**</span><span class="n">setup</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sensor_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_SWEEP"</span><span class="p">]}</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">setup</span><span class="p">[</span><span class="s2">"COMMON_WEIGHTS"</span><span class="p">],</span> <span class="o">**</span><span class="n">setup</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sensor_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">_WEIGHTS"</span><span class="p">]}</span>
+    <span class="k">return</span> <span class="n">base</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">weights</span>
+
+
+<div class="viewcode-block" id="combination_generator">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.combination_generator">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">combination_generator</span><span class="p">(</span>
+    <span class="n">setup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mono_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigCombinationGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``pyfli.data_cc.ConfigCombinationGenerator`` for the combined setup (enumerates every combination)."""</span>
+    <span class="n">base</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">_parts</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">,</span> <span class="n">mono_fraction</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sweep</span><span class="o">.</span><span class="n">values</span><span class="p">()]))</span> <span class="k">if</span> <span class="n">sweep</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">MAX_CARTESIAN</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> combinations are too many to enumerate; use make_combined_generator instead"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">ConfigCombinationGenerator</span><span class="p">(</span>
+        <span class="n">base</span><span class="p">,</span> <span class="n">sweep</span> <span class="ow">or</span> <span class="p">{</span><span class="s2">"jitter"</span><span class="p">:</span> <span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"jitter"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)]},</span> <span class="n">weights</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="IndependentSweepGenerator">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.IndependentSweepGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IndependentSweepGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Draws every swept key independently with its weights, then simulates one pixel with</span>
+<span class="sd">    pyfli's ``SimGenerator``. The resulting distribution is that of</span>
+<span class="sd">    ``ConfigCombinationGenerator.sample`` / ``WeightedConfigSimGenerator`` (combination</span>
+<span class="sd">    weight = product of per-key weights), but nothing is enumerated, so any number of</span>
+<span class="sd">    experiments works. ``config_index`` in the output gives the chosen value index per key.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">irf_cube</span><span class="p">,</span>
+        <span class="n">base</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">sweep</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">weights</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">a_range</span><span class="p">,</span>
+        <span class="n">b_range</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">irf_cube</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a_range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b_range</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">irf_cube</span><span class="p">,</span>
+            <span class="n">base</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">a_range</span><span class="p">),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">b_range</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sweep</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">sweep</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">))),</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IndependentSweepGenerator.simulate_once">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.IndependentSweepGenerator.simulate_once">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulate_once</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">idx</span><span class="p">)}}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"seed"</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cfg</span><span class="p">[</span><span class="s2">"seed"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"seed"</span><span class="p">]</span>
+        <span class="n">gen</span> <span class="o">=</span> <span class="n">SimGenerator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">irf_cube</span><span class="p">,</span>
+            <span class="n">cfg</span><span class="p">,</span>
+            <span class="n">a_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">a_range</span><span class="p">,</span>
+            <span class="n">b_range</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">b_range</span><span class="p">,</span>
+            <span class="n">pixel</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">family</span><span class="o">=</span><span class="n">SIM_FAMILY</span><span class="p">,</span>
+            <span class="n">sensor_type</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s2">"sensor_type"</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">simulate_once</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"config_index"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="n">idx</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="make_combined_generator">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.make_combined_generator">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_combined_generator</span><span class="p">(</span>
+    <span class="n">setup_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">run</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">mono_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exact_ranges</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Simulator for one IRF run of the combined setup: ``gen.simulate_once()`` draws a</span>
+<span class="sd">    combination of the calibrated values and simulates one pixel with ``IRF_RUNS[run]``.</span>
+<span class="sd">    ``exact_ranges`` uses that IRF's own calibrated ``a_range`` / ``b_range`` and inactive</span>
+<span class="sd">    time bins (``IRF_RUN_INFO``); otherwise the global ``A_RANGE`` / ``B_RANGE``.</span>
+<span class="sd">    """</span>
+    <span class="n">setup</span> <span class="o">=</span> <span class="n">load_combined_setup</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span>
+    <span class="n">irf_path</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"IRF_RUNS"</span><span class="p">][</span><span class="n">run</span><span class="p">]</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"IRF_RUN_INFO"</span><span class="p">][</span><span class="n">irf_path</span><span class="p">]</span>
+    <span class="n">irf_cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">irf_path</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">if</span> <span class="n">mono_fraction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mono_fraction</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"MONO_FRACTIONS"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">base</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">_parts</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">,</span> <span class="n">mono_fraction</span><span class="p">)</span>
+    <span class="n">a_range</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">"a_range"</span><span class="p">]</span> <span class="k">if</span> <span class="n">exact_ranges</span> <span class="k">else</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"A_RANGE"</span><span class="p">]</span>
+    <span class="n">b_range</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">"b_range"</span><span class="p">]</span> <span class="k">if</span> <span class="n">exact_ranges</span> <span class="k">else</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"B_RANGE"</span><span class="p">]</span>
+    <span class="n">gen</span> <span class="o">=</span> <span class="n">IndependentSweepGenerator</span><span class="p">(</span>
+        <span class="n">irf_cube</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">sweep</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">a_range</span><span class="p">,</span> <span class="n">b_range</span><span class="p">,</span> <span class="n">seed</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">exact_ranges</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s2">"inactive_bins"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">TimeWindowedGenerator</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">"inactive_bins"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">gen</span></div>
+
+
+
+<div class="viewcode-block" id="verify_combined">
+<a class="viewcode-back" href="../../../../api/generated/pyfli.simulator.calibration.sweep_combination.html#pyfli.simulator.calibration.verify_combined">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">verify_combined</span><span class="p">(</span>
+    <span class="n">setup_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n_sim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">n_exp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    For every experiment of the combined setup, the coverage (:func:`coverage_fractions`) of</span>
+<span class="sd">    its sample pixels by</span>
+
+<span class="sd">    * ``own values``: the combination made of that experiment's sweep values, i.e. its own</span>
+<span class="sd">      calibration after re-expression on the common supports;</span>
+<span class="sd">    * ``combined``: the whole combined distribution (all combinations, with weights).</span>
+
+<span class="sd">    Both use the experiment's own IRF run. The experimental pixels are re-loaded from the</span>
+<span class="sd">    experiment's data file with its calibration's bin radius and sample mask. The table is</span>
+<span class="sd">    also written next to the setup as ``coverage_per_experiment.csv``.</span>
+<span class="sd">    """</span>
+    <span class="n">setup</span> <span class="o">=</span> <span class="n">load_combined_setup</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">run</span><span class="p">,</span> <span class="p">(</span><span class="n">irf_path</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s2">"IRF_RUNS"</span><span class="p">]):</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"IRF_RUN_INFO"</span><span class="p">][</span><span class="n">irf_path</span><span class="p">]</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">"experiment"</span><span class="p">]</span>
+        <span class="n">cfg_path</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"EXPERIMENT_CONFIGS"</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">inp</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s2">"inputs"</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">load_experimental_data</span><span class="p">(</span>
+            <span class="n">inp</span><span class="p">[</span><span class="s2">"data_path"</span><span class="p">],</span>
+            <span class="n">bg_path</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"bg_path"</span><span class="p">),</span>
+            <span class="n">bin_radius</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">inp</span><span class="p">[</span><span class="s2">"bin_radius"</span><span class="p">]),</span>
+        <span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">),</span> <span class="s2">"signal_mask.npy"</span><span class="p">))</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">pick</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_exp</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">exp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decay</span><span class="p">[</span><span class="n">pick</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pick</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">bg</span> <span class="o">=</span> <span class="n">background_bins</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">exp_stats</span> <span class="o">=</span> <span class="n">compute_stats</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">bg</span><span class="p">)</span>
+
+        <span class="n">base</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_parts</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">sensor_type</span><span class="p">,</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"MONO_FRACTIONS"</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">own</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="o">**</span><span class="n">base</span><span class="p">,</span>
+            <span class="o">**</span><span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s2">"EXPERIMENT_SWEEP_VALUES"</span><span class="p">][</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="n">irf_cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">irf_path</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">own_gen</span> <span class="o">=</span> <span class="n">make_generator</span><span class="p">(</span>
+            <span class="n">irf_cube</span><span class="p">,</span>
+            <span class="n">own</span><span class="p">,</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"a_range"</span><span class="p">],</span>
+            <span class="n">info</span><span class="p">[</span><span class="s2">"b_range"</span><span class="p">],</span>
+            <span class="n">inactive_bins</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">"inactive_bins"</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">comb_gen</span> <span class="o">=</span> <span class="n">make_combined_generator</span><span class="p">(</span><span class="n">setup_path</span><span class="p">,</span> <span class="n">run</span><span class="o">=</span><span class="n">run</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">gen</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"own values"</span><span class="p">,</span> <span class="n">own_gen</span><span class="p">),</span> <span class="p">(</span><span class="s2">"combined"</span><span class="p">,</span> <span class="n">comb_gen</span><span class="p">)):</span>
+            <span class="n">sim_stats</span> <span class="o">=</span> <span class="n">compute_stats</span><span class="p">(</span>
+                <span class="n">stack_outputs</span><span class="p">(</span><span class="n">draw_pixels</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">n_sim</span><span class="p">,</span> <span class="n">seed</span> <span class="o">+</span> <span class="mi">17</span> <span class="o">*</span> <span class="n">run</span><span class="p">))[</span><span class="s2">"decay"</span><span class="p">],</span> <span class="n">bg</span>
+            <span class="p">)</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">"experiment"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                    <span class="s2">"simulation"</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">coverage_fractions</span><span class="p">(</span><span class="n">exp_stats</span><span class="p">,</span> <span class="n">sim_stats</span><span class="p">),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Verified </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">rows</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"experiment"</span><span class="p">,</span> <span class="s2">"simulation"</span><span class="p">])</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">setup_path</span><span class="p">),</span> <span class="s2">"coverage_per_experiment.csv"</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFLI developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
