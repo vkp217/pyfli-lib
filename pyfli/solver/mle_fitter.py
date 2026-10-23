@@ -15,7 +15,7 @@ from scipy.stats import chi2, f
 
 from .base_fitter import BaseFLIFitter
 from .base_static import resolve_params_and_bounds
-from .shared_metrics import compute_fli_stats, enforce_tau_ordering
+from .shared_metrics import _FIXED_BOUND_TOL, compute_fli_stats, enforce_tau_ordering
 
 MLE_WEIGHTINGS = ("poisson", "pearson", "neyman", "none")
 """Objectives of :meth:`MLEFLIFitter.fit_with_estimator` (``"poisson"`` is the default)."""
@@ -24,8 +24,8 @@ MLE_WEIGHTINGS = ("poisson", "pearson", "neyman", "none")
 class MLEFLIFitter(BaseFLIFitter):
     """
     Extend the base FLI fitter with Poisson, Pearson, and Neyman objective functions.
-    It supports MLE-style fitting, uncertainty extraction from optimizer curvature, and
-    likelihood-based model comparison.
+    It supports MLE-style fitting, Fisher-information (Poisson) and robust sandwich
+    (chi-square) parameter uncertainties, and likelihood-based model comparison.
     """
 
     def poisson_log_likelihood(self, params: Any, model_type: str) -> Any:
@@ -146,17 +146,110 @@ class MLEFLIFitter(BaseFLIFitter):
         converged = 1 if res.success else 0
 
         try:
-            cov_scaled = 2.0 * (res.hess_inv @ np.eye(len(popt)))
-            if weighting == "none":
-                dof = max(len(self.fit_indices) - len(popt), 1)
-                cov_scaled = cov_scaled * res.fun / dof
-            perr = np.sqrt(np.maximum(np.diag(cov_scaled), 0.0)) * scale
+            perr = self.parameter_errors(
+                popt, model_type, weighting=weighting, bounds=(l_vec, h_vec)
+            )
         except Exception:
             perr = np.full(len(popt), np.nan)
 
         return self._post_process(
             popt, None, converged, model_type, manual_perr=perr, bounds=(l_vec, h_vec)
         )
+
+    def parameter_errors(
+        self,
+        popt: np.ndarray,
+        model_type: str,
+        weighting: str = "poisson",
+        bounds: tuple[np.ndarray, np.ndarray] | None = None,
+    ) -> np.ndarray:
+        """
+        One-standard-deviation uncertainties of parameters fitted with `weighting`.
+
+        ``"poisson"`` uses the inverse Fisher information ``(J^T diag(1/mu) J)^-1`` of
+        the Poisson likelihood at `popt`, i.e. the asymptotic covariance (and
+        Cramer-Rao bound) of the MLE. ``"pearson"``, ``"neyman"`` and ``"none"`` use
+        the heteroscedasticity-robust sandwich of :meth:`calculate_uncertainties` on
+        the weighted Jacobian and residuals.
+
+        Parameters
+        ----------
+        popt : np.ndarray
+            Fitted parameter vector (before tau ordering).
+        model_type : str
+            ``"mono-exponential"`` or ``"bi-exponential"``.
+        weighting : str
+            Objective the parameters were fitted with (see :data:`MLE_WEIGHTINGS`).
+        bounds : tuple[np.ndarray, np.ndarray] | None
+            ``(low, high)`` bounds of the fit. Parameters pinned by them
+            (low == high) get 0; parameters sitting on an active bound get NaN,
+            because the asymptotic normal approximation does not hold there. The
+            remaining uncertainties are computed with those parameters held fixed.
+
+        Returns
+        -------
+        np.ndarray
+            Standard error of each parameter.
+        """
+        popt = np.asarray(popt, dtype=float)
+        n_params = len(popt)
+        if bounds is None:
+            low = np.full(n_params, -np.inf)
+            high = np.full(n_params, np.inf)
+        else:
+            low = np.asarray(bounds[0], dtype=float)
+            high = np.asarray(bounds[1], dtype=float)
+
+        width = np.maximum(np.abs(popt), 1.0)
+        pinned = np.abs(high - low) < _FIXED_BOUND_TOL
+        on_bound = ~pinned & (
+            (popt - low <= 1e-8 * width) | (high - popt <= 1e-8 * width)
+        )
+        perr = np.full(n_params, np.nan)
+        perr[pinned] = 0.0
+        free = np.flatnonzero(~pinned & ~on_bound)
+        if free.size == 0:
+            return perr
+
+        data = self.decay[self.fit_indices]
+        mu = self.model_fit(self.t, popt, model_type=model_type)[self.fit_indices]
+        jac = np.empty((len(data), free.size))
+        for j, k in enumerate(free):
+            step = 1e-6 * width[k]
+            up, down = popt.copy(), popt.copy()
+            up[k] = min(popt[k] + step, high[k])
+            down[k] = max(popt[k] - step, low[k])
+            jac[:, j] = (
+                self.model_fit(self.t, up, model_type=model_type)[self.fit_indices]
+                - self.model_fit(self.t, down, model_type=model_type)[self.fit_indices]
+            ) / (up[k] - down[k])
+
+        if weighting == "poisson":
+            info = jac.T @ (jac / np.clip(mu, 1e-9, None)[:, None])
+            diag = np.diag(info)
+            norm = np.sqrt(np.where(diag > 0, diag, 1.0))
+            cov = np.linalg.pinv(info / np.outer(norm, norm)) / np.outer(norm, norm)
+            perr[free] = np.where(
+                diag > 0, np.sqrt(np.maximum(np.diag(cov), 0.0)), np.nan
+            )
+            return perr
+
+        if weighting == "pearson":
+            weights = 1.0 / np.clip(mu, 1e-9, None)
+        elif weighting == "neyman":
+            weights = 1.0 / np.clip(data, 1.0, None)
+        else:
+            weights = np.ones_like(data, dtype=float)
+        root_w = np.sqrt(weights)
+        residuals = (data - mu) * root_w
+        perr[free] = self.calculate_uncertainties(
+            jac * root_w[:, None],
+            float(np.sum(residuals**2)),
+            len(data),
+            free.size,
+            residuals=residuals,
+        )
+        return perr
 
     def _post_process(
         self,
