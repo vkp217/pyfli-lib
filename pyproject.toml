@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyfli-lib"
-version = "0.1.20"
+version = "0.1.21"
 description = "Open-source Python library for FLIM analysis: TCSPC/SPAD data processing, phasor plots, NLSF/MLE fitting, CRLB-derived bounds, and FLIM simulation for deep learning."
 readme = "README.md"
 requires-python = ">=3.11"
