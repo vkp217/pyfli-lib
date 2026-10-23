@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    
+    <title>pyfli.simulator.calibration.optimizer &#8212; PyFLI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=71ba2b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../../_static/documentation_options.js?v=639af1cb"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/generated/pyfli.simulator.calibration.optimizer';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/main/api/generated/pyfli.simulator.calibration.optimizer.html" />
+    <link rel="icon" href="../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyfli.simulator.calibration.pixel_selection" href="pyfli.simulator.calibration.pixel_selection.html" />
+    <link rel="prev" title="pyfli.simulator.calibration.multicluster" href="pyfli.simulator.calibration.multicluster.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="main" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFLI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pyfli.html">pyfli</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analysis.html">pyfli.analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.analyticalWorkflow.html">pyfli.analyticalWorkflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.bayes_utils.html">pyfli.bayes_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_cc.html">pyfli.data_cc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_text.html">pyfli.data_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.data_vnp.html">pyfli.data_vnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.img.html">pyfli.img</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.io.html">pyfli.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.irf_deconvolution.html">pyfli.irf_deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.laguerre.html">pyfli.laguerre</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.log_save.html">pyfli.log_save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.phasor.html">pyfli.phasor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.plot_style.html">pyfli.plot_style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.reconstruction.html">pyfli.reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.roi_maker.html">pyfli.roi_maker</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="pyfli.simulator.html">pyfli.simulator</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="pyfli.simulator.calibration.html">pyfli.simulator.calibration</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.calibrator.html">pyfli.simulator.calibration.calibrator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.config.html">pyfli.simulator.calibration.config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.coverage.html">pyfli.simulator.calibration.coverage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.data_io.html">pyfli.simulator.calibration.data_io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.expected_decay.html">pyfli.simulator.calibration.expected_decay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.folder_calibration.html">pyfli.simulator.calibration.folder_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.irf_estimation.html">pyfli.simulator.calibration.irf_estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.multicluster.html">pyfli.simulator.calibration.multicluster</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">pyfli.simulator.calibration.optimizer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.pixel_selection.html">pyfli.simulator.calibration.pixel_selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.pooled_calibration.html">pyfli.simulator.calibration.pooled_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.prior_estimation.html">pyfli.simulator.calibration.prior_estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.run_calibration.html">pyfli.simulator.calibration.run_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.sim_bridge.html">pyfli.simulator.calibration.sim_bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.summary_stats.html">pyfli.simulator.calibration.summary_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyfli.simulator.calibration.sweep_combination.html">pyfli.simulator.calibration.sweep_combination</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.combined.html">pyfli.simulator.combined</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.distributions.html">pyfli.simulator.distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.image_generator_common.html">pyfli.simulator.image_generator_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.irf_sim.html">pyfli.simulator.irf_sim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.main_common.html">pyfli.simulator.main_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.noise_models.html">pyfli.simulator.noise_models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.separate.html">pyfli.simulator.separate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.sim_calibrator.html">pyfli.simulator.sim_calibrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.sim_engine_common.html">pyfli.simulator.sim_engine_common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.sim_helper.html">pyfli.simulator.sim_helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyfli.simulator.sim_workflow.html">pyfli.simulator.sim_workflow</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.solver.html">pyfli.solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyfli.sp_analysis.html">pyfli.sp_analysis</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.html" class="nav-link">pyfli</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.simulator.html" class="nav-link">pyfli.simulator</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pyfli.simulator.calibration.html" class="nav-link">pyfli.simulator.calibration</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.simulator.calibration.optimizer</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pyfli.simulator.calibration.optimizer">
+<span id="pyfli-simulator-calibration-optimizer"></span><h1>pyfli.simulator.calibration.optimizer<a class="headerlink" href="#module-pyfli.simulator.calibration.optimizer" title="Link to this heading">#</a></h1>
+<p>Simulation-based calibration of the pyfli simulator config.</p>
+<p class="rubric">Functions</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_prior_bounds</span></code>(names)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_reference_penalty</span></code>(state, ctx)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">reference_weight</span> <span class="pre">*</span> <span class="pre">sum(((prior</span> <span class="pre">mean</span> <span class="pre">-</span> <span class="pre">reference</span> <span class="pre">mean)</span> <span class="pre">/</span> <span class="pre">reference</span> <span class="pre">sd)^2)</span></code> in physical units, so it does not depend on the prior's support (<code class="docutils literal notranslate"><span class="pre">tau2_beta_range</span></code> is re-centred between rounds).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.active_photon_fraction" title="pyfli.simulator.calibration.optimizer.active_photon_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_photon_fraction</span></code></a>(state, ctx)</p></td>
+<td><p>Expected share of signal photons that land in active time bins, for the prior-mean lifetimes of <cite>state</cite> (photons in inactive bins are zeroed in data and simulation).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.evaluate" title="pyfli.simulator.calibration.optimizer.evaluate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate</span></code></a>(state, ctx[, n, seed])</p></td>
+<td><p>Simulate with <code class="docutils literal notranslate"><span class="pre">state</span></code> and return <code class="docutils literal notranslate"><span class="pre">(distance,</span> <span class="pre">parts,</span> <span class="pre">sim_batch,</span> <span class="pre">sim_stats)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.fit_priors_on_bank" title="pyfli.simulator.calibration.optimizer.fit_priors_on_bank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_priors_on_bank</span></code></a>(base, ctx, names, n_bank, ...)</p></td>
+<td><p>One bank round: simulate, global search (differential evolution), Nelder-Mead polish.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.optimize_stage" title="pyfli.simulator.calibration.optimizer.optimize_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimize_stage</span></code></a>(base, ctx, names, max_evals, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.recenter_tau2_support" title="pyfli.simulator.calibration.optimizer.recenter_tau2_support"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recenter_tau2_support</span></code></a>(state[, margin])</p></td>
+<td><p>Move <code class="docutils literal notranslate"><span class="pre">tau2_beta_range</span></code> to the fitted prior's 0.1-99.9 % range plus <code class="docutils literal notranslate"><span class="pre">margin</span></code> on each side, keeping the prior's mean and SD.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.refresh_photon_prior" title="pyfli.simulator.calibration.optimizer.refresh_photon_prior"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refresh_photon_prior</span></code></a>(state, ctx)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.run_calibration_rounds" title="pyfli.simulator.calibration.optimizer.run_calibration_rounds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_calibration_rounds</span></code></a>(state, ctx, nuisance, ...)</p></td>
+<td><p>Alternate prior fits (bank) and IRF / detector fits (real simulations).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.stage_parameter_names" title="pyfli.simulator.calibration.optimizer.stage_parameter_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stage_parameter_names</span></code></a>(state, ctx, ...)</p></td>
+<td><p>(nuisance names searched with real simulations, prior names searched on the re-weighted bank).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibrationState</span></code></a>(irf, priors, dcr[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObjectiveContext</span></code></a>(fm, detector_type, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ParameterVector" title="pyfli.simulator.calibration.optimizer.ParameterVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParameterVector</span></code></a>(base, ctx, names)</p></td>
+<td><p>Maps a flat unconstrained vector to a <a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibrationState</span></code></a> and back.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.PriorBank" title="pyfli.simulator.calibration.optimizer.PriorBank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PriorBank</span></code></a>(state, ctx, n, seed[, uniform_share])</p></td>
+<td><p>Simulated pixels from a broad proposal, re-weighted to any candidate set of Beta priors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CalibrationState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyfli.simulator.calibration.irf_estimation.html#pyfli.simulator.calibration.irf_estimation.IRFEstimate" title="pyfli.simulator.calibration.irf_estimation.IRFEstimate"><span class="pre">IRFEstimate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">priors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyfli.simulator.calibration.prior_estimation.html#pyfli.simulator.calibration.prior_estimation.PriorSet" title="pyfli.simulator.calibration.prior_estimation.PriorSet"><span class="pre">PriorSet</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#CalibrationState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>irf</strong> (<a class="reference internal" href="pyfli.simulator.calibration.irf_estimation.html#pyfli.simulator.calibration.irf_estimation.IRFEstimate" title="pyfli.simulator.calibration.irf_estimation.IRFEstimate"><em>IRFEstimate</em></a>)</p></li>
+<li><p><strong>priors</strong> (<a class="reference internal" href="pyfli.simulator.calibration.prior_estimation.html#pyfli.simulator.calibration.prior_estimation.PriorSet" title="pyfli.simulator.calibration.prior_estimation.PriorSet"><em>PriorSet</em></a>)</p></li>
+<li><p><strong>dcr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>photon_scale</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState.irf">
+<span class="sig-name descname"><span class="pre">irf</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyfli.simulator.calibration.irf_estimation.html#pyfli.simulator.calibration.irf_estimation.IRFEstimate" title="pyfli.simulator.calibration.irf_estimation.IRFEstimate"><span class="pre">IRFEstimate</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState.irf" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState.priors">
+<span class="sig-name descname"><span class="pre">priors</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyfli.simulator.calibration.prior_estimation.html#pyfli.simulator.calibration.prior_estimation.PriorSet" title="pyfli.simulator.calibration.prior_estimation.PriorSet"><span class="pre">PriorSet</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState.priors" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState.dcr">
+<span class="sig-name descname"><span class="pre">dcr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState.dcr" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState.photon_scale">
+<span class="sig-name descname"><span class="pre">photon_scale</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState.photon_scale" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState.a_range">
+<span class="sig-name descname"><span class="pre">a_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#CalibrationState.a_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState.a_range" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.CalibrationState.b_range">
+<span class="sig-name descname"><span class="pre">b_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#CalibrationState.b_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.CalibrationState.b_range" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ObjectiveContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyfli.simulator.calibration.expected_decay.html#pyfli.simulator.calibration.expected_decay.DecayForwardModel" title="pyfli.simulator.calibration.expected_decay.DecayForwardModel"><span class="pre">DecayForwardModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">laser_freq_mhz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">jitter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyfli.simulator.calibration.summary_stats.html#pyfli.simulator.calibration.summary_stats.StatsComparator" title="pyfli.simulator.calibration.summary_stats.StatsComparator"><span class="pre">StatsComparator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior_inflation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_moments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_photon_prior</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inactive_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#ObjectiveContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fm</strong> (<a class="reference internal" href="pyfli.simulator.calibration.expected_decay.html#pyfli.simulator.calibration.expected_decay.DecayForwardModel" title="pyfli.simulator.calibration.expected_decay.DecayForwardModel"><em>DecayForwardModel</em></a>)</p></li>
+<li><p><strong>detector_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>laser_freq_mhz</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>jitter</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>comparator</strong> (<a class="reference internal" href="pyfli.simulator.calibration.summary_stats.html#pyfli.simulator.calibration.summary_stats.StatsComparator" title="pyfli.simulator.calibration.summary_stats.StatsComparator"><em>StatsComparator</em></a>)</p></li>
+<li><p><strong>bg_bins</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>exp_counts</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>exp_peaks</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>data_max</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>bit_depth</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>prior_inflation</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>n_sim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>reference_moments</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>)</p></li>
+<li><p><strong>reference_weight</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>fixed_photon_prior</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>inactive_bins</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.fm">
+<span class="sig-name descname"><span class="pre">fm</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyfli.simulator.calibration.expected_decay.html#pyfli.simulator.calibration.expected_decay.DecayForwardModel" title="pyfli.simulator.calibration.expected_decay.DecayForwardModel"><span class="pre">DecayForwardModel</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.fm" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.detector_type">
+<span class="sig-name descname"><span class="pre">detector_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.detector_type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.laser_freq_mhz">
+<span class="sig-name descname"><span class="pre">laser_freq_mhz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.laser_freq_mhz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.jitter">
+<span class="sig-name descname"><span class="pre">jitter</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.jitter" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.comparator">
+<span class="sig-name descname"><span class="pre">comparator</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyfli.simulator.calibration.summary_stats.html#pyfli.simulator.calibration.summary_stats.StatsComparator" title="pyfli.simulator.calibration.summary_stats.StatsComparator"><span class="pre">StatsComparator</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.comparator" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.bg_bins">
+<span class="sig-name descname"><span class="pre">bg_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.bg_bins" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.exp_counts">
+<span class="sig-name descname"><span class="pre">exp_counts</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.exp_counts" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.exp_peaks">
+<span class="sig-name descname"><span class="pre">exp_peaks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.exp_peaks" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.data_max">
+<span class="sig-name descname"><span class="pre">data_max</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.data_max" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.bit_depth">
+<span class="sig-name descname"><span class="pre">bit_depth</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.bit_depth" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.prior_inflation">
+<span class="sig-name descname"><span class="pre">prior_inflation</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.prior_inflation" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.n_sim">
+<span class="sig-name descname"><span class="pre">n_sim</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.n_sim" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.seed" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.reference_moments">
+<span class="sig-name descname"><span class="pre">reference_moments</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.reference_moments" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.reference_weight">
+<span class="sig-name descname"><span class="pre">reference_weight</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.reference_weight" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.fixed_photon_prior">
+<span class="sig-name descname"><span class="pre">fixed_photon_prior</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.fixed_photon_prior" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ObjectiveContext.inactive_bins">
+<span class="sig-name descname"><span class="pre">inactive_bins</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.inactive_bins" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.active_photon_fraction">
+<span class="sig-name descname"><span class="pre">active_photon_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#active_photon_fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.active_photon_fraction" title="Link to this definition">#</a></dt>
+<dd><p>Expected share of signal photons that land in active time bins, for the prior-mean
+lifetimes of <cite>state</cite> (photons in inactive bins are zeroed in data and simulation).
+1 for continuous detectors or when every bin is active.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.refresh_photon_prior">
+<span class="sig-name descname"><span class="pre">refresh_photon_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#refresh_photon_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.refresh_photon_prior" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ParameterVector">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ParameterVector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#ParameterVector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ParameterVector" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Maps a flat unconstrained vector to a <a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibrationState</span></code></a> and back.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ParameterVector.initial">
+<span class="sig-name descname"><span class="pre">initial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#ParameterVector.initial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ParameterVector.initial" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.ParameterVector.state">
+<span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#ParameterVector.state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.ParameterVector.state" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.evaluate" title="Link to this definition">#</a></dt>
+<dd><p>Simulate with <code class="docutils literal notranslate"><span class="pre">state</span></code> and return <code class="docutils literal notranslate"><span class="pre">(distance,</span> <span class="pre">parts,</span> <span class="pre">sim_batch,</span> <span class="pre">sim_stats)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.optimize_stage">
+<span class="sig-name descname"><span class="pre">optimize_stage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_evals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#optimize_stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.optimize_stage" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>)</p></li>
+<li><p><strong>max_evals</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>[<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.stage_parameter_names">
+<span class="sig-name descname"><span class="pre">stage_parameter_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize_irf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize_noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize_priors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_bi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#stage_parameter_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.stage_parameter_names" title="Link to this definition">#</a></dt>
+<dd><p>(nuisance names searched with real simulations, prior names searched on the re-weighted bank).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>optimize_irf</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>optimize_noise</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>optimize_priors</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>is_bi</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>], <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.PriorBank">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PriorBank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_share</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#PriorBank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.PriorBank" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Simulated pixels from a broad proposal, re-weighted to any candidate set of Beta priors.</p>
+<p>The bank is a defensive mixture: <code class="docutils literal notranslate"><span class="pre">uniform_share</span></code> of the pixels come from flat
+Beta(1, 1) priors on the current supports, the rest from the current priors widened
+about 4x in variance. For target priors <code class="docutils literal notranslate"><span class="pre">pi</span></code> each pixel gets the weight
+<code class="docutils literal notranslate"><span class="pre">pi(theta)</span> <span class="pre">/</span> <span class="pre">q(theta)</span></code>, so the statistics of any candidate prior are obtained
+without re-simulating. IRF, noise and photon priors stay fixed inside one bank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>uniform_share</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.PriorBank.weights">
+<span class="sig-name descname"><span class="pre">weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#PriorBank.weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.PriorBank.weights" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>priors</strong> (<a class="reference internal" href="pyfli.simulator.calibration.prior_estimation.html#pyfli.simulator.calibration.prior_estimation.PriorSet" title="pyfli.simulator.calibration.prior_estimation.PriorSet"><em>PriorSet</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.PriorBank.distance">
+<span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#PriorBank.distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.PriorBank.distance" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>priors</strong> (<a class="reference internal" href="pyfli.simulator.calibration.prior_estimation.html#pyfli.simulator.calibration.prior_estimation.PriorSet" title="pyfli.simulator.calibration.prior_estimation.PriorSet"><em>PriorSet</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.recenter_tau2_support">
+<span class="sig-name descname"><span class="pre">recenter_tau2_support</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#recenter_tau2_support"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.recenter_tau2_support" title="Link to this definition">#</a></dt>
+<dd><p>Move <code class="docutils literal notranslate"><span class="pre">tau2_beta_range</span></code> to the fitted prior’s 0.1-99.9 % range plus <code class="docutils literal notranslate"><span class="pre">margin</span></code> on each
+side, keeping the prior’s mean and SD. Initial supports from noisy per-pixel fits are
+usually far too wide, which wastes the bank and makes the Beta very skewed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>margin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.fit_priors_on_bank">
+<span class="sig-name descname"><span class="pre">fit_priors_on_bank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_evals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_ess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#fit_priors_on_bank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.fit_priors_on_bank" title="Link to this definition">#</a></dt>
+<dd><p>One bank round: simulate, global search (differential evolution), Nelder-Mead polish.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>)</p></li>
+<li><p><strong>n_bank</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>max_evals</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>round_idx</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>min_ess</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>[<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfli.simulator.calibration.optimizer.run_calibration_rounds">
+<span class="sig-name descname"><span class="pre">run_calibration_rounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuisance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_evals_nuisance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_evals_priors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyfli/simulator/calibration/optimizer.html#run_calibration_rounds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyfli.simulator.calibration.optimizer.run_calibration_rounds" title="Link to this definition">#</a></dt>
+<dd><p>Alternate prior fits (bank) and IRF / detector fits (real simulations).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>)</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext" title="pyfli.simulator.calibration.optimizer.ObjectiveContext"><em>ObjectiveContext</em></a>)</p></li>
+<li><p><strong>nuisance</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>)</p></li>
+<li><p><strong>prior_names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>)</p></li>
+<li><p><strong>n_bank</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>rounds</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>max_evals_nuisance</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>max_evals_priors</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>[<a class="reference internal" href="#pyfli.simulator.calibration.optimizer.CalibrationState" title="pyfli.simulator.calibration.optimizer.CalibrationState"><em>CalibrationState</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState"><code class="docutils literal notranslate"><span class="pre">CalibrationState</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState.irf"><code class="docutils literal notranslate"><span class="pre">CalibrationState.irf</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState.priors"><code class="docutils literal notranslate"><span class="pre">CalibrationState.priors</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState.dcr"><code class="docutils literal notranslate"><span class="pre">CalibrationState.dcr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState.photon_scale"><code class="docutils literal notranslate"><span class="pre">CalibrationState.photon_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState.a_range"><code class="docutils literal notranslate"><span class="pre">CalibrationState.a_range()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.CalibrationState.b_range"><code class="docutils literal notranslate"><span class="pre">CalibrationState.b_range()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.fm"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.fm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.detector_type"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.detector_type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.laser_freq_mhz"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.laser_freq_mhz</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.jitter"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.jitter</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.comparator"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.comparator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.bg_bins"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.bg_bins</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.exp_counts"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.exp_counts</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.exp_peaks"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.exp_peaks</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.data_max"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.data_max</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.bit_depth"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.bit_depth</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.prior_inflation"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.prior_inflation</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.n_sim"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.n_sim</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.seed"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.seed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.reference_moments"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.reference_moments</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.reference_weight"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.reference_weight</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.fixed_photon_prior"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.fixed_photon_prior</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ObjectiveContext.inactive_bins"><code class="docutils literal notranslate"><span class="pre">ObjectiveContext.inactive_bins</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.active_photon_fraction"><code class="docutils literal notranslate"><span class="pre">active_photon_fraction()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.refresh_photon_prior"><code class="docutils literal notranslate"><span class="pre">refresh_photon_prior()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ParameterVector"><code class="docutils literal notranslate"><span class="pre">ParameterVector</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ParameterVector.initial"><code class="docutils literal notranslate"><span class="pre">ParameterVector.initial()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.ParameterVector.state"><code class="docutils literal notranslate"><span class="pre">ParameterVector.state()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.evaluate"><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.optimize_stage"><code class="docutils literal notranslate"><span class="pre">optimize_stage()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.stage_parameter_names"><code class="docutils literal notranslate"><span class="pre">stage_parameter_names()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.PriorBank"><code class="docutils literal notranslate"><span class="pre">PriorBank</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.PriorBank.weights"><code class="docutils literal notranslate"><span class="pre">PriorBank.weights()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.PriorBank.distance"><code class="docutils literal notranslate"><span class="pre">PriorBank.distance()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.recenter_tau2_support"><code class="docutils literal notranslate"><span class="pre">recenter_tau2_support()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.fit_priors_on_bank"><code class="docutils literal notranslate"><span class="pre">fit_priors_on_bank()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyfli.simulator.calibration.optimizer.run_calibration_rounds"><code class="docutils literal notranslate"><span class="pre">run_calibration_rounds()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/api/generated/pyfli.simulator.calibration.optimizer.rst">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFLI developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
