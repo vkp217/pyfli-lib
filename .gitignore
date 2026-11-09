@@ -26,6 +26,9 @@ docs/
 examples/
 !examples/
 !examples/*.ipynb
+examples/harmonic_offset_example.ipynb
+examples/harmonic_offset_bi_example.ipynb
+examples/harmonic_offset_three_lifetimes_example.ipynb
 docsrc/_build/
 docsrc/api/generated/
 docsrc/_build_polyversion/

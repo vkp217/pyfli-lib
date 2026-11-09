@@ -26,9 +26,6 @@ examples/Monoexponential_percentage_fit
 
 examples/Phasor_analysis_mono
 examples/Phasor_analysis_bi
-examples/harmonic_offset_example
-examples/harmonic_offset_bi_example
-examples/harmonic_offset_three_lifetimes_example
 ```
 
 ```{toctree}
