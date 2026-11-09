@@ -19,23 +19,35 @@ actual pipeline math so it is defined exactly once.
 from typing import Any
 
 import numpy as np
-from scipy.signal import fftconvolve
 
 from .distributions import ParameterSampler
 from .noise_models import NoiseEngine
 
 
 def _build_maps(
-    p: Any, photon_count: Any, mono_only_maps: bool, h_shift: Any
+    p: Any,
+    photon_count: Any,
+    mono_only_maps: bool,
+    jitter_bins: float,
+    dt: float,
+    v_shift: float = 0.0,
 ) -> dict[Any, Any]:
-    """Build the parameter-maps dict, optionally trimmed for mono pixels."""
+    """
+    Build the parameter-maps dict, optionally trimmed for mono pixels, in the solver's
+    convention: ``photon_count_map`` is ``S``, ``v_shift_map`` the mean background per bin,
+    ``h_shift_map`` the jitter delay in ns (``h_shift_jit_map`` is the same delay in bins).
+    """
+    shifts = {
+        "h_shift_jit_map": jitter_bins,
+        "h_shift_map": jitter_bins * dt,
+        "v_shift_map": v_shift,
+    }
     if mono_only_maps and p["mono"]:
         return {
             "tau_map": p["tau"],
             "photon_count_map": photon_count,
             "mono_map": p["mono"],
-            "h_shift_jit_map": h_shift,
-            "v_shift_map": 0,
+            **shifts,
         }
     return {
         "tau1_map": p["tau1"],
@@ -47,17 +59,20 @@ def _build_maps(
         "tau_mean_map": p["tau1"] * p["f"] + p["tau2"] * (1 - p["f"]),
         "photon_count_map": photon_count,
         "mono_map": p["mono"],
-        "h_shift_jit_map": h_shift,
-        "v_shift_map": 0,
+        **shifts,
     }
 
 
 class BaseContinuousSimulator:
     """
     Shared ``__call__`` pipeline for MacroSimulator/ContinuousSimulator: samples
-    lifetime parameters, scales an IRF-convolved analytical decay to a Beta-sampled
-    peak intensity, and applies the jitter/QE/DCR/read-noise/Poisson/quantization
-    pipeline.
+    lifetime parameters, scales the expected decay (the engine's
+    :meth:`~pyfli.simulator.sim_engine_common.BaseFLIEngine.expected_decay`, i.e. the
+    solver's forward model, circular for ``pileup_mode="wrap"``) to a Beta-sampled peak
+    intensity, then applies, in the order of a camera, QE, jitter, shot noise on the
+    signal, dark counts, read noise, rounding and clipping. ``fit_map`` is the
+    expectation of the result before read noise, rounding and clipping (signal + dark
+    counts).
 
     Subclasses set the following class attributes:
 
@@ -66,7 +81,8 @@ class BaseContinuousSimulator:
     sample_params_name : str
         Name of the engine method that samples lifetime parameters.
     analytical_decay_name : str
-        Name of the engine method that returns the clean analytical decay.
+        Name of the engine method that returns the clean un-convolved decay (the
+        pipeline itself uses the engine's ``expected_decay``).
     mono_only_maps : bool
         Whether ``p["mono"]`` trims the returned maps dict down to
         ``{tau_map, photon_count_map, mono_map}`` (``True``, as in
@@ -110,73 +126,38 @@ class BaseContinuousSimulator:
         bit_depth = self.engine.params_cfg["bit"]
         max_adc_val = (2**bit_depth) - 1
 
-        # Sample peak intensity (A) from Beta distribution
         A = ParameterSampler.beta_sample(alpha_pc, beta_pc, scale=max_adc_val)
 
-        # Generating Clean Analytical Convolution
-        clean_decay = getattr(self.engine, self.analytical_decay_name)(p)
-        full_conv = fftconvolve(clean_decay, self.engine.irf, mode="full")[
-            : len(clean_decay)
-        ]
-
-        # INITIAL SCALING: Scale the convolved signal so its PEAK matches A
-        if np.max(full_conv) > 0:
-            scale_factor = A / np.max(full_conv)
-            obs = full_conv * scale_factor
-        else:
-            obs = full_conv.copy()
-
-        # Applying Modular Noise Pipeline
-        shift = 0
-        if self.use_jitter:
-            shift = np.random.randint(-2, 3)
-            n = len(obs)
-            if shift > 0:
-                obs = np.concatenate([np.zeros(shift), obs[: n - shift]])
-            elif shift < 0:
-                obs = np.concatenate([obs[-shift:], np.zeros(-shift)])
-
+        unit = self.engine.expected_decay(p)
+        S = A / unit.max() if unit.max() > 0 else 0.0
         if self.use_qe:
-            obs = obs * ParameterSampler.sample_qe(self.sensor_type)
+            S = S * ParameterSampler.sample_qe(self.sensor_type)
 
+        jitter = self.engine.sample_jitter() if self.use_jitter else 0.0
+        signal = self.engine.expected_decay(p, S, jitter)
+
+        obs = NoiseEngine.apply_poisson(signal) if self.use_poisson else signal.copy()
+
+        background = 0.0
         if self.use_dcr:
-            bit_scaling = bit_depth / 8.0
-            obs = NoiseEngine.apply_dcr(
-                obs, self.engine.params_cfg["dcr"] * bit_scaling
-            )
+            background = self.engine.params_cfg["dcr"] * (bit_depth / 8.0)
+            obs = NoiseEngine.apply_dcr(obs, background)
 
         if self.use_read_noise and self.sensor_type == "CONTINUOUS":
             hw = ParameterSampler.sample_noise_params(bit_depth, self.sensor_type)
             obs = NoiseEngine.apply_read_noise(obs, hw["read_sigma"])
 
-        if self.use_poisson:
-            # Poisson must be applied to the intensity-scaled signal
-            obs = NoiseEngine.apply_poisson(obs)
-
-        # Final Quantization
         if self.use_rounding:
             obs = np.round(obs)
 
         if self.use_clipping:
             obs = np.clip(obs, 0, max_adc_val)
 
-        # FINAL FIT SCALING: Scale the "Clean Fit" to match the "Observed Peak"
-        # This ensures the residuals (obs - fit) reflect ONLY the noise/stochastics
-        obs_peak = np.max(obs)
-        if obs_peak > 0:
-            fit_map = full_conv * (
-                obs_peak / np.max(full_conv) if np.max(full_conv) > 0 else 1.0
-            )
-            if self.use_jitter:
-                n = len(fit_map)
-                if shift > 0:
-                    fit_map = np.concatenate([np.zeros(shift), fit_map[: n - shift]])
-                elif shift < 0:
-                    fit_map = np.concatenate([fit_map[-shift:], np.zeros(-shift)])
-        else:
-            fit_map = np.zeros_like(obs)
+        fit_map = signal + background
 
-        maps = _build_maps(p, A, self.mono_only_maps, shift)
+        maps = _build_maps(
+            p, S, self.mono_only_maps, jitter, self.engine.dt, background
+        )
 
         return {
             "raw_data": {"decay": obs, "irf": self.engine.irf},
@@ -190,8 +171,11 @@ class BaseContinuousSimulator:
 class BaseDiscreteSimulator:
     """
     Shared ``__call__`` pipeline for TCSPCSimulator/PhotonCountSimulator: samples
-    lifetime parameters, runs a TCSPC photon-by-photon histogram, and applies the
-    jitter/DCR/quantization pipeline.
+    lifetime parameters, runs a TCSPC photon-by-photon histogram (with the timing jitter
+    applied to the photons), and adds dark counts and counter clipping. ``fit_map`` is the
+    exact expectation of the histogram, the engine's
+    :meth:`~pyfli.simulator.sim_engine_common.BaseFLIEngine.expected_decay` (the solver's
+    forward model, circular for ``pileup_mode="wrap"``) plus the dark counts.
 
     Subclasses set the following class attributes:
 
@@ -200,7 +184,8 @@ class BaseDiscreteSimulator:
     sample_params_name : str
         Name of the engine method that samples lifetime parameters.
     analytical_decay_name : str
-        Name of the engine method that returns the clean analytical decay.
+        Name of the engine method that returns the clean un-convolved decay (the
+        pipeline itself uses the engine's ``expected_decay``).
     simulate_tcspc_name : str
         Name of the engine method that runs the TCSPC photon histogram.
     mono_only_maps : bool
@@ -257,37 +242,30 @@ class BaseDiscreteSimulator:
             if self.use_qe
             else mu_per_cycle
         )
-        obs = getattr(self.engine, self.simulate_tcspc_name)(p, n_cycles, effective_mu)
-
-        # Fit Scaling
-        total_photons_expected = effective_mu * n_cycles
-        clean = getattr(self.engine, self.analytical_decay_name)(p)
-        fit_norm = fftconvolve(clean, self.engine.irf, mode="full")[: len(clean)]
-        fit = (
-            fit_norm * (total_photons_expected / np.sum(fit_norm))
-            if np.sum(fit_norm) > 0
-            else fit_norm
+        jitter = self.engine.sample_jitter() if self.use_jitter else 0.0
+        obs = getattr(self.engine, self.simulate_tcspc_name)(
+            p, n_cycles, effective_mu, jitter
         )
 
-        shift = 0
-        if self.use_jitter:
-            shift = np.random.randint(-2, 3)
-            n = len(obs)
-            if shift > 0:
-                obs = np.concatenate([np.zeros(shift), obs[: n - shift]])
-                fit = np.concatenate([np.zeros(shift), fit[: n - shift]])
-            elif shift < 0:
-                obs = np.concatenate([obs[-shift:], np.zeros(-shift)])
-                fit = np.concatenate([fit[-shift:], np.zeros(-shift)])
+        total_photons_expected = effective_mu * n_cycles
 
+        background = 0.0
         if self.use_dcr:
-            # DCR is a detector property (dark counts/bin/cycle) — independent of counter bit depth
-            obs = NoiseEngine.apply_dcr(obs, self.engine.params_cfg["dcr"])
+            background = self.engine.params_cfg["dcr"]
+            obs = NoiseEngine.apply_dcr(obs, background)
+        fit = self.engine.expected_decay(p, total_photons_expected, jitter, background)
 
         if self.use_clipping:
             obs = np.clip(obs, 0, max_bin_count)
 
-        maps = _build_maps(p, total_photons_expected, self.mono_only_maps, shift)
+        maps = _build_maps(
+            p,
+            total_photons_expected,
+            self.mono_only_maps,
+            jitter,
+            self.engine.dt,
+            background,
+        )
 
         return {
             "raw_data": {"decay": obs, "irf": self.engine.irf},

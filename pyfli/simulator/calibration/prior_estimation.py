@@ -7,7 +7,7 @@ from scipy.optimize import minimize
 from scipy.special import expit, logit
 
 from pyfli import logging
-from pyfli.solver.shared_metrics import poisson_deviance
+from pyfli.cm_stats.shared_metrics import poisson_deviance
 
 from .config import (
     SIM_FRACTION_OFFSET,

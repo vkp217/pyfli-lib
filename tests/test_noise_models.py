@@ -136,3 +136,141 @@ class TestApplyJitter:
         out = NoiseEngine.apply_jitter(clean_signal, max_shift=2)
         # Sum should be within the range of the original signal (up to boundary loss)
         assert out.sum() <= clean_signal.sum() + 1e-9
+
+
+def test_simulator_v_shift_map_reports_dark_counts():
+    import numpy as np
+
+    from pyfli.simulator import FLIModelImageGenerator
+
+    t = np.arange(256) * 12.5 / 256
+    irf = np.exp(-0.5 * ((t - 1.5) / 0.1) ** 2)
+    common = dict(
+        laser_feq=80.0, photo_count=(2, 5), mono_fraction=1.0, jitter=False, seed=1
+    )
+    for sensor, method, dcr_on in [
+        ("discrete", "PHOTON_COUNTER", True),
+        ("discrete", "PHOTON_COUNTER", False),
+        ("continuous", "continuous", True),
+    ]:
+        cfg = dict(
+            common,
+            sensor_type=sensor,
+            dcr_on=dcr_on,
+            dcr=0.08,
+            bit=12,
+            n_cycles=(1_000_000, 1_000_000),
+        )
+        maps = FLIModelImageGenerator(
+            irf_data=irf,
+            roi_mask=np.ones((2, 2), int),
+            image_shape=(2, 2),
+            roi_params=[cfg],
+            method=method,
+            verbose=False,
+        ).generate_image()["results"]["maps"]
+        expected = (
+            (0.08 * (12 / 8.0) if sensor == "continuous" else 0.08) if dcr_on else 0.0
+        )
+        np.testing.assert_allclose(maps["v_shift_map"], expected)
+
+
+def test_simulator_fit_map_includes_background():
+    import numpy as np
+
+    from pyfli.simulator import FLIModelImageGenerator
+
+    t = np.arange(256) * 12.5 / 256
+    irf = np.exp(-0.5 * ((t - 1.5) / 0.1) ** 2)
+    cfg = dict(
+        sensor_type="discrete",
+        laser_feq=80.0,
+        photo_count=(2, 5),
+        mono_fraction=1.0,
+        jitter=False,
+        qe_on=False,
+        dcr_on=True,
+        dcr=0.5,
+        n_cycles=(1_000_000, 1_000_000),
+        seed=2,
+    )
+    out = FLIModelImageGenerator(
+        irf_data=irf,
+        roi_mask=np.ones((8, 8), int),
+        image_shape=(8, 8),
+        roi_params=[cfg],
+        method="PHOTON_COUNTER",
+        verbose=False,
+    ).generate_image()
+    fit = out["results"]["TR_maps"]["fit_map"]
+    residual = out["results"]["TR_maps"]["residual_map"]
+    assert np.all(fit.min(-1) >= 0.5 - 1e-6)
+    assert abs(residual[..., -40:].mean()) < 0.1
+    np.testing.assert_allclose(
+        fit.sum(-1).mean(), out["raw_data"]["decay"].sum(-1).mean(), rtol=0.02
+    )
+
+
+def _mean_and_fit(sim_cls, cfg, n=400):
+    import numpy as np
+
+    t = np.arange(256) * 12.5 / 256
+    irf = np.exp(-0.5 * ((t - 1.5) / 0.1) ** 2)
+    sim = sim_cls(irf, **cfg)
+    outs = [sim() for _ in range(n)]
+    obs = np.mean([o["raw_data"]["decay"] for o in outs], axis=0)
+    fit = np.mean([o["results"]["TR_maps"]["fit_map"] for o in outs], axis=0)
+    return obs, fit, n
+
+
+def test_photon_simulator_fit_map_is_expectation():
+    import numpy as np
+
+    from pyfli.simulator.separate.main_factory_gen import PhotonCountSimulator
+
+    for mode in ("wrap", "truncate"):
+        cfg = dict(
+            laser_feq=80.0,
+            mono_fraction=1.0,
+            tau2_dist="beta",
+            tau2_beta_range=(1e-9, 4.0),
+            jitter=False,
+            qe_on=False,
+            dcr_on=True,
+            dcr=0.2,
+            n_cycles=(1_000_000, 1_000_000),
+            pileup_mode=mode,
+            seed=3,
+        )
+        obs, fit, n = _mean_and_fit(PhotonCountSimulator, cfg)
+        z = (obs - fit) / np.sqrt(fit / n)
+        assert np.abs(z).max() < 5, (mode, np.abs(z).max())
+        assert abs(z.mean()) < 0.3
+
+
+def test_iccd_simulator_fit_map_is_expectation():
+    import numpy as np
+
+    from pyfli.simulator.separate.main_factory_gen import ContinuousSimulator
+
+    cfg = dict(
+        laser_feq=80.0,
+        mono_fraction=1.0,
+        tau2_dist="beta",
+        tau2_beta_range=(1e-9, 2.5),
+        photo_count=(50, 50),
+        bit=12,
+        jitter=False,
+        qe_on=False,
+        dcr_on=True,
+        dcr=2.0,
+        poisson=True,
+        read_noise_on=True,
+        round_on=True,
+        clip_on=False,
+        seed=4,
+    )
+    np.random.seed(4)
+    obs, fit, n = _mean_and_fit(ContinuousSimulator, cfg, n=600)
+    assert abs((obs - fit).mean()) < 0.2
+    assert np.abs(obs - fit).max() < 0.05 * fit.max()

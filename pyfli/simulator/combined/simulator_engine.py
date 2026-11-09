@@ -14,7 +14,6 @@ from typing import Any
 
 import numpy as np
 
-from ...reconstruction.common_reconstruct import bi_reconstruction
 from ..distributions import ParameterSampler
 from ..sim_engine_common import BaseFLIEngine
 
@@ -33,7 +32,9 @@ class FLIEngine(BaseFLIEngine):
     efficiency : tuple[int, ...]
         FRET transfer efficiency used to derive simulated lifetime components.
     A1_fraction : tuple[int, ...]
-        Amplitude fraction assigned to the first exponential component.
+        Beta shape of the photon (intensity) fraction ``f`` of the first component, the
+        solver's ``alpha1``; ``A1_map``/``A2_map`` report the matching pre-exponential
+        amplitude fractions.
     photo_count : tuple[float, int]
         Expected photon count used to scale the simulated decay.
     mono_fraction : float
@@ -99,11 +100,11 @@ class FLIEngine(BaseFLIEngine):
 
         if is_mono:
             if self.rng.random() < 0.9:
-                E, A1 = 0.0, self.rng.uniform(0.99, 0.9999)
+                E, f = 0.0, self.rng.uniform(0.99, 0.9999)
             else:
-                E, A1 = self.rng.uniform(0.99, 1.0), self.rng.uniform(0.0001, 0.01)
+                E, f = self.rng.uniform(0.99, 1.0), self.rng.uniform(0.0001, 0.01)
             t1 = t2 * (1 - E)
-            f = self._steady_state_mix(A1, 1.0 - A1, t1, t2, self.laser_period)
+            A1, A2 = self._amplitude_fractions(f, t1, t2)
             return {
                 "mono": True,
                 "E": E,
@@ -111,18 +112,17 @@ class FLIEngine(BaseFLIEngine):
                 "tau1": t1,
                 "tau2": t2,
                 "A1": A1,
-                "A2": 1.0 - A1,
+                "A2": A2,
             }
 
         E = ParameterSampler.sample_beta(
             *self.params_cfg["eff"], scale=0.9, offset=0.1, rng=self.rng
         )
-        A1 = ParameterSampler.sample_beta(
+        f = ParameterSampler.sample_beta(
             *self.params_cfg["A1"], scale=0.9, offset=0.05, rng=self.rng
         )
-        A2 = 1.0 - A1
         t1 = t2 * (1 - E)
-        f = self._steady_state_mix(A1, A2, t1, t2, self.laser_period)
+        A1, A2 = self._amplitude_fractions(f, t1, t2)
         return {
             "mono": False,
             "E": E,
@@ -134,32 +134,16 @@ class FLIEngine(BaseFLIEngine):
         }
 
     def get_analytical_decay(self, p: Any) -> Any:
-        """
-        Return analytical decay.
+        """Noise-free photon fraction per gate before the IRF (:meth:`analytical_decay`)."""
+        return self.analytical_decay(p)
 
-        Parameters
-        ----------
-        p : Any
-            Detector parameter object or fitted parameter vector.
-
-        Returns
-        -------
-        Any
-            Object produced by get analytical decay.
-        """
-        T = self.laser_period
-        # steady-state scaling factor per component
-        scaling_factor1 = 1.0 / (1.0 - np.exp(-T / p["tau1"]))
-        scaling_factor2 = 1.0 / (1.0 - np.exp(-T / p["tau2"]))
-        return bi_reconstruction(
-            self.t,
-            p["tau1"],
-            p["tau2"],
-            p["A1"] * scaling_factor1,
-            p["A2"] * scaling_factor2,
-        )
-
-    def simulate_tcspc(self, p: Any, n_cycles: int, mu_per_cycle: np.ndarray) -> Any:
+    def simulate_tcspc(
+        self,
+        p: Any,
+        n_cycles: int,
+        mu_per_cycle: np.ndarray,
+        jitter_bins: float = 0.0,
+    ) -> Any:
         """Photon-by-photon logic for TCSPC mode."""
         total_photons = self.rng.poisson(mu_per_cycle * n_cycles)
         if total_photons == 0:
@@ -171,4 +155,4 @@ class FLIEngine(BaseFLIEngine):
         times[comp1] = self.rng.exponential(p["tau1"], size=comp1.sum())
         times[~comp1] = self.rng.exponential(p["tau2"], size=(~comp1).sum())
 
-        return self._bin_tcspc_photons(times)
+        return self._bin_tcspc_photons(times, jitter_bins)

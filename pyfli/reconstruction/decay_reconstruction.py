@@ -15,18 +15,24 @@ import numpy as np
 from scipy.signal import fftconvolve
 from tqdm import tqdm
 
-from pyfli.solver.forward_model import (
+from pyfli.cm_funcs.forward_model import (
     decay_kernel,
     gate_integrated_kernel,
     model_numpy,
     negative_lag_gates,
+    validate_excitation,
+    validate_gate_width,
+    validate_shift_method,
 )
-from pyfli.solver.shared_metrics import (
+from pyfli.cm_stats.chi_square import degrees_of_freedom
+from pyfli.cm_stats.goodness_of_fit import r_squared, rmse
+from pyfli.cm_stats.shared_metrics import (
     compute_fli_stats,
     compute_pearson_stats,
     pearson_chi_square,
     reduced_poisson_deviance,
 )
+from pyfli.reconstruction.common_reconstruct import circular_convolve, gate_starts
 
 # Matches forward_model._EPS — kept as a local literal since that name is
 # module-private in forward_model.
@@ -42,9 +48,9 @@ class ParamToDecay:
     and optionally derives fit-quality maps (``TR_maps`` and per-pixel
     :func:`compute_fli_stats` summaries) when the measured decay is also
     supplied. When an IRF is available, pixels are rebuilt via
-    :func:`pyfli.solver.forward_model.model_numpy` (kernel convolved with the
+    :func:`pyfli.cm_funcs.forward_model.model_numpy` (kernel convolved with the
     IRF); when no IRF is given, pixels are rebuilt directly from
-    :func:`pyfli.solver.forward_model.decay_kernel` (the un-convolved model).
+    :func:`pyfli.cm_funcs.forward_model.decay_kernel` (the un-convolved model).
 
     ``"photon_count_map"``, ``"v_shift_map"``, and ``"h_shift_map"`` are
     optional — missing ones default to 1.0, 0.0, and 0.0 respectively (see
@@ -65,7 +71,7 @@ class ParamToDecay:
     ``(H, W, ...)`` map — see :meth:`reconstruct`.
 
     New model families can be added by extending :attr:`PARAM_MAP_KEYS` (and the
-    matching kernel in :mod:`pyfli.solver.forward_model`); new post-reconstruction
+    matching kernel in :mod:`pyfli.cm_funcs.forward_model`); new post-reconstruction
     map products can be added by overriding :meth:`_compute_tr_maps` in a subclass.
 
     Parameters
@@ -83,11 +89,20 @@ class ParamToDecay:
         Instrument response function; either a shared 1-D trace or a per-pixel
         ``(H, W, T)`` cube. The number of time gates is inferred from its last
         axis (or its length, if 1-D). If omitted, pixels are reconstructed
-        without IRF convolution (see :func:`pyfli.solver.forward_model.decay_kernel`)
+        without IRF convolution (see :func:`pyfli.cm_funcs.forward_model.decay_kernel`)
         and ``num_gates`` must be supplied instead.
     num_gates : int | None
         Number of time gates/bins. Required only when ``irf`` is omitted;
         otherwise it is inferred from ``irf`` and this argument is ignored.
+    shift_method : str
+        Forward model of the fit: ``"zero_pad"`` (linear convolution) or
+        ``"circular"`` (periodic steady state over a window of one laser period); see
+        :func:`pyfli.cm_funcs.forward_model.model_numpy`.
+    excitation : str
+        Excitation within each IRF gate, ``"bin_start"`` (default) or ``"uniform"``.
+    gate_width : float | None
+        Detection-gate width in ns (``None``: the gate spacing); only for an IRF not
+        recorded through the same gate.
     """
 
     #: Registry of {model_type: required parameter-map keys}, in the exact order
@@ -126,7 +141,13 @@ class ParamToDecay:
         freq: float,
         irf: np.ndarray | None = None,
         num_gates: int | None = None,
+        shift_method: str = "zero_pad",
+        excitation: str = "bin_start",
+        gate_width: float | None = None,
     ) -> None:
+        self.shift_method = validate_shift_method(shift_method)
+        self.excitation = validate_excitation(excitation)
+        self.gate_width = validate_gate_width(gate_width)
         if model_type not in self.PARAM_MAP_KEYS:
             raise ValueError(
                 f"Unknown model_type {model_type!r}; expected one of "
@@ -150,7 +171,7 @@ class ParamToDecay:
             self.irf = None
             self.num_gates = int(num_gates)
 
-        self.t = np.linspace(0, self.T_acq, self.num_gates, endpoint=False)
+        self.t = gate_starts(self.T_acq, self.num_gates)
 
     @property
     def param_keys(self) -> tuple[str, ...]:
@@ -210,8 +231,9 @@ class ParamToDecay:
         """
         When ``"photon_count_map"`` is omitted but ``decay`` is supplied, solve
         for the amplitude S that makes the model's own convolved-kernel
-        discrete sum match ``decay``'s discrete sum at each pixel, instead of
-        falling back to the constant default in :attr:`PARAM_MAP_DEFAULTS`.
+        discrete sum match ``decay``'s discrete sum minus the ``v_shift``
+        baseline at each pixel, instead of falling back to the constant
+        default in :attr:`PARAM_MAP_DEFAULTS`.
 
         This is *not* the same as ``decay.sum(axis=-1)``: the model kernel's
         own discrete sum at unit amplitude is generally not 1 (it depends on
@@ -231,7 +253,8 @@ class ParamToDecay:
             else self._kernel_vectorized(unit_params)
         )
         fit_sum = np.sum(convolved, axis=-1)
-        decay_total = np.asarray(decay).sum(axis=-1)
+        v_shift = self._get_map(params, "v_shift_map")
+        decay_total = np.asarray(decay).sum(axis=-1) - v_shift * self.num_gates
         S = np.zeros_like(decay_total, dtype=np.float64)
         np.divide(decay_total, fit_sum, out=S, where=fit_sum > _EPS)
 
@@ -259,7 +282,13 @@ class ParamToDecay:
 
         if self.irf is not None:
             return model_numpy(
-                self.t, self._pixel_irf(i, j), full_params, self.model_type
+                self.t,
+                self._pixel_irf(i, j),
+                full_params,
+                self.model_type,
+                self.shift_method,
+                self.excitation,
+                self.gate_width,
             )
 
         # No IRF: use the un-convolved kernel directly (decay_kernel already
@@ -267,7 +296,13 @@ class ParamToDecay:
         h_shift = float(full_params[-1])
         kernel_params = full_params[:-1]
         kernel, v_shift = decay_kernel(
-            self.t, kernel_params, self.model_type, h_shift=h_shift
+            self.t,
+            kernel_params,
+            self.model_type,
+            h_shift,
+            self.shift_method,
+            self.excitation,
+            self.gate_width,
         )
         return (kernel + v_shift).astype(np.float32)
 
@@ -377,7 +412,7 @@ class ParamToDecay:
     ) -> np.ndarray:
         """
         Build the un-convolved gate-integrated (H, W, T') kernel, matching
-        :func:`pyfli.solver.forward_model.gate_integrated_kernel` -- on the gates
+        :func:`pyfli.cm_funcs.forward_model.gate_integrated_kernel` -- on the gates
         starting at ``self.t`` (as ``decay_kernel``) unless `gate_start` is given.
         """
         dt = float(self.t[1] - self.t[0]) if self.t.size > 1 else 1.0
@@ -395,8 +430,16 @@ class ParamToDecay:
                 self._get_map(params, "tau2_map")[..., None],
                 0.0,
             )
+        period = self.T_acq if self.shift_method == "circular" else None
         kernel, _ = gate_integrated_kernel(
-            starts[None, None, :], dt, kernel_params, self.model_type, h_shift=h_shift
+            starts[None, None, :],
+            dt,
+            kernel_params,
+            self.model_type,
+            h_shift,
+            period,
+            excitation=self.excitation,
+            gate_width=self.gate_width,
         )
         return np.asarray(kernel, dtype=float)
 
@@ -405,13 +448,21 @@ class ParamToDecay:
     ) -> np.ndarray:
         """
         Batch-convolve the kernel of `params` with the (per-pixel-normalized) IRF,
-        exactly as :func:`pyfli.solver.forward_model.model_numpy` does per pixel:
-        the kernel is evaluated on extra negative-lag gates when any onset
-        ``h_shift`` is negative, so an earlier onset shifts the curve.
+        exactly as :func:`pyfli.cm_funcs.forward_model.model_numpy` does per pixel:
+        for ``"zero_pad"`` the kernel is evaluated on extra negative-lag gates when
+        any onset ``h_shift`` is negative, so an earlier onset shifts the curve; for
+        ``"circular"`` the periodic kernel is circularly convolved.
         """
         t = self.num_gates
         dt = float(self.t[1] - self.t[0]) if self.t.size > 1 else 1.0
-        n_neg = negative_lag_gates(self._get_map(params, "h_shift_map"), dt)
+        circular = self.shift_method == "circular"
+        n_neg = (
+            0
+            if circular
+            else negative_lag_gates(
+                self._get_map(params, "h_shift_map"), dt, self.gate_width
+            )
+        )
         kernel = self._kernel_vectorized(params, np.arange(-n_neg, t) * dt)
         h, w, _ = kernel.shape
         irf_arr = (
@@ -420,6 +471,8 @@ class ParamToDecay:
         irf_sum = np.sum(irf_arr, axis=-1, keepdims=True)
         safe_sum = np.where(irf_sum > 0, irf_sum, 1.0)
         irf_norm = np.where(irf_sum > 0, irf_arr / safe_sum, irf_arr)
+        if circular:
+            return circular_convolve(kernel, irf_norm)
         return fftconvolve(kernel, irf_norm, mode="full", axes=-1)[
             ..., n_neg : n_neg + t
         ]
@@ -444,18 +497,14 @@ class ParamToDecay:
         and its expectation-normalized reduced value; Pearson with variance floored
         at 1.0 and dof = T - n_params)."""
         n_params = len(self.param_keys)
-        dof = max(self.num_gates - n_params, 1)
+        dof = degrees_of_freedom(self.num_gates, n_params)
 
         residual_map = decay - fit_map
-        ssr = np.sum(residual_map**2, axis=-1)
         chi2_map, reduced_chi2_map = reduced_poisson_deviance(fit_map, decay, n_params)
         pearson_map = pearson_chi_square(fit_map, decay)
         pearson_reduced_map = pearson_map / dof
-        ss_tot = np.sum((decay - np.mean(decay, axis=-1, keepdims=True)) ** 2, axis=-1)
-        r2_map = np.where(
-            ss_tot > 0, 1.0 - ssr / np.where(ss_tot > 0, ss_tot, 1.0), 0.0
-        )
-        rmse_map = np.sqrt(np.mean(residual_map**2, axis=-1))
+        r2_map = r_squared(residual_map, decay)
+        rmse_map = rmse(residual_map)
 
         if bool_mask is not None:
             chi2_map = np.where(bool_mask, chi2_map, np.nan)

@@ -15,7 +15,7 @@ from pyfli.bayes_utils.posterior_pixel_plot import (
     _select_best_sample_idx,
     plot_pixel_posterior_fit,
 )
-from pyfli.solver.forward_model import model_numpy
+from pyfli.cm_funcs.forward_model import model_numpy
 
 _H, _W, _T, _NUM_SAMPLES = 3, 3, 64, 6
 _FREQ_ACQ = 80.0

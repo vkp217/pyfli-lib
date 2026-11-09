@@ -103,7 +103,7 @@ class NoiseEngine:
             Object produced by TCSPC pileup filter.
         """
         if mode == "truncate":
-            return arrival_times[arrival_times < t_rep]
+            return arrival_times[(arrival_times >= 0) & (arrival_times < t_rep)]
         if mode == "wrap":
             return arrival_times % t_rep
         raise ValueError(f"mode must be 'truncate' or 'wrap', got {mode!r}")

@@ -66,6 +66,8 @@ class SimOutput:
             "photon_count": maps["photon_count_map"],
             "Efficiency": efficiency,
             "h_shift_jit_map": maps["h_shift_jit_map"],
+            "h_shift_map": maps["h_shift_map"],
+            "v_shift_map": maps["v_shift_map"],
         }
 
 
@@ -154,13 +156,19 @@ class SimGenerator:
         )
 
     def simulate_once(self):
+        """
+        One pixel. ``h_shift`` (bins) is the delay relative to the base IRF: the applied
+        IRF roll ``round(a)`` plus the jitter. ``irf`` already contains the roll and the
+        baseline ``b``, so relative to it the solver's truth is ``h_shift_map`` (ns) and
+        ``v_shift_map``.
+        """
         irf_1d, a, b = self.offset_gen.sample()
 
         fli_simulator = self.simulator_cls(irf_data=irf_1d, **self.config)
         out = SimOutputWithIRFOffset(fli_simulator, irf_1d).run()
         out["h_shift_tof"] = a
         out["v_shift_bgp"] = b
-        out["h_shift"] = a + out["h_shift_jit_map"]
+        out["h_shift"] = round(a) + out["h_shift_jit_map"]
         return out
 
 

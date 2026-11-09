@@ -16,7 +16,13 @@ from tqdm import tqdm
 
 from pyfli import logging
 
-from .shared_metrics import pearson_chi_square
+from ..cm_funcs.forward_model import (
+    validate_excitation,
+    validate_gate_width,
+    validate_shift_method,
+)
+from ..cm_stats.chi_square import degrees_of_freedom
+from ..cm_stats.shared_metrics import pearson_chi_square
 
 try:
     from .global_fitter import GlobalFLIFitter as _GlobalFLIFitter
@@ -86,15 +92,16 @@ class FLICPUProcessor:
         irf_p = irf_p.astype(np.float32)
 
         try:
-            shift_method = kwargs.get("shift_method", "zero_pad")
-            fit_kwargs = {k: v for k, v in kwargs.items() if k != "shift_method"}
+            model_keys = ("shift_method", "excitation", "gate_width")
+            model_options = {k: kwargs[k] for k in model_keys if k in kwargs}
+            fit_kwargs = {k: v for k, v in kwargs.items() if k not in model_keys}
 
             fitter = self.fitter_class(
                 self.freq,
                 y_data,
                 irf_p,
-                shift_method=shift_method,
                 fit_indices=fit_indices,
+                **model_options,
             )
 
             res = fitter.fit_with_estimator(
@@ -175,7 +182,11 @@ class FLICPUProcessor:
             Optional (gate_num_start, gate_num_end) gate range to fit over, e.g. to
             focus on the tail of the decay. ``None`` fits the full trace.
         **kwargs : Any
-            Additional keyword options forwarded to the underlying implementation.
+            Additional keyword options forwarded to the underlying implementation;
+            ``shift_method`` (``"zero_pad"`` or ``"circular"``), ``excitation``
+            (``"bin_start"`` or ``"uniform"``) and ``gate_width`` (ns) select the forward
+            model (:func:`pyfli.cm_funcs.forward_model.model_numpy`) and are recorded in
+            the result.
 
         Returns
         -------
@@ -183,6 +194,13 @@ class FLICPUProcessor:
             Object produced by process image.
         """
         H, W, T = image_cube.shape
+        shift_method = validate_shift_method(
+            kwargs.get("shift_method", "zero_pad"),
+            1000.0 / self.freq[1],
+            1000.0 / self.freq[0],
+        )
+        excitation = validate_excitation(kwargs.get("excitation", "bin_start"))
+        gate_width = validate_gate_width(kwargs.get("gate_width"))
 
         if (
             mask is not None
@@ -307,7 +325,7 @@ class FLICPUProcessor:
         pearson_map[fitted] = pearson_chi_square(
             fit_map[fitted, gate_lo:gate_hi], image_cube[fitted, gate_lo:gate_hi]
         )
-        pearson_dof = max((gate_hi - gate_lo) - internal_popt_len, 1)
+        pearson_dof = degrees_of_freedom(gate_hi - gate_lo, internal_popt_len)
 
         param_maps.update(
             {
@@ -327,6 +345,10 @@ class FLICPUProcessor:
         return {
             "name": data_name,
             "method": f"CPU_{estimator}",
+            "shift_method": shift_method,
+            "excitation": excitation,
+            "gate_width": gate_width,
+            "fit_indices": (int(gate_lo), int(gate_hi)),
             "results": {
                 "maps": param_maps,
                 "error_maps": e_maps,

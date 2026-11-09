@@ -41,7 +41,20 @@ class ParamSelector:
         vectorized path). Both return the same
         ``{"name", "method", "results": {"maps", "error_maps", "TR_maps"}}``
         shape, so switching backends doesn't change any downstream code.
+    shift_method : str
+        Forward model, ``"zero_pad"`` or ``"circular"``, as used for the fit (see
+        :class:`pyfli.reconstruction.ParamToDecay`).
+    h_shift, v_shift : float | np.ndarray | None
+        Decay onset (ns) and per-bin background of the forward model, a scalar or an
+        (H, W) map (e.g. a solver fit's ``h_shift_map``/``v_shift_map``). ``h_shift``/
+        ``v_shift`` keys in ``output_combination`` take precedence. ``None`` means 0.
+    excitation, gate_width
+        Forward-model options as used for the fit (see
+        :class:`pyfli.reconstruction.ParamToDecay`).
     """
+
+    #: Optional nuisance keys of ``output_combination`` (no "_map" suffix).
+    SHIFT_KEYS: tuple[str, ...] = ("h_shift", "v_shift")
 
     #: Registry of {metric: (stack_key, "min" | "max")} -- whether the metric
     #: should be minimized (chi2/reduced_chi2/RMSE) or maximized (R2) to find
@@ -74,6 +87,11 @@ class ParamSelector:
         model_type="bi-exponential",
         backend="compute_detailed_results",
         bool_mask=None,
+        shift_method="zero_pad",
+        h_shift=None,
+        v_shift=None,
+        excitation="bin_start",
+        gate_width=None,
     ):
         if model_type not in ("bi-exponential", "mono-exponential"):
             raise ValueError(f"Unknown model_type: {model_type!r}")
@@ -87,10 +105,24 @@ class ParamSelector:
         self.model_type = model_type
         self.backend = backend
         self.bool_mask = bool_mask
-        # Lazily built on first use of the "reconstructor" backend.
+        self.shift_method = shift_method
+        self.excitation = excitation
+        self.gate_width = gate_width
+        self.shifts = {"h_shift": h_shift, "v_shift": v_shift}
         self._reconstructor = None
-        # Lazily built on first use of the "compute_detailed_results" backend.
         self._detailed_reconstructor = None
+
+    def _shift_maps(self, params):
+        """``h_shift_map``/``v_shift_map`` for ``params``: its own keys, else the constructor's values."""
+        ref_shape = np.shape(next(iter(params.values())))
+        out = {}
+        for key in self.SHIFT_KEYS:
+            value = params.get(key, self.shifts[key])
+            if value is not None:
+                out[f"{key}_map"] = np.broadcast_to(
+                    np.asarray(value, dtype=float), ref_shape
+                ).copy()
+        return out
 
     @staticmethod
     def _apply_bool_mask(result, bool_mask):
@@ -143,7 +175,12 @@ class ParamSelector:
     def _run_via_compute_detailed_results(self, params, data_name, log_summary=True):
         if self._detailed_reconstructor is None:
             self._detailed_reconstructor = DetailedRecon(
-                self.freq_acq, self.irf, binned_decay=self.decay
+                self.freq_acq,
+                self.irf,
+                binned_decay=self.decay,
+                shift_method=self.shift_method,
+                excitation=self.excitation,
+                gate_width=self.gate_width,
             )
 
         if self.model_type == "bi-exponential":
@@ -154,6 +191,7 @@ class ParamSelector:
             }
         else:
             cdr_params = {"tau_map": params["tau"]}
+        cdr_params.update(self._shift_maps(params))
         return self._detailed_reconstructor.reconstruct(
             cdr_params, self.model_type, data_name=data_name, log_summary=log_summary
         )
@@ -161,7 +199,12 @@ class ParamSelector:
     def _run_via_reconstructor(self, params, data_name):
         if self._reconstructor is None:
             self._reconstructor = ParamToDecay(
-                self.model_type, self.freq_acq, irf=self.irf
+                self.model_type,
+                self.freq_acq,
+                irf=self.irf,
+                shift_method=self.shift_method,
+                excitation=self.excitation,
+                gate_width=self.gate_width,
             )
 
         if self.model_type == "bi-exponential":
@@ -172,6 +215,7 @@ class ParamSelector:
             }
         else:
             recon_params = {"tau_map": params["tau"]}
+        recon_params.update(self._shift_maps(params))
 
         out = self._reconstructor.reconstruct_vectorized(
             recon_params, decay=self.decay, verbose=False
@@ -264,6 +308,9 @@ class ParamSelector:
                     }
                 else:
                     params_s = {"tau": output_combination["tau"][..., s]}
+                for key in self.SHIFT_KEYS:
+                    if key in output_combination:
+                        params_s[key] = output_combination[key][..., s]
 
                 result_s = self._run_compute_detailed_results(
                     params_s,

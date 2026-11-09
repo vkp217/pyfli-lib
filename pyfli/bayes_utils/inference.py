@@ -314,10 +314,23 @@ class BiPipeline:
     # ------------------------------------------------------------------
     # Detailed results (DetailedRecon.reconstruct)
     # ------------------------------------------------------------------
-    def compute_detailed(self, output_maps, freq, decay, irf):
+    def compute_detailed(
+        self,
+        output_maps,
+        freq,
+        decay,
+        irf,
+        shift_method="zero_pad",
+        h_shift=None,
+        v_shift=None,
+        excitation="bin_start",
+        gate_width=None,
+    ):
         """
-        Run DetailedRecon.reconstruct on the output maps for
-        the configured model_type.
+        Run DetailedRecon.reconstruct on the output maps for the configured model_type,
+        with the forward model `shift_method` (and `excitation`, `gate_width`) and
+        optional onset ``h_shift`` (ns) and background ``v_shift`` (scalars or (H, W)
+        maps; ``output_maps`` keys win).
 
         Returns the raw results dict (bi_bi or bi_mono equivalent).
         """
@@ -333,8 +346,22 @@ class BiPipeline:
             data_name = "Bi_mono"
         else:
             raise ValueError(f"Unknown MODEL_TYPE: {self.model_type!r}")
+        ref_shape = np.shape(next(iter(cdr_params.values())))
+        for key, value in (("h_shift", h_shift), ("v_shift", v_shift)):
+            value = output_maps.get(key, value)
+            if value is not None:
+                cdr_params[f"{key}_map"] = np.broadcast_to(
+                    np.asarray(value, dtype=float), ref_shape
+                ).copy()
 
-        reconstructor = DetailedRecon(freq, irf, binned_decay=decay)
+        reconstructor = DetailedRecon(
+            freq,
+            irf,
+            binned_decay=decay,
+            shift_method=shift_method,
+            excitation=excitation,
+            gate_width=gate_width,
+        )
         detailed = reconstructor.reconstruct(
             cdr_params, self.model_type, data_name=data_name
         )

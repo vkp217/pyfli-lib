@@ -635,3 +635,330 @@ def test_output_contract():
     assert maps["tau1_map"].shape == (3, 3)
     assert tr["fit_map"].shape == (3, 3, T)
     assert np.isfinite(maps["tau_mean_map"]).all()
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Consistency with the solver forward model, parameter counts and statistics
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+class TestSolverConsistency:
+    N_GATES = 256
+    PERIOD = 12.5
+    DT = PERIOD / N_GATES
+
+    @pytest.fixture
+    def axis(self):
+        from pyfli.reconstruction.common_reconstruct import gate_starts
+
+        t = gate_starts(self.PERIOD, self.N_GATES)
+        return t, np.exp(-0.5 * ((t - 1.0) / 0.1) ** 2)
+
+    def _fit(self, decay, irf, n_components, **kwargs):
+        m = LaguerreFLI(
+            n_components, n_laguerre=16, alpha=0.9, dt=self.DT, verbose=False, **kwargs
+        )
+        return m.fit(decay, irf), m.fit(decay, irf).get_parameters()
+
+    @pytest.mark.parametrize(
+        "shift_method,background",
+        [("zero_pad", 0.0), ("circular", 0.0), ("zero_pad", 3.0)],
+    )
+    def test_bi_parameters_follow_solver_definitions(
+        self, axis, shift_method, background
+    ):
+        from pyfli.cm_funcs.forward_model import model_numpy
+        from pyfli.reconstruction import ParamToDecay
+
+        t, irf = axis
+        truth = [1e5, 0.5, 0.3, 4.0, background, 0.0]
+        decay = model_numpy(t, irf, truth, "bi-exponential", shift_method)
+        m, out = self._fit(
+            decay, irf, 2, shift_method=shift_method, fit_background=background > 0
+        )
+        maps = out["results"]["maps"]
+        np.testing.assert_allclose(maps["alpha1_map"], 0.5, atol=1e-3)
+        np.testing.assert_allclose(maps["photon_count_map"], 1e5, rtol=1e-4)
+        np.testing.assert_allclose(
+            maps["tau_mean_map"], 0.5 * 0.3 + 0.5 * 4.0, rtol=1e-3
+        )
+        np.testing.assert_allclose(maps["v_shift_map"], background, atol=1e-2)
+        np.testing.assert_allclose(m.taus_.ravel(), [0.3, 4.0], rtol=1e-3)
+        keys = ["tau1_map", "tau2_map", "alpha1_map", "photon_count_map", "v_shift_map"]
+        recon = ParamToDecay("bi-exponential", 80.0, irf, shift_method=shift_method)
+        fit = recon.reconstruct({k: maps[k] for k in keys}, verbose=False)["fit_map"]
+        np.testing.assert_allclose(
+            out["results"]["TR_maps"]["fit_map"], fit, rtol=1e-5, atol=1e-3
+        )
+
+    def test_mono_parameters_follow_solver_definitions(self, axis):
+        from pyfli.cm_funcs.forward_model import model_numpy
+
+        t, irf = axis
+        decay = model_numpy(t, irf, [5e4, 2.0, 0.0, 0.0], "mono-exponential")
+        m, out = self._fit(decay, irf, 1)
+        maps = out["results"]["maps"]
+        np.testing.assert_allclose(maps["tau_map"], 2.0, rtol=1e-4)
+        np.testing.assert_allclose(maps["tau_mean_map"], 2.0, rtol=1e-4)
+        np.testing.assert_allclose(maps["photon_count_map"], 5e4, rtol=1e-4)
+        np.testing.assert_allclose(maps["alpha_map"], 1.0)
+
+    @pytest.mark.parametrize(
+        "n_components,background", [(1, False), (2, False), (2, True)]
+    )
+    def test_n_params_and_statistics(self, axis, n_components, background):
+        from pyfli.cm_funcs.forward_model import model_numpy
+        from pyfli.cm_stats.shared_metrics import (
+            pearson_chi_square,
+            reduced_poisson_deviance,
+        )
+
+        t, irf = axis
+        rng = np.random.default_rng(0)
+        mu = model_numpy(
+            t, irf, [2e4, 0.5, 0.4, 3.0, 2.0 * background, 0.0], "bi-exponential"
+        )
+        decay = rng.poisson(np.broadcast_to(mu, (3, 3, self.N_GATES))).astype(float)
+        m, out = self._fit(decay, irf, n_components, fit_background=background)
+        maps, tr = out["results"]["maps"], out["results"]["TR_maps"]
+        n_params = 2 * n_components + background
+        _, red = reduced_poisson_deviance(tr["fit_map"], decay, n_params)
+        np.testing.assert_allclose(maps["reduced_chi2_map"], red, rtol=1e-4)
+        _, lag_red = reduced_poisson_deviance(
+            tr["laguerre_fit_map"], decay, 16 + background
+        )
+        np.testing.assert_allclose(
+            maps["laguerre_reduced_chi2_map"], lag_red, rtol=1e-4
+        )
+        pearson = pearson_chi_square(tr["fit_map"], decay)
+        np.testing.assert_allclose(maps["pearson_chi2_map"], pearson, rtol=1e-4)
+        np.testing.assert_allclose(
+            maps["pearson_reduced_chi2_map"],
+            pearson / (self.N_GATES - n_params),
+            rtol=1e-4,
+        )
+        np.testing.assert_allclose(tr["residual_map"], decay - tr["fit_map"], atol=1e-2)
+        assert out["results"]["error_maps"].shape[-1] == 2 * n_components + 2
+
+    def test_reduced_chi2_is_one_for_correct_model(self, axis):
+        from pyfli.cm_funcs.forward_model import model_numpy
+
+        t, irf = axis
+        rng = np.random.default_rng(1)
+        mu = model_numpy(t, irf, [2e4, 2.0, 0.0, 0.0], "mono-exponential")
+        decay = rng.poisson(np.broadcast_to(mu, (15, 15, self.N_GATES))).astype(float)
+        _, out = self._fit(decay, irf, 1)
+        assert abs(out["results"]["maps"]["reduced_chi2_map"].mean() - 1.0) < 0.05
+
+    def test_circular_background_fitted_in_exponential_stage(self, axis):
+        from pyfli.cm_funcs.forward_model import model_numpy
+        from pyfli.reconstruction import ParamToDecay
+
+        t, irf = axis
+        truth = [1e5, 0.5, 0.3, 4.0, 3.0, 0.0]
+        decay = model_numpy(t, irf, truth, "bi-exponential", "circular")
+        m, out = self._fit(decay, irf, 2, shift_method="circular", fit_background=True)
+        maps = out["results"]["maps"]
+        np.testing.assert_allclose(maps["v_shift_map"], 3.0, atol=0.05)
+        np.testing.assert_allclose(maps["alpha1_map"], 0.5, atol=2e-3)
+        np.testing.assert_allclose(maps["photon_count_map"], 1e5, rtol=2e-3)
+        np.testing.assert_allclose(m.taus_.ravel(), [0.3, 4.0], rtol=2e-3)
+        keys = ["tau1_map", "tau2_map", "alpha1_map", "photon_count_map", "v_shift_map"]
+        recon = ParamToDecay("bi-exponential", 80.0, irf, shift_method="circular")
+        fit = recon.reconstruct({k: maps[k] for k in keys}, verbose=False)["fit_map"]
+        np.testing.assert_allclose(
+            out["results"]["TR_maps"]["fit_map"], fit, rtol=1e-4, atol=1e-2
+        )
+        mu = model_numpy(
+            t, irf, [1e5, 0.5, 0.3, 2.0, 3.0, 0.0], "bi-exponential", "circular"
+        )
+        noisy = np.random.default_rng(9).poisson(
+            np.broadcast_to(mu, (6, 6, self.N_GATES))
+        )
+        m, out = self._fit(
+            noisy.astype(float), irf, 2, shift_method="circular", fit_background=True
+        )
+        noisy_maps = out["results"]["maps"]
+        assert abs(np.median(noisy_maps["v_shift_map"]) - 3.0) < 1.5
+        assert abs(np.median(noisy_maps["tau2_map"]) - 2.0) < 0.06
+        assert abs(np.median(noisy_maps["reduced_chi2_map"]) - 1.0) < 0.1
+
+    def test_invalid_combinations_raise(self, axis):
+        t, irf = axis
+        with pytest.raises(ValueError):
+            LaguerreFLI(shift_method="wrap")
+        with pytest.raises(ValueError):
+            LaguerreFLI(dt=self.DT, laser_period_ns=25.0, shift_method="circular").fit(
+                irf, irf
+            )
+
+
+class TestWeightingAndOffset:
+    N_GATES = 256
+    PERIOD = 12.5
+    DT = PERIOD / N_GATES
+
+    @pytest.fixture
+    def axis(self):
+        from pyfli.reconstruction.common_reconstruct import gate_starts
+
+        t = gate_starts(self.PERIOD, self.N_GATES)
+        return t, np.exp(-0.5 * ((t - 1.5) / 0.1) ** 2) + 1e-3
+
+    def _model(self, **kwargs):
+        return LaguerreFLI(
+            2, n_laguerre=12, alpha=0.9, dt=self.DT, verbose=False, **kwargs
+        )
+
+    def test_irls_calibrates_reduced_chi2_with_background(self, axis):
+        from pyfli.cm_funcs.forward_model import model_numpy
+
+        t, irf = axis
+        mu = model_numpy(t, irf, [2e4, 0.5, 0.4, 3.0, 2.0, 0.0], "bi-exponential")
+        rng = np.random.default_rng(0)
+        decay = rng.poisson(np.broadcast_to(mu, (12, 12, self.N_GATES))).astype(float)
+        maps = (
+            self._model(fit_background=True)
+            .fit(decay, irf)
+            .get_parameters()["results"]["maps"]
+        )
+        assert abs(maps["reduced_chi2_map"].mean() - 1.0) < 0.05
+        assert abs(maps["laguerre_reduced_chi2_map"].mean() - 1.0) < 0.05
+        assert abs(np.median(maps["v_shift_map"]) - 2.0) < 0.2
+
+    def test_weighting_validation_and_unweighted_option(self, axis):
+        t, irf = axis
+        with pytest.raises(ValueError):
+            self._model(weighting="pearson")
+        assert self._model(weighting="none").fit(irf, irf).taus_ is not None
+
+    @pytest.mark.parametrize("shift_method", ["zero_pad", "circular"])
+    @pytest.mark.parametrize("h", [0.0, 8 * 12.5 / 256, 0.4, -0.3, 0.0115])
+    def test_irf_shift_is_solver_h_shift(self, axis, shift_method, h):
+        from pyfli.cm_funcs.forward_model import model_numpy
+        from pyfli.reconstruction import ParamToDecay
+
+        t, irf = axis
+        decay = model_numpy(
+            t, irf, [5e4, 0.5, 0.4, 3.0, 0.0, h], "bi-exponential", shift_method
+        )
+        m = self._model(shift_method=shift_method).fit(
+            decay, irf, irf_shift=h / self.DT
+        )
+        out = m.get_parameters()
+        maps = out["results"]["maps"]
+        np.testing.assert_allclose(m.taus_.ravel(), [0.4, 3.0], rtol=1e-3)
+        np.testing.assert_allclose(maps["alpha1_map"], 0.5, atol=1e-3)
+        np.testing.assert_allclose(maps["photon_count_map"], 5e4, rtol=1e-3)
+        np.testing.assert_allclose(maps["h_shift_map"], h, atol=1e-12)
+        keys = ["tau1_map", "tau2_map", "alpha1_map", "photon_count_map", "h_shift_map"]
+        recon = ParamToDecay("bi-exponential", 80.0, irf, shift_method=shift_method)
+        fit = recon.reconstruct({k: maps[k] for k in keys}, verbose=False)["fit_map"]
+        np.testing.assert_allclose(
+            out["results"]["TR_maps"]["fit_map"], fit, rtol=1e-4, atol=1e-2
+        )
+
+    def test_irf_aligner_shift_map_with_manual_correction(self, axis):
+        import warnings
+
+        from pyfli.cm_funcs.forward_model import model_numpy
+        from pyfli.data_cc.irfAligner import IRFAligner
+
+        t, irf = axis
+        h = 0.4
+        mu = model_numpy(t, irf, [5e4, 0.5, 0.4, 3.0, 0.0, h], "bi-exponential")
+        rng = np.random.default_rng(3)
+        decay = rng.poisson(np.broadcast_to(mu, (8, 8, self.N_GATES))).astype(float)
+        irf_cube = np.broadcast_to(irf * 1e4, decay.shape).copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            raw = IRFAligner(
+                decay, irf_cube, laser_period=self.PERIOD
+            ).estimate_shift_debiased()
+            shift = IRFAligner(
+                decay, irf_cube, laser_period=self.PERIOD
+            ).estimate_shift_debiased(
+                manual_correction=float(np.median(raw) - h / self.DT)
+            )
+        m = self._model().fit(decay, irf, irf_shift=shift)
+        maps = m.get_parameters()["results"]["maps"]
+        np.testing.assert_allclose(maps["h_shift_map"], shift * self.DT)
+        np.testing.assert_allclose(
+            np.median(m.taus_.reshape(-1, 2), 0), [0.4, 3.0], rtol=0.03
+        )
+        assert abs(maps["reduced_chi2_map"].mean() - 1.0) < 0.1
+        n_params = 2 * 2 + 1
+        from pyfli.cm_stats.shared_metrics import reduced_poisson_deviance
+
+        _, red = reduced_poisson_deviance(
+            m.get_parameters()["results"]["TR_maps"]["fit_map"], decay, n_params
+        )
+        np.testing.assert_allclose(maps["reduced_chi2_map"], red, rtol=1e-4)
+
+    def test_irf_shift_validation(self, axis):
+        t, irf = axis
+        with pytest.raises(ValueError):
+            self._model().fit(
+                np.ones((2, 2, self.N_GATES)), irf, irf_shift=np.zeros((3, 3))
+            )
+
+
+class TestHShiftInput:
+    N_GATES = 256
+    PERIOD = 12.5
+    DT = PERIOD / N_GATES
+
+    @pytest.fixture
+    def axis(self):
+        from pyfli.reconstruction.common_reconstruct import gate_starts
+
+        t = gate_starts(self.PERIOD, self.N_GATES)
+        return t, np.exp(-0.5 * ((t - 1.5) / 0.1) ** 2) + 1e-3
+
+    def _model(self, **kwargs):
+        return LaguerreFLI(
+            2, n_laguerre=12, alpha=0.9, dt=self.DT, verbose=False, **kwargs
+        )
+
+    def test_h_shift_equals_irf_shift(self, axis):
+        from pyfli.cm_funcs.forward_model import model_numpy
+
+        t, irf = axis
+        h = np.full((2, 2), 0.37)
+        decay = np.broadcast_to(
+            model_numpy(t, irf, [5e4, 0.5, 0.4, 3.0, 0.0, 0.37], "bi-exponential"),
+            (2, 2, self.N_GATES),
+        ).copy()
+        a = self._model().fit(decay, irf, h_shift=h)
+        b = self._model().fit(decay, irf, irf_shift=h / self.DT)
+        np.testing.assert_allclose(a.taus_, b.taus_)
+        np.testing.assert_allclose(
+            a.get_parameters()["results"]["maps"]["h_shift_map"], h, atol=1e-12
+        )
+        with pytest.raises(ValueError):
+            self._model().fit(decay, irf, h_shift=h, irf_shift=h / self.DT)
+
+    def test_h_shift_map_from_harmonic_offset(self, axis):
+        from pyfli.cm_funcs.forward_model import model_numpy
+        from pyfli.phasor.harmonic_offset import HarmonicOffset
+        from pyfli.phasor.phasorS import PhasorAnalyzer
+
+        t, irf = axis
+        h, X = 0.3, 6
+        rng = np.random.default_rng(4)
+        mono = model_numpy(t, irf, [2e5, 2.0, 0.0, h], "mono-exponential", "circular")
+        bi = model_numpy(
+            t, irf, [2e5, 0.5, 0.4, 3.0, 0.0, h], "bi-exponential", "circular"
+        )
+        clean = np.empty((X, X, self.N_GATES))
+        clean[:, :2], clean[:, 2:] = mono, bi
+        decay = rng.poisson(clean).astype(float)
+        analyzer = PhasorAnalyzer(80e6, t, n_harmonics=3, device="cpu")
+        res = HarmonicOffset(analyzer).estimate(decay, irf)
+        assert abs(np.median(res["h_shift_map"]) - h) < 0.01
+        m = self._model(shift_method="circular").fit(
+            decay[:, 2:], irf, h_shift=res["h_shift_map"][:, 2:]
+        )
+        np.testing.assert_allclose(
+            np.median(m.taus_.reshape(-1, 2), 0), [0.4, 3.0], rtol=0.05
+        )

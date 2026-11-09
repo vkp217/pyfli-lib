@@ -16,6 +16,7 @@ import seaborn as sns
 from matplotlib.font_manager import FontProperties
 from matplotlib.textpath import TextPath
 
+from ..cm_stats.goodness_of_fit import r_squared
 from ..plot_style import dark_palette
 
 
@@ -163,9 +164,7 @@ class CVPlot:
         log_y = np.log(y[valid])
         b, log_a = np.polyfit(log_x, log_y, 1)
         pred = log_a + b * log_x
-        ss_res = np.sum((log_y - pred) ** 2)
-        ss_tot = np.sum((log_y - log_y.mean()) ** 2)
-        r2 = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else np.nan
+        r2 = float(r_squared(log_y - pred, log_y, empty_value=np.nan))
         a = float(np.exp(log_a))
         return a, float(b), r2, a * x**b
 

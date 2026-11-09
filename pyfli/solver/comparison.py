@@ -235,6 +235,9 @@ class FittingComparator:
         yscale: str = "log",
         plot: bool = True,
         fit_indices: tuple[int, int] | None = None,
+        shift_method: str = "zero_pad",
+        excitation: str = "bin_start",
+        gate_width: float | None = None,
     ) -> tuple[Any, ...]:
         """
         Compare selected.
@@ -259,6 +262,13 @@ class FittingComparator:
             Whether diagnostic plots should be generated.
         fit_indices : tuple[int, int] | None
             Optional (gate_num_start, gate_num_end) gate range to fit over.
+        shift_method : str
+            ``"zero_pad"`` or ``"circular"`` forward model (see
+            :func:`pyfli.cm_funcs.forward_model.model_numpy`).
+        excitation : str
+            ``"bin_start"`` or ``"uniform"`` excitation within each IRF gate.
+        gate_width : float | None
+            Detection-gate width in ns (``None``: the gate spacing).
 
         Returns
         -------
@@ -287,7 +297,15 @@ class FittingComparator:
                 continue
             category, Fitter = self.method_mapping[method]
 
-            fitter_inst = Fitter(self.freq, y_in, irf_in, fit_indices=fit_indices)
+            fitter_inst = Fitter(
+                self.freq,
+                y_in,
+                irf_in,
+                shift_method=shift_method,
+                fit_indices=fit_indices,
+                excitation=excitation,
+                gate_width=gate_width,
+            )
             if plot_data["t"] is None:
                 plot_data["t"] = fitter_inst.t  # physical time axis (ns)
             start_time = time.perf_counter()

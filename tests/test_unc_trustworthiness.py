@@ -92,11 +92,13 @@ class TestTrustworthinessGof:
         np.testing.assert_allclose(trustworthiness_gof.deviance_terms(y, mu), expected)
 
     def test_expected_moments_limits(self):
-        E, V = trustworthiness_gof.expected_moments(np.array([1e5, 500.0, 1e-7]))
-        assert E[0] == 1.0 and V[0] == 2.0
+        E, V = trustworthiness_gof.expected_moments(np.array([1e5, 500.0, 1e-7, 0.0]))
+        assert E[0] == pytest.approx(1.0 + 1.0 / 6e5 + 1.0 / 6e10, rel=1e-12)
+        assert V[0] == pytest.approx(2.0 + 2.0 / 3e5 + 4.0 / 3e10, rel=1e-12)
         assert E[1] == pytest.approx(1.0, abs=0.01)
         assert V[1] == pytest.approx(2.0, abs=0.05)
-        assert E[2] == pytest.approx(2e-6 * np.log(1e6), rel=0.05)
+        assert E[2] == pytest.approx(2e-7 * np.log(1e7), rel=0.05)
+        assert E[3] == 0.0 and V[3] == 0.0
 
     def test_expected_moments_match_monte_carlo(self):
         rng = np.random.default_rng(3)
