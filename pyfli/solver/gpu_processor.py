@@ -17,8 +17,24 @@ import torch
 from tqdm import tqdm
 
 from pyfli import logging
+from pyfli.reconstruction.common_reconstruct import (
+    NLSF_WEIGHTINGS,
+    circular_convolve_torch,
+    periodic_gate_integral,
+    residual_variance,
+)
 
-from .shared_metrics import pearson_chi_square, reduced_poisson_deviance
+from ..cm_funcs.forward_model import (
+    gate_fraction as _gate_fraction,
+)
+from ..cm_funcs.forward_model import (
+    validate_excitation,
+    validate_gate_width,
+    validate_shift_method,
+)
+from ..cm_stats.chi_square import degrees_of_freedom
+from ..cm_stats.goodness_of_fit import r_squared, rmse
+from ..cm_stats.shared_metrics import pearson_chi_square, reduced_poisson_deviance
 
 
 class FLIGPUProcessor:
@@ -47,6 +63,9 @@ class FLIGPUProcessor:
         self.fitter_class = fitter_class
         self.T_acq = 1000.0 / freq[1]
         self.T_laser = 1000.0 / freq[0]
+        self.shift_method = "zero_pad"
+        self.excitation = "bin_start"
+        self.gate_width = None
         logging.info(f"Using Device: {self.device}")
 
     def _transform_params(self, raw_p: np.ndarray, model_type: str) -> Any:
@@ -83,11 +102,14 @@ class FLIGPUProcessor:
         self, params: Any, t: np.ndarray, irf: np.ndarray, model_type: str
     ) -> Any:
         """
-        Batched forward model, identical to :func:`pyfli.solver.model_numpy`: the
-        gate-integrated decay with onset ``h_shift`` (evaluated on extra negative-lag
-        gates so an earlier onset shifts the curve instead of truncating it),
-        convolved with the normalized IRF, plus ``v_shift``. ``S`` is the total
-        photon count of the decay.
+        Batched forward model, identical to :func:`pyfli.solver.model_numpy` for
+        ``self.shift_method``: the gate-integrated decay with onset ``h_shift``
+        (``"zero_pad"``: evaluated on extra negative-lag gates so an earlier onset
+        shifts the curve instead of truncating it, linear convolution; ``"circular"``:
+        periodic steady state, circular convolution), convolved with the normalized
+        IRF, plus ``v_shift``. ``S`` is the total photon count of the decay.
+        ``self.excitation`` and ``self.gate_width`` select the excitation within each
+        IRF gate and the detection-gate width (:mod:`pyfli.cm_funcs.forward_model`).
 
         Parameters
         ----------
@@ -107,15 +129,37 @@ class FLIGPUProcessor:
         """
         T = t.shape[-1]
         dt = self.T_acq / T
-        n_neg = math.ceil((self.T_acq / 4.0) / dt) + 1
+        circular = self.shift_method == "circular"
+        width = self.gate_width
+        extended = self.excitation != "bin_start" or width is not None
+        if circular:
+            n_neg = 0
+        elif width is None:
+            n_neg = math.ceil((self.T_acq / 4.0) / dt) + 1
+        else:
+            n_neg = math.ceil((self.T_acq / 4.0 + max(width - dt, 0.0)) / dt) + 1
         lags = torch.arange(-n_neg, T, device=t.device, dtype=params.dtype) * dt
         a = lags[None, :]
-        b_edge = a + dt
+        b_edge = a + (dt if width is None else width)
         h_shift = params[:, -1:]
         a_eff = torch.maximum(a, h_shift) - h_shift
         b_eff = torch.maximum(b_edge, h_shift) - h_shift
 
         def gate_fraction(tau: Any) -> Any:
+            if extended:
+                return _gate_fraction(
+                    a,
+                    b_edge,
+                    tau,
+                    h_shift,
+                    dt,
+                    self.T_acq if circular else None,
+                    self.excitation,
+                )
+            if circular:
+                return periodic_gate_integral(
+                    a, b_edge, tau, h_shift, self.T_acq, expm1=torch.expm1
+                )
             return torch.exp(-a_eff / tau) - torch.exp(-b_eff / tau)
 
         if model_type == "mono-exponential":
@@ -132,6 +176,8 @@ class FLIGPUProcessor:
             decay = S * (a1 * gate_fraction(t1) + (1.0 - a1) * gate_fraction(t2))
 
         irf_norm = irf / irf.sum(dim=1, keepdim=True).clamp(min=1e-9)
+        if circular:
+            return circular_convolve_torch(decay, irf_norm) + b
 
         n_fft = 2 * (T + n_neg)
         decay_fft = torch.fft.rfft(decay, n=n_fft)
@@ -256,7 +302,11 @@ class FLIGPUProcessor:
             unweighted; ``"neyman"`` divides by the measured counts (former default,
             biased towards short lifetimes at low counts). ``mode="NEYMAN"`` implies
             ``"neyman"``. ``variance_floor`` (kwarg, default 1.0) floors the IRLS
-            variance.
+            variance. ``shift_method`` (kwarg, ``"zero_pad"`` or ``"circular"``)
+            selects the forward model (see :meth:`_model_kernel`); ``"circular"``
+            requires the acquisition window to equal the laser period. ``excitation``
+            (``"bin_start"`` or ``"uniform"``) and ``gate_width`` (ns) are the
+            forward-model options of :func:`pyfli.cm_funcs.forward_model.model_numpy`.
         **kwargs : Any
             Additional keyword options forwarded to the underlying implementation.
 
@@ -268,12 +318,17 @@ class FLIGPUProcessor:
         _NLSF_MODES = {"NLSF", "LSE", "WLS", "NEYMAN", "LEAST_SQUARES"}
         if mode.upper() == "NEYMAN":
             weighting = "neyman"
-        if weighting not in ("irls", "none", "neyman"):
+        if weighting not in NLSF_WEIGHTINGS:
             raise ValueError(
-                f"weighting must be 'irls', 'none' or 'neyman', got {weighting!r}"
+                f"weighting must be one of {NLSF_WEIGHTINGS}, got {weighting!r}"
             )
         mode = "NLSF" if mode.upper() in _NLSF_MODES else "MLE"
         variance_floor = kwargs.get("variance_floor", 1.0)
+        self.shift_method = validate_shift_method(
+            kwargs.get("shift_method", "zero_pad"), self.T_acq, self.T_laser
+        )
+        self.excitation = validate_excitation(kwargs.get("excitation", "bin_start"))
+        self.gate_width = validate_gate_width(kwargs.get("gate_width"))
 
         start_time = time.time()
         H, W, T = image_cube.shape
@@ -348,12 +403,9 @@ class FLIGPUProcessor:
                 pred = self._model_kernel(p_phys, t_axis, flat_irf, model_type)
                 pred_sel = pred[:, gate_start:gate_end]
                 data_sel = flat_data[:, gate_start:gate_end]
-                if weighting == "neyman":
-                    variance = torch.clamp(data_sel, min=1.0)
-                elif weighting == "none":
-                    variance = torch.ones_like(data_sel)
-                else:
-                    variance = torch.clamp(pred_sel.detach(), min=variance_floor)
+                variance = residual_variance(
+                    pred_sel.detach(), data_sel, weighting, variance_floor
+                )
                 per_px = torch.sum((pred_sel - data_sel) ** 2 / variance, dim=1)
                 return per_px[torch.isfinite(per_px)].sum()
         else:
@@ -423,7 +475,7 @@ class FLIGPUProcessor:
             p_final = self._transform_params(raw_p, model_type)
             fit_flat = self._model_kernel(p_final, t_axis, flat_irf, model_type)
             res_flat = flat_data - fit_flat
-            dof = max((gate_end - gate_start) - p_final.shape[1], 1)
+            dof = degrees_of_freedom(gate_end - gate_start, p_final.shape[1])
 
             fit_sel = fit_flat[:, gate_start:gate_end]
             data_sel = flat_data[:, gate_start:gate_end]
@@ -436,14 +488,8 @@ class FLIGPUProcessor:
             )
             pearson_flat = pearson_chi_square(fit_sel_np, data_sel_np)
 
-            ss_tot = torch.sum(
-                (data_sel - data_sel.mean(dim=1, keepdim=True)) ** 2, dim=1
-            )
-            ss_res = torch.sum(res_sel**2, dim=1)
-            r2_flat = torch.where(
-                ss_tot > 0, 1.0 - ss_res / ss_tot, torch.zeros_like(ss_tot)
-            )
-            rmse_flat = torch.sqrt(torch.mean(res_sel**2, dim=1))
+            r2_flat = r_squared(res_sel, data_sel, axis=1)
+            rmse_flat = rmse(res_sel, axis=1)
 
             perr_flat = torch.zeros_like(p_final)
             if CRLB:
@@ -510,6 +556,7 @@ class FLIGPUProcessor:
         dataset["results"]["maps"]["pearson_reduced_chi2_map"] = (
             full_pearson.reshape(H, W) / dof
         ).astype(np.float32)
+        dataset["fit_indices"] = (int(gate_start), int(gate_end))
         return dataset
 
     def _reconstruct_dataset(
@@ -606,6 +653,9 @@ class FLIGPUProcessor:
         return {
             "name": name,
             "method": f"GPU_{mode}",
+            "shift_method": self.shift_method,
+            "excitation": self.excitation,
+            "gate_width": self.gate_width,
             "results": {
                 "maps": maps,
                 "error_maps": e_maps,
@@ -742,6 +792,10 @@ class FLIGPUProcessor:
 
         with h5py.File(h5_path, "w") as f:
             f.attrs["method"] = dataset["method"]
+            f.attrs["shift_method"] = dataset.get("shift_method", "zero_pad")
+            f.attrs["excitation"] = dataset.get("excitation", "bin_start")
+            if dataset.get("gate_width") is not None:
+                f.attrs["gate_width"] = float(dataset["gate_width"])
             res_grp = f.create_group("results")
 
             maps_grp = res_grp.create_group("maps")

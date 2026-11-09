@@ -18,8 +18,10 @@ import numpy as np
 
 from pyfli import logging
 
+from ..cm_stats.chi_square import degrees_of_freedom
+from ..cm_stats.goodness_of_fit import r_squared, rmse
+from ..cm_stats.shared_metrics import pearson_chi_square, reduced_poisson_deviance
 from ..data_vnp.mono_bi_classifier import MonoBiClassifier
-from ..solver.shared_metrics import pearson_chi_square, reduced_poisson_deviance
 from .decay_reconstruction import ParamToDecay
 
 
@@ -63,6 +65,12 @@ class DetailedRecon:
         and :meth:`collapse_to_mono`.
     eps : float
         Numerical floor for clip / safe division.
+    shift_method : str
+        Forward model, ``"zero_pad"`` or ``"circular"``, as used for the fit (see
+        :class:`pyfli.reconstruction.ParamToDecay`).
+    excitation, gate_width
+        Forward-model options as used for the fit (see
+        :class:`pyfli.reconstruction.ParamToDecay`).
     """
 
     def __init__(
@@ -74,6 +82,9 @@ class DetailedRecon:
         alpha_lower: float = 0.05,
         tau_tol: float = 0.05,
         eps: float = 1e-8,
+        shift_method: str = "zero_pad",
+        excitation: str = "bin_start",
+        gate_width: float | None = None,
     ) -> None:
         binned_irf = np.asarray(binned_irf, dtype=np.float32)
         if binned_irf.ndim not in (1, 3):
@@ -92,7 +103,14 @@ class DetailedRecon:
         self.eps = eps
 
         self._recon = {
-            model_type: ParamToDecay(model_type, freq_acq, irf=binned_irf)
+            model_type: ParamToDecay(
+                model_type,
+                freq_acq,
+                irf=binned_irf,
+                shift_method=shift_method,
+                excitation=excitation,
+                gate_width=gate_width,
+            )
             for model_type in ("mono-exponential", "bi-exponential")
         }
 
@@ -313,7 +331,7 @@ class DetailedRecon:
             photon_count_adjusted, fit_sum, out=s_reported, where=fit_sum > self.eps
         )
 
-        dof = max(bins - n_params, 1)
+        dof = degrees_of_freedom(bins, n_params)
         residuals = binned_decay_arr - scaled_fit
         chi_sq_raw, reduced_chi2_map = reduced_poisson_deviance(
             scaled_fit, binned_decay_arr, n_params
@@ -324,15 +342,8 @@ class DetailedRecon:
             "pearson_reduced_chi2_map": (pearson_raw / dof).astype(np.float32),
         }
 
-        ss_res = np.sum(residuals**2, axis=-1)
-        ss_tot = np.sum(
-            (binned_decay_arr - np.mean(binned_decay_arr, axis=-1, keepdims=True)) ** 2,
-            axis=-1,
-        )
-        r2_map = np.ones((H, W), dtype=np.float32)
-        np.divide(ss_res, ss_tot, out=r2_map, where=ss_tot > self.eps)
-        r2_map = 1.0 - r2_map
-        rmse_map = np.sqrt(np.mean(residuals**2, axis=-1))
+        r2_map = r_squared(residuals, binned_decay_arr)
+        rmse_map = rmse(residuals)
 
         v_shift_out = v_shift_map[..., 0]
         h_shift_out = _get("h_shift_map")

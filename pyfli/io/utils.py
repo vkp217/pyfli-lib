@@ -16,6 +16,7 @@ import h5py
 import numpy as np
 
 from pyfli import logging
+from pyfli.cm_stats.robust import MAD_TO_SIGMA, median_absolute_deviation
 
 
 class DataIOUtils:
@@ -177,11 +178,9 @@ class DataIOUtils:
             axis=-1,
         )
 
-        median = float(np.median(total_counts))
+        median, mad = median_absolute_deviation(total_counts)
 
-        mad = float(np.median(np.abs(total_counts - median)))
-
-        threshold = median + threshold_sigma * 1.4826 * mad
+        threshold = median + threshold_sigma * MAD_TO_SIGMA * mad
 
         hot_pixel_map = total_counts > threshold
 

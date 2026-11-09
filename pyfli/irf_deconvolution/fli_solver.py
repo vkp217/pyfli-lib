@@ -17,6 +17,7 @@ from scipy.optimize import least_squares
 from scipy.special import erf
 
 from pyfli import logging
+from pyfli.reconstruction.common_reconstruct import circular_convolve
 
 try:
     from .detector_weights import make_observation
@@ -42,8 +43,7 @@ def cyclic_conv(h: np.ndarray, f: np.ndarray) -> Any:
     Any
         Object produced by cyclic conv.
     """
-    N = h.shape[-1]
-    return np.fft.irfft(np.fft.rfft(h, axis=-1) * np.fft.rfft(f, axis=-1), n=N, axis=-1)
+    return circular_convolve(h, f)
 
 
 def cyclic_corr(u: np.ndarray, f: np.ndarray) -> Any:

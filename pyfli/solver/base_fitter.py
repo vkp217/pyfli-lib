@@ -13,18 +13,30 @@ from typing import Any
 
 import numpy as np
 from scipy.optimize import OptimizeWarning, curve_fit, least_squares
-from scipy.stats import f
 
-from .base_static import moment_based_guess, resolve_params_and_bounds
-from .forward_model import model_numpy
-from .shared_metrics import (
+from pyfli.reconstruction.common_reconstruct import (
+    NLSF_WEIGHTINGS,
+    gate_starts,
+    irls,
+    residual_variance,
+)
+
+from ..cm_funcs.forward_model import (
+    model_numpy,
+    validate_excitation,
+    validate_gate_width,
+    validate_model_type,
+    validate_shift_method,
+)
+from ..cm_stats.model_comparison import nested_f_test
+from ..cm_stats.shared_metrics import (
     compute_average_lifetime,
     compute_fli_stats,
     compute_fret_efficiency,
     enforce_tau_ordering,
 )
+from .base_static import moment_based_guess, resolve_params_and_bounds
 
-NLSF_WEIGHTINGS = ("irls", "none", "neyman")
 """Residual weightings of :meth:`BaseFLIFitter.least_squares_fit`."""
 
 
@@ -49,10 +61,18 @@ class BaseFLIFitter:
     custom_funcs : np.ndarray | None
         Optional custom model functions used by the fitter.
     shift_method : str
-        Method used to align the IRF and decay traces.
+        Convolution of the forward model (:func:`pyfli.cm_funcs.forward_model.model_numpy`):
+        ``"zero_pad"`` (linear) or ``"circular"`` (periodic steady state; requires the
+        acquisition window to equal the laser period, ``freq[0] == freq[1]``).
     fit_indices : tuple[int, int] | None
         Optional (gate_num_start, gate_num_end) gate range to fit over, e.g. to focus on
         the tail of the decay. ``None`` fits the full trace.
+    excitation : str
+        Excitation within each IRF gate, ``"bin_start"`` (default) or ``"uniform"``
+        (:func:`pyfli.cm_funcs.forward_model.model_numpy`).
+    gate_width : float | None
+        Detection-gate width in ns (``None``: the gate spacing); only for an IRF not
+        recorded through the same gate.
     """
 
     def __init__(
@@ -65,18 +85,23 @@ class BaseFLIFitter:
         custom_funcs: np.ndarray | None = None,
         shift_method: str = "zero_pad",
         fit_indices: tuple[int, int] | None = None,
+        excitation: str = "bin_start",
+        gate_width: float | None = None,
     ) -> None:
         self.decay = np.asarray(decay_px)
         self.irf = np.asarray(irf_px)
         self.white_noise = white_noise
         self.guess_plugin = guess_plugin
         self.shift_method = shift_method
+        self.excitation = validate_excitation(excitation)
+        self.gate_width = validate_gate_width(gate_width)
 
         # Timing constants
         self.T_laser = 1000.0 / freq[0]
         self.T_acq = 1000.0 / freq[1]
         self.N = len(self.irf) if self.irf.ndim == 1 else self.irf.shape[2]
-        self.t = np.linspace(0, self.T_acq, self.N, endpoint=False)
+        self.t = gate_starts(self.T_acq, self.N)
+        validate_shift_method(shift_method, self.T_acq, self.T_laser)
         if fit_indices is not None:
             gate_start, gate_end = fit_indices
             self.fit_indices = np.arange(max(gate_start, 0), min(gate_end, self.N))
@@ -100,8 +125,12 @@ class BaseFLIFitter:
         bounds: np.ndarray | None = None,
         **kwargs: Any,
     ) -> Any:
-        """Unified entry point for all NLSF estimators."""
-        # Now calls the external static logic from base_static.py
+        """
+        Unified entry point for all NLSF estimators. Same argument order as
+        :meth:`pyfli.solver.mle_fitter.MLEFLIFitter.fit_with_estimator`:
+        ``(estimator_type, model_type, p0, bounds, ...)``.
+        """
+        validate_model_type(model_type)
         p0_safe, bounds_safe = resolve_params_and_bounds(
             p0,
             bounds,
@@ -198,25 +227,26 @@ class BaseFLIFitter:
             return least_squares(residuals, x0=x0, **solver_opts)
 
         robust_residuals = None
-        if weighting == "neyman":
-            res = solve(p0, 1.0 / np.sqrt(np.clip(d_fit, 1.0, None)))
-        elif weighting == "none":
-            res = solve(p0, np.ones_like(d_fit))
-            robust_residuals = res.fun
+        if weighting == "irls":
+
+            def solve_round(params: Any, variance: np.ndarray) -> tuple[Any, Any]:
+                res = solve(params, 1.0 / np.sqrt(variance))
+                return res.x, res
+
+            _, res = irls(
+                solve_round,
+                lambda p: self.model_fit(self.t, p, model_type=model_type)[
+                    self.fit_indices
+                ],
+                p0,
+                variance_floor=kwargs.get("variance_floor", 1.0),
+                max_rounds=kwargs.get("irls_max_rounds", 20),
+                tol=kwargs.get("irls_tol", 1e-6),
+            )
         else:
-            floor = kwargs.get("variance_floor", 1.0)
-            tol = kwargs.get("irls_tol", 1e-6)
-            params = np.asarray(p0, dtype=float)
-            for _ in range(kwargs.get("irls_max_rounds", 20)):
-                mu = self.model_fit(self.t, params, model_type=model_type)
-                weights = 1.0 / np.sqrt(np.clip(mu[self.fit_indices], floor, None))
-                res = solve(params, weights)
-                change = np.max(
-                    np.abs(res.x - params) / np.maximum(np.abs(params), 1e-12)
-                )
-                params = res.x
-                if change < tol:
-                    break
+            res = solve(p0, 1.0 / np.sqrt(residual_variance(None, d_fit, weighting)))
+            if weighting == "none":
+                robust_residuals = res.fun
         return self._post_process(
             res.x,
             res.jac,
@@ -371,7 +401,15 @@ class BaseFLIFitter:
         Any
             Object produced by model fit.
         """
-        return model_numpy(t, self.irf, params, model_type)
+        return model_numpy(
+            t,
+            self.irf,
+            params,
+            model_type,
+            self.shift_method,
+            self.excitation,
+            self.gate_width,
+        )
 
     def _post_process(
         self,
@@ -521,9 +559,7 @@ class BaseFLIFitter:
         res_m = self.fit_with_estimator(model_type="mono-exponential")
         res_b = self.fit_with_estimator(model_type="bi-exponential")
         n, p_m, p_b = len(self.fit_indices), 4, 6
-        chi_m, chi_b = res_m[3], res_b[3]
-        f_stat = ((chi_m - chi_b) / (p_b - p_m)) / (chi_b / (n - p_b))
-        p_val = 1 - f.cdf(f_stat, p_b - p_m, n - p_b)
+        _, p_val = nested_f_test(res_m[3], res_b[3], p_b - p_m, n - p_b, p_value="cdf")
         winner = res_b if p_val < alpha else res_m
         return (
             ("bi-exponential" if p_val < alpha else "mono-exponential"),

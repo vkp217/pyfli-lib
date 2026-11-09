@@ -15,6 +15,7 @@ from scipy.fft import fft, fftfreq, ifft
 from scipy.ndimage import uniform_filter1d
 
 from ..analyticalWorkflow.am_utils import AnalyticalHelpers
+from ..cm_stats import goodness_of_fit as _gof
 from .norm import Normalization
 
 
@@ -263,7 +264,7 @@ class IRFAligner:
         for k, s in enumerate(shift_candidates):
             shifted_idx = (win_idx - s) % self.T
             irf_win = np.take_along_axis(scaled_irf, shifted_idx, axis=2)
-            rmse_stack[:, :, k] = np.sqrt(np.mean((irf_win - decay_win) ** 2, axis=2))
+            rmse_stack[:, :, k] = _gof.rmse(irf_win - decay_win, axis=2)
 
         best_k = np.argmin(rmse_stack, axis=2)
         best_shift = shift_candidates[best_k].astype(float)
@@ -350,7 +351,7 @@ class IRFAligner:
         rmse = np.empty(len(shift_candidates))
         for k, s in enumerate(shift_candidates):
             shifted_idx = (win_idx - s) % self.T
-            rmse[k] = np.sqrt(np.mean((scaled_irf_trace[shifted_idx] - decay_win) ** 2))
+            rmse[k] = _gof.rmse(scaled_irf_trace[shifted_idx] - decay_win, axis=None)
 
         best_k = int(np.argmin(rmse))
         best_shift = float(shift_candidates[best_k])

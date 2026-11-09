@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.colors import ListedColormap, TwoSlopeNorm
-from scipy import stats
 
 from pyfli import logging
+from pyfli.cm_stats.model_comparison import nested_f_test
 
 
 class ModelSelector:
@@ -36,6 +36,10 @@ class ModelSelector:
         Number of fitted parameters in the mono-exponential model (A, τ, v, h).
     k_bi : int
         Number of fitted parameters in the bi-exponential model (A, α, τ1, τ2, v, h).
+    n_points : int | None
+        Number of fitted time gates. When ``None`` it is taken from the fit result
+        (``fit_indices`` or the ``fit_map`` length) in :meth:`compare_from_dir`; see
+        :meth:`compare`.
     """
 
     DEFAULT_FITS: ClassVar[dict[str, str]] = {
@@ -70,6 +74,7 @@ class ModelSelector:
         tau_bound: float = 12.5,
         k_mono: int = 4,
         k_bi: int = 6,
+        n_points: int | None = None,
     ) -> None:
         self.roi = np.asarray(b_bool_mask).astype(bool)
         self.fdr_q = fdr_q
@@ -77,6 +82,7 @@ class ModelSelector:
         self.tau_bound = tau_bound
         self.k_mono = k_mono
         self.k_bi = k_bi
+        self.n_points = n_points
         self.results: dict[str, dict[str, Any]] = {}
         self._rows: list[dict[str, Any]] = []
 
@@ -104,14 +110,31 @@ class ModelSelector:
         return out
 
     @staticmethod
-    def _load_maps(path: str) -> dict[str, Any]:
-        return np.load(path, allow_pickle=True).item()["results"]["maps"]
+    def _load_dataset(path: str) -> dict[str, Any]:
+        return np.load(path, allow_pickle=True).item()
+
+    @classmethod
+    def _load_maps(cls, path: str) -> dict[str, Any]:
+        return cls._load_dataset(path)["results"]["maps"]
 
     def _aicc(self, D: np.ndarray, k: int, n_pts: int) -> np.ndarray:
         return D + 2 * k + 2 * k * (k + 1) / (n_pts - k - 1)
 
+    @staticmethod
+    def fitted_gates(dataset: dict[str, Any]) -> int | None:
+        """Number of fitted gates of a solver result: its ``fit_indices`` window, else the ``fit_map`` length."""
+        window = dataset.get("fit_indices")
+        if window is not None:
+            return int(window[1]) - int(window[0])
+        fit_map = dataset.get("results", {}).get("TR_maps", {}).get("fit_map")
+        return None if fit_map is None else int(np.shape(fit_map)[-1])
+
     def compare(
-        self, label: str, maps_mono: dict[str, Any], maps_bi: dict[str, Any]
+        self,
+        label: str,
+        maps_mono: dict[str, Any],
+        maps_bi: dict[str, Any],
+        n_points: int | None = None,
     ) -> dict[str, Any]:
         """
         Run model selection for one pair of mono/bi fit result maps.
@@ -125,6 +148,11 @@ class ModelSelector:
         maps_bi : dict
             Bi-exponential result maps; must contain ``chi2_map``,
             ``reduced_chi2_map``, ``tau1_map`` and ``tau2_map``.
+        n_points : int | None
+            Number of fitted time gates; defaults to the instance's ``n_points``. When
+            both are ``None`` it is estimated from ``chi2_map / reduced_chi2_map``, which
+            equals ``sum E[D_k] - k_bi`` rather than ``n - k_bi`` (exact only at high
+            counts), and a warning is logged.
 
         Returns
         -------
@@ -140,15 +168,20 @@ class ModelSelector:
             roi & np.isfinite(D_mono) & np.isfinite(D_bi) & (D_bi > 0) & (red_bi > 0)
         )
 
-        n_pts = int(np.round(np.median(D_bi[valid] / red_bi[valid]))) + self.k_bi
+        n_pts = n_points if n_points is not None else self.n_points
+        if n_pts is None:
+            n_pts = int(np.round(np.median(D_bi[valid] / red_bi[valid]))) + self.k_bi
+            logging.warning(
+                f"[{label}] n_points estimated as {n_pts} from chi2/reduced_chi2; "
+                "pass n_points (number of fitted gates) for an exact F-test/AICc."
+            )
         dof_bi = n_pts - self.k_bi
         dk = self.k_bi - self.k_mono
 
         dD = D_mono - D_bi
         F = np.full(roi.shape, np.nan)
-        F[valid] = (dD[valid] / dk) / (D_bi[valid] / dof_bi)
         p = np.full(roi.shape, np.nan)
-        p[valid] = stats.f.sf(F[valid], dk, dof_bi)
+        F[valid], p[valid] = nested_f_test(D_mono[valid], D_bi[valid], dk, dof_bi)
         q = np.full(roi.shape, np.nan)
         q[valid] = self.bh_fdr(p[valid])
 
@@ -231,7 +264,14 @@ class ModelSelector:
                     f"and {os.path.basename(f_bi)}"
                 )
                 continue
-            self.compare(label, self._load_maps(f_mono), self._load_maps(f_bi))
+            data_mono, data_bi = self._load_dataset(f_mono), self._load_dataset(f_bi)
+            n_points = self.n_points or self.fitted_gates(data_bi)
+            self.compare(
+                label,
+                data_mono["results"]["maps"],
+                data_bi["results"]["maps"],
+                n_points=n_points,
+            )
         return self.results
 
     def summary(self) -> pd.DataFrame:

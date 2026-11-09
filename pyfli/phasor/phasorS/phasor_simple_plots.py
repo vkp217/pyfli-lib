@@ -10,8 +10,6 @@ import torch
 from matplotlib.cm import ScalarMappable
 from matplotlib.colors import ListedColormap, Normalize
 
-from pyfli.reconstruction.common_reconstruct import periodic_instrument_exponential
-
 from .phasor_simple_utils import (
     _TAU_MARKS_NS,
     _add_frequency_label,
@@ -834,9 +832,7 @@ class PhasorPlotsMixin:
             tau_val = tau_ns
 
         model_t = torch.tensor(
-            periodic_instrument_exponential(
-                float(tau_val), len(self.t_s_np), 1e9 / self.frequency
-            ),
+            self.component_kernel(float(tau_val), "continuous"),
             dtype=torch.float32,
             device=self.device,
         ).unsqueeze(0)

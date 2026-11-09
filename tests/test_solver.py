@@ -9,9 +9,9 @@ parameter recovery assertions are meaningful.
 import numpy as np
 import pytest
 
+from pyfli.cm_stats.shared_metrics import expected_poisson_deviance
 from pyfli.solver.base_fitter import BaseFLIFitter
 from pyfli.solver.cpu_processor import FLICPUProcessor
-from pyfli.solver.shared_metrics import expected_poisson_deviance
 
 # ---------------------------------------------------------------------------
 # Constants — 80 MHz system, 256 bins → T_acq = 12.5 ns, dt = 12.5/256 ns/bin
@@ -380,3 +380,12 @@ class TestCPUProcessorParamRecovery:
         health = maps["pixel_health_map"] > 0
         if health.any():
             assert np.all(np.abs(maps["h_shift_map"][health]) < 10.0)
+
+
+def test_global_fitter_lifetime_bounds_per_parameter():
+    from pyfli.solver.global_fitter import _lifetime_bounds
+
+    sp = {"tau1": 0.4, "tau2": 2.0}
+    assert _lifetime_bounds(sp, 1.0) == {"tau1": [1e-3, 0.8], "tau2": [1e-3, 4.0]}
+    assert _lifetime_bounds(sp, {"tau2": 1.0}) == {"tau2": [1e-3, 4.0]}
+    assert _lifetime_bounds({"tau": 1.0}, 0.2) == {"tau": [0.8, 1.2]}

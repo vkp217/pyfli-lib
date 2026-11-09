@@ -11,6 +11,8 @@ from dataclasses import asdict, dataclass
 import numpy as np
 from scipy.ndimage import gaussian_filter1d
 
+from pyfli.cm_stats.robust import MAD_TO_SIGMA, median_absolute_deviation
+
 
 @dataclass(frozen=True)
 class SpadFoldLayout:
@@ -321,10 +323,9 @@ def detect_signal_onset(
     if baseline_values.size < 3:
         baseline_values = smoothed
 
-    baseline_center = float(np.median(baseline_values))
-    mad = float(np.median(np.abs(baseline_values - baseline_center)))
+    _, mad = median_absolute_deviation(baseline_values)
     noise = max(
-        1.4826 * mad,
+        MAD_TO_SIGMA * mad,
         np.finfo(np.float64).eps * scale,
     )
     snr = amplitude / noise
