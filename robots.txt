@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pyfli.org/dev/sitemap.xml
+Sitemap: https://pyfli.org/main/sitemap.xml
