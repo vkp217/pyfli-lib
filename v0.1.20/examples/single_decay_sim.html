@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
     <script src="../_static/documentation_options.js?v=af2a1697"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,19 +50,19 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/single_decay_sim';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.20';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/examples/single_decay_sim.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/examples/single_decay_sim.html" />
     <link rel="icon" href="../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2. FLI Simulation for mimicking the time-resolved image acquisition" href="whole_image_sim.html" />
-    <link rel="prev" title="2. Phasor method for Bi-exponential FLI Data processing" href="Phasor_analysis_bi.html" />
+    <link rel="prev" title="5. Harmonic offset with three lifetimes: what each harmonic contributes" href="harmonic_offset_three_lifetimes_example.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
@@ -115,7 +115,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -252,14 +252,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -314,7 +314,7 @@
   
 
   
-    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -328,7 +328,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -420,14 +420,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -495,6 +495,9 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_example.html">3. Harmonic offset: estimating and removing the IRF-decay timing offset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_bi_example.html">4. Harmonic offset for bi-exponential samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_three_lifetimes_example.html">5. Harmonic offset with three lifetimes: what each harmonic contributes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator and FLI Data Simulation Examples</span></p>
 <ul class="current nav bd-sidenav">
@@ -542,7 +545,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -725,7 +728,7 @@ the frequency use is: 80.0 MHz
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dfc9eb4bfdc2c0e60d8c1de31048c033f09e5d3eab9b6cbd8b7e22dc69b45627.png" src="../_images/dfc9eb4bfdc2c0e60d8c1de31048c033f09e5d3eab9b6cbd8b7e22dc69b45627.png" />
+<img alt="../_images/ce5a7dff12d2e798e32434a78f092528e095d2c95f4ce0a404102ceb7031b556.png" src="../_images/ce5a7dff12d2e798e32434a78f092528e095d2c95f4ce0a404102ceb7031b556.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -837,7 +840,7 @@ the frequency use is: 80.0 MHz
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0219883fb398339ff4a71312b6f5a473a39912d72bd744188f95b98803b2feb5.png" src="../_images/0219883fb398339ff4a71312b6f5a473a39912d72bd744188f95b98803b2feb5.png" />
+<img alt="../_images/bb8e61fd53ca3b819fbc33aa7d892c1d580bc9b19e3902042235960383655fd0.png" src="../_images/bb8e61fd53ca3b819fbc33aa7d892c1d580bc9b19e3902042235960383655fd0.png" />
 </div>
 </div>
 </section>
@@ -853,7 +856,7 @@ the frequency use is: 80.0 MHz
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -879,8 +882,8 @@ the frequency use is: 80.0 MHz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -906,7 +909,7 @@ the frequency use is: 80.0 MHz
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
   </p>
 </div>
       

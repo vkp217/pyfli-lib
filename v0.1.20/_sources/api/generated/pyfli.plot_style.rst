@@ -8,6 +8,7 @@ pyfli.plot\_style
 
    .. autosummary::
    
+      __annotate__
       dark_palette
       darken_color
       legend_outside

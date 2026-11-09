@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
     <script src="../_static/documentation_options.js?v=9c7764e8"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Biexponential_fitting_CPU_GPU';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/examples/Biexponential_fitting_CPU_GPU.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/examples/Biexponential_fitting_CPU_GPU.html" />
     <link rel="icon" href="../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -115,7 +115,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -252,14 +252,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -314,7 +314,7 @@
   
 
   
-    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -328,7 +328,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -420,14 +420,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -495,6 +495,9 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_example.html">3. Harmonic offset: estimating and removing the IRF-decay timing offset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_bi_example.html">4. Harmonic offset for bi-exponential samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_three_lifetimes_example.html">5. Harmonic offset with three lifetimes: what each harmonic contributes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator and FLI Data Simulation Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -542,7 +545,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -567,7 +570,8 @@
                   
   <section id="fitting-example-nlsf-mle-in-cpu-and-gpu-bi-exponential-fli-data-processing">
 <h1><span class="section-number">4. </span>Fitting Example (NLSF &amp; MLE) in CPU and GPU - Bi-exponential FLI data processing<a class="headerlink" href="#fitting-example-nlsf-mle-in-cpu-and-gpu-bi-exponential-fli-data-processing" title="Link to this heading">#</a></h1>
-<p>A simulated, full 3-D fluorescence lifetime image dataset of a two-well plate (in silico) is generated (using the same simulator as the “Whole Image Simulation” example). Each well is assigned a different set of lifetime / FRET parameters. The data is then fitted pixel by pixel with two estimators, each on the CPU and on the GPU, and processed with the phasor method:</p>
+<p>A simulated, full 3-D fluorescence lifetime image dataset of a two-well plate (in silico) is generated (refer “Whole Image Simulation” example). Each well is assigned a different set of lifetime / FRET parameters.
+The data is then fitted pixel by pixel with two estimators, each on the CPU and on the GPU, and processed with the phasor method:</p>
 <ul class="simple">
 <li><p><strong>Non-linear least squares (NLSF)</strong>: minimizes the weighted sum of squared residuals between the IRF-convolved model and the decay.</p></li>
 <li><p><strong>Maximum likelihood estimation (MLE)</strong>: maximizes the Poisson log-likelihood of the photon counts directly.</p></li>
@@ -641,7 +645,8 @@
 <p><code class="docutils literal notranslate"><span class="pre">MODEL_TYPE</span></code> selects the decay model for both the simulation and the fits. <code class="docutils literal notranslate"><span class="pre">get_config</span></code> builds a per-well configuration by overriding <code class="docutils literal notranslate"><span class="pre">BASE_CONFIG</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select the type of decay model to simulate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SEED</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># select the type of decay model to simulate</span>
 <span class="n">MODEL_TYPE</span> <span class="o">=</span> <span class="s2">"bi-exponential"</span>
 <span class="k">if</span> <span class="n">MODEL_TYPE</span> <span class="o">==</span> <span class="s2">"bi-exponential"</span><span class="p">:</span>
     <span class="n">mono_fraction</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -725,7 +730,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/601e537b3f34880199fa9391ca6fd5d6cc727e18d966dd7007845c6748173c13.png" src="../_images/601e537b3f34880199fa9391ca6fd5d6cc727e18d966dd7007845c6748173c13.png" />
+<img alt="../_images/68e513c73d05e0b29964a578c427233d5cac99f087932e56eba86899ad7e6ef6.png" src="../_images/68e513c73d05e0b29964a578c427233d5cac99f087932e56eba86899ad7e6ef6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -753,11 +758,12 @@
 <span class="n">img_cluster_well</span> <span class="o">=</span> <span class="n">generator_well</span><span class="o">.</span><span class="n">generate_cluster_mask</span><span class="p">(</span><span class="n">TwoWells</span><span class="p">)</span>
 <span class="n">b_bool_mask_well</span> <span class="o">=</span> <span class="n">generator_well</span><span class="o">.</span><span class="n">generate_binary_mask</span><span class="p">(</span><span class="n">TwoWells</span><span class="p">)</span>
 
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
 <span class="n">simulated_img_well</span> <span class="o">=</span> <span class="n">FLIModelImageGenerator</span><span class="p">(</span>
     <span class="n">irf_data</span><span class="o">=</span><span class="n">irf_data</span><span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="p">:],</span>
     <span class="n">intensity_image</span><span class="o">=</span><span class="n">img_intensity_well</span><span class="p">,</span>
     <span class="n">roi_mask</span><span class="o">=</span><span class="n">img_cluster_well</span><span class="p">,</span>
-    <span class="n">roi_params</span><span class="o">=</span><span class="p">[</span><span class="n">ROI0_well</span><span class="p">,</span> <span class="n">ROI1_well</span><span class="p">,</span> <span class="n">ROI2_well</span><span class="p">],</span>
+    <span class="n">roi_params</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">ROI0_well</span><span class="p">,</span> <span class="n">ROI1_well</span><span class="p">,</span> <span class="n">ROI2_well</span><span class="p">])],</span>
     <span class="n">method</span><span class="o">=</span><span class="s2">"PHOTON_COUNTER"</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">bool_mask</span><span class="o">=</span><span class="n">b_bool_mask_well</span><span class="p">,</span>
@@ -797,23 +803,23 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (35, 103)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (37, 39)
 </pre></div>
 </div>
-<img alt="../_images/d617ef6b6f10a23eeeb8f1158fde1d57298f7724587b964f91cda63e34624f9b.png" src="../_images/d617ef6b6f10a23eeeb8f1158fde1d57298f7724587b964f91cda63e34624f9b.png" />
+<img alt="../_images/4329337ec5673a768dae2ac7940ab18857c01fb31a7fbc45a5f6c457f3f6bbc1.png" src="../_images/4329337ec5673a768dae2ac7940ab18857c01fb31a7fbc45a5f6c457f3f6bbc1.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
-  Pixel (35, 103)
+  Pixel (37, 39)
   ─────────────────────
-  A         14165.6523
-  α         0.5340
-  τ₁        0.3890
-  τ₂        1.8303
+  A         12648.1992
+  α         0.5470
+  τ₁        0.1596
+  τ₂        1.8703
   R²        —
   Red.χ²    —
   Raw.χ²    —
   Pearson   —
-  v-shift   0.0000
-  h-shift   —
+  v-shift   0.0800
+  h-shift   0.0000
   ─────────────────────
 </pre></div>
 </div>
@@ -895,7 +901,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3e111aaf5cac6b53cc3db9aa4d8f63348b3d42e46452b9eeedb619d350ec23c8.png" src="../_images/3e111aaf5cac6b53cc3db9aa4d8f63348b3d42e46452b9eeedb619d350ec23c8.png" />
+<img alt="../_images/6311bf5e900d5785aff11db3a7c4d8b5debe703074594d1e2b434db5089a6b20.png" src="../_images/6311bf5e900d5785aff11db3a7c4d8b5debe703074594d1e2b434db5089a6b20.png" />
 </div>
 </div>
 </section>
@@ -930,6 +936,13 @@
 <h4><span class="section-number">4.4.1.1. </span>NLSF<a class="headerlink" href="#nlsf" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SHIFT_METHOD</span> <span class="o">=</span> <span class="s2">"circular"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAX_ITER</span> <span class="o">=</span> <span class="mi">2000</span>
 <span class="n">N_JOBS</span> <span class="o">=</span> <span class="mi">7</span>
 
@@ -939,6 +952,7 @@
     <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf_well</span><span class="p">,</span>
     <span class="n">estimator</span><span class="o">=</span><span class="s2">"least_squares"</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span>
     <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_wells_nlsf"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span>
@@ -948,7 +962,7 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
-Fitting Pixels (least_squares): 100%|██████████| 13226/13226 [01:33&lt;00:00, 141.01px/s]
+Fitting Pixels (least_squares): 100%|██████████| 13226/13226 [02:54&lt;00:00, 75.82px/s]
 </pre></div>
 </div>
 </div>
@@ -966,6 +980,7 @@ Fitting Pixels (least_squares): 100%|██████████| 13226/13226
     <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf_well</span><span class="p">,</span>
     <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span>
     <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_wells_mle"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span>
@@ -975,10 +990,203 @@ Fitting Pixels (least_squares): 100%|██████████| 13226/13226
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
-Fitting Pixels (poisson): 100%|██████████| 13226/13226 [03:51&lt;00:00, 57.04px/s]
+Fitting Pixels (poisson): 100%|██████████| 13226/13226 [06:39&lt;00:00, 33.10px/s]
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseFLIFitter</span><span class="p">,</span> <span class="n">FLICPUProcessor</span><span class="p">,</span> <span class="n">GlobalFLIFitter</span><span class="p">,</span> <span class="n">MLEFLIFitter</span>
+
+<span class="n">check_px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">b_bool_mask_well</span><span class="p">)</span>
+<span class="n">check_px</span> <span class="o">=</span> <span class="n">check_px</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">check_px</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">check_px</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="n">check_decay</span> <span class="o">=</span> <span class="n">_decay_well</span><span class="p">[</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">check_irf</span> <span class="o">=</span> <span class="n">_irf_well</span><span class="p">[</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">check_keys</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="s2">"tau1_map"</span><span class="p">,</span> <span class="s2">"tau2_map"</span><span class="p">,</span> <span class="s2">"alpha1_map"</span><span class="p">,</span> <span class="s2">"tau_mean_map"</span><span class="p">]</span> <span class="k">if</span> <span class="n">MODEL_TYPE</span> <span class="o">==</span> <span class="s2">"bi-exponential"</span> <span class="k">else</span> <span class="p">[</span><span class="s2">"tau_map"</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"zero_pad"</span><span class="p">,</span> <span class="s2">"circular"</span><span class="p">]:</span>
+    <span class="n">fitted</span> <span class="o">=</span> <span class="n">FLICPUProcessor</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">MLEFLIFitter</span><span class="p">)</span><span class="o">.</span><span class="n">process_image</span><span class="p">(</span>
+        <span class="n">check_decay</span><span class="p">,</span>
+        <span class="n">check_irf</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">check_decay</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span>
+        <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
+        <span class="n">n_jobs</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+        <span class="n">shift_method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+    <span class="p">)[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"shift_method"</span><span class="p">:</span> <span class="n">method</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">check_keys</span><span class="p">:</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="n">fitted</span><span class="p">[</span><span class="n">key</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">res_well</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">-</span> <span class="mf">1.0</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_map"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> bias (%)"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">rel</span><span class="p">)</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> spread (%)"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">fit_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">b_bool_mask_well</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">fit_mask</span><span class="p">[</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">capped_fitter</span> <span class="o">=</span> <span class="n">GlobalFLIFitter</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">BaseFLIFitter</span><span class="p">,</span> <span class="n">MLEFLIFitter</span><span class="p">,</span> <span class="n">processor_instance</span><span class="o">=</span><span class="n">FLICPUProcessor</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">MLEFLIFitter</span><span class="p">))</span>
+<span class="n">capped_fitter</span><span class="o">.</span><span class="n">make_clusters</span><span class="p">(</span><span class="n">_decay_well</span><span class="p">,</span> <span class="n">_irf_well</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">b_bool_mask_well</span><span class="p">,</span> <span class="n">img_cluster_well</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">capped_results</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">capped_fitter</span><span class="o">.</span><span class="n">process_clusters</span><span class="p">(</span>
+    <span class="n">_decay_well</span><span class="p">,</span>
+    <span class="n">_irf_well</span><span class="p">,</span>
+    <span class="n">mask</span><span class="o">=</span><span class="n">fit_mask</span><span class="p">,</span>
+    <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
+    <span class="n">global_inference</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">gi_tol</span><span class="o">=</span><span class="p">{</span><span class="s2">"tau2"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="s2">"circular"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">"all"</span><span class="p">)</span>
+<span class="n">capped</span> <span class="o">=</span> <span class="n">capped_fitter</span><span class="o">.</span><span class="n">stitch_results</span><span class="p">(</span><span class="n">capped_results</span><span class="p">,</span> <span class="o">*</span><span class="n">_decay_well</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">)[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span>
+<span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"shift_method"</span><span class="p">:</span> <span class="s2">"circular + tau2 cap (GlobalFLIFitter)"</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">check_keys</span><span class="p">:</span>
+    <span class="n">rel</span> <span class="o">=</span> <span class="n">capped</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">/</span> <span class="n">res_well</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">-</span> <span class="mf">1.0</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_map"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> bias (%)"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">rel</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> spread (%)"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+<span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"shift_method"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting Pixels (poisson): 100%|██████████| 300/300 [00:06&lt;00:00, 43.35px/s]
+Fitting Pixels (poisson): 100%|██████████| 300/300 [00:08&lt;00:00, 35.01px/s]
+INFO:pyfli:
+--- Fitting Super-Pixels (Strategy: snr_weighted) ---
+Super-Pixel Progress:   0%|          | 0/2 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>┌──────────────────────────────────────────────────────────────┐
+│  FLI Fitting Results  |  BI-EXPONENTIAL                      │
+│  1 method queued                                             │
+└──────────────────────────────────────────────────────────────┘
+
+
+┌────────────────┬──────┬─────────┬─────────┬──────────┬──────────┬─────────┬──────────┬──────────┬─────────┬──────────┐
+│ Method         │ Type │       A │       α │       τ₁ │       τ₂ │      R² │   Red.χ² │   Raw.χ² │ v-shift │  h-shift │
+├────────────────┼──────┼─────────┼─────────┼──────────┼──────────┼─────────┼──────────┼──────────┼─────────┼──────────┤
+│ POISSON        │ MLE  │ 13189.24 │  0.2425 │    0.307 │    1.708 │  0.9995 │   0.0206 │     5.43 │    0.27 │   -0.001 │
+└────────────────┴──────┴─────────┴─────────┴──────────┴──────────┴─────────┴──────────┴──────────┴─────────┴──────────┘
+</pre></div>
+</div>
+<img alt="../_images/13bb5bf7e26f5918d7ba8ceae352fadc05748bce9d3e40a98cb343a504dbd15e.png" src="../_images/13bb5bf7e26f5918d7ba8ceae352fadc05748bce9d3e40a98cb343a504dbd15e.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Super-Pixel Progress:  50%|█████     | 1/2 [00:00&lt;00:00,  1.19it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>┌──────────────────────────────────────────────────────────────┐
+│  FLI Fitting Results  |  BI-EXPONENTIAL                      │
+│  1 method queued                                             │
+└──────────────────────────────────────────────────────────────┘
+
+
+┌────────────────┬──────┬─────────┬─────────┬──────────┬──────────┬─────────┬──────────┬──────────┬─────────┬──────────┐
+│ Method         │ Type │       A │       α │       τ₁ │       τ₂ │      R² │   Red.χ² │   Raw.χ² │ v-shift │  h-shift │
+├────────────────┼──────┼─────────┼─────────┼──────────┼──────────┼─────────┼──────────┼──────────┼─────────┼──────────┤
+│ POISSON        │ MLE  │ 13226.52 │  0.4804 │    0.388 │    0.852 │  1.0000 │   0.0006 │     0.14 │    0.09 │   -0.000 │
+└────────────────┴──────┴─────────┴─────────┴──────────┴──────────┴─────────┴──────────┴──────────┴─────────┴──────────┘
+</pre></div>
+</div>
+<img alt="../_images/ff1906044a73bcbb4865f6fbadc328f44694e0a76862d80053e8efd31faa63f8.png" src="../_images/ff1906044a73bcbb4865f6fbadc328f44694e0a76862d80053e8efd31faa63f8.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Super-Pixel Progress: 100%|██████████| 2/2 [00:01&lt;00:00,  1.29it/s]
+INFO:pyfli:
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+CONSOLIDATED CLUSTER BENCHMARK
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+INFO:pyfli:╒═══════════╤══════════╤════════╤════════╤═══════════╤════════╤════════╤═════════════╤════════════════════════════════════════════╕
+│  Cluster  │  Method  │  Type  │  Conv  │   Time    │   R2   │  Chi2  │  Red. Chi2  │                 Parameters                 │
+╞═══════════╪══════════╪════════╪════════╪═══════════╪════════╪════════╪═════════════╪════════════════════════════════════════════╡
+│ cluster_1 │ POISSON  │  MLE   │  YES   │ 149.61 ms │ 0.9995 │  5.43  │   0.0206    │ A:13189.2, α:0.24, τ1:0.31, τ2:1.71, B:0.3 │
+├───────────┼──────────┼────────┼────────┼───────────┼────────┼────────┼─────────────┼────────────────────────────────────────────┤
+│ cluster_2 │ POISSON  │  MLE   │  YES   │ 136.39 ms │   1    │  0.14  │   0.0006    │ A:13226.5, α:0.48, τ1:0.39, τ2:0.85, B:0.1 │
+╘═══════════╧══════════╧════════╧════════╧═══════════╧════════╧════════╧═════════════╧════════════════════════════════════════════╛
+Fitting Pixels (poisson): 100%|██████████| 164/164 [00:03&lt;00:00, 48.00px/s]
+Fitting Pixels (poisson): 100%|██████████| 136/136 [00:03&lt;00:00, 38.91px/s]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tau1 bias (%)</th>
+      <th>tau1 spread (%)</th>
+      <th>tau2 bias (%)</th>
+      <th>tau2 spread (%)</th>
+      <th>alpha1 bias (%)</th>
+      <th>alpha1 spread (%)</th>
+      <th>tau_mean bias (%)</th>
+      <th>tau_mean spread (%)</th>
+    </tr>
+    <tr>
+      <th>shift_method</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>zero_pad</th>
+      <td>-6.98</td>
+      <td>16.049999</td>
+      <td>-5.49</td>
+      <td>8.55</td>
+      <td>-7.99</td>
+      <td>31.98</td>
+      <td>-1.94</td>
+      <td>2.73</td>
+    </tr>
+    <tr>
+      <th>circular</th>
+      <td>-2.60</td>
+      <td>15.010000</td>
+      <td>-0.98</td>
+      <td>8.29</td>
+      <td>-1.79</td>
+      <td>21.32</td>
+      <td>-0.26</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>circular + tau2 cap (GlobalFLIFitter)</th>
+      <td>-3.09</td>
+      <td>16.209999</td>
+      <td>-1.30</td>
+      <td>9.13</td>
+      <td>-2.98</td>
+      <td>24.48</td>
+      <td>-0.36</td>
+      <td>2.08</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>
@@ -1023,6 +1231,7 @@ Fitting Pixels (poisson): 100%|██████████| 13226/13226 [03:5
     <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf_well</span><span class="p">,</span>
     <span class="n">estimator</span><span class="o">=</span><span class="s2">"least_squares"</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_wells_gpu_nlsf"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="n">GPU_MAX_ITER</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1035,11 +1244,11 @@ Fitting Pixels (poisson): 100%|██████████| 13226/13226 [03:5
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Using Device: cuda
 INFO:pyfli:Engine: GPU Vectorized Processor (via FLIGPUProcessor)
 INFO:pyfli:--- GPU NLSF Processing (13226 pixels) ---
-Optimizing (NLSF): 100%|██████████| 1500/1500 [01:04&lt;00:00, 23.20it/s]
-INFO:pyfli:Fit Finished in 68.28s
+Optimizing (NLSF): 100%|██████████| 1500/1500 [00:54&lt;00:00, 27.73it/s]
+INFO:pyfli:Fit Finished in 58.10s
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU NLSF: 68.3 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU NLSF: 58.1 s
 </pre></div>
 </div>
 </div>
@@ -1056,6 +1265,7 @@ INFO:pyfli:Fit Finished in 68.28s
     <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf_well</span><span class="p">,</span>
     <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_wells_gpu_mle"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="n">GPU_MAX_ITER</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1068,11 +1278,11 @@ INFO:pyfli:Fit Finished in 68.28s
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Using Device: cuda
 INFO:pyfli:Engine: GPU Vectorized Processor (via FLIGPUProcessor)
 INFO:pyfli:--- GPU MLE Processing (13226 pixels) ---
-Optimizing (MLE): 100%|██████████| 1500/1500 [01:07&lt;00:00, 22.10it/s]
-INFO:pyfli:Fit Finished in 68.53s
+Optimizing (MLE): 100%|██████████| 1500/1500 [00:55&lt;00:00, 27.05it/s]
+INFO:pyfli:Fit Finished in 56.44s
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU MLE: 68.6 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPU MLE: 56.5 s
 </pre></div>
 </div>
 </div>
@@ -1114,7 +1324,7 @@ INFO:pyfli:Fit Finished in 68.53s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3d9785fea2f019a24cea1e42e580d4e769588e3af73179cb4928d48fc4e43482.png" src="../_images/3d9785fea2f019a24cea1e42e580d4e769588e3af73179cb4928d48fc4e43482.png" />
+<img alt="../_images/a14bda93b0b5f59881a2c86d8cd19f708c8022c87ba92425784ac7d059cdb2bd.png" src="../_images/a14bda93b0b5f59881a2c86d8cd19f708c8022c87ba92425784ac7d059cdb2bd.png" />
 </div>
 </div>
 </section>
@@ -1152,7 +1362,7 @@ INFO:pyfli:Fit Finished in 68.53s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fe975cdd9181082a536e09dcdd3d3d92d3a8b5e330066c0d410a64a2d5eef77a.png" src="../_images/fe975cdd9181082a536e09dcdd3d3d92d3a8b5e330066c0d410a64a2d5eef77a.png" />
+<img alt="../_images/4f038995df139dabd3874141ef9240a4044269bacba9942a50042033d3088af4.png" src="../_images/4f038995df139dabd3874141ef9240a4044269bacba9942a50042033d3088af4.png" />
 </div>
 </div>
 </section>
@@ -1223,47 +1433,47 @@ INFO:pyfli:Fit Finished in 68.53s
   <tbody>
     <tr>
       <th>NLSF (CPU)</th>
-      <td>-1.557</td>
-      <td>2.201</td>
-      <td>-3.770</td>
-      <td>22.771</td>
-      <td>-4.009</td>
-      <td>24.036</td>
-      <td>0.066</td>
-      <td>1.031</td>
+      <td>-0.087</td>
+      <td>1.749</td>
+      <td>-0.175</td>
+      <td>18.405</td>
+      <td>0.266</td>
+      <td>32.812</td>
+      <td>0.051</td>
+      <td>1.007</td>
     </tr>
     <tr>
       <th>MLE (CPU)</th>
-      <td>-1.942</td>
-      <td>2.095</td>
-      <td>-6.491</td>
-      <td>18.982</td>
-      <td>-5.795</td>
-      <td>22.746</td>
-      <td>0.063</td>
-      <td>1.014</td>
+      <td>-0.189</td>
+      <td>1.691</td>
+      <td>-2.001</td>
+      <td>17.116</td>
+      <td>-0.617</td>
+      <td>24.493</td>
+      <td>0.047</td>
+      <td>1.002</td>
     </tr>
     <tr>
       <th>NLSF (GPU)</th>
-      <td>-1.970</td>
-      <td>7.249</td>
-      <td>-8.026</td>
-      <td>27.560</td>
-      <td>-5.657</td>
-      <td>10.050</td>
-      <td>0.063</td>
-      <td>1.056</td>
+      <td>-0.539</td>
+      <td>5.185</td>
+      <td>-4.825</td>
+      <td>22.021</td>
+      <td>-1.725</td>
+      <td>10.524</td>
+      <td>0.048</td>
+      <td>1.034</td>
     </tr>
     <tr>
       <th>MLE (GPU)</th>
-      <td>-2.167</td>
-      <td>8.804</td>
-      <td>-8.511</td>
-      <td>25.148</td>
-      <td>-6.145</td>
-      <td>10.597</td>
-      <td>0.064</td>
-      <td>1.048</td>
+      <td>-0.556</td>
+      <td>6.432</td>
+      <td>-4.944</td>
+      <td>23.869</td>
+      <td>-1.692</td>
+      <td>10.990</td>
+      <td>0.048</td>
+      <td>1.033</td>
     </tr>
   </tbody>
 </table>
@@ -1300,7 +1510,7 @@ INFO:pyfli:Fit Finished in 68.53s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ee07046b45c7af976baf5fe208ed4a015ecc36b6b65d3f7b90d14235adcef974.png" src="../_images/ee07046b45c7af976baf5fe208ed4a015ecc36b6b65d3f7b90d14235adcef974.png" />
+<img alt="../_images/6008be231fbb209793893268ba4efebe69ae2390d8188f6185064b81139e5afa.png" src="../_images/6008be231fbb209793893268ba4efebe69ae2390d8188f6185064b81139e5afa.png" />
 </div>
 </div>
 </section>
@@ -1324,7 +1534,7 @@ INFO:pyfli:Fit Finished in 68.53s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7f973373f3d331b51a023939b30a1af4d2ac1a8af575b53321a24327a3945579.png" src="../_images/7f973373f3d331b51a023939b30a1af4d2ac1a8af575b53321a24327a3945579.png" />
+<img alt="../_images/f9ea0802ad4e6e7fa9ccb800797b327ab0b777a491253603781fe597e4daade2.png" src="../_images/f9ea0802ad4e6e7fa9ccb800797b327ab0b777a491253603781fe597e4daade2.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1337,7 +1547,7 @@ INFO:pyfli:Fit Finished in 68.53s
 <h2><span class="section-number">4.7. </span>Phasor computation and visualization<a class="headerlink" href="#phasor-computation-and-visualization" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_axis_ns_well</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate_delay</span> <span class="o">*</span> <span class="n">num_gates</span><span class="p">,</span> <span class="n">_irf_well</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_axis_ns_well</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate_delay</span> <span class="o">*</span> <span class="n">num_gates</span><span class="p">,</span> <span class="n">_irf_well</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">phasor_well</span> <span class="o">=</span> <span class="n">PhasorAnalyzer</span><span class="p">(</span>
     <span class="n">frequency_hz</span><span class="o">=</span><span class="n">freq_hz</span><span class="p">,</span> <span class="n">time_axis_ns</span><span class="o">=</span><span class="n">time_axis_ns_well</span><span class="p">,</span> <span class="n">n_harmonics</span><span class="o">=</span><span class="mi">3</span>
 <span class="p">)</span>
@@ -1366,7 +1576,7 @@ INFO:pyfli:Fit Finished in 68.53s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c222eb145327236b9f8c01983be386cea3ebd53608eab1ec03f8da09d00c642e.png" src="../_images/c222eb145327236b9f8c01983be386cea3ebd53608eab1ec03f8da09d00c642e.png" />
+<img alt="../_images/8ebb82ce7835642cc8f8b96f12b7c280f5c77472cb5b8cbaadd22e82bcc7c851.png" src="../_images/8ebb82ce7835642cc8f8b96f12b7c280f5c77472cb5b8cbaadd22e82bcc7c851.png" />
 </div>
 </div>
 </section>
@@ -1383,7 +1593,7 @@ INFO:pyfli:Fit Finished in 68.53s
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1445,8 +1655,8 @@ INFO:pyfli:Fit Finished in 68.53s
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1472,7 +1682,7 @@ INFO:pyfli:Fit Finished in 68.53s
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
   </p>
 </div>
       

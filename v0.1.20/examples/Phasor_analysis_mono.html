@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
     <script src="../_static/documentation_options.js?v=af2a1697"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Phasor_analysis_mono';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.20';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/examples/Phasor_analysis_mono.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/examples/Phasor_analysis_mono.html" />
     <link rel="icon" href="../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -115,7 +115,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -252,14 +252,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -314,7 +314,7 @@
   
 
   
-    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -328,7 +328,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -420,14 +420,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -495,6 +495,9 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_example.html">3. Harmonic offset: estimating and removing the IRF-decay timing offset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_bi_example.html">4. Harmonic offset for bi-exponential samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_three_lifetimes_example.html">5. Harmonic offset with three lifetimes: what each harmonic contributes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator and FLI Data Simulation Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -542,7 +545,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -625,7 +628,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/77e9ffa4b9844d5ae9a14c0f71abfd02ad7ee243906b95edea094879274fc236.png" src="../_images/77e9ffa4b9844d5ae9a14c0f71abfd02ad7ee243906b95edea094879274fc236.png" />
+<img alt="../_images/b0d7c45f8ff058dfc58702edd7d8b20d8250914aa04eb0e2cdd6bc5745aa822c.png" src="../_images/b0d7c45f8ff058dfc58702edd7d8b20d8250914aa04eb0e2cdd6bc5745aa822c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -810,7 +813,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5c1d3270a9b05cf38f08e4b086d30d6bcc2680782b7fbee2b5dfc0e075fd9759.png" src="../_images/5c1d3270a9b05cf38f08e4b086d30d6bcc2680782b7fbee2b5dfc0e075fd9759.png" />
+<img alt="../_images/3fb18e8993e4b511a8b06c14a339d48dd9ec7cd3b0377349d5f5b78f56983800.png" src="../_images/3fb18e8993e4b511a8b06c14a339d48dd9ec7cd3b0377349d5f5b78f56983800.png" />
 </div>
 </div>
 <p>Check the decay, IRF, and fit at a randomly selected pixel.</p>
@@ -839,7 +842,7 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (44, 324)
 </pre></div>
 </div>
-<img alt="../_images/61d93717b40e1bc2301c0a17524fa944a07d3887f0a1ee495a900001ddbf065e.png" src="../_images/61d93717b40e1bc2301c0a17524fa944a07d3887f0a1ee495a900001ddbf065e.png" />
+<img alt="../_images/162072b4102aa2b08a02b6313e384cf5959d13cace45aa3c3ecf17c105964b94.png" src="../_images/162072b4102aa2b08a02b6313e384cf5959d13cace45aa3c3ecf17c105964b94.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
   Pixel (44, 324)
   ─────────────────────
@@ -864,7 +867,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colorset</span> <span class="o">=</span> <span class="s2">"rainbow"</span>
 <span class="n">freq_hz</span> <span class="o">=</span> <span class="n">freq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e6</span>
-<span class="n">time_axis_ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate_delay</span> <span class="o">*</span> <span class="n">num_gates</span><span class="p">,</span> <span class="n">_irf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">time_axis_ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate_delay</span> <span class="o">*</span> <span class="n">num_gates</span><span class="p">,</span> <span class="n">_irf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">phasor</span> <span class="o">=</span> <span class="n">PhasorAnalyzer</span><span class="p">(</span><span class="n">frequency_hz</span><span class="o">=</span><span class="n">freq_hz</span><span class="p">,</span> <span class="n">time_axis_ns</span><span class="o">=</span><span class="n">time_axis_ns</span><span class="p">,</span> <span class="n">n_harmonics</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">G</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">phasor</span><span class="o">.</span><span class="n">create_phasor_gpu</span><span class="p">(</span><span class="n">_decay</span><span class="p">)</span>
 <span class="n">Gc</span><span class="p">,</span> <span class="n">Sc</span> <span class="o">=</span> <span class="n">phasor</span><span class="o">.</span><span class="n">calibrate_pixelwise</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">_irf</span><span class="p">)</span>  <span class="c1"># pixel-wise IRF calibration</span>
@@ -893,7 +896,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1032fd9eca3e792597de868848c2c66e124f13fd9dd03419104c251e7b4d6160.png" src="../_images/1032fd9eca3e792597de868848c2c66e124f13fd9dd03419104c251e7b4d6160.png" />
+<img alt="../_images/796f8833c51db4fc378458e8fa502c85541257ba396c6feb4ea0025e476d7a61.png" src="../_images/796f8833c51db4fc378458e8fa502c85541257ba396c6feb4ea0025e476d7a61.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -916,7 +919,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/88165d2a64b6d43140e36d4f73f165f3a868019450d4c21221bc6917dc5df4c0.png" src="../_images/88165d2a64b6d43140e36d4f73f165f3a868019450d4c21221bc6917dc5df4c0.png" />
+<img alt="../_images/fda4b0ecb35a27c7c16a10aae579a64903c6f2844c1c22ba142cd423b5acc916.png" src="../_images/fda4b0ecb35a27c7c16a10aae579a64903c6f2844c1c22ba142cd423b5acc916.png" />
 </div>
 </div>
 </section>
@@ -937,7 +940,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dc76dad1664015966c7f0c7d1261785f284e5a86ad83990219663d0b5284ba46.png" src="../_images/dc76dad1664015966c7f0c7d1261785f284e5a86ad83990219663d0b5284ba46.png" />
+<img alt="../_images/209cfa4e57e095ca00362d18f16aef7b86064d80a08d267f39c60966ca0e737c.png" src="../_images/209cfa4e57e095ca00362d18f16aef7b86064d80a08d267f39c60966ca0e737c.png" />
 </div>
 </div>
 <section id="phasor-of-fitting-based-on-the-guessed-lifetime">
@@ -965,7 +968,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3e0149139a7bf3206781472c411d593df76b9e18b816c46b978d6289d4312fa9.png" src="../_images/3e0149139a7bf3206781472c411d593df76b9e18b816c46b978d6289d4312fa9.png" />
+<img alt="../_images/dc7d7519fea11c1a09a989c5220a0aaa23d10de15b8363ef2043915ab0701e22.png" src="../_images/dc7d7519fea11c1a09a989c5220a0aaa23d10de15b8363ef2043915ab0701e22.png" />
 </div>
 </div>
 <p>Selecting the bi-exponential model for reconstructing the fit generates a general set of fit values.</p>
@@ -994,9 +997,9 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reconstructed decay shape: (128, 512, 256)
 </pre></div>
 </div>
-<img alt="../_images/d36b2d94ff00a361ffdc7413d4ae4ca2407be56b8007dcd5a6bccd5d6484ac11.png" src="../_images/d36b2d94ff00a361ffdc7413d4ae4ca2407be56b8007dcd5a6bccd5d6484ac11.png" />
-<img alt="../_images/a16460c49a7b7533529020c256525e375931fc2d74021fe6c12e81b5a1e23462.png" src="../_images/a16460c49a7b7533529020c256525e375931fc2d74021fe6c12e81b5a1e23462.png" />
-<img alt="../_images/59293787ccb201653948fc16dc3534680f8ed9ce8a680a3c435c1c0c178ea557.png" src="../_images/59293787ccb201653948fc16dc3534680f8ed9ce8a680a3c435c1c0c178ea557.png" />
+<img alt="../_images/6e00c9d27431181447bb1d0d626c4ab66d9c7d3492afca62a4d14c51e0ba9b97.png" src="../_images/6e00c9d27431181447bb1d0d626c4ab66d9c7d3492afca62a4d14c51e0ba9b97.png" />
+<img alt="../_images/083b9837ad33d7c863abfd520defdcc0c1ad9c2c65fa30d062737b9622e64267.png" src="../_images/083b9837ad33d7c863abfd520defdcc0c1ad9c2c65fa30d062737b9622e64267.png" />
+<img alt="../_images/2597f44066a9c9b9b8be8ddb003c1acc1be0ec787b54524f348b8df594d66bb5.png" src="../_images/2597f44066a9c9b9b8be8ddb003c1acc1be0ec787b54524f348b8df594d66bb5.png" />
 </div>
 </div>
 </section>
@@ -1014,7 +1017,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1059,8 +1062,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1086,7 +1089,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
   </p>
 </div>
       

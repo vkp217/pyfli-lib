@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=71ba2b9a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
     <script src="../_static/documentation_options.js?v=af2a1697"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -50,14 +50,14 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Monoexponential_percentage_fit';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.20';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://pyfli.org/main/examples/Monoexponential_percentage_fit.html" />
+    <link rel="canonical" href="https://pyfli.org/dev/examples/Monoexponential_percentage_fit.html" />
     <link rel="icon" href="../_static/PyFLI_logo.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -115,7 +115,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -252,14 +252,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -314,7 +314,7 @@
   
 
   
-    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -328,7 +328,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -420,14 +420,14 @@
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
   <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -495,6 +495,9 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_example.html">3. Harmonic offset: estimating and removing the IRF-decay timing offset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_bi_example.html">4. Harmonic offset for bi-exponential samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_three_lifetimes_example.html">5. Harmonic offset with three lifetimes: what each harmonic contributes</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator and FLI Data Simulation Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -542,7 +545,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -633,7 +636,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/77e9ffa4b9844d5ae9a14c0f71abfd02ad7ee243906b95edea094879274fc236.png" src="../_images/77e9ffa4b9844d5ae9a14c0f71abfd02ad7ee243906b95edea094879274fc236.png" />
+<img alt="../_images/b0d7c45f8ff058dfc58702edd7d8b20d8250914aa04eb0e2cdd6bc5745aa822c.png" src="../_images/b0d7c45f8ff058dfc58702edd7d8b20d8250914aa04eb0e2cdd6bc5745aa822c.png" />
 </div>
 </div>
 </section>
@@ -672,7 +675,8 @@
 <p><code class="docutils literal notranslate"><span class="pre">MODEL_TYPE</span></code> selects the decay model for both the simulation and the fits. Setting <code class="docutils literal notranslate"><span class="pre">mono_fraction</span></code> to 1.0 forces every simulated pixel to be mono-exponential.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_TYPE</span> <span class="o">=</span> <span class="s2">"mono-exponential"</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SEED</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODEL_TYPE</span> <span class="o">=</span> <span class="s2">"mono-exponential"</span>
 
 <span class="c1"># Your constant, default configuration</span>
 <span class="n">BASE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
@@ -737,11 +741,12 @@
 <span class="n">img_cluster</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_cluster_mask</span><span class="p">(</span><span class="n">FLIM_letters</span><span class="p">)</span>
 <span class="n">b_bool_mask</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_binary_mask</span><span class="p">(</span><span class="n">FLIM_letters</span><span class="p">)</span>
 
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
 <span class="n">simulated_img</span> <span class="o">=</span> <span class="n">FLIModelImageGenerator</span><span class="p">(</span>
     <span class="n">irf_data</span><span class="o">=</span><span class="n">irf_data</span><span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="p">:],</span>
     <span class="n">intensity_image</span><span class="o">=</span><span class="n">img_intensity</span><span class="p">,</span>
     <span class="n">roi_mask</span><span class="o">=</span><span class="n">img_cluster</span><span class="p">,</span>
-    <span class="n">roi_params</span><span class="o">=</span><span class="p">[</span><span class="n">ROI0</span><span class="p">,</span> <span class="n">ROI1</span><span class="p">,</span> <span class="n">ROI2</span><span class="p">,</span> <span class="n">ROI3</span><span class="p">,</span> <span class="n">ROI4</span><span class="p">],</span>
+    <span class="n">roi_params</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">ROI0</span><span class="p">,</span> <span class="n">ROI1</span><span class="p">,</span> <span class="n">ROI2</span><span class="p">,</span> <span class="n">ROI3</span><span class="p">,</span> <span class="n">ROI4</span><span class="p">])],</span>
     <span class="n">method</span><span class="o">=</span><span class="s2">"PHOTON_COUNTER"</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">bool_mask</span><span class="o">=</span><span class="n">b_bool_mask</span><span class="p">,</span>
@@ -753,10 +758,7 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Generating PHOTON_COUNTER FLI Image [128x512x256]...
-Simulating Pixels:   0%|          | 0/65536 [00:00&lt;?, ?px/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                          
+                                                                          
 </pre></div>
 </div>
 </div>
@@ -784,7 +786,7 @@ Simulating Pixels:   0%|          | 0/65536 [00:00&lt;?, ?px/s]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e1fb7b699bd74ca2aaaeca571c4ede30e6de961add6c7526fabf4b001403ee0d.png" src="../_images/e1fb7b699bd74ca2aaaeca571c4ede30e6de961add6c7526fabf4b001403ee0d.png" />
+<img alt="../_images/6848a8f4354aa75d68e7d3b09d124acf93372f1dd29750d1cd0eb212442b77a7.png" src="../_images/6848a8f4354aa75d68e7d3b09d124acf93372f1dd29750d1cd0eb212442b77a7.png" />
 </div>
 </div>
 <p>Check the decay, IRF, and fit at a randomly selected pixel.</p>
@@ -809,23 +811,23 @@ Simulating Pixels:   0%|          | 0/65536 [00:00&lt;?, ?px/s]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (72, 323)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the non-zero pixel selected for probing is (83, 57)
 </pre></div>
 </div>
-<img alt="../_images/d412d80ecba9404df79166e762d14fc90389d03adc9adc720b5146cfd37a2f10.png" src="../_images/d412d80ecba9404df79166e762d14fc90389d03adc9adc720b5146cfd37a2f10.png" />
+<img alt="../_images/e415373e68118418b0a185926c6da2afc740212b520e3100e6089ef0fe01ca64.png" src="../_images/e415373e68118418b0a185926c6da2afc740212b520e3100e6089ef0fe01ca64.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:
-  Pixel (72, 323)
+  Pixel (83, 57)
   ─────────────────────
-  A         13075.2559
+  A         11702.9219
   α         —
-  τ₁        0.9336
+  τ₁        0.5313
   τ₂        —
   R²        —
   Red.χ²    —
   Raw.χ²    —
   Pearson   —
-  v-shift   0.0000
-  h-shift   —
+  v-shift   0.0800
+  h-shift   0.0000
   ─────────────────────
 </pre></div>
 </div>
@@ -879,11 +881,11 @@ Simulating Pixels:   0%|          | 0/65536 [00:00&lt;?, ?px/s]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>peak gate 31 (1.51 ns); tail = 225 gates
-fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>peak gate 32 (1.56 ns); tail = 224 gates
+fit window: gates 54-210 (2.64-10.25 ns), 31.3% of the detected counts
 </pre></div>
 </div>
-<img alt="../_images/f70d9166d90c98191993d9d6af64da392e93690584d530f73e9d6446c03e60d1.png" src="../_images/f70d9166d90c98191993d9d6af64da392e93690584d530f73e9d6446c03e60d1.png" />
+<img alt="../_images/6b544bb5bfdd1790c68c136408036d8b386e893117d31ba50a7b49064c2792bc.png" src="../_images/6b544bb5bfdd1790c68c136408036d8b386e893117d31ba50a7b49064c2792bc.png" />
 </div>
 </div>
 </section>
@@ -895,6 +897,13 @@ fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;poisson&quot;</span></code> uses <code class="docutils literal notranslate"><span class="pre">MLEFLIFitter</span></code> (Poisson MLE)</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">p0</span></code> (initial guess) and <code class="docutils literal notranslate"><span class="pre">bounds</span></code> are left as <code class="docutils literal notranslate"><span class="pre">None</span></code>, so the fitter derives its own initial guess from the data. For a mono-exponential model the parameters are <code class="docutils literal notranslate"><span class="pre">[S,</span> <span class="pre">tau,</span> <span class="pre">v_shift,</span> <span class="pre">h_shift]</span></code>, and both can be passed in that order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SHIFT_METHOD</span> <span class="o">=</span> <span class="s2">"circular"</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p0</span> <span class="o">=</span> <span class="kc">None</span>
@@ -910,6 +919,7 @@ fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
     <span class="n">y_data</span><span class="o">=</span><span class="n">pixel_decay</span><span class="p">,</span>
     <span class="n">irf_data</span><span class="o">=</span><span class="n">pixel_irf</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">p0</span><span class="o">=</span><span class="n">p0</span><span class="p">,</span>
     <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
     <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
@@ -929,12 +939,12 @@ fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
 ┌────────────────┬──────┬─────────┬──────────┬─────────┬──────────┬──────────┬─────────┬──────────┐
 │ Method         │ Type │       A │        τ │      R² │   Red.χ² │   Raw.χ² │ v-shift │  h-shift │
 ├────────────────┼──────┼─────────┼──────────┼─────────┼──────────┼──────────┼─────────┼──────────┤
-│ LEAST_SQUARES  │ NLSF │ 11169.81 │    0.916 │  0.9783 │   1.0270 │   167.81 │    0.13 │    0.049 │
-│ POISSON        │ MLE  │ 11168.82 │    0.917 │  0.9783 │   1.0270 │   167.81 │    0.13 │    0.049 │
+│ LEAST_SQUARES  │ NLSF │ 10483.02 │    1.132 │  0.9829 │   1.1408 │   183.45 │    0.00 │    0.146 │
+│ POISSON        │ MLE  │ 10483.98 │    1.132 │  0.9829 │   1.1408 │   183.45 │    0.00 │    0.146 │
 └────────────────┴──────┴─────────┴──────────┴─────────┴──────────┴──────────┴─────────┴──────────┘
 </pre></div>
 </div>
-<img alt="../_images/b0889aaabcd1c2991944e97010311f8cf4c9d12294babe29e89d46110f666757.png" src="../_images/b0889aaabcd1c2991944e97010311f8cf4c9d12294babe29e89d46110f666757.png" />
+<img alt="../_images/f4e7ee0811a496005b214c12baab6bd8a341500f28b310ac689dddacd2ef05a0.png" src="../_images/f4e7ee0811a496005b214c12baab6bd8a341500f28b310ac689dddacd2ef05a0.png" />
 </div>
 </div>
 </section>
@@ -960,6 +970,7 @@ fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
     <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf</span><span class="p">,</span>
     <span class="n">estimator</span><span class="o">=</span><span class="s2">"least_squares"</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span>
     <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_nlsf"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span>
@@ -970,7 +981,7 @@ fit window: gates 53-210 (2.59-10.25 ns), 31.4% of the detected counts
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
-Fitting Pixels (least_squares): 100%|██████████| 10241/10241 [00:47&lt;00:00, 215.77px/s]
+Fitting Pixels (least_squares): 100%|██████████| 10241/10241 [01:41&lt;00:00, 100.91px/s]
 </pre></div>
 </div>
 </div>
@@ -987,6 +998,7 @@ Fitting Pixels (least_squares): 100%|██████████| 10241/10241
     <span class="n">b_irf</span><span class="o">=</span><span class="n">_irf</span><span class="p">,</span>
     <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
     <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+    <span class="n">shift_method</span><span class="o">=</span><span class="n">SHIFT_METHOD</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span>
     <span class="n">data_name</span><span class="o">=</span><span class="s2">"simulated_mle"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span>
@@ -997,10 +1009,95 @@ Fitting Pixels (least_squares): 100%|██████████| 10241/10241
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Engine: CPU Parallel Processor (via FLICPUProcessor)
-Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:52&lt;00:00, 90.95px/s] 
+Fitting Pixels (poisson): 100%|██████████| 10241/10241 [04:13&lt;00:00, 40.47px/s]
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">FLICPUProcessor</span><span class="p">,</span> <span class="n">MLEFLIFitter</span>
+
+<span class="n">check_px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">b_bool_mask</span><span class="p">)</span>
+<span class="n">check_px</span> <span class="o">=</span> <span class="n">check_px</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">check_px</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">check_px</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="n">check_decay</span> <span class="o">=</span> <span class="n">_decay</span><span class="p">[</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">check_irf</span> <span class="o">=</span> <span class="n">_irf</span><span class="p">[</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">check_keys</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="s2">"tau1_map"</span><span class="p">,</span> <span class="s2">"tau2_map"</span><span class="p">,</span> <span class="s2">"alpha1_map"</span><span class="p">,</span> <span class="s2">"tau_mean_map"</span><span class="p">]</span> <span class="k">if</span> <span class="n">MODEL_TYPE</span> <span class="o">==</span> <span class="s2">"bi-exponential"</span> <span class="k">else</span> <span class="p">[</span><span class="s2">"tau_map"</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"zero_pad"</span><span class="p">,</span> <span class="s2">"circular"</span><span class="p">]:</span>
+    <span class="n">fitted</span> <span class="o">=</span> <span class="n">FLICPUProcessor</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">MLEFLIFitter</span><span class="p">)</span><span class="o">.</span><span class="n">process_image</span><span class="p">(</span>
+        <span class="n">check_decay</span><span class="p">,</span>
+        <span class="n">check_irf</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">check_decay</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span>
+        <span class="n">model_type</span><span class="o">=</span><span class="n">MODEL_TYPE</span><span class="p">,</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="s2">"poisson"</span><span class="p">,</span>
+        <span class="n">n_jobs</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+        <span class="n">shift_method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+    <span class="p">)[</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"maps"</span><span class="p">]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"shift_method"</span><span class="p">:</span> <span class="n">method</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">check_keys</span><span class="p">:</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="n">fitted</span><span class="p">[</span><span class="n">key</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">gt_maps</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">check_px</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">check_px</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">-</span> <span class="mf">1.0</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_map"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> bias (%)"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">rel</span><span class="p">)</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> spread (%)"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"shift_method"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting Pixels (poisson):   0%|          | 0/300 [00:00&lt;?, ?px/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting Pixels (poisson): 100%|██████████| 300/300 [00:04&lt;00:00, 69.81px/s]
+Fitting Pixels (poisson): 100%|██████████| 300/300 [00:06&lt;00:00, 47.96px/s]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tau bias (%)</th>
+      <th>tau spread (%)</th>
+    </tr>
+    <tr>
+      <th>shift_method</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>zero_pad</th>
+      <td>-0.39</td>
+      <td>1.64</td>
+    </tr>
+    <tr>
+      <th>circular</th>
+      <td>-0.14</td>
+      <td>1.67</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>
@@ -1030,7 +1127,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:5
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c412cec5e74991d3f0f8f5b2b0a95955fbabb8d19fff788a5f37d822bb662a78.png" src="../_images/c412cec5e74991d3f0f8f5b2b0a95955fbabb8d19fff788a5f37d822bb662a78.png" />
+<img alt="../_images/607e82fc8f02b3e51556fdd153a638437f24a8094249c5f1f6ae6bd5ee9feba0.png" src="../_images/607e82fc8f02b3e51556fdd153a638437f24a8094249c5f1f6ae6bd5ee9feba0.png" />
 </div>
 </div>
 </section>
@@ -1070,7 +1167,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:5
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/17f1a7994f00413075c8b0e1e9f8a80a2a849425aa7f77d792dd88c549cecfb3.png" src="../_images/17f1a7994f00413075c8b0e1e9f8a80a2a849425aa7f77d792dd88c549cecfb3.png" />
+<img alt="../_images/380d71fba0a7fc0e28c08545a427b28e9518b653b48f588b070018a850bbc94c.png" src="../_images/380d71fba0a7fc0e28c08545a427b28e9518b653b48f588b070018a850bbc94c.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">graph_type</span></code> can also be <code class="docutils literal notranslate"><span class="pre">&quot;box&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;swarm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;overlay&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;raincloud&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;kde&quot;</span></code>. Setting <code class="docutils literal notranslate"><span class="pre">test_type</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;paired&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;welch&quot;</span></code> adds significance tests between the sources.</p>
@@ -1096,7 +1193,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:5
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/05706c4403597b615eb7c575fb7cfec4fc85ca6984c45a4f90bd018e6f9b70e1.png" src="../_images/05706c4403597b615eb7c575fb7cfec4fc85ca6984c45a4f90bd018e6f9b70e1.png" />
+<img alt="../_images/d0da07ba9bd6c3228c719ae33b391505bd544e6c8245f021b481e5ea22ccbdef.png" src="../_images/d0da07ba9bd6c3228c719ae33b391505bd544e6c8245f021b481e5ea22ccbdef.png" />
 </div>
 </div>
 </section>
@@ -1114,7 +1211,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:5
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1170,8 +1267,8 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:5
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1197,7 +1294,7 @@ Fitting Pixels (poisson): 100%|██████████| 10241/10241 [01:5
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.1.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
   </p>
 </div>
       

@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    
+    <title>3. Harmonic offset: estimating and removing the IRF-decay timing offset &#8212; PyFLI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=71ba2b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
+
+    <script src="../_static/documentation_options.js?v=9c7764e8"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/harmonic_offset_example';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.19';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/dev/examples/harmonic_offset_example.html" />
+    <link rel="icon" href="../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Harmonic offset for bi-exponential samples" href="harmonic_offset_bi_example.html" />
+    <link rel="prev" title="2. Phasor method for Bi-exponential FLI Data processing" href="Phasor_analysis_bi.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="v0.1.19" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFLI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../citation.html">
+    Citation
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">NLSF &amp; MLE Fitting Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Monoexponential_fitting.html">1. Fitting Example (NLSF &amp; MLE) in CPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Biexponential_fitting.html">2. Fitting Example (NLSF &amp; MLE) in CPU - Bi-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Monoexponential_fitting_CPU_GPU.html">3. Fitting Example (NLSF &amp; MLE) in CPU and GPU - Mono-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Biexponential_fitting_CPU_GPU.html">4. Fitting Example (NLSF &amp; MLE) in CPU and GPU - Bi-exponential FLI data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Monoexponential_percentage_fit.html">5. Select Region of Decay Curve Fitting Example (NLSF &amp; MLE)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phasor Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_mono.html">1. Phasor method for mono-exponential FLI Data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Phasor_analysis_bi.html">2. Phasor method for Bi-exponential FLI Data processing</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">3. Harmonic offset: estimating and removing the IRF-decay timing offset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_bi_example.html">4. Harmonic offset for bi-exponential samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic_offset_three_lifetimes_example.html">5. Harmonic offset with three lifetimes: what each harmonic contributes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulator and FLI Data Simulation Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="single_decay_sim.html">1. Single-Pixel Decay Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whole_image_sim.html">2. FLI Simulation for mimicking the time-resolved image acquisition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Custom Detector I/O (SwissSPAD 2) Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ss2_io.html">1. SwissSPAD2 Data Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ss2_processing.html">2. SwissSPAD2 Data Processing</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">3. </span>Harmonic offset: estimating and removing the IRF-decay timing offset</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="harmonic-offset-estimating-and-removing-the-irf-decay-timing-offset">
+<h1><span class="section-number">3. </span>Harmonic offset: estimating and removing the IRF-decay timing offset<a class="headerlink" href="#harmonic-offset-estimating-and-removing-the-irf-decay-timing-offset" title="Link to this heading">#</a></h1>
+<p>This example walks through:</p>
+<ul class="simple">
+<li><p>Simulating a two-well plate (one mono-exponential, one bi-exponential well) with a known offset that grows across the field</p></li>
+<li><p>What the offset does to standard phasors and phase lifetimes</p></li>
+<li><p>Estimating the offset map with <code class="docutils literal notranslate"><span class="pre">HarmonicOffset</span></code>: the per-harmonic mono estimate, the chi-square test that keeps only mono-exponential pixels, and the spatial surface</p></li>
+<li><p>The bracket that holds for every pixel, mono or not</p></li>
+</ul>
+<p><small>Author - Vikas</small></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"ex_helper"</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sim_general_image</span><span class="w"> </span><span class="kn">import</span> <span class="n">ROIMaskGenerator</span><span class="p">,</span> <span class="n">WellPlateShape</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.data_vnp</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorProcessor</span><span class="p">,</span> <span class="n">DataViewer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataOperations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.laguerre</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaguerreFLI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.phasor.harmonic_offset</span><span class="w"> </span><span class="kn">import</span> <span class="n">HarmonicOffset</span><span class="p">,</span> <span class="n">correct_phasors</span><span class="p">,</span> <span class="n">t0_from_h_shift</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.phasor.phasorS</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhasorAnalyzer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.reconstruction</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamToDecay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.reconstruction.common_reconstruct</span><span class="w"> </span><span class="kn">import</span> <span class="n">gate_starts</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path to the local IRF file</span>
+<span class="n">IRF_PATH</span> <span class="o">=</span> <span class="s2">"&lt;select file/folder path&gt;"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+
+<span class="n">LASER_HZ</span> <span class="o">=</span> <span class="mf">80e6</span>
+<span class="n">PERIOD_NS</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">LASER_HZ</span>
+
+<span class="n">irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">DataOperations</span><span class="p">(</span><span class="n">irf_path</span><span class="o">=</span><span class="n">IRF_PATH</span><span class="p">)</span><span class="o">.</span><span class="n">load_irf</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="p">:],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">irf</span> <span class="o">/=</span> <span class="n">irf</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">N_BINS</span> <span class="o">=</span> <span class="n">irf</span><span class="o">.</span><span class="n">size</span>
+<span class="n">DT</span> <span class="o">=</span> <span class="n">PERIOD_NS</span> <span class="o">/</span> <span class="n">N_BINS</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">gate_starts</span><span class="p">(</span><span class="n">PERIOD_NS</span><span class="p">,</span> <span class="n">N_BINS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">N_BINS</span><span class="si">}</span><span class="s2"> bins of </span><span class="si">{</span><span class="n">DT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e3</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> ps over </span><span class="si">{</span><span class="n">PERIOD_NS</span><span class="si">}</span><span class="s2"> ns"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pyfli:Initiating IRF load from: &lt;select file/folder path&gt;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>256 bins of 48.8 ps over 12.5 ns
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-two-well-plate-with-a-known-offset">
+<h2><span class="section-number">3.1. </span>A two-well plate with a known offset<a class="headerlink" href="#a-two-well-plate-with-a-known-offset" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Well 1</strong> is mono-exponential (<code class="docutils literal notranslate"><span class="pre">tau</span></code> about 2.0 ns); <strong>well 2</strong> is bi-exponential (<code class="docutils literal notranslate"><span class="pre">tau1</span></code> about 0.5 ns, <code class="docutils literal notranslate"><span class="pre">tau2</span></code> about 2.5 ns, <code class="docutils literal notranslate"><span class="pre">alpha1</span></code> about 0.4).</p></li>
+<li><p>The decay of each pixel is delayed against the IRF by <code class="docutils literal notranslate"><span class="pre">h(r)</span> <span class="pre">=</span> <span class="pre">0.20</span> <span class="pre">+</span> <span class="pre">0.25</span> <span class="pre">x</span></code> ns, <code class="docutils literal notranslate"><span class="pre">x</span></code> running from 0 to 1 across the field: a constant offset (the IRF was recorded separately) plus a linear skew.</p></li>
+<li><p>The data are the exact expectation of PyFLI’s periodic forward model (<code class="docutils literal notranslate"><span class="pre">ParamToDecay(...,</span> <span class="pre">shift_method=&quot;circular&quot;)</span></code>, the same model the solver fits) with Poisson noise, about 2e4 photons per pixel and a background of 0.5 counts per bin. <code class="docutils literal notranslate"><span class="pre">h</span></code> is the solver’s <code class="docutils literal notranslate"><span class="pre">h_shift</span></code>; the harmonic offset reported in the phasor frame is <code class="docutils literal notranslate"><span class="pre">t0</span> <span class="pre">=</span> <span class="pre">h</span> <span class="pre">-</span> <span class="pre">dt/2</span></code> (<code class="docutils literal notranslate"><span class="pre">t0_from_h_shift</span></code>), because the forward model excites at the start of each IRF bin.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generator</span> <span class="o">=</span> <span class="n">ROIMaskGenerator</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">top</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">two_wells</span> <span class="o">=</span> <span class="n">WellPlateShape</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">img_cluster</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_cluster_mask</span><span class="p">(</span><span class="n">two_wells</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_binary_mask</span><span class="p">(</span><span class="n">two_wells</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">mono_well</span><span class="p">,</span> <span class="n">bi_well</span> <span class="o">=</span> <span class="n">img_cluster</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">img_cluster</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="n">well_names</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">"well 1 (mono)"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"well 2 (bi)"</span><span class="p">}</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span>
+<span class="n">h_true</span> <span class="o">=</span> <span class="mf">0.20</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="n">tau1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mono_well</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)))</span>
+<span class="n">tau2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mono_well</span><span class="p">,</span> <span class="n">tau1</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)))</span>
+<span class="n">alpha1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mono_well</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)))</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"tau1_map"</span><span class="p">:</span> <span class="n">tau1</span><span class="p">,</span>
+    <span class="s2">"tau2_map"</span><span class="p">:</span> <span class="n">tau2</span><span class="p">,</span>
+    <span class="s2">"alpha1_map"</span><span class="p">:</span> <span class="n">alpha1</span><span class="p">,</span>
+    <span class="s2">"photon_count_map"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">1.5e4</span><span class="p">,</span> <span class="mf">2.5e4</span><span class="p">,</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)),</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="s2">"v_shift_map"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="s2">"h_shift_map"</span><span class="p">:</span> <span class="n">h_true</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">tau_mean_true</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">*</span> <span class="n">tau1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha1</span><span class="p">)</span> <span class="o">*</span> <span class="n">tau2</span>
+
+<span class="n">expected</span> <span class="o">=</span> <span class="n">ParamToDecay</span><span class="p">(</span><span class="s2">"bi-exponential"</span><span class="p">,</span> <span class="n">LASER_HZ</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">irf</span><span class="p">,</span> <span class="n">shift_method</span><span class="o">=</span><span class="s2">"circular"</span><span class="p">)</span><span class="o">.</span><span class="n">reconstruct_vectorized</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
+<span class="n">decay</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">expected</span><span class="p">[</span><span class="s2">"fit_map"</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"decay cube </span><span class="si">{</span><span class="n">decay</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, median photons per pixel </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">decay</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">mask</span><span class="p">])</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reconstructing decay (vectorized)...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>decay cube (64, 128, 256), median photons per pixel 20190
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jet_m</span> <span class="o">=</span> <span class="n">ColorProcessor</span><span class="p">()</span><span class="o">.</span><span class="n">lowest_zero</span><span class="p">(</span><span class="s2">"jet"</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">DataViewer</span><span class="p">()</span><span class="o">.</span><span class="n">display_data</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">h_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">tau_mean_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="n">structure</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">data_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"true offset h_shift (ns)"</span><span class="p">,</span> <span class="s2">"true mean lifetime (ns)"</span><span class="p">],</span>
+    <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="n">jet_m</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">v_ranges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ffe5e9990d460bf7e26b41abf311c4df27c507fb98843b016802fbd1e730053b.png" src="../_images/ffe5e9990d460bf7e26b41abf311c4df27c507fb98843b016802fbd1e730053b.png" />
+</div>
+</div>
+</section>
+<section id="standard-phasor-analysis-the-offset-rotates-every-phasor">
+<h2><span class="section-number">3.2. </span>Standard phasor analysis: the offset rotates every phasor<a class="headerlink" href="#standard-phasor-analysis-the-offset-rotates-every-phasor" title="Link to this heading">#</a></h2>
+<p>The phasors are calibrated with the IRF as usual (<code class="docutils literal notranslate"><span class="pre">PhasorAnalyzer.calibrate</span></code>). The offset is not part of the IRF, so it stays in the calibrated phasor as a rotation by <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">omega</span> <span class="pre">t0</span></code>. The mono-exponential well is pushed off the universal semicircle, and its phase lifetime is too long. The modulation <code class="docutils literal notranslate"><span class="pre">|z_k|</span></code> does not change under a rotation, so the modulation lifetime is unaffected: the disagreement between phase and modulation lifetimes of a mono-exponential sample is the signature of an offset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">PhasorAnalyzer</span><span class="p">(</span><span class="n">frequency_hz</span><span class="o">=</span><span class="n">LASER_HZ</span><span class="p">,</span> <span class="n">time_axis_ns</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">n_harmonics</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">G</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">create_phasor_cpu</span><span class="p">(</span><span class="n">decay</span><span class="p">)</span>
+<span class="n">Gc</span><span class="p">,</span> <span class="n">Sc</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">calibrate</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">irf</span><span class="p">)</span>
+
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">ORANGE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.47</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">solid</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">color</span><span class="p">),</span> <span class="p">(</span><span class="o">*</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">phasor_plot</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">analyzer</span><span class="o">.</span><span class="n">plot_phasor_diagram</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mono_well</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">solid</span><span class="p">(</span><span class="n">BLUE</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">analyzer</span><span class="o">.</span><span class="n">plot_phasor_diagram</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">bi_well</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">solid</span><span class="p">(</span><span class="n">ORANGE</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">well_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">ORANGE</span><span class="p">,</span> <span class="n">well_names</span><span class="p">[</span><span class="mi">2</span><span class="p">])]],</span>
+        <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower center"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">phasor_plot</span><span class="p">(</span><span class="n">Gc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Sc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"Calibrated phasor with the offset (harmonic 1)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2afea249a2e02de298f564aee9349e1625be7f9f05ead10d57538b317182e80a.png" src="../_images/2afea249a2e02de298f564aee9349e1625be7f9f05ead10d57538b317182e80a.png" />
+</div>
+</div>
+</section>
+<section id="estimating-the-offset-from-the-harmonics">
+<h2><span class="section-number">3.3. </span>Estimating the offset from the harmonics<a class="headerlink" href="#estimating-the-offset-from-the-harmonics" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">HarmonicOffset</span><span class="p">(</span><span class="n">analyzer</span><span class="p">)</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">decay</span><span class="p">,</span> <span class="n">irf</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v_shift</span><span class="o">=</span><span class="n">truth</span><span class="p">[</span><span class="s2">"v_shift_map"</span><span class="p">])</span>
+<span class="n">h_est</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"h_shift_map"</span><span class="p">]</span>
+<span class="n">error_ps</span> <span class="o">=</span> <span class="mf">1e3</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_est</span> <span class="o">-</span> <span class="n">h_true</span><span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"well"</span><span class="p">:</span> <span class="n">well_names</span><span class="p">[</span><span class="n">cid</span><span class="p">],</span>
+            <span class="s2">"accepted as mono-exponential (%)"</span><span class="p">:</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">result</span><span class="p">[</span><span class="s2">"accepted"</span><span class="p">][</span><span class="n">img_cluster</span> <span class="o">==</span> <span class="n">cid</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">"median h_shift error (ps)"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">error_ps</span><span class="p">[</span><span class="n">img_cluster</span> <span class="o">==</span> <span class="n">cid</span><span class="p">]),</span>
+            <span class="s2">"h_shift error p5 - p95 (ps)"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">error_ps</span><span class="p">[</span><span class="n">img_cluster</span> <span class="o">==</span> <span class="n">cid</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])),</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">cid</span> <span class="ow">in</span> <span class="n">well_names</span>
+    <span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"well"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>accepted as mono-exponential (%)</th>
+      <th>median h_shift error (ps)</th>
+      <th>h_shift error p5 - p95 (ps)</th>
+    </tr>
+    <tr>
+      <th>well</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>well 1 (mono)</th>
+      <td>94.97</td>
+      <td>-0.16</td>
+      <td>1.56</td>
+    </tr>
+    <tr>
+      <th>well 2 (bi)</th>
+      <td>0.00</td>
+      <td>2.23</td>
+      <td>1.56</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">DataViewer</span><span class="p">()</span><span class="o">.</span><span class="n">display_data</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">h_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">h_est</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">error_ps</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">"accepted"</span><span class="p">],</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="n">structure</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">coord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">data_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"true h_shift (ns)"</span><span class="p">,</span> <span class="s2">"estimated h_shift (ns)"</span><span class="p">,</span> <span class="s2">"estimate - truth (ps)"</span><span class="p">,</span> <span class="s2">"accepted as mono-exponential"</span><span class="p">],</span>
+    <span class="n">cmaps</span><span class="o">=</span><span class="p">[</span><span class="n">jet_m</span><span class="p">,</span> <span class="n">jet_m</span><span class="p">,</span> <span class="s2">"RdBu_r"</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">],</span>
+    <span class="n">v_ranges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fae49ee24a1f9f43701de6a417edfbbde79d27a6dfe467e5afee86cdabcbab66.png" src="../_images/fae49ee24a1f9f43701de6a417edfbbde79d27a6dfe467e5afee86cdabcbab66.png" />
+</div>
+</div>
+<section id="a-bracket-that-holds-for-every-pixel">
+<h3><span class="section-number">3.3.1. </span>A bracket that holds for every pixel<a class="headerlink" href="#a-bracket-that-holds-for-every-pixel" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lower</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"lower"</span><span class="p">]</span> <span class="o">-</span> <span class="n">t0_from_h_shift</span><span class="p">(</span><span class="n">h_true</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">upper</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"upper"</span><span class="p">]</span> <span class="o">-</span> <span class="n">t0_from_h_shift</span><span class="p">(</span><span class="n">h_true</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">inside</span> <span class="o">=</span> <span class="p">(</span><span class="n">lower</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">upper</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"bi-exponential pixels whose true offset lies inside the bracket: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inside</span><span class="p">[</span><span class="n">bi_well</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> %"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mf">1e3</span> <span class="o">*</span> <span class="n">lower</span><span class="p">[</span><span class="n">bi_well</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"lower bound - truth"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mf">1e3</span> <span class="o">*</span> <span class="n">upper</span><span class="p">[</span><span class="n">bi_well</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"upper bound - truth"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"ps"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Bracket of the bi-exponential well"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bi-exponential pixels whose true offset lies inside the bracket: 100.0 %
+</pre></div>
+</div>
+<img alt="../_images/9770e827f73b546b8888f19cd44cee3b8021211190c77d4f07941cc065765e6f.png" src="../_images/9770e827f73b546b8888f19cd44cee3b8021211190c77d4f07941cc065765e6f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="correcting-the-phasors">
+<h2><span class="section-number">3.4. </span>Correcting the phasors<a class="headerlink" href="#correcting-the-phasors" title="Link to this heading">#</a></h2>
+<p>The correction <code class="docutils literal notranslate"><span class="pre">z_k</span> <span class="pre">-&gt;</span> <span class="pre">exp(-i</span> <span class="pre">k</span> <span class="pre">omega</span> <span class="pre">t0)</span> <span class="pre">z_k</span></code> (<code class="docutils literal notranslate"><span class="pre">correct_phasors</span></code>) is exact for every decay, mono or not. After it, the mono-exponential well is back on the semicircle and its phase and modulation lifetimes agree with the truth; the bi-exponential well moves inside the circle where it belongs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Gk</span><span class="p">,</span> <span class="n">Sk</span> <span class="o">=</span> <span class="n">correct_phasors</span><span class="p">(</span><span class="n">Gc</span><span class="p">,</span> <span class="n">Sc</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">"t0_map"</span><span class="p">],</span> <span class="n">LASER_HZ</span><span class="p">)</span>
+<span class="n">phasor_plot</span><span class="p">(</span><span class="n">Gk</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Sk</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"Offset-corrected phasor (harmonic 1)"</span><span class="p">)</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"before"</span><span class="p">:</span> <span class="p">(</span><span class="n">Gc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Sc</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">"after correction"</span><span class="p">:</span> <span class="p">(</span><span class="n">Gk</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Sk</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">tau_phi</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">compute_lifetime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">tau_m</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">compute_modulation_lifetime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"phasor"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">"mono well true tau"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">tau1</span><span class="p">[</span><span class="n">mono_well</span><span class="p">]),</span>
+            <span class="s2">"mono well phase tau"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">tau_phi</span><span class="p">[</span><span class="n">mono_well</span><span class="p">]),</span>
+            <span class="s2">"mono well modulation tau"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">tau_m</span><span class="p">[</span><span class="n">mono_well</span><span class="p">]),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"phasor"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d2651dc11e048fd4f37a3fcb4b2426ac5bbf9bfd6dd053f455a45668817420cc.png" src="../_images/d2651dc11e048fd4f37a3fcb4b2426ac5bbf9bfd6dd053f455a45668817420cc.png" />
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mono well true tau</th>
+      <th>mono well phase tau</th>
+      <th>mono well modulation tau</th>
+    </tr>
+    <tr>
+      <th>phasor</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>before</th>
+      <td>1.998</td>
+      <td>2.557</td>
+      <td>2.022</td>
+    </tr>
+    <tr>
+      <th>after correction</th>
+      <td>1.998</td>
+      <td>1.998</td>
+      <td>2.022</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-two-well-plate-with-a-known-offset">3.1. A two-well plate with a known offset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-phasor-analysis-the-offset-rotates-every-phasor">3.2. Standard phasor analysis: the offset rotates every phasor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-offset-from-the-harmonics">3.3. Estimating the offset from the harmonics</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-bracket-that-holds-for-every-pixel">3.3.1. A bracket that holds for every pixel</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correcting-the-phasors">3.4. Correcting the phasors</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/examples/harmonic_offset_example.ipynb">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFLI developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -15,6 +15,7 @@ pyfli.bayes\_utils.posterior\_pixel\_plot
 
    .. autosummary::
    
+      __annotate__
       _reconstruct_sample_stack
       _select_best_sample_idx
       plot_pixel_posterior_fit

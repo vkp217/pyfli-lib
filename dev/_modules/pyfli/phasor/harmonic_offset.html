@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>pyfli.phasor.harmonic_offset &#8212; PyFLI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=71ba2b9a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
+
+    <script src="../../../_static/documentation_options.js?v=397fbd24"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyfli/phasor/harmonic_offset';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://pyfli.org/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://pyfli.org/dev/_modules/pyfli/phasor/harmonic_offset.html" />
+    <link rel="icon" href="../../../_static/PyFLI_logo.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="dev" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/PyFLI_logo_light.png" class="logo__image only-light" alt=""/>
+    <img src="../../../_static/PyFLI_logo_dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">PyFLI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quickstart
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Changelog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/vkp217/pyfli-lib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pyfli.phasor.harmonic_offset</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyfli.phasor.harmonic_offset</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Fit-free pixelwise IRF-decay timing offset ``t0`` from multi-harmonic phasors: mono</span>
+<span class="sd">estimate, bracket for any completely monotone decay, chi-square selection and correction.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">joblib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">least_squares</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">chi2</span> <span class="k">as</span> <span class="n">chi2_dist</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.cm_stats.chi_square</span><span class="w"> </span><span class="kn">import</span> <span class="n">degrees_of_freedom</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyfli.reconstruction.common_reconstruct</span><span class="w"> </span><span class="kn">import</span> <span class="n">gate_starts</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.phasorS.phasor_locus_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">_omega_rad_per_ns</span><span class="p">,</span> <span class="n">modulation_lifetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.phasorS.phasor_simple</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhasorAnalyzer</span>
+
+<span class="n">_EPS</span> <span class="o">=</span> <span class="mf">1e-12</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_harmonic_axis</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_clipped_modulation</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="harmonic_phasors">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.harmonic_phasors">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">harmonic_phasors</span><span class="p">(</span>
+    <span class="n">analyzer</span><span class="p">:</span> <span class="n">PhasorAnalyzer</span><span class="p">,</span> <span class="n">decay</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">n_harmonics</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Raw complex phasors ``G + iS`` of `decay` at harmonics ``1..n_harmonics``, from</span>
+<span class="sd">    :meth:`PhasorAnalyzer.create_phasor_cpu`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        ``(n_harmonics,) + decay.shape[:-1]``; `n_harmonics` defaults to the analyzer's.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">n_harmonics</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">n_harmonics</span> <span class="o">!=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">n_harmonics</span><span class="p">:</span>
+        <span class="n">analyzer</span> <span class="o">=</span> <span class="n">PhasorAnalyzer</span><span class="p">(</span>
+            <span class="n">analyzer</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">time_axis_ns</span><span class="p">,</span> <span class="n">n_harmonics</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cpu"</span>
+        <span class="p">)</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">create_phasor_cpu</span><span class="p">(</span><span class="n">decay</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">S</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="calibrate_phasors">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.calibrate_phasors">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calibrate_phasors</span><span class="p">(</span><span class="n">z_raw</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">z_irf</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Calibrated phasors ``z_k = z~_k / z~^I_k`` (as :meth:`PhasorAnalyzer.calibrate`) for</span>
+<span class="sd">    the harmonics of `z_raw` ``(K, ...)``; `z_irf` is ``(&gt;= K,)`` or ``(&gt;= K, ...)``.</span>
+<span class="sd">    """</span>
+    <span class="n">z_raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z_raw</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="n">z_irf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z_irf</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)[:</span> <span class="n">z_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">z_irf</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">z_irf</span> <span class="o">=</span> <span class="n">z_irf</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">z_raw</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">z_raw</span> <span class="o">/</span> <span class="n">z_irf</span></div>
+
+
+
+<div class="viewcode-block" id="unwrap_phases">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.unwrap_phases">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">unwrap_phases</span><span class="p">(</span>
+    <span class="n">z</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Phases ``phi_k`` of calibrated phasors ``z`` ``(K, ...)``, unwrapped beyond the</span>
+<span class="sd">    principal value. Since ``phi_k`` lies in ``[k omega t0, k omega t0 + pi/2)``, each</span>
+<span class="sd">    harmonic is taken within ``pi`` of ``k omega (L + U) / 2 + pi/4``, the centre of the</span>
+<span class="sd">    bracket ``[L, U]`` of eq. 7 built from the lower harmonics; this is unique while</span>
+<span class="sd">    ``k omega (U - L) &lt; 3 pi / 2``. Unwrapping against ``k phi_1`` (paper section 9)</span>
+<span class="sd">    instead fails for long lifetimes at ``k &gt;= 4``. Harmonic 1 is centred on</span>
+<span class="sd">    `t0_guess_ns` and needs ``|t0 - t0_guess| &lt; 3T/8``.</span>
+<span class="sd">    """</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">_clipped_modulation</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0_guess_ns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span>
+        <span class="k">if</span> <span class="n">h</span><span class="p">:</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">kw</span> <span class="o">*</span> <span class="p">(</span><span class="n">lower</span> <span class="o">+</span> <span class="n">upper</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
+        <span class="n">phi</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">ref</span><span class="p">))</span> <span class="o">+</span> <span class="n">ref</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="p">(</span><span class="n">phi</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">h</span><span class="p">]))</span> <span class="o">/</span> <span class="n">kw</span><span class="p">)</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">phi</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">phi</span></div>
+
+
+
+<div class="viewcode-block" id="mono_offset">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.mono_offset">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mono_offset</span><span class="p">(</span>
+    <span class="n">z</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Per-harmonic mono-exponential offset and lifetime (paper eq. 6),</span>
+<span class="sd">    ``t0_k = (phi_k - arccos m_k) / (k omega)`` and ``tau_k = sqrt(m_k^-2 - 1) / (k omega)``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[np.ndarray, np.ndarray]</span>
+<span class="sd">        ``(t0_k, tau_k)`` in ns, each ``(K, ...)``. Moduli above 1 are clipped to 1.</span>
+<span class="sd">    """</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">_harmonic_axis</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">unwrap_phases</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span>
+    <span class="n">t0_k</span> <span class="o">=</span> <span class="p">(</span><span class="n">phi</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">_clipped_modulation</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">tau_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">modulation_lifetime</span><span class="p">(</span><span class="n">zk</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">zk</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">zk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">t0_k</span><span class="p">,</span> <span class="n">tau_k</span></div>
+
+
+
+<div class="viewcode-block" id="offset_bracket">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.offset_bracket">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">offset_bracket</span><span class="p">(</span>
+    <span class="n">z</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Two-sided bracket ``max_k t0_k &lt;= t0 &lt;= min_k phi_k / (k omega)`` (paper eq. 7),</span>
+<span class="sd">    valid for every completely monotone decay when ``c = 1``. The upper bound holds for</span>
+<span class="sd">    any ``c &gt; 0``.</span>
+<span class="sd">    """</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">_harmonic_axis</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">t0_k</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mono_offset</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">unwrap_phases</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t0_k</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">upper</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="phasor_noise">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.phasor_noise">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">phasor_noise</span><span class="p">(</span>
+    <span class="n">z_raw</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">z_irf</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">n_photons</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">n_harmonics</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">excess_noise</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Shot-noise covariance of the calibrated phasors in each phasor's own rotated frame</span>
+<span class="sd">    ``X + iY = e^{-i phi_k} z_k`` (paper eq. 8), including the cross-harmonic terms that</span>
+<span class="sd">    involve ``z_{k+l}`` and ``z_{k-l}``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    z_raw : array_like</span>
+<span class="sd">        Raw (uncalibrated) sample phasors ``(&gt;= 2K, ...)``.</span>
+<span class="sd">    z_irf : array_like</span>
+<span class="sd">        Raw IRF phasors ``(&gt;= K,)`` or ``(&gt;= K, ...)``.</span>
+<span class="sd">    n_photons : array_like</span>
+<span class="sd">        Detected counts per pixel (background included), shape ``(...)``.</span>
+<span class="sd">    n_harmonics : int</span>
+<span class="sd">        ``K``.</span>
+<span class="sd">    excess_noise : float</span>
+<span class="sd">        Variance multiplier: ICCD excess-noise factor times counts per photon.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, np.ndarray]</span>
+<span class="sd">        ``"XX"``, ``"YY"``, ``"XY"`` (``Cov(X_k, Y_l)``), ``"YX"``, each ``(..., K, K)``,</span>
+<span class="sd">        and ``"m"``, the calibrated moduli ``(..., K)``.</span>
+<span class="sd">    """</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_harmonics</span><span class="p">)</span>
+    <span class="n">z_raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z_raw</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">z_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"z_raw needs at least </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">K</span><span class="si">}</span><span class="s2"> harmonics, got </span><span class="si">{</span><span class="n">z_raw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">z_raw</span><span class="p">[:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">1</span><span class="p">]),</span> <span class="n">p</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pk</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="n">K</span><span class="p">]</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">pk</span><span class="p">))</span>
+    <span class="n">uv</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">full</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span> <span class="o">+</span> <span class="n">k</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]]</span> <span class="o">-</span> <span class="n">pk</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">pk</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="p">)</span>
+    <span class="n">uv</span> <span class="o">=</span> <span class="n">uv</span> <span class="o">*</span> <span class="n">rot</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">rot</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">uvc</span> <span class="o">=</span> <span class="n">full</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span> <span class="o">+</span> <span class="n">k</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">k</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]]</span> <span class="o">-</span> <span class="n">pk</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span>
+        <span class="n">pk</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="p">)</span>
+    <span class="n">uvc</span> <span class="o">=</span> <span class="n">uvc</span> <span class="o">*</span> <span class="n">rot</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">rot</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">irf_mod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z_irf</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)[:</span><span class="n">K</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">excess_noise</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">n_photons</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="o">*</span> <span class="n">irf_mod</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="o">*</span> <span class="n">irf_mod</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"XX"</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">uv</span> <span class="o">+</span> <span class="n">uvc</span><span class="p">)</span><span class="o">.</span><span class="n">real</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span>
+        <span class="s2">"YY"</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">uvc</span> <span class="o">-</span> <span class="n">uv</span><span class="p">)</span><span class="o">.</span><span class="n">real</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span>
+        <span class="s2">"XY"</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">uv</span><span class="o">.</span><span class="n">imag</span> <span class="o">-</span> <span class="n">uvc</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span>
+        <span class="s2">"YX"</span><span class="p">:</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">uv</span><span class="o">.</span><span class="n">imag</span> <span class="o">+</span> <span class="n">uvc</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span>
+        <span class="s2">"m"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span> <span class="o">/</span> <span class="n">irf_mod</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="offset_covariance">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.offset_covariance">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">offset_covariance</span><span class="p">(</span>
+    <span class="n">noise</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">include_lifetime</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Delta-method covariance of the per-harmonic offsets ``t0_k`` (paper eq. 9, with the</span>
+<span class="sd">    full ``K x K`` cross-harmonic form), from :func:`phasor_noise`. With</span>
+<span class="sd">    `include_lifetime`, the joint covariance of ``(t0_1..t0_K, tau_1..tau_K)``, using</span>
+<span class="sd">    ``d tau_k = -dX_k / (k omega m_k^2 sqrt(1 - m_k^2))``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        ``(..., K, K)``, or ``(..., 2K, 2K)`` with `include_lifetime`, in ns^2.</span>
+<span class="sd">    """</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">noise</span><span class="p">[</span><span class="s2">"m"</span><span class="p">],</span> <span class="n">_EPS</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">_EPS</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+    <span class="n">jac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">eye</span> <span class="o">/</span> <span class="p">(</span><span class="n">kw</span> <span class="o">*</span> <span class="n">s</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span> <span class="n">eye</span> <span class="o">/</span> <span class="p">(</span><span class="n">kw</span> <span class="o">*</span> <span class="n">m</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">include_lifetime</span><span class="p">:</span>
+        <span class="n">tau_x</span> <span class="o">=</span> <span class="o">-</span><span class="n">eye</span> <span class="o">/</span> <span class="p">(</span><span class="n">kw</span> <span class="o">*</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">s</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">tau_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">tau_x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">tau_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">jac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">jac</span><span class="p">,</span> <span class="n">tau_rows</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">noise</span><span class="p">[</span><span class="s2">"XX"</span><span class="p">],</span> <span class="n">noise</span><span class="p">[</span><span class="s2">"XY"</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">noise</span><span class="p">[</span><span class="s2">"YX"</span><span class="p">],</span> <span class="n">noise</span><span class="p">[</span><span class="s2">"YY"</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">jac</span> <span class="o">@</span> <span class="n">sigma</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="combine_offsets">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.combine_offsets">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">combine_offsets</span><span class="p">(</span>
+    <span class="n">t0_k</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">cov</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">full_covariance</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">tau_k</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Generalised least-squares mono-exponential test across harmonics (paper eq. 10).</span>
+<span class="sd">    With `t0_k` only, one parameter ``t0`` on ``K`` observations (``dof = K - 1``); with</span>
+<span class="sd">    `tau_k` and a joint `cov` from ``offset_covariance(..., include_lifetime=True)``,</span>
+<span class="sd">    two parameters ``(t0, tau)`` on ``2K`` observations (``dof = 2K - 2``), which also</span>
+<span class="sd">    tests that the modulation lifetimes agree. ``full_covariance=False`` drops the</span>
+<span class="sd">    cross terms.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, Any]</span>
+<span class="sd">        ``"t0"``, ``"t0_se"``, ``"tau"`` and ``"tau_se"`` (``None`` without `tau_k`),</span>
+<span class="sd">        ``"chi2"``, ``"reduced_chi2"`` (``chi2 / dof``), ``"dof"`` and ``"n_params"``.</span>
+<span class="sd">        Pixels with non-finite inputs are ``NaN``.</span>
+<span class="sd">    """</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0_k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n_params</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">tau_k</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">tau_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tau_k</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cov is </span><span class="si">{</span><span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">full_covariance</span><span class="p">:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=-</span><span class="mi">1</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">bad</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">((</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bad</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">C</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bad</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">design</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n_params</span><span class="p">))</span>
+    <span class="n">design</span><span class="p">[:</span><span class="n">K</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">design</span><span class="p">[</span><span class="n">K</span><span class="p">:,</span> <span class="n">n_params</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">cinv_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">design</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="n">fisher_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">cinv_a</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">fisher_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">cinv_a</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]))[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">@</span> <span class="n">design</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">chi2</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">])[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bad</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">fisher_inv</span><span class="p">,</span> <span class="n">axis1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">nan</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="n">degrees_of_freedom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_params</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"t0"</span><span class="p">:</span> <span class="n">beta</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">nan</span><span class="p">,</span>
+        <span class="s2">"t0_se"</span><span class="p">:</span> <span class="n">se</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="s2">"tau"</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">tau_k</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">beta</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">nan</span><span class="p">,</span>
+        <span class="s2">"tau_se"</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">tau_k</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">se</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="s2">"chi2"</span><span class="p">:</span> <span class="n">chi2</span> <span class="o">*</span> <span class="n">nan</span><span class="p">,</span>
+        <span class="s2">"reduced_chi2"</span><span class="p">:</span> <span class="n">chi2</span> <span class="o">*</span> <span class="n">nan</span> <span class="o">/</span> <span class="n">dof</span><span class="p">,</span>
+        <span class="s2">"dof"</span><span class="p">:</span> <span class="n">dof</span><span class="p">,</span>
+        <span class="s2">"n_params"</span><span class="p">:</span> <span class="n">n_params</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="select_mono">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.select_mono">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_mono</span><span class="p">(</span><span class="n">chi2</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">dof</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Pixels consistent with the offset model: ``chi2 &lt; chi2_{dof, 1-alpha}`` (``dof`` from</span>
+<span class="sd">    :func:`combine_offsets` or :func:`bi_exponential_offset`).</span>
+<span class="sd">    """</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">chi2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">chi2_dist</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">dof</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_bi_pixel</span><span class="p">(</span><span class="n">zk</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">whiten</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">margin</span><span class="p">):</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">zk</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">residual</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+        <span class="n">t0</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">t0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">l1</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">l2</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">zk</span> <span class="o">-</span> <span class="n">model</span><span class="p">)</span> <span class="o">/</span> <span class="n">rot</span>
+        <span class="k">return</span> <span class="n">whiten</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">imag</span><span class="p">])</span>
+
+    <span class="n">low</span> <span class="o">=</span> <span class="p">[</span><span class="n">lo</span> <span class="o">-</span> <span class="n">margin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.02</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.05</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">]</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="p">[</span><span class="n">up</span> <span class="o">+</span> <span class="n">margin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">30.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">50.0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">t0</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">up</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="ow">in</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)),</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">4.0</span><span class="p">))):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">least_squares</span><span class="p">(</span><span class="n">residual</span><span class="p">,</span> <span class="p">[</span><span class="n">t0</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">cost</span> <span class="o">&lt;</span> <span class="n">best</span><span class="o">.</span><span class="n">cost</span><span class="p">:</span>
+                <span class="n">best</span> <span class="o">=</span> <span class="n">res</span>
+    <span class="n">t0</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">best</span><span class="o">.</span><span class="n">x</span>
+    <span class="k">if</span> <span class="n">l1</span> <span class="o">&gt;</span> <span class="n">l2</span><span class="p">:</span>
+        <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">l2</span><span class="p">,</span> <span class="n">l1</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">a</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">best</span><span class="o">.</span><span class="n">jac</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">best</span><span class="o">.</span><span class="n">jac</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">l1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">l2</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">best</span><span class="o">.</span><span class="n">cost</span>
+
+
+<div class="viewcode-block" id="bi_exponential_offset">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.bi_exponential_offset">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">bi_exponential_offset</span><span class="p">(</span>
+    <span class="n">z</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">noise</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">t0_guess_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">margin_ns</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Per-pixel offset of a bi-exponential decay from ``K &gt;= 3`` harmonics. Theorem 1 makes</span>
+<span class="sd">    ``t0`` unidentifiable for an arbitrary completely monotone decay, but under the</span>
+<span class="sd">    bi-exponential model ``z_k = e^{i k omega t0} (A / (1 - i k omega tau1) + (1 - A) /</span>
+<span class="sd">    (1 - i k omega tau2))`` the ``2K`` real data determine the four unknowns</span>
+<span class="sd">    ``(t0, tau1, tau2, A)``. Each pixel is fitted by weighted least squares, whitened by the</span>
+<span class="sd">    shot-noise covariance of :func:`phasor_noise`, with ``t0`` inside its bracket</span>
+<span class="sd">    (:func:`offset_bracket`) widened by `margin_ns`. ``A = 1`` is the mono estimate.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, Any]</span>
+<span class="sd">        ``"t0"``, ``"t0_se"``, ``"tau1"``, ``"tau2"``, ``"alpha1"`` (photon fraction of</span>
+<span class="sd">        ``tau1``), ``"chi2"`` and ``"reduced_chi2"``, each ``(...)`` (``NaN`` where the</span>
+<span class="sd">        noise is undefined), ``"dof"`` = ``2K - 4`` and ``"n_params"`` = 4.</span>
+<span class="sd">    """</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">K</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"the bi-exponential offset needs at least 3 harmonics"</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">offset_bracket</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">noise</span><span class="p">[</span><span class="s2">"XX"</span><span class="p">],</span> <span class="n">noise</span><span class="p">[</span><span class="s2">"XY"</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">noise</span><span class="p">[</span><span class="s2">"YX"</span><span class="p">],</span> <span class="n">noise</span><span class="p">[</span><span class="s2">"YY"</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">spatial</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+    <span class="n">sf</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">)</span>
+    <span class="n">lo</span><span class="p">,</span> <span class="n">up</span> <span class="o">=</span> <span class="n">lower</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">upper</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">zf</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">((</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">up</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">ok</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">whiten</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">sf</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">6</span>
+        <span class="k">return</span> <span class="n">_bi_pixel</span><span class="p">(</span>
+            <span class="n">zf</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">zf</span><span class="p">[</span><span class="n">i</span><span class="p">])),</span> <span class="n">whiten</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">lo</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">up</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">margin_ns</span>
+        <span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">run</span><span class="p">)(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">zf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">6</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="n">degrees_of_freedom</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"t0"</span><span class="p">,</span> <span class="s2">"t0_se"</span><span class="p">,</span> <span class="s2">"tau1"</span><span class="p">,</span> <span class="s2">"tau2"</span><span class="p">,</span> <span class="s2">"alpha1"</span><span class="p">,</span> <span class="s2">"chi2"</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">out</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">spatial</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">keys</span><span class="p">)}</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"reduced_chi2"</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">"chi2"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dof</span><span class="p">,</span> <span class="s2">"dof"</span><span class="p">:</span> <span class="n">dof</span><span class="p">,</span> <span class="s2">"n_params"</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="imbalance_offset">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.imbalance_offset">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">imbalance_offset</span><span class="p">(</span>
+    <span class="n">z</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">noise</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">t0_guess_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Closed-form ``c``, ``tau`` and ``t0`` under modulation imbalance ``c != 1`` (paper</span>
+<span class="sd">    eq. 12): weighted least squares of ``1 / m_k^2 = P + Q k^2``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    z : array_like</span>
+<span class="sd">        Calibrated phasors ``(K &gt;= 2, ...)``.</span>
+<span class="sd">    frequency_hz : float</span>
+<span class="sd">        Laser repetition frequency in hertz.</span>
+<span class="sd">    noise : dict | None</span>
+<span class="sd">        :func:`phasor_noise` output; gives inverse-variance weights and makes ``chi2``</span>
+<span class="sd">        (``K - 2`` degrees of freedom) a test of constant ``c``. Unweighted if ``None``.</span>
+<span class="sd">    t0_guess_ns : array_like</span>
+<span class="sd">        See :func:`unwrap_phases`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, np.ndarray]</span>
+<span class="sd">        ``"c"``, ``"tau"`` (ns), ``"t0"`` (ns, weighted mean of ``"t0_k"``), ``"t0_k"``</span>
+<span class="sd">        ``(K, ...)``, ``"chi2"``, ``"reduced_chi2"`` (``NaN`` for ``K = 2``), ``"dof"``</span>
+<span class="sd">        and ``"n_params"`` (``P``, ``Q``).</span>
+<span class="sd">    """</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">_harmonic_axis</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="n">_EPS</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">noise</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">w_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">w_t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">var_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">noise</span><span class="p">[</span><span class="s2">"XX"</span><span class="p">],</span> <span class="n">axis1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">var_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">noise</span><span class="p">[</span><span class="s2">"YY"</span><span class="p">],</span> <span class="n">axis1</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">w_fit</span> <span class="o">=</span> <span class="n">m</span><span class="o">**</span><span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">var_x</span><span class="p">)</span>
+        <span class="n">w_t0</span> <span class="o">=</span> <span class="p">(</span><span class="n">kw</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">var_y</span>
+    <span class="n">s0</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">w_fit</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">w_fit</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">w_fit</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sy</span><span class="p">,</span> <span class="n">sxy</span> <span class="o">=</span> <span class="p">(</span><span class="n">w_fit</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">w_fit</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">det</span> <span class="o">=</span> <span class="n">s0</span> <span class="o">*</span> <span class="n">s2</span> <span class="o">-</span> <span class="n">s1</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">s2</span> <span class="o">*</span> <span class="n">sy</span> <span class="o">-</span> <span class="n">s1</span> <span class="o">*</span> <span class="n">sxy</span><span class="p">)</span> <span class="o">/</span> <span class="n">det</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="p">(</span><span class="n">s0</span> <span class="o">*</span> <span class="n">sxy</span> <span class="o">-</span> <span class="n">s1</span> <span class="o">*</span> <span class="n">sy</span><span class="p">)</span> <span class="o">/</span> <span class="n">det</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">P</span><span class="o">**-</span><span class="mf">0.5</span>
+        <span class="n">tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Q</span> <span class="o">/</span> <span class="n">P</span><span class="p">)</span> <span class="o">/</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">t0_k</span> <span class="o">=</span> <span class="p">(</span><span class="n">unwrap_phases</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">kw</span> <span class="o">*</span> <span class="n">tau</span><span class="p">))</span> <span class="o">/</span> <span class="n">kw</span>
+    <span class="n">chi2</span> <span class="o">=</span> <span class="p">(</span><span class="n">w_fit</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">P</span> <span class="o">-</span> <span class="n">Q</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="n">degrees_of_freedom</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span>
+        <span class="s2">"tau"</span><span class="p">:</span> <span class="n">tau</span><span class="p">,</span>
+        <span class="s2">"t0"</span><span class="p">:</span> <span class="p">(</span><span class="n">w_t0</span> <span class="o">*</span> <span class="n">t0_k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">w_t0</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="s2">"t0_k"</span><span class="p">:</span> <span class="n">t0_k</span><span class="p">,</span>
+        <span class="s2">"chi2"</span><span class="p">:</span> <span class="n">chi2</span><span class="p">,</span>
+        <span class="s2">"reduced_chi2"</span><span class="p">:</span> <span class="n">chi2</span> <span class="o">/</span> <span class="n">dof</span> <span class="k">if</span> <span class="n">dof</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">chi2</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+        <span class="s2">"dof"</span><span class="p">:</span> <span class="n">dof</span><span class="p">,</span>
+        <span class="s2">"n_params"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="modulation_factor">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.modulation_factor">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">modulation_factor</span><span class="p">(</span>
+    <span class="n">n_counts</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">v_shift</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">n_gates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">irf_counts</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">irf_v_shift</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Modulation imbalance ``c = (1 - beta) / (1 - beta_I)`` of paper eq. 3 from the</span>
+<span class="sd">    constant per-gate backgrounds (the solver's ``v_shift``): ``beta = n_gates v_shift /</span>
+<span class="sd">    n_counts`` for the sample and ``beta_I = n_gates irf_v_shift / irf_counts`` for the</span>
+<span class="sd">    IRF trace. Dividing calibrated phasors by ``c`` restores ``c = 1`` exactly.</span>
+<span class="sd">    """</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">n_gates</span>
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_shift</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">n_counts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">irf_counts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">beta_i</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">beta_i</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">n_gates</span>
+                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">irf_v_shift</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">irf_counts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">beta_i</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="h_shift_from_t0">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.h_shift_from_t0">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">h_shift_from_t0</span><span class="p">(</span><span class="n">t0_ns</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">time_axis_ns</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Solver/simulator ``h_shift`` for a harmonic offset ``t0``: ``t0 + dt/2``. The forward</span>
+<span class="sd">    model (:func:`pyfli.cm_funcs.forward_model.model_numpy`,</span>
+<span class="sd">    :class:`pyfli.reconstruction.ParamToDecay`) and the simulators excite at the start of</span>
+<span class="sd">    each IRF gate and integrate the decay over gates ``[t, t + dt)``, so the calibrated</span>
+<span class="sd">    phasor phase is ``k omega (h_shift - dt/2)``.</span>
+<span class="sd">    """</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">time_axis_ns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0_ns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="t0_from_h_shift">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.t0_from_h_shift">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">t0_from_h_shift</span><span class="p">(</span><span class="n">h_shift_ns</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">time_axis_ns</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Inverse of :func:`h_shift_from_t0`."""</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">time_axis_ns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">h_shift_ns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="correct_phasors">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.correct_phasors">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">correct_phasors</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">S</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">t0_ns</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Remove the offset from calibrated phasor stacks ``(K, ...)``:</span>
+<span class="sd">    ``z_k &lt;- e^{-i k omega t0} z_k`` (paper eq. 13), exact for every decay.</span>
+<span class="sd">    """</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">_harmonic_axis</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">_omega_rad_per_ns</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0_ns</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span></div>
+
+
+
+<div class="viewcode-block" id="fit_offset_surface">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.fit_offset_surface">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fit_offset_surface</span><span class="p">(</span>
+    <span class="n">t0_hat</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">accepted</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+    <span class="n">weights</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Spatial model ``t0(r)`` from accepted pixels of a 2-D ``t0_hat`` map: the median for</span>
+<span class="sd">    ``order=0``, otherwise a weighted polynomial ``sum_{i+j&lt;=order} theta_ij x^i y^j``</span>
+<span class="sd">    on pixel coordinates scaled to ``[-1, 1]``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[np.ndarray, np.ndarray]</span>
+<span class="sd">        ``(t0_map, theta)``; ``theta`` is ``(median,)`` for ``order=0``.</span>
+<span class="sd">    """</span>
+    <span class="n">t0_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0_hat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">use</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">accepted</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">t0_hat</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">use</span> <span class="o">&amp;=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">use</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"no accepted pixels with a finite offset"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">t0_hat</span><span class="p">[</span><span class="n">use</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">t0_hat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">med</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">med</span><span class="p">])</span>
+    <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">t0_hat</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">yy</span><span class="p">,</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">H</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">"ij"</span><span class="p">)</span>
+    <span class="n">basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">xx</span><span class="o">**</span><span class="n">i</span> <span class="o">*</span> <span class="n">yy</span><span class="o">**</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">)],</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">sw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">use</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">weights</span><span class="p">)[</span><span class="n">use</span><span class="p">])</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">basis</span><span class="p">[</span><span class="n">use</span><span class="p">]</span> <span class="o">*</span> <span class="n">sw</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">t0_hat</span><span class="p">[</span><span class="n">use</span><span class="p">]</span> <span class="o">*</span> <span class="n">sw</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">basis</span> <span class="o">@</span> <span class="n">theta</span><span class="p">,</span> <span class="n">theta</span></div>
+
+
+
+<div class="viewcode-block" id="bracket_violations">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.bracket_violations">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">bracket_violations</span><span class="p">(</span>
+    <span class="n">t0_map</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">lower</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">upper</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">tol_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Pixels whose modelled ``t0`` lies outside ``[lower - tol, upper + tol]``."""</span>
+    <span class="n">t0_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t0_map</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">t0_map</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">lower</span><span class="p">)</span> <span class="o">-</span> <span class="n">tol_ns</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t0_map</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">upper</span><span class="p">)</span> <span class="o">+</span> <span class="n">tol_ns</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="HarmonicOffset">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.HarmonicOffset">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HarmonicOffset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Pixelwise ``t0`` estimation and correction on top of a :class:`PhasorAnalyzer`</span>
+<span class="sd">    (``n_harmonics &gt;= 2``; its time axis must be :func:`gate_starts` of the period</span>
+<span class="sd">    ``1 / frequency`` over which the phasors are computed).</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzer</span><span class="p">:</span> <span class="n">PhasorAnalyzer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">n_harmonics</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"HarmonicOffset needs an analyzer with n_harmonics &gt;= 2"</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">analyzer</span><span class="o">.</span><span class="n">time_axis_ns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">gate_starts</span><span class="p">(</span><span class="mf">1e9</span> <span class="o">/</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span> <span class="o">*</span> <span class="p">(</span><span class="n">expected</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"analyzer.time_axis_ns must be the gate starts of one period 1/frequency "</span>
+                <span class="s2">"(gate_starts(period, n), i.e. linspace(0, period, n, endpoint=False)); "</span>
+                <span class="sa">f</span><span class="s2">"got spacing </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> ns for period/n = </span><span class="si">{</span><span class="n">expected</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> ns"</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">analyzer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">frequency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_harmonics</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">n_harmonics</span>
+
+<div class="viewcode-block" id="HarmonicOffset.estimate">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.HarmonicOffset.estimate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">decay</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">irf</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">excess_noise</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">full_covariance</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">include_lifetime</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">t0_guess_ns</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">v_shift</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">irf_v_shift</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mono-exponential"</span><span class="p">,</span>
+        <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Run the full pipeline on a decay cube ``(H, W, T)`` and a 1-D or per-pixel IRF.</span>
+<span class="sd">        `include_lifetime` tests ``(t0_k, tau_k)`` jointly (``dof = 2K - 2``) instead of</span>
+<span class="sd">        ``t0_k`` alone (``dof = K - 1``; see :func:`combine_offsets`). A known</span>
+<span class="sd">        per-gate background `v_shift` (scalar or ``(H, W)``, e.g. the solver's</span>
+<span class="sd">        ``v_shift_map``) and `irf_v_shift` give ``c`` (:func:`modulation_factor`), which</span>
+<span class="sd">        is divided out of the calibrated phasors and their noise.</span>
+<span class="sd">        ``model="bi-exponential"`` (``n_harmonics &gt;= 3``) estimates each pixel's offset</span>
+<span class="sd">        under the bi-exponential model (:func:`bi_exponential_offset`), so bi-exponential</span>
+<span class="sd">        samples need no mono-exponential pixels; the chi-square test then has</span>
+<span class="sd">        ``dof = 2K - 4``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, Any]</span>
+<span class="sd">            ``z`` (calibrated phasors ``(K, H, W)``), ``t0_k``, ``tau_k``, ``lower``,</span>
+<span class="sd">            ``upper``, ``cov``, ``c``, the :func:`combine_offsets` keys with ``t0`` as</span>
+<span class="sd">            ``t0_hat`` (and ``tau`` as ``tau_hat``), ``accepted``, ``t0_map``,</span>
+<span class="sd">            ``h_shift_map`` (solver convention, :func:`h_shift_from_t0`), ``theta`` and</span>
+<span class="sd">            ``violations`` (rejected pixels whose bracket excludes ``t0_map``). For the</span>
+<span class="sd">            bi-exponential model, the :func:`bi_exponential_offset` keys with ``t0`` as</span>
+<span class="sd">            ``t0_hat`` and ``tau1``, ``tau2``, ``alpha1`` as ``tau1_hat``, ``tau2_hat``,</span>
+<span class="sd">            ``alpha1_hat``, and ``cov`` = ``None``.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"mono-exponential"</span><span class="p">,</span> <span class="s2">"bi-exponential"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"model must be 'mono-exponential' or 'bi-exponential', got </span><span class="si">{</span><span class="n">model</span><span class="si">!r}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_harmonics</span>
+        <span class="n">decay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">decay</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">z_raw</span> <span class="o">=</span> <span class="n">harmonic_phasors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">decay</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">)</span>
+        <span class="n">z_irf</span> <span class="o">=</span> <span class="n">harmonic_phasors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="p">,</span> <span class="n">irf</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(())</span>
+        <span class="k">if</span> <span class="n">v_shift</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">irf_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">irf</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">modulation_factor</span><span class="p">(</span>
+                <span class="n">decay</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">v_shift</span><span class="p">,</span> <span class="n">decay</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">irf_arr</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">irf_v_shift</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">z_irf</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">z_irf</span> <span class="o">=</span> <span class="n">z_irf</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="n">c</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span>
+            <span class="n">z_irf</span> <span class="o">=</span> <span class="n">z_irf</span> <span class="o">*</span> <span class="n">c</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">calibrate_phasors</span><span class="p">(</span><span class="n">z_raw</span><span class="p">[:</span><span class="n">K</span><span class="p">],</span> <span class="n">z_irf</span><span class="p">)</span>
+        <span class="n">t0_k</span><span class="p">,</span> <span class="n">tau_k</span> <span class="o">=</span> <span class="n">mono_offset</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">offset_bracket</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">)</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">phasor_noise</span><span class="p">(</span><span class="n">z_raw</span><span class="p">,</span> <span class="n">z_irf</span><span class="p">,</span> <span class="n">decay</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">K</span><span class="p">,</span> <span class="n">excess_noise</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">"bi-exponential"</span><span class="p">:</span>
+            <span class="n">cov</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="n">bi_exponential_offset</span><span class="p">(</span>
+                <span class="n">z</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">t0_guess_ns</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span>
+            <span class="p">)</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_hat"</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"tau1"</span><span class="p">,</span> <span class="s2">"tau2"</span><span class="p">,</span> <span class="s2">"alpha1"</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="p">:</span> <span class="n">value</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">test</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="n">test</span><span class="p">[</span><span class="s2">"tau"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cov</span> <span class="o">=</span> <span class="n">offset_covariance</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">include_lifetime</span><span class="p">)</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="n">combine_offsets</span><span class="p">(</span>
+                <span class="n">t0_k</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">full_covariance</span><span class="p">,</span> <span class="n">tau_k</span> <span class="k">if</span> <span class="n">include_lifetime</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="n">accepted</span> <span class="o">=</span> <span class="n">select_mono</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"chi2"</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="s2">"dof"</span><span class="p">],</span> <span class="n">alpha</span><span class="p">)</span>
+        <span class="n">t0_map</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">fit_offset_surface</span><span class="p">(</span>
+            <span class="n">test</span><span class="p">[</span><span class="s2">"t0"</span><span class="p">],</span> <span class="n">accepted</span><span class="p">,</span> <span class="n">test</span><span class="p">[</span><span class="s2">"t0_se"</span><span class="p">]</span> <span class="o">**</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">order</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"z"</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span>
+            <span class="s2">"t0_k"</span><span class="p">:</span> <span class="n">t0_k</span><span class="p">,</span>
+            <span class="s2">"tau_k"</span><span class="p">:</span> <span class="n">tau_k</span><span class="p">,</span>
+            <span class="s2">"lower"</span><span class="p">:</span> <span class="n">lower</span><span class="p">,</span>
+            <span class="s2">"upper"</span><span class="p">:</span> <span class="n">upper</span><span class="p">,</span>
+            <span class="s2">"cov"</span><span class="p">:</span> <span class="n">cov</span><span class="p">,</span>
+            <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span>
+            <span class="s2">"t0_hat"</span><span class="p">:</span> <span class="n">test</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"t0"</span><span class="p">),</span>
+            <span class="s2">"tau_hat"</span><span class="p">:</span> <span class="n">test</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"tau"</span><span class="p">),</span>
+            <span class="o">**</span><span class="n">test</span><span class="p">,</span>
+            <span class="s2">"accepted"</span><span class="p">:</span> <span class="n">accepted</span><span class="p">,</span>
+            <span class="s2">"t0_map"</span><span class="p">:</span> <span class="n">t0_map</span><span class="p">,</span>
+            <span class="s2">"h_shift_map"</span><span class="p">:</span> <span class="n">h_shift_from_t0</span><span class="p">(</span><span class="n">t0_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">time_axis_ns</span><span class="p">),</span>
+            <span class="s2">"theta"</span><span class="p">:</span> <span class="n">theta</span><span class="p">,</span>
+            <span class="s2">"violations"</span><span class="p">:</span> <span class="o">~</span><span class="n">accepted</span> <span class="o">&amp;</span> <span class="n">bracket_violations</span><span class="p">(</span><span class="n">t0_map</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="HarmonicOffset.correct">
+<a class="viewcode-back" href="../../../api/generated/pyfli.phasor.harmonic_offset.html#pyfli.phasor.harmonic_offset.HarmonicOffset.correct">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">correct</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">S</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">t0_ns</span><span class="p">:</span> <span class="n">ArrayLike</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Rotate calibrated phasor stacks by the offset (:func:`correct_phasors`)."""</span>
+        <span class="k">return</span> <span class="n">correct_phasors</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">t0_ns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026, PyFLI developer and maintainer: Vikas Pandey.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
+  </p>
+</div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
