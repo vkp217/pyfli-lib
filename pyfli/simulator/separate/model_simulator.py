@@ -14,7 +14,6 @@ from typing import Any
 
 import numpy as np
 
-from ...reconstruction.common_reconstruct import bi_reconstruction, mono_reconstruction
 from ..distributions import ParameterSampler
 from ..sim_engine_common import BaseFLIEngine
 
@@ -38,7 +37,9 @@ class FLIModelSimulator(BaseFLIEngine):
     efficiency : tuple[int, ...]
         FRET transfer efficiency used to derive simulated lifetime components.
     A1_fraction : tuple[int, ...]
-        Amplitude fraction assigned to the first exponential component.
+        Beta shape of the photon (intensity) fraction ``f`` of the first component, the
+        solver's ``alpha1``; ``A1_map``/``A2_map`` report the matching pre-exponential
+        amplitude fractions.
     photo_count : tuple[float, int]
         Expected photon count used to scale the simulated decay.
     mono_fraction : float
@@ -128,12 +129,11 @@ class FLIModelSimulator(BaseFLIEngine):
         E = ParameterSampler.sample_beta(
             *self.params_cfg["eff"], scale=0.998, offset=0.001, rng=self.rng
         )
-        A1 = ParameterSampler.sample_beta(
+        f = ParameterSampler.sample_beta(
             *self.params_cfg["A1"], scale=0.998, offset=0.001, rng=self.rng
         )
-        A2 = 1.0 - A1
         t1 = t2 * (1 - E)
-        f = self._steady_state_mix(A1, A2, t1, t2, self.laser_period)
+        A1, A2 = self._amplitude_fractions(f, t1, t2)
         return {
             "mono": False,
             "E": E,
@@ -158,34 +158,15 @@ class FLIModelSimulator(BaseFLIEngine):
         return self.sample_bi_params()
 
     def get_model_analytical_decay(self, p: Any) -> Any:
-        """
-        Return model analytical decay.
-
-        Parameters
-        ----------
-        p : Any
-            Detector parameter object or fitted parameter vector.
-
-        Returns
-        -------
-        Any
-            Object produced by get model analytical decay.
-        """
-        T = self.laser_period
-        if p.get("mono", False):
-            tau = p["tau"]
-            scaling_factor = 1.0 / (1.0 - np.exp(-T / tau))
-            return mono_reconstruction(self.t, tau, scaling_factor)
-
-        tau1, tau2 = p["tau1"], p["tau2"]
-        scaling_factor1 = 1.0 / (1.0 - np.exp(-T / tau1))
-        scaling_factor2 = 1.0 / (1.0 - np.exp(-T / tau2))
-        return bi_reconstruction(
-            self.t, tau1, tau2, p["A1"] * scaling_factor1, p["A2"] * scaling_factor2
-        )
+        """Noise-free photon fraction per gate before the IRF (:meth:`analytical_decay`)."""
+        return self.analytical_decay(p)
 
     def simulate_model_tcspc(
-        self, p: Any, n_cycles: int, mu_per_cycle: np.ndarray
+        self,
+        p: Any,
+        n_cycles: int,
+        mu_per_cycle: np.ndarray,
+        jitter_bins: float = 0.0,
     ) -> Any:
         """
         Simulate model TCSPC.
@@ -217,4 +198,4 @@ class FLIModelSimulator(BaseFLIEngine):
             times[comp1] = self.rng.exponential(p["tau1"], size=comp1.sum())
             times[~comp1] = self.rng.exponential(p["tau2"], size=(~comp1).sum())
 
-        return self._bin_tcspc_photons(times)
+        return self._bin_tcspc_photons(times, jitter_bins)

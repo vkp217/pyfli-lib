@@ -28,6 +28,30 @@ _DECAY_COLOR = "#0D0D0D"
 _FIT_COLOR = "#d62a7a"
 
 
+def _pixel_shift(
+    output_combination: dict[str, np.ndarray],
+    key: str,
+    value: "float | np.ndarray | None",
+    pixel: tuple[int, int],
+    num_samples: int,
+) -> np.ndarray:
+    """Per-sample ``h_shift``/``v_shift`` at `pixel`: the posterior key, else the scalar/(H, W) value, else 0."""
+    x, y = pixel
+    if key in output_combination:
+        return np.asarray(output_combination[key][x, y, :], dtype=float)
+    if value is None:
+        return np.zeros(num_samples)
+    value = np.asarray(value, dtype=float)
+    return np.full(num_samples, value[x, y] if value.ndim == 2 else float(value))
+
+
+def _crop_shift(value: "float | np.ndarray | None", x: int, y: int):
+    """1x1 crop of an (H, W) shift map; scalars and None pass through."""
+    if value is None or np.ndim(value) != 2:
+        return value
+    return np.asarray(value)[x : x + 1, y : y + 1]
+
+
 def _reconstruct_sample_stack(
     output_combination: dict[str, np.ndarray],
     pixel: tuple[int, int],
@@ -35,13 +59,19 @@ def _reconstruct_sample_stack(
     decay_px: np.ndarray,
     freq_acq: float,
     model_type: str,
+    shift_method: str = "zero_pad",
+    h_shift: "float | np.ndarray | None" = None,
+    v_shift: "float | np.ndarray | None" = None,
+    excitation: str = "bin_start",
+    gate_width: float | None = None,
 ) -> np.ndarray:
     """
     Reconstruct every posterior sample's decay curve at one pixel, scaled to
     that pixel's measured photon count the same way
     :func:`pyfli.reconstruction.compute_detailed_results` scales its fits
-    (unit-amplitude reconstruction, then rescaled so its sum matches the
-    measured decay's sum).
+    (unit-amplitude reconstruction with onset ``h_shift``, rescaled so its sum
+    matches the measured decay's sum minus the ``v_shift`` baseline, which is
+    then added back).
 
     Treats the NUM_SAMPLES axis as the reconstructor's "W" (pixel) axis, so
     every sample is batched through one vectorized reconstruction instead of
@@ -60,16 +90,27 @@ def _reconstruct_sample_stack(
         f"{key}_map": output_combination[key][x, y, :][None, :] for key in param_keys
     }
     recon_params["photon_count_map"] = np.ones((1, num_samples), dtype=np.float32)
+    recon_params["h_shift_map"] = _pixel_shift(
+        output_combination, "h_shift", h_shift, pixel, num_samples
+    )[None, :]
+    v = _pixel_shift(output_combination, "v_shift", v_shift, pixel, num_samples)
 
     irf_px = irf[x, y, :] if np.ndim(irf) == 3 else irf
-    recon = ParamToDecay(model_type, freq_acq, irf=irf_px)
+    recon = ParamToDecay(
+        model_type,
+        freq_acq,
+        irf=irf_px,
+        shift_method=shift_method,
+        excitation=excitation,
+        gate_width=gate_width,
+    )
 
     unit = recon.reconstruct_unit_amplitude(recon_params)
-    convolved = unit["convolved_map"]  # (1, NUM_SAMPLES, T)
+    convolved = unit["convolved_map"]
 
-    decay_rep = np.broadcast_to(decay_px, convolved.shape)
+    decay_rep = np.broadcast_to(decay_px, convolved.shape) - v[None, :, None]
     scaled = recon.rescale_fit_to_measured_totals(convolved, decay_rep)
-    return scaled[0]  # (NUM_SAMPLES, T)
+    return scaled[0] + v[:, None]
 
 
 def _select_best_sample_idx(
@@ -80,6 +121,11 @@ def _select_best_sample_idx(
     freq_acq: float,
     model_type: str,
     metric: str,
+    shift_method: str = "zero_pad",
+    h_shift: "float | np.ndarray | None" = None,
+    v_shift: "float | np.ndarray | None" = None,
+    excitation: str = "bin_start",
+    gate_width: float | None = None,
 ) -> int:
     """
     Pick the posterior sample that best fits this one pixel, by delegating to
@@ -91,7 +137,17 @@ def _select_best_sample_idx(
     sub_decay = decay[x : x + 1, y : y + 1, :]
     sub_irf = irf[x : x + 1, y : y + 1, :] if np.ndim(irf) == 3 else irf
 
-    selector = ParamSelector(freq_acq, sub_irf, sub_decay, model_type=model_type)
+    selector = ParamSelector(
+        freq_acq,
+        sub_irf,
+        sub_decay,
+        model_type=model_type,
+        shift_method=shift_method,
+        h_shift=_crop_shift(h_shift, x, y),
+        v_shift=_crop_shift(v_shift, x, y),
+        excitation=excitation,
+        gate_width=gate_width,
+    )
     stacks = selector.evaluate_all_samples(sub_combo, progress=False)
     selection = selector.select_best_combination(sub_combo, stacks, metric=metric)
     return int(selection["best_sample_idx"][0, 0])
@@ -115,6 +171,11 @@ def plot_pixel_posterior_fit(
     title: str | None = None,
     ax: "plt.Axes | None" = None,
     decay_style: str = "line",
+    shift_method: str = "zero_pad",
+    h_shift: "float | np.ndarray | None" = None,
+    v_shift: "float | np.ndarray | None" = None,
+    excitation: str = "bin_start",
+    gate_width: float | None = None,
 ):
     """
     Plot one pixel's posterior-sample decay reconstructions as nested
@@ -169,6 +230,16 @@ def plot_pixel_posterior_fit(
     decay_style : str
         How the measured decay is drawn: ``"line"`` (default) or ``"scatter"``
         (one point per time bin).
+    shift_method : str
+        Forward model, ``"zero_pad"`` or ``"circular"``, as used for the fit (see
+        :class:`pyfli.reconstruction.ParamToDecay`).
+    h_shift, v_shift : float | np.ndarray | None
+        Decay onset (ns) and per-bin background, a scalar or an (H, W) map;
+        ``h_shift``/``v_shift`` keys in `output_combination` take precedence.
+        ``None`` means 0 (see :class:`ParamSelector`).
+    excitation, gate_width
+        Forward-model options as used for the fit (see
+        :class:`pyfli.reconstruction.ParamToDecay`).
 
     Returns
     -------
@@ -201,7 +272,17 @@ def plot_pixel_posterior_fit(
     decay_px = np.asarray(decay)[x, y, :].astype(np.float64)
 
     stack = _reconstruct_sample_stack(
-        output_combination, pixel, irf, decay_px, freq_acq, model_type
+        output_combination,
+        pixel,
+        irf,
+        decay_px,
+        freq_acq,
+        model_type,
+        shift_method,
+        h_shift,
+        v_shift,
+        excitation,
+        gate_width,
     )
 
     if center == "median":
@@ -212,7 +293,18 @@ def plot_pixel_posterior_fit(
         center_label = "Posterior mean"
     else:
         best_idx = _select_best_sample_idx(
-            output_combination, pixel, irf, decay, freq_acq, model_type, metric
+            output_combination,
+            pixel,
+            irf,
+            decay,
+            freq_acq,
+            model_type,
+            metric,
+            shift_method,
+            h_shift,
+            v_shift,
+            excitation,
+            gate_width,
         )
         center_curve = stack[best_idx]
         center_label = f"Best sample ({metric})"

@@ -6,8 +6,8 @@ import numpy as np
 from scipy.optimize import minimize
 
 from pyfli import logging
+from pyfli.cm_stats.shared_metrics import poisson_deviance
 from pyfli.irf_deconvolution.fli_solver import fourier_shift
-from pyfli.solver.shared_metrics import poisson_deviance
 
 from .expected_decay import DecayForwardModel
 from .summary_stats import rising_edge

@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from pyfli.bayes_utils.param_combinations import ParamSelector
-from pyfli.solver.forward_model import model_numpy
+from pyfli.cm_funcs.forward_model import model_numpy
 
 _H, _W, _T, _NUM_SAMPLES = 3, 3, 64, 5
 _FREQ_ACQ = 80.0

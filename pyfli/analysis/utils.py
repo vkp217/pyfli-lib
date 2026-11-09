@@ -23,6 +23,7 @@ from scipy.stats import pearsonr
 
 from pyfli import logging
 from pyfli.plot_style import dark_palette, legend_outside
+from pyfli.reconstruction.common_reconstruct import circular_convolve
 
 from ..data_vnp.color_processor import ColorProcessor
 
@@ -31,7 +32,8 @@ def circular_convolution_fft(
     x: np.ndarray, h: np.ndarray, broadcast_irf: bool = True
 ) -> np.ndarray:
     """
-    Run the circular convolution FFT routine.
+    Circular convolution of ``(H, W, T)`` cubes along time
+    (:func:`pyfli.reconstruction.common_reconstruct.circular_convolve`).
 
     Parameters
     ----------
@@ -66,17 +68,7 @@ def circular_convolution_fft(
             h = np.broadcast_to(h, x.shape)
     # h = np.broadcast_to(h, x.shape)
 
-    # Perform FFT along the last axis (axis=2)
-    X_fft = np.fft.fft(x, axis=2)
-    H_fft = np.fft.fft(h, axis=2)
-
-    # Frequency-domain multiplication
-    Y_fft = X_fft * H_fft
-
-    # Inverse FFT to get real-valued circular convolution result
-    y = np.real(np.fft.ifft(Y_fft, axis=2))
-
-    return y
+    return circular_convolve(x, h, axis=2)
 
 
 def single_ex_decay_summed_overtime(

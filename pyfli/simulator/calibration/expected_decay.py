@@ -3,9 +3,12 @@
 from typing import Any
 
 import numpy as np
-from scipy.signal import fftconvolve
 
-from pyfli.reconstruction.common_reconstruct import periodic_bin_exponential
+from pyfli.cm_funcs.forward_model import model_numpy, validate_excitation
+from pyfli.reconstruction.common_reconstruct import (
+    circular_convolve,
+    periodic_bin_exponential,
+)
 
 from ..irf_sim.irf_generator import IRFGenerator
 
@@ -46,12 +49,8 @@ def gated_bin_probabilities(
     """
     irf = np.asarray(irf, dtype=float)
     irf = irf / irf.sum(axis=-1, keepdims=True)
-    n = irf.shape[-1]
-    p_emit = wrapped_gate_exponential(tau, n, laser_period)
-    p = np.fft.irfft(
-        np.fft.rfft(p_emit, axis=-1) * np.fft.rfft(irf, axis=-1), n=n, axis=-1
-    )
-    return np.clip(p, 0.0, None)
+    p_emit = wrapped_gate_exponential(tau, irf.shape[-1], laser_period)
+    return np.clip(circular_convolve(p_emit, irf), 0.0, None)
 
 
 class DecayForwardModel:
@@ -62,12 +61,14 @@ class DecayForwardModel:
         detector_type: str,
         jitter: bool = True,
         inactive_bins=(),
+        excitation: str = "bin_start",
     ) -> None:
+        self.excitation = validate_excitation(excitation)
         self.n_bins = n_bins
         self.period = period_ns
         self.dt = period_ns / n_bins
         self.t = np.arange(n_bins) * self.dt
-        self.circular = detector_type == "discrete"
+        self.circular = True
         self.jitter = jitter
         self.active = np.ones(n_bins, dtype=bool)
         self.active[np.asarray(inactive_bins, dtype=int)] = False
@@ -95,43 +96,62 @@ class DecayForwardModel:
 
     # ------------------------------------------------------------- lifetimes
     def components(self, taus, fracs) -> np.ndarray:
+        """Photon fraction per gate before the IRF (wrapped for circular, one pulse otherwise)."""
         taus = np.clip(np.atleast_1d(np.asarray(taus, float)), 1e-3, None)
         fracs = np.atleast_1d(np.asarray(fracs, float))
         if self.circular:
             p = wrapped_gate_exponential(taus, self.n_bins, self.period)
         else:
-            tt = taus[:, None]
-            sf = 1.0 / (1.0 - np.exp(-self.period / tt))
-            p = sf / tt * np.exp(-self.t[None, :] / tt)
+            edges = np.append(self.t, self.period)[None, :]
+            p = -np.diff(np.exp(-edges / taus[:, None]), axis=1)
         return (fracs[:, None] * p).sum(0)
 
     def _jitter_average(self, y: np.ndarray) -> np.ndarray:
+        """Mean over the simulator's circular jitter, a roll by U{-2..2} bins."""
         if not self.jitter:
             return y
-        out = np.zeros_like(y)
-        n = len(y)
-        for s in range(
-            -2, 3
-        ):  # BaseDiscrete/ContinuousSimulator: shift ~ U{-2..2}, zero filled
-            if s > 0:
-                out[s:] += y[: n - s]
-            elif s < 0:
-                out[:s] += y[-s:]
-            else:
-                out += y
-        return out / 5.0
+        return np.mean([np.roll(y, s) for s in range(-2, 3)], axis=0)
+
+    def _zero_pad_shape(self, irf_norm: np.ndarray, taus, fracs) -> np.ndarray:
+        """Single-pulse model averaged over the simulator's continuous U(-2, 2)-bin jitter."""
+        offsets = np.linspace(-2.0, 2.0, 41) if self.jitter else np.zeros(1)
+        y = np.zeros(self.n_bins)
+        for tau, frac in zip(taus, fracs):
+            for s in offsets:
+                y += frac * model_numpy(
+                    self.t,
+                    irf_norm,
+                    [1.0, tau, 0.0, s * self.dt],
+                    "mono-exponential",
+                    "zero_pad",
+                    self.excitation,
+                )
+        return y / len(offsets)
 
     def shape(self, irf_norm: np.ndarray, taus, fracs) -> np.ndarray:
         """Expected decay shape (sums to 1 over the active bins) for a sum-normalised IRF."""
-        if self.circular:
-            taus = np.clip(np.atleast_1d(np.asarray(taus, float)), 1e-3, None)
-            fracs = np.atleast_1d(np.asarray(fracs, float))
+        taus = np.clip(np.atleast_1d(np.asarray(taus, float)), 1e-3, None)
+        fracs = np.atleast_1d(np.asarray(fracs, float))
+        if self.circular and self.excitation == "bin_start":
             y = fracs @ gated_bin_probabilities(taus, irf_norm, self.period)
+            y = self._jitter_average(np.clip(y, 0, None))
+        elif self.circular:
+            y = sum(
+                frac
+                * model_numpy(
+                    self.t,
+                    irf_norm,
+                    [1.0, tau, 0.0, 0.0],
+                    "mono-exponential",
+                    "circular",
+                    self.excitation,
+                )
+                for tau, frac in zip(taus, fracs)
+            )
+            y = self._jitter_average(np.clip(y, 0, None))
         else:
-            y = fftconvolve(self.components(taus, fracs), irf_norm, mode="full")[
-                : self.n_bins
-            ]
-        y = self._jitter_average(np.clip(y, 0, None)) * self.active
+            y = np.clip(self._zero_pad_shape(irf_norm, taus, fracs), 0, None)
+        y = y * self.active
         s = y.sum()
         return y / s if s > 0 else self.active / self.n_active
 

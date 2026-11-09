@@ -8,10 +8,9 @@ import numpy as np
 import torch
 
 from pyfli import logging
-from pyfli.reconstruction.common_reconstruct import (
-    periodic_bin_exponential,
-    periodic_instrument_exponential,
-)
+from pyfli.cm_funcs.forward_model import gate_integrated_kernel
+from pyfli.reconstruction.common_reconstruct import circular_convolve_torch, gate_starts
+from pyfli.reconstruction.decay_reconstruction import ParamToDecay
 
 from .phasor_lifetime import normal_lifetime
 from .phasor_simple_plots import PhasorPlotsMixin
@@ -29,7 +28,10 @@ class PhasorAnalyzer(PhasorPlotsMixin):
     frequency_hz : float
         Excitation frequency in hertz.
     time_axis_ns : np.ndarray
-        Time axis for decay samples in nanoseconds.
+        Time axis for decay samples in nanoseconds: the starts of ``n`` gates tiling
+        one period ``1 / frequency_hz``
+        (:func:`~pyfli.reconstruction.common_reconstruct.gate_starts`); a warning is
+        logged otherwise.
     n_harmonics : int
         Number of phasor harmonics to compute.
     device : Any | None
@@ -46,6 +48,16 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         self.frequency = float(frequency_hz)
         self.time_axis_ns = np.asarray(time_axis_ns)
         self.n_harmonics = int(n_harmonics)
+        t = self.time_axis_ns
+        if t.size > 1 and not np.isclose(
+            (t[1] - t[0]) * t.size, 1e9 / self.frequency, rtol=1e-6
+        ):
+            logging.warning(
+                f"time_axis_ns spans {(t[1] - t[0]) * t.size:.6g} ns, not one period "
+                f"{1e9 / self.frequency:.6g} ns; use "
+                "pyfli.reconstruction.common_reconstruct.gate_starts(period, n) "
+                "(linspace(0, period, n, endpoint=False))"
+            )
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.omega = 2 * np.pi * self.frequency
         self.t_s_np = self.time_axis_ns * 1e-9
@@ -556,10 +568,12 @@ class PhasorAnalyzer(PhasorPlotsMixin):
             Lifetime(s) in nanoseconds (any shape ``S``).
         model : str
             ``"continuous"``: excitation photons arrive anywhere inside their bin, as in
-            a real instrument
-            (:func:`~pyfli.reconstruction.common_reconstruct.periodic_instrument_exponential`).
+            a real instrument (the forward model's ``excitation="uniform"``,
+            :func:`~pyfli.cm_funcs.forward_model.gate_integrated_kernel`; equal to
+            :func:`~pyfli.reconstruction.common_reconstruct.periodic_instrument_exponential`).
             ``"bin_start"``: every excitation at a bin start, as in pyfli's simulators
-            (:func:`~pyfli.reconstruction.common_reconstruct.periodic_bin_exponential`).
+            (``excitation="bin_start"``; equal to
+            :func:`~pyfli.reconstruction.common_reconstruct.periodic_bin_exponential`).
 
         Returns
         -------
@@ -567,10 +581,24 @@ class PhasorAnalyzer(PhasorPlotsMixin):
             ``S + (T,)``, summing to 1 along the last axis.
         """
         n_bins, period_ns = len(self.t_s_np), 1e9 / self.frequency
+        kernel, _ = gate_integrated_kernel(
+            gate_starts(period_ns, n_bins),
+            period_ns / n_bins,
+            (1.0, np.asarray(tau_ns, dtype=float)[..., None], 0.0),
+            "mono-exponential",
+            0.0,
+            period_ns,
+            excitation=self._excitation(model),
+        )
+        return kernel
+
+    @staticmethod
+    def _excitation(model: str) -> str:
+        """Forward-model ``excitation`` of a phasor component model."""
         if model == "continuous":
-            return periodic_instrument_exponential(tau_ns, n_bins, period_ns)
+            return "uniform"
         if model == "bin_start":
-            return periodic_bin_exponential(tau_ns, n_bins, period_ns)
+            return "bin_start"
         raise ValueError(f"model must be 'continuous' or 'bin_start', got {model!r}")
 
     def component_phasor(
@@ -719,74 +747,7 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         Any
             Convolved batch, ``(N, T)``.
         """
-        T = signal.shape[1]
-        S_fft = torch.fft.rfft(signal, n=T, dim=1)
-        K_fft = torch.fft.rfft(kernel, n=T, dim=1)
-        return torch.fft.irfft(S_fft * K_fft, n=T, dim=1)
-
-    def _build_model_decay(
-        self,
-        A1: Any,
-        A2: Any,
-        tau1_ns: np.ndarray,
-        tau2_ns: np.ndarray,
-        component_model: str = "continuous",
-    ) -> Any:
-        """
-        Build the per-bin photon distribution of a bi-exponential mixture.
-
-        ``A1`` / ``A2`` are intensity (photon) fractions, as returned by
-        :meth:`compute_fractions`; each component is the periodic per-bin distribution
-        of :meth:`component_kernel` for `component_model`, so the model is consistent
-        with the phasor model used for the fractions.
-
-        Parameters
-        ----------
-        A1 : Any
-            Intensity fraction of the first exponential component, per pixel.
-        A2 : Any
-            Intensity fraction of the second exponential component, per pixel.
-        tau1_ns : np.ndarray
-            Short lifetime component in nanoseconds (scalar or one per pixel).
-        tau2_ns : np.ndarray
-            Long lifetime component in nanoseconds (scalar or one per pixel).
-        component_model : str
-            ``"continuous"`` or ``"bin_start"`` (see :meth:`component_kernel`).
-
-        Returns
-        -------
-        Any
-            Model decays ``(n_pixels, T)``, each summing to ``A1 + A2``.
-        """
-        a1 = np.asarray(A1, dtype=float).ravel()[:, None]
-        a2 = np.asarray(A2, dtype=float).ravel()[:, None]
-        p1 = self.component_kernel(
-            np.asarray(tau1_ns, dtype=float).ravel(), component_model
-        )
-        p2 = self.component_kernel(
-            np.asarray(tau2_ns, dtype=float).ravel(), component_model
-        )
-        model = a1 * p1 + a2 * p2
-        return torch.tensor(model, dtype=torch.float32, device=self.device)
-
-    def _normalize_irf(self, irf: np.ndarray) -> Any:
-        """
-        Normalize irf.
-
-        Parameters
-        ----------
-        irf : np.ndarray
-            Instrument response function aligned with the decay signal.
-
-        Returns
-        -------
-        Any
-            Object produced by normalize IRF.
-        """
-        irf_flat = np.asarray(irf, dtype=np.float32).reshape(-1, irf.shape[2])
-        irf_t = torch.tensor(irf_flat, dtype=torch.float32, device=self.device)
-        norms = irf_t.sum(dim=1, keepdim=True).clamp(min=self.eps)
-        return irf_t / norms
+        return circular_convolve_torch(signal, kernel, dim=1)
 
     def analyze_biexponential_and_reconstruct(
         self,
@@ -798,6 +759,8 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         plot: bool = True,
         axes: Any | None = None,
         component_model: str = "continuous",
+        h_shift: Any = None,
+        v_shift: Any = None,
     ) -> Any:
         """
         Run the analyze biexponential and reconstruct routine.
@@ -821,13 +784,22 @@ class PhasorAnalyzer(PhasorPlotsMixin):
         component_model : str
             ``"continuous"`` (default, real instruments) or ``"bin_start"`` (pyfli
             simulated data); used for both the fractions and the reconstruction.
+        h_shift : float | np.ndarray | None
+            Decay onset in ns, scalar or ``(H, W)``, e.g.
+            :func:`pyfli.phasor.harmonic_offset.h_shift_from_t0` of a harmonic offset;
+            ``None`` is 0.
+        v_shift : float | np.ndarray | None
+            Constant added to every gate, scalar or ``(H, W)``; ``None`` is 0.
 
         Returns
         -------
         Any
-            Reconstructed decays ``(H, W, T)``: the periodic bi-exponential with the
-            phasor fractions, circularly convolved with each pixel's IRF; every pixel
-            sums to 1 (multiply by the pixel's photon count to compare with the data).
+            Reconstructed decays ``(H, W, T)``: the solver's forward model
+            (:class:`pyfli.reconstruction.ParamToDecay`, ``shift_method="circular"``,
+            the excitation of `component_model`) with the phasor fractions, convolved
+            with each pixel's IRF; without `v_shift` every pixel sums to ``A1 + A2``
+            (1 for fractions summing to 1; multiply by the photon count to compare
+            with the data).
         """
         if tau1_ns is None or tau2_ns is None:
             return None
@@ -863,15 +835,33 @@ class PhasorAnalyzer(PhasorPlotsMixin):
             if created_fig:
                 plt.tight_layout()
 
-        H, W = A1.shape
-        T = irf.shape[2]
+        A1 = np.asarray(A1, dtype=float)
+        A2 = np.asarray(A2, dtype=float)
+        shape = A1.shape
+        total = A1 + A2
+        alpha1 = np.divide(A1, total, out=np.full(shape, 0.5), where=total != 0)
 
-        model_t = self._build_model_decay(A1, A2, tau1_ns, tau2_ns, component_model)
-        irf_t = self._normalize_irf(irf)
-        recon_t = self._convolve_batch(model_t, irf_t)
-        reconstructed_decay = recon_t.cpu().numpy().reshape(H, W, T)
+        def as_map(value: Any) -> np.ndarray:
+            value = 0.0 if value is None else value
+            return np.broadcast_to(np.asarray(value, dtype=float), shape)
 
-        return reconstructed_decay
+        recon = ParamToDecay(
+            "bi-exponential",
+            self.frequency / 1e6,
+            irf=np.asarray(irf, dtype=float),
+            shift_method="circular",
+            excitation=self._excitation(component_model),
+        )
+        convolved = recon.reconstruct_unit_amplitude(
+            {
+                "photon_count_map": total,
+                "alpha1_map": alpha1,
+                "tau1_map": as_map(tau1_ns),
+                "tau2_map": as_map(tau2_ns),
+                "h_shift_map": as_map(h_shift),
+            }
+        )["convolved_map"]
+        return (convolved + as_map(v_shift)[..., None]).astype(np.float32)
 
     # ── utilities ─────────────────────────────────────────────────────────────
 

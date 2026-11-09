@@ -7,6 +7,10 @@ Reference for every public module in the ``pyfli`` package, organized by subpack
   processed-data loaders.
 - :mod:`pyfli.solver` — Least-squares, maximum-likelihood, CPU/GPU, binned, and
   global FLI fitting routines.
+- :mod:`pyfli.cm_funcs` — Common functions shared across the package: the FLI
+  forward model used by fitting, reconstruction, Laguerre, simulator and phasor code.
+- :mod:`pyfli.cm_stats` — Shared fit statistics (Poisson deviance, Pearson
+  chi-square, R2/RMSE) and lifetime summaries used across the package.
 - :mod:`pyfli.reconstruction` — Rebuilds modeled decay cubes, generate fit statistics
   maps from fitted parameter maps.
 - :mod:`pyfli.phasor` — Phasor-domain lifetime analysis: a compact CPU/GPU

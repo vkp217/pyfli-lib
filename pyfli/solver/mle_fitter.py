@@ -11,11 +11,20 @@ from typing import Any
 
 import numpy as np
 from scipy.optimize import minimize
-from scipy.stats import chi2, f
+from scipy.stats import chi2
 
+from ..cm_funcs.forward_model import validate_model_type
+from ..cm_stats import chi_square as _chi_square
+from ..cm_stats.deviance import poisson_deviance
+from ..cm_stats.goodness_of_fit import sum_squared_residuals
+from ..cm_stats.model_comparison import nested_f_test
+from ..cm_stats.shared_metrics import (
+    _FIXED_BOUND_TOL,
+    compute_fli_stats,
+    enforce_tau_ordering,
+)
 from .base_fitter import BaseFLIFitter
 from .base_static import resolve_params_and_bounds
-from .shared_metrics import _FIXED_BOUND_TOL, compute_fli_stats, enforce_tau_ordering
 
 MLE_WEIGHTINGS = ("poisson", "pearson", "neyman", "none")
 """Objectives of :meth:`MLEFLIFitter.fit_with_estimator` (``"poisson"`` is the default)."""
@@ -34,9 +43,8 @@ class MLEFLIFitter(BaseFLIFitter):
         if not np.all(np.isfinite(model)):
             return np.inf
         data = self.decay[self.fit_indices]
-        model = np.clip(model, 1e-9, None)
-        val = 2.0 * np.sum(
-            model - data + data * np.log(np.clip(data, 1e-9, None) / model)
+        val = poisson_deviance(
+            model, data, axis=None, floor=1e-9, nonpositive="floor", data_floor=1e-9
         )
         return val if np.isfinite(val) else np.inf
 
@@ -45,43 +53,43 @@ class MLEFLIFitter(BaseFLIFitter):
         model = self.model_fit(self.t, params, model_type=model_type)[self.fit_indices]
         data = self.decay[self.fit_indices]
         model = np.clip(model, 1e-9, None)
-        return np.sum((data - model) ** 2 / model)
+        return _chi_square.pearson_chi_square(model, data, axis=None, floor=1e-9)
 
     def neyman_chi_square(self, params: Any, model_type: str) -> np.ndarray:
         """Neyman's Chi-square: Weighted by the DATA [1/y_data]."""
         model = self.model_fit(self.t, params, model_type=model_type)[self.fit_indices]
         data = self.decay[self.fit_indices]
-        weights = np.clip(data, 1.0, None)
-        return np.sum((data - model) ** 2 / weights)
+        return _chi_square.neyman_chi_square(model, data, axis=None)
 
     def unweighted_sum_of_squares(self, params: Any, model_type: str) -> np.ndarray:
         """Unweighted sum of squared residuals (every gate counts equally)."""
         model = self.model_fit(self.t, params, model_type=model_type)[self.fit_indices]
         data = self.decay[self.fit_indices]
-        return np.sum((data - model) ** 2)
+        return sum_squared_residuals(data - model, axis=None)
 
     def fit_with_estimator(
         self,
         estimator_type: str = "poisson",
+        model_type: str = "bi-exponential",
         p0: Any | None = None,
         bounds: np.ndarray | None = None,
-        model_type: str = "bi-exponential",
         weighting: str | None = None,
         **kwargs: Any,
     ) -> Any:
         """
-        Main interface for MLE/Chi-square fitting.
-        Fully compatible with BaseFLIFitter registry and offset-based parameter resolving.
+        Main interface for MLE/Chi-square fitting, with the same argument order as
+        :meth:`pyfli.solver.base_fitter.BaseFLIFitter.fit_with_estimator`:
+        ``(estimator_type, model_type, p0, bounds, ...)``.
 
         Parameters
         ----------
         estimator_type : str
             Objective name (``"poisson"``, ``"pearson"`` or ``"neyman"``); used when
             `weighting` is not given. Unknown names fall back to ``"poisson"``.
-        p0, bounds : Any
-            Initial parameters and bounds (see :func:`resolve_params_and_bounds`).
         model_type : str
             ``"mono-exponential"`` or ``"bi-exponential"``.
+        p0, bounds : Any
+            Initial parameters and bounds (see :func:`resolve_params_and_bounds`).
         weighting : str | None
             Objective to minimize (see :data:`MLE_WEIGHTINGS`); overrides
             `estimator_type`:
@@ -98,6 +106,7 @@ class MLEFLIFitter(BaseFLIFitter):
             ``max_iter`` (or ``maxiter``, default 2000) optimizer iterations,
             ``maxfun`` (default 50000), ``ftol`` and ``gtol``.
         """
+        validate_model_type(model_type)
         if weighting is None:
             weighting = (
                 estimator_type if estimator_type in MLE_WEIGHTINGS else "poisson"
@@ -302,11 +311,10 @@ class MLEFLIFitter(BaseFLIFitter):
             LRT_stat = max(dev_m - dev_b, 0.0)
             p_val = 1.0 - chi2.cdf(LRT_stat, df=2)
         else:
-            # F-test on the reported chi-square (res[3]: Poisson deviance)
             n, p_m, p_b = len(self.fit_indices), 4, 6
-            chi_m, chi_b = res_m[3], res_b[3]
-            f_stat = ((chi_m - chi_b) / (p_b - p_m)) / (chi_b / (n - p_b))
-            p_val = 1.0 - f.cdf(f_stat, p_b - p_m, n - p_b)
+            _, p_val = nested_f_test(
+                res_m[3], res_b[3], p_b - p_m, n - p_b, p_value="cdf"
+            )
 
         winner = res_b if p_val < alpha else res_m
         return (

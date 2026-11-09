@@ -10,6 +10,12 @@ posterior-sample parameter combinations against measured decay
 predictive fit (:func:`plot_pixel_posterior_fit`).
 """
 
+from .fit_aware_tolerance import (
+    FitAwareTolerance,
+    PosteriorDecayForward,
+    joint_tolerance_probability,
+    tolerance_probability,
+)
 from .param_combinations import ParamSelector
 from .posterior_pixel_plot import plot_pixel_posterior_fit
 from .unc_trustworthiness import trustworthiness_CrI, trustworthiness_gof, unc
@@ -36,8 +42,12 @@ except ImportError:
 
 __all__ = [
     "BiPipeline",
+    "FitAwareTolerance",
     "ParamSelector",
+    "PosteriorDecayForward",
+    "joint_tolerance_probability",
     "plot_pixel_posterior_fit",
+    "tolerance_probability",
     "trustworthiness_CrI",
     "trustworthiness_gof",
     "unc",

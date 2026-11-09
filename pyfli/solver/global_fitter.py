@@ -19,6 +19,17 @@ from pyfli import logging
 from .comparison import FittingComparator
 
 
+def _lifetime_bounds(
+    super_pixel: dict[str, float], gi_tol: float | dict[str, float]
+) -> dict[str, list[float]]:
+    tol = gi_tol if isinstance(gi_tol, dict) else dict.fromkeys(super_pixel, gi_tol)
+    return {
+        key: [max(value * (1 - tol[key]), 1e-3), value * (1 + tol[key])]
+        for key, value in super_pixel.items()
+        if key in tol
+    }
+
+
 class GlobalFLIFitter:
     """
     Fit clusters or super-pixels before stitching parameters back into image maps. It
@@ -90,13 +101,18 @@ class GlobalFLIFitter:
         p0: Any | None = None,
         bounds: np.ndarray | None = None,
         fit_indices: tuple[int, int] | None = None,
+        shift_method: str = "zero_pad",
+        excitation: str = "bin_start",
+        gate_width: float | None = None,
         **fit_kwargs: Any,
     ) -> tuple[Any, ...]:
         """
         Performs high-SNR super-pixel fitting and triggers comparison plots.
 
         `fit_kwargs` (e.g. ``weighting``, ``max_iter``) are passed to the fitter's
-        ``fit_with_estimator``, as for the per-pixel cluster fits.
+        ``fit_with_estimator``, as for the per-pixel cluster fits; `shift_method`,
+        `excitation` and `gate_width` select the forward model
+        (:func:`pyfli.cm_funcs.forward_model.model_numpy`).
         """
         super_pixel_data = {}
         super_pixel_params = {}
@@ -134,6 +150,9 @@ class GlobalFLIFitter:
                 yscale="log",
                 plot=True,
                 fit_indices=fit_indices,
+                shift_method=shift_method,
+                excitation=excitation,
+                gate_width=gate_width,
             )
 
             f_class = (
@@ -141,7 +160,15 @@ class GlobalFLIFitter:
                 if any(m in estimator.lower() for m in ["poisson", "mle", "pearson"])
                 else self.BaseClass
             )
-            fitter_inst = f_class(self.freq, sp_y, sp_irf, fit_indices=fit_indices)
+            fitter_inst = f_class(
+                self.freq,
+                sp_y,
+                sp_irf,
+                shift_method=shift_method,
+                fit_indices=fit_indices,
+                excitation=excitation,
+                gate_width=gate_width,
+            )
 
             start_t = time.time()
             res = fitter_inst.fit_with_estimator(
@@ -189,12 +216,17 @@ class GlobalFLIFitter:
         image_cube: np.ndarray,
         irf_cube: np.ndarray,
         mask: np.ndarray | None = None,
-        gi_tol: float = 0.2,
+        gi_tol: float | dict[str, float] = 0.2,
         **kwargs: Any,
     ) -> tuple[Any, ...]:
         """
         global_inference=True: Super-pixel values are seeds (p0), bounds are wide.
-        global_inference=False: Super-pixel values are seeds (p0), lifetimes constrained +/- gi_tol.
+        global_inference=False: Super-pixel values are seeds (p0), lifetimes constrained
+        to ``[max(v (1 - tol), 1e-3), v (1 + tol)]`` around the super-pixel value ``v``.
+        `gi_tol` is one tolerance for every lifetime, or a dict of per-lifetime
+        tolerances (keys ``"tau1"``, ``"tau2"`` / ``"tau"``); lifetimes not in the dict
+        are left free, e.g. ``{"tau2": 1.0}`` caps only the long lifetime at twice the
+        super-pixel value.
         """
         H, W, T = image_cube.shape
         results = {}
@@ -214,6 +246,9 @@ class GlobalFLIFitter:
             bounds=passed_bounds,
             fit_indices=fit_indices,
             cluster_strategy=kwargs.get("cluster_strategy", "snr_weighted"),
+            shift_method=kwargs.get("shift_method", "zero_pad"),
+            excitation=kwargs.get("excitation", "bin_start"),
+            gate_width=kwargs.get("gate_width"),
             **{
                 k: kwargs[k]
                 for k in (
@@ -266,16 +301,9 @@ class GlobalFLIFitter:
                     "h_shift": popt_sp[5] if len(popt_sp) > 5 else 0.0,
                 }
                 if not global_inf:
-                    local_bounds = {
-                        "tau1": [
-                            max(popt_sp[2] * (1 - gi_tol), 1e-3),
-                            popt_sp[2] * (1 + gi_tol),
-                        ],
-                        "tau2": [
-                            max(popt_sp[3] * (1 - gi_tol), 1e-3),
-                            popt_sp[3] * (1 + gi_tol),
-                        ],
-                    }
+                    local_bounds = _lifetime_bounds(
+                        {"tau1": popt_sp[2], "tau2": popt_sp[3]}, gi_tol
+                    )
             else:
                 # popt_sp = [S, tau, v_shift, h_shift]
                 local_p0 = {
@@ -285,12 +313,7 @@ class GlobalFLIFitter:
                     "h_shift": popt_sp[3] if len(popt_sp) > 3 else 0.0,
                 }
                 if not global_inf:
-                    local_bounds = {
-                        "tau": [
-                            max(popt_sp[1] * (1 - gi_tol), 1e-3),
-                            popt_sp[1] * (1 + gi_tol),
-                        ],
-                    }
+                    local_bounds = _lifetime_bounds({"tau": popt_sp[1]}, gi_tol)
 
             dataset = None
             if hasattr(proc, "process_image"):

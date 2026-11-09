@@ -10,7 +10,7 @@ bound get NaN.
 import numpy as np
 import pytest
 
-from pyfli.solver.forward_model import model_numpy
+from pyfli.cm_funcs.forward_model import model_numpy
 from pyfli.solver.mle_fitter import MLE_WEIGHTINGS, MLEFLIFitter
 
 _N = 256

@@ -3,7 +3,7 @@ Tests for ParamToDecay (pyfli.reconstruction).
 
 All tests use purely synthetic numpy arrays; no file I/O or GPU required.
 Where relevant, outputs are cross-checked directly against
-forward_model.model_numpy/decay_kernel, shared_metrics.compute_fli_stats, and
+forward_model.model_numpy/decay_kernel, cm_stats.compute_fli_stats, and
 BaseFLIFitter's own time-axis construction, since the whole point of this
 class is to stay in lockstep with pyfli.solver's conventions.
 """
@@ -11,10 +11,10 @@ class is to stay in lockstep with pyfli.solver's conventions.
 import numpy as np
 import pytest
 
+from pyfli.cm_funcs.forward_model import decay_kernel, model_numpy
+from pyfli.cm_stats.shared_metrics import compute_fli_stats
 from pyfli.reconstruction import ParamToDecay
 from pyfli.solver.base_fitter import BaseFLIFitter
-from pyfli.solver.forward_model import decay_kernel, model_numpy
-from pyfli.solver.shared_metrics import compute_fli_stats
 
 # ---------------------------------------------------------------------------
 # Constants — 80 MHz system, 64 bins → T_acq = 12.5 ns

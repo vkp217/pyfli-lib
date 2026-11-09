@@ -13,8 +13,8 @@ import pytest
 import torch
 
 import pyfli.solver.mle_fitter as mle_module
+from pyfli.cm_funcs.forward_model import decay_kernel, model_numpy
 from pyfli.solver.base_fitter import NLSF_WEIGHTINGS, BaseFLIFitter
-from pyfli.solver.forward_model import decay_kernel, model_numpy
 from pyfli.solver.gpu_processor import FLIGPUProcessor
 from pyfli.solver.mle_fitter import MLE_WEIGHTINGS, MLEFLIFitter
 
@@ -217,7 +217,7 @@ def test_gpu_rejects_unknown_weighting():
 
 
 def test_expected_poisson_deviance_matches_exact_values():
-    from pyfli.solver.shared_metrics import expected_poisson_deviance
+    from pyfli.cm_stats.shared_metrics import expected_poisson_deviance
 
     mu = np.array([0.1, 1.0, 5.0, 100.0])
     np.testing.assert_allclose(
@@ -231,7 +231,10 @@ def test_expected_poisson_deviance_matches_exact_values():
     [([3000.0, 0.8, 0.02, 0.0], 0.8), ([20000.0, 2.0, 5.0, 0.0], 1.5)],
 )
 def test_reduced_chi2_averages_one_at_any_count_level(truth, irf_center):
-    from pyfli.solver.shared_metrics import compute_fli_stats, compute_pearson_stats
+    from pyfli.cm_stats.shared_metrics import (
+        compute_fli_stats,
+        compute_pearson_stats,
+    )
 
     irf = _irf(center=irf_center)
     mu = model_numpy(_T, irf, truth, "mono-exponential")
@@ -247,8 +250,8 @@ def test_reduced_chi2_averages_one_at_any_count_level(truth, irf_center):
 
 
 def test_cpu_processor_reports_deviance_and_pearson_maps():
+    from pyfli.cm_stats.shared_metrics import reduced_poisson_deviance
     from pyfli.solver import FLICPUProcessor
-    from pyfli.solver.shared_metrics import reduced_poisson_deviance
 
     cube = _poisson_decays(4000, 1.1, 4, seed=8).reshape(2, 2, _N)
     irf_cube = np.tile(_irf(), (2, 2, 1))
@@ -316,3 +319,26 @@ def test_binned_fitter_least_squares_runs_gpu_nlsf(monkeypatch):
         max_iter=50,
     )
     assert "NLSF" in seen["method"]
+
+
+def test_fit_with_estimator_argument_order_is_shared():
+    import inspect
+
+    base = list(inspect.signature(BaseFLIFitter.fit_with_estimator).parameters)[:5]
+    mle = list(inspect.signature(MLEFLIFitter.fit_with_estimator).parameters)[:5]
+    assert base == mle == ["self", "estimator_type", "model_type", "p0", "bounds"]
+
+
+@pytest.mark.parametrize(
+    "cls,est", [(BaseFLIFitter, "least_squares"), (MLEFLIFitter, "poisson")]
+)
+def test_positional_model_type_and_bad_model_type(cls, est):
+    decay = _poisson_decays(5000, 2.0, 1)[0]
+    popt = cls(_FREQ, decay, _irf()).fit_with_estimator(est, "mono-exponential")[0]
+    assert len(popt) == 4
+    with pytest.raises(ValueError):
+        cls(_FREQ, decay, _irf()).fit_with_estimator(
+            est, np.array([1e4, 2.0, 0.0, 0.0])
+        )
+    with pytest.raises(ValueError):
+        cls(_FREQ, decay, _irf()).fit_with_estimator(est, model_type="mono")
