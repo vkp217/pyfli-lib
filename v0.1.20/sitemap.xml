@@ -147,9 +147,6 @@
   <url><loc>https://pyfli.org/dev/examples/Monoexponential_percentage_fit.html</loc></url>
   <url><loc>https://pyfli.org/dev/examples/Phasor_analysis_bi.html</loc></url>
   <url><loc>https://pyfli.org/dev/examples/Phasor_analysis_mono.html</loc></url>
-  <url><loc>https://pyfli.org/dev/examples/harmonic_offset_bi_example.html</loc></url>
-  <url><loc>https://pyfli.org/dev/examples/harmonic_offset_example.html</loc></url>
-  <url><loc>https://pyfli.org/dev/examples/harmonic_offset_three_lifetimes_example.html</loc></url>
   <url><loc>https://pyfli.org/dev/examples/single_decay_sim.html</loc></url>
   <url><loc>https://pyfli.org/dev/examples/ss2_io.html</loc></url>
   <url><loc>https://pyfli.org/dev/examples/ss2_processing.html</loc></url>
